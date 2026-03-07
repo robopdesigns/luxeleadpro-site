@@ -35,8 +35,13 @@ const { error } = await supabase.from("leads").insert([payload]);
 if (error) {
 setMessage("Something went wrong. Please try again.");
 } else {
-setMessage("Thanks — your request was sent. We’ll reach out shortly.");
+setMessage("Thanks — redirecting you to book your audit now...");
 form.reset();
+setTimeout(() => {
+window.location.href =
+process.env.NEXT_PUBLIC_CALENDLY_URL ||
+"https://calendly.com/robopdesigns/profit-audit";
+}, 800);
 }
 
 setLoading(false);
@@ -50,7 +55,7 @@ return (
 Luxe Lead <span className="text-yellow-400">AI Pro</span>
 </div>
 <a
-href={process.env.NEXT_PUBLIC_CALENDLY_URL}
+href="#lead-form"
 className="rounded-xl bg-yellow-400 px-4 py-2 text-sm font-semibold text-black hover:bg-yellow-300"
 >
 Book Profit Audit
@@ -67,21 +72,22 @@ AI-Powered Lead Management That Helps You Close More High-End Deals
 </h1>
 <p className="mt-6 max-w-2xl text-lg text-white/80">
 Luxe Lead AI Pro automates lead nurture, content creation, compliance
-checks, and pipeline follow-up so you can grow faster without hiring staff.
+checks, and pipeline follow-up so you can grow faster without hiring
+staff.
 </p>
 
 <div className="mt-8 flex flex-wrap gap-4">
 <a
-href={process.env.NEXT_PUBLIC_CALENDLY_URL}
+href="#lead-form"
 className="rounded-xl bg-yellow-400 px-6 py-3 font-semibold text-black hover:bg-yellow-300"
 >
 Book a 15-Minute Profit Audit
 </a>
 <a
-href="#lead-form"
+href="#pricing"
 className="rounded-xl border border-white/20 px-6 py-3 font-semibold text-white hover:bg-white/10"
 >
-Get Started
+View Pricing
 </a>
 </div>
 </section>
@@ -101,27 +107,109 @@ className="rounded-2xl border border-white/10 bg-white/5 p-6 text-white/90"
 ))}
 </section>
 
+<section className="border-y border-white/10 bg-white/5 py-20">
+<div className="mx-auto w-full max-w-6xl px-6">
+<h2 className="text-3xl font-bold md:text-4xl">How It Works</h2>
+<div className="mt-8 grid gap-6 md:grid-cols-3">
+<div className="rounded-2xl border border-white/10 p-6">
+<p className="mb-2 text-sm text-yellow-300">Step 01</p>
+<h3 className="text-xl font-semibold">Connect Your Pipeline</h3>
+<p className="mt-2 text-white/75">
+We map your lead flow and bottlenecks.
+</p>
+</div>
+<div className="rounded-2xl border border-white/10 p-6">
+<p className="mb-2 text-sm text-yellow-300">Step 02</p>
+<h3 className="text-xl font-semibold">Activate AI Workflows</h3>
+<p className="mt-2 text-white/75">
+Nurture, content, and compliance automation go live.
+</p>
+</div>
+<div className="rounded-2xl border border-white/10 p-6">
+<p className="mb-2 text-sm text-yellow-300">Step 03</p>
+<h3 className="text-xl font-semibold">Track + Close</h3>
+<p className="mt-2 text-white/75">
+Convert more opportunities consistently.
+</p>
+</div>
+</div>
+</div>
+</section>
+
+<section id="pricing" className="mx-auto w-full max-w-6xl px-6 py-20">
+<h2 className="text-3xl font-bold md:text-4xl">Simple Pricing</h2>
+<div className="mt-8 max-w-xl rounded-3xl border border-yellow-400/40 bg-yellow-400/10 p-8">
+<p className="text-sm uppercase tracking-widest text-yellow-300">
+Pro Tier
+</p>
+<p className="mt-2 text-4xl font-bold">$249/mo</p>
+<p className="mt-2 text-white/80">+ one-time setup fee: $249</p>
+<ul className="mt-6 space-y-2 text-white/90">
+<li>• Onboarding + custom workflow config</li>
+<li>• Lead nurture automation</li>
+<li>• Compliance-first setup</li>
+<li>• Pipeline visibility support</li>
+</ul>
+<a
+href="#lead-form"
+className="mt-8 inline-block rounded-xl bg-yellow-400 px-6 py-3 font-semibold text-black hover:bg-yellow-300"
+>
+Start With Free Audit
+</a>
+</div>
+</section>
+
 <section id="lead-form" className="border-y border-white/10 bg-white/5 py-20">
 <div className="mx-auto w-full max-w-3xl px-6">
-<h2 className="text-3xl font-bold md:text-4xl">Request Your Free Profit Audit</h2>
+<h2 className="text-3xl font-bold md:text-4xl">
+Request Your Free Profit Audit
+</h2>
 <p className="mt-3 text-white/75">
 Fill this out and we’ll contact you to map your lead leaks and growth plan.
 </p>
 
 <form onSubmit={handleSubmit} className="mt-8 space-y-4">
-<input name="full_name" required placeholder="Full Name" className="w-full rounded-xl border border-white/20 bg-black/40 px-4 py-3 outline-none focus:border-yellow-400" />
-<input name="email" type="email" required placeholder="Email" className="w-full rounded-xl border border-white/20 bg-black/40 px-4 py-3 outline-none focus:border-yellow-400" />
-<input name="phone" placeholder="Phone" className="w-full rounded-xl border border-white/20 bg-black/40 px-4 py-3 outline-none focus:border-yellow-400" />
-<input name="brokerage" placeholder="Brokerage / Team" className="w-full rounded-xl border border-white/20 bg-black/40 px-4 py-3 outline-none focus:border-yellow-400" />
-<input name="market_area" placeholder="Market / Area" className="w-full rounded-xl border border-white/20 bg-black/40 px-4 py-3 outline-none focus:border-yellow-400" />
-<textarea name="challenge" rows={4} placeholder="Biggest challenge right now" className="w-full rounded-xl border border-white/20 bg-black/40 px-4 py-3 outline-none focus:border-yellow-400" />
+<input
+name="full_name"
+required
+placeholder="Full Name"
+className="w-full rounded-xl border border-white/20 bg-black/40 px-4 py-3 outline-none focus:border-yellow-400"
+/>
+<input
+name="email"
+type="email"
+required
+placeholder="Email"
+className="w-full rounded-xl border border-white/20 bg-black/40 px-4 py-3 outline-none focus:border-yellow-400"
+/>
+<input
+name="phone"
+placeholder="Phone"
+className="w-full rounded-xl border border-white/20 bg-black/40 px-4 py-3 outline-none focus:border-yellow-400"
+/>
+<input
+name="brokerage"
+placeholder="Brokerage / Team"
+className="w-full rounded-xl border border-white/20 bg-black/40 px-4 py-3 outline-none focus:border-yellow-400"
+/>
+<input
+name="market_area"
+placeholder="Market / Area"
+className="w-full rounded-xl border border-white/20 bg-black/40 px-4 py-3 outline-none focus:border-yellow-400"
+/>
+<textarea
+name="challenge"
+rows={4}
+placeholder="Biggest challenge right now"
+className="w-full rounded-xl border border-white/20 bg-black/40 px-4 py-3 outline-none focus:border-yellow-400"
+/>
 
 <button
 type="submit"
 disabled={loading}
 className="rounded-xl bg-yellow-400 px-6 py-3 font-semibold text-black hover:bg-yellow-300 disabled:opacity-60"
 >
-{loading ? "Sending..." : "Submit Request"}
+{loading ? "Sending..." : "Submit & Continue to Booking"}
 </button>
 
 {message && <p className="text-sm text-yellow-300">{message}</p>}
