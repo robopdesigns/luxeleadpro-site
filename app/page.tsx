@@ -149,7 +149,7 @@ export default function HomePage() {
 
       <section className="border-y border-white/10 bg-white/5 py-20">
         <div className="mx-auto w-full max-w-6xl px-6">
-          <h2 className="text-3xl font-bold md:text-4xl">Social Proof</h2>
+          <h2 className="text-3xl font-bold md:text-4xl">Client Results</h2>
           <div className="mt-8 grid gap-6 md:grid-cols-3">
             {[
               "\"Booked 14 qualified consults in the first month.\" — Luxury Team Lead, IL",
