@@ -265,6 +265,18 @@ export default function HomePage() {
             </button>
 
             {message && <p className="text-sm text-yellow-300">{message}</p>}
+
+            <p className="text-xs text-white/60">
+              By submitting, you agree to our{" "}
+              <a href="/privacy" className="text-yellow-300 hover:text-yellow-200">
+                Privacy Policy
+              </a>{" "}
+              and{" "}
+              <a href="/terms" className="text-yellow-300 hover:text-yellow-200">
+                Terms of Service
+              </a>
+              .
+            </p>
           </form>
         </div>
       </section>
@@ -272,9 +284,17 @@ export default function HomePage() {
       <footer className="border-t border-white/10">
         <div className="mx-auto flex w-full max-w-6xl flex-col gap-3 px-6 py-8 text-sm text-white/60 md:flex-row md:items-center md:justify-between">
           <p>© {new Date().getFullYear()} Luxe Lead AI Pro. All rights reserved.</p>
-          <a href="mailto:robopdesigns@gmail.com" className="hover:text-white">
-            Contact
-          </a>
+          <div className="flex items-center gap-4">
+            <a href="/privacy" className="hover:text-white">
+              Privacy
+            </a>
+            <a href="/terms" className="hover:text-white">
+              Terms
+            </a>
+            <a href="mailto:robopdesigns@gmail.com" className="hover:text-white">
+              Contact
+            </a>
+          </div>
         </div>
       </footer>
     </main>
