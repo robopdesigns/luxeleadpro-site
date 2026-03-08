@@ -1,24 +1,45 @@
 import { createClient } from "@supabase/supabase-js";
 
+type Lead = {
+  id: string;
+  full_name: string | null;
+  email: string | null;
+  phone: string | null;
+  market_area: string | null;
+  created_at: string | null;
+};
+
+type Appointment = {
+  id: string;
+  lead_name: string | null;
+  lead_email: string | null;
+  event_type: string | null;
+  appointment_time: string | null;
+  status: string | null;
+};
+
 const supabase = createClient(
-process.env.NEXT_PUBLIC_SUPABASE_URL!,
-process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+  process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
 );
 
-async function getData() {
-const { data: leads } = await supabase
-.from("leads")
-.select("*")
-.order("created_at", { ascending: false })
-.limit(50);
+async function getData(): Promise<{ leads: Lead[]; appointments: Appointment[] }> {
+  const { data: leads } = await supabase
+    .from("leads")
+    .select("*")
+    .order("created_at", { ascending: false })
+    .limit(50);
 
-const { data: appointments } = await supabase
-.from("appointments")
-.select("*")
-.order("created_at", { ascending: false })
-.limit(50);
+  const { data: appointments } = await supabase
+    .from("appointments")
+    .select("*")
+    .order("created_at", { ascending: false })
+    .limit(50);
 
-return { leads: leads || [], appointments: appointments || [] };
+  return {
+    leads: (leads as Lead[] | null) || [],
+    appointments: (appointments as Appointment[] | null) || [],
+  };
 }
 
 export default async function DashboardPage() {
@@ -42,7 +63,7 @@ return (
 </tr>
 </thead>
 <tbody>
-{leads.map((l: any) => (
+{leads.map((l) => (
 <tr key={l.id} className="border-t border-white/10">
 <td className="p-3">{l.full_name || "-"}</td>
 <td className="p-3">{l.email || "-"}</td>
@@ -72,7 +93,7 @@ return (
 </tr>
 </thead>
 <tbody>
-{appointments.map((a: any) => (
+{appointments.map((a) => (
 <tr key={a.id} className="border-t border-white/10">
 <td className="p-3">{a.lead_name || "-"}</td>
 <td className="p-3">{a.lead_email || "-"}</td>
