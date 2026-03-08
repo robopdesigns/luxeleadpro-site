@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Script from "next/script";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Playfair_Display } from "next/font/google";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -10,6 +10,11 @@ const geistSans = Geist({
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
+  subsets: ["latin"],
+});
+
+const playfair = Playfair_Display({
+  variable: "--font-display",
   subsets: ["latin"],
 });
 
@@ -28,12 +33,21 @@ export const metadata: Metadata = {
     url: "https://www.luxeleadpro.com",
     siteName: "Luxe Lead AI Pro",
     type: "website",
+    images: [
+      {
+        url: "/opengraph-image",
+        width: 1200,
+        height: 630,
+        alt: "Luxe Lead AI Pro",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Luxe Lead AI Pro",
     description:
       "AI-powered lead management for luxury real estate agents.",
+    images: ["/twitter-image"],
   },
   alternates: {
     canonical: "https://www.luxeleadpro.com",
@@ -48,7 +62,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${playfair.variable} antialiased`}
       >
         {process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID && (
           <>
