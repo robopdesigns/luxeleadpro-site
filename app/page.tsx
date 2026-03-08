@@ -91,7 +91,7 @@ export default function HomePage() {
     <main className="min-h-screen bg-black text-white">
       <header className="border-b border-white/10">
         <div className="mx-auto flex w-full max-w-6xl items-center justify-between px-6 py-4">
-          <div className="text-lg font-semibold tracking-wide">
+          <div className="text-lg font-semibold tracking-[0.14em] uppercase">
             Luxe Lead <span className="text-yellow-400">AI Pro</span>
           </div>
           <a href="#lead-form" className="rounded-xl bg-yellow-400 px-4 py-2 text-sm font-semibold text-black hover:bg-yellow-300">
@@ -127,10 +127,10 @@ export default function HomePage() {
         <p className="mb-4 text-xs uppercase tracking-[0.2em] text-white/50">Trusted workflow stack</p>
         <div className="grid gap-3 sm:grid-cols-2 md:grid-cols-4">
           {[
-            "Supabase Secure Data",
-            "Calendly Scheduling",
-            "Cloudflare Turnstile",
-            "Vercel Global Hosting",
+            "✦ Supabase Secure Data",
+            "✦ Calendly Scheduling",
+            "✦ Cloudflare Turnstile",
+            "✦ Vercel Global Hosting",
           ].map((item) => (
             <div key={item} className="rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-center text-sm text-white/80 transition hover:-translate-y-0.5 hover:border-yellow-400/40 hover:bg-white/[0.08]">
               {item}
@@ -139,13 +139,17 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="mx-auto grid w-full max-w-6xl gap-4 px-6 pb-20 md:grid-cols-3">
+      <div className="mx-auto h-px w-full max-w-6xl bg-gradient-to-r from-transparent via-yellow-400/50 to-transparent" />
+
+      <section className="mx-auto grid w-full max-w-6xl gap-4 px-6 pb-20 pt-10 md:grid-cols-3">
         {["30–50% more consult/showing bookings", "20–40% more closings in 60–90 days", "Zero compliance-risk workflow setup"].map((item) => (
           <div key={item} className="rounded-2xl border border-white/10 bg-white/5 p-6 text-white/90 transition hover:-translate-y-1 hover:border-yellow-400/40 hover:bg-white/[0.08]">
             {item}
           </div>
         ))}
       </section>
+
+      <div className="mx-auto h-px w-full max-w-6xl bg-gradient-to-r from-transparent via-yellow-400/35 to-transparent" />
 
       <section className="border-y border-white/10 bg-white/5 py-20">
         <div className="mx-auto w-full max-w-6xl px-6">
