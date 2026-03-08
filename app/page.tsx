@@ -152,12 +152,25 @@ export default function HomePage() {
           <h2 className="text-3xl font-bold md:text-4xl">Client Results</h2>
           <div className="mt-8 grid gap-6 md:grid-cols-3">
             {[
-              "\"Booked 14 qualified consults in the first month.\" — Luxury Team Lead, IL",
-              "\"Pipeline follow-up is finally consistent, and our close rate jumped.\" — Broker Associate, FL",
-              "\"The compliance-safe workflows saved us hours every week.\" — Independent Agent, CA",
-            ].map((quote) => (
-              <div key={quote} className="rounded-2xl border border-white/10 bg-black/40 p-6 text-white/85">
-                {quote}
+              {
+                quote:
+                  "We stopped losing high-intent buyers between inquiry and consult. The consistency alone changed our quarter.",
+                author: "Top-Producing Team Lead, Chicago",
+              },
+              {
+                quote:
+                  "Our pipeline now feels curated, not chaotic. Follow-up happens on time, every time.",
+                author: "Luxury Broker Associate, Miami",
+              },
+              {
+                quote:
+                  "The system respects brand voice and compliance while still moving fast. Exactly what our market needed.",
+                author: "Principal Agent, Orange County",
+              },
+            ].map((item) => (
+              <div key={item.quote} className="rounded-2xl border border-white/10 bg-black/40 p-6 text-white/85">
+                <p className="leading-relaxed">“{item.quote}”</p>
+                <p className="mt-4 text-sm uppercase tracking-[0.12em] text-yellow-300/90">{item.author}</p>
               </div>
             ))}
           </div>
@@ -185,7 +198,7 @@ export default function HomePage() {
       <section id="pricing" className="mx-auto w-full max-w-6xl px-6 py-20">
         <h2 className="text-3xl font-bold md:text-4xl">Simple Pricing</h2>
         <div className="mt-8 max-w-xl rounded-3xl border border-yellow-400/40 bg-yellow-400/10 p-8">
-          <p className="text-sm uppercase tracking-widest text-yellow-300">Pro Tier</p>
+          <p className="text-sm uppercase tracking-widest text-yellow-300">Signature Tier</p>
           <p className="mt-2 text-4xl font-bold">$249/mo</p>
           <p className="mt-2 text-white/80">+ one-time setup fee: $249</p>
           <ul className="mt-6 space-y-2 text-white/90">
@@ -240,7 +253,7 @@ export default function HomePage() {
 
       <section className="mx-auto w-full max-w-6xl px-6 py-20">
         <h2 className="text-3xl font-bold md:text-4xl">Frequently Asked Questions</h2>
-        <p className="mt-3 max-w-3xl text-white/70">Straight answers before you book. No fluff, no pressure.</p>
+        <p className="mt-3 max-w-3xl text-white/70">Clear answers before you book — concise, strategic, and tailored to serious agents.</p>
         <div className="mt-8 grid gap-4">
           <div className="rounded-2xl border border-white/10 bg-white/5 p-6">
             <h3 className="text-lg font-semibold">How fast can this go live?</h3>
