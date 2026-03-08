@@ -212,6 +212,24 @@ export default function HomePage() {
         </div>
       </section>
 
+      <section className="mx-auto w-full max-w-6xl px-6 py-20">
+        <h2 className="text-3xl font-bold md:text-4xl">Frequently Asked Questions</h2>
+        <div className="mt-8 grid gap-4">
+          <div className="rounded-2xl border border-white/10 bg-white/5 p-6">
+            <h3 className="text-lg font-semibold">How fast can this go live?</h3>
+            <p className="mt-2 text-white/75">Most agents are live in 7-14 days depending on CRM and workflow complexity.</p>
+          </div>
+          <div className="rounded-2xl border border-white/10 bg-white/5 p-6">
+            <h3 className="text-lg font-semibold">Will this work with my current process?</h3>
+            <p className="mt-2 text-white/75">Yes. We adapt around your existing pipeline, scripts, and compliance requirements.</p>
+          </div>
+          <div className="rounded-2xl border border-white/10 bg-white/5 p-6">
+            <h3 className="text-lg font-semibold">What happens on the free audit call?</h3>
+            <p className="mt-2 text-white/75">We identify pipeline leaks, estimate upside, and give you a clear implementation plan.</p>
+          </div>
+        </div>
+      </section>
+
       <footer className="border-t border-white/10">
         <div className="mx-auto flex w-full max-w-6xl flex-col gap-3 px-6 py-8 text-sm text-white/60 md:flex-row md:items-center md:justify-between">
           <p>© {new Date().getFullYear()} Luxe Lead AI Pro. All rights reserved.</p>

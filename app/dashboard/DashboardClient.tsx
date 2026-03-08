@@ -45,6 +45,7 @@ export default function DashboardClient({
     );
   }, [leads, query]);
 
+
   function exportLeadsCsv() {
     const headers = ["Name", "Email", "Phone", "Market", "Created"];
     const rows = filteredLeads.map((l) => [
@@ -96,6 +97,21 @@ export default function DashboardClient({
           </button>
         </div>
       </div>
+
+      <section className="mb-6 grid gap-3 md:grid-cols-3">
+        <div className="rounded-xl border border-white/10 bg-white/5 p-4">
+          <p className="text-xs uppercase text-white/60">Total leads loaded</p>
+          <p className="mt-2 text-2xl font-bold">{leads.length}</p>
+        </div>
+        <div className="rounded-xl border border-white/10 bg-white/5 p-4">
+          <p className="text-xs uppercase text-white/60">Filtered leads</p>
+          <p className="mt-2 text-2xl font-bold">{filteredLeads.length}</p>
+        </div>
+        <div className="rounded-xl border border-white/10 bg-white/5 p-4">
+          <p className="text-xs uppercase text-white/60">Appointments loaded</p>
+          <p className="mt-2 text-2xl font-bold">{appointments.length}</p>
+        </div>
+      </section>
 
       <section className="mb-10">
         <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
