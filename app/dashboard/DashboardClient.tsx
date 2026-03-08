@@ -8,6 +8,7 @@ type Lead = {
   email: string | null;
   phone: string | null;
   market_area: string | null;
+  challenge: string | null;
   created_at: string | null;
 };
 
@@ -22,6 +23,27 @@ type Appointment = {
 
 function csvEscape(value: string) {
   return `"${value.replaceAll("\"", "\"\"")}"`;
+}
+
+function getLeadScore(challenge: string | null) {
+  const text = (challenge || "").toLowerCase();
+  let score = 40;
+
+  if (text.includes("timeline: asap")) score += 30;
+  else if (text.includes("timeline: 30-60")) score += 20;
+  else if (text.includes("timeline: 60+")) score += 10;
+
+  if (text.includes("monthly gci: 50k+")) score += 30;
+  else if (text.includes("monthly gci: 25k-50k")) score += 20;
+  else if (text.includes("monthly gci: 10k-25k")) score += 10;
+
+  return Math.min(score, 100);
+}
+
+function scoreLabel(score: number) {
+  if (score >= 80) return { label: "Hot", style: "bg-red-500/20 text-red-200" };
+  if (score >= 60) return { label: "Warm", style: "bg-yellow-400/20 text-yellow-200" };
+  return { label: "Nurture", style: "bg-blue-400/20 text-blue-200" };
 }
 
 export default function DashboardClient({
@@ -47,12 +69,13 @@ export default function DashboardClient({
 
 
   function exportLeadsCsv() {
-    const headers = ["Name", "Email", "Phone", "Market", "Created"];
+    const headers = ["Name", "Email", "Phone", "Market", "Score", "Created"];
     const rows = filteredLeads.map((l) => [
       l.full_name || "",
       l.email || "",
       l.phone || "",
       l.market_area || "",
+      String(getLeadScore(l.challenge)),
       l.created_at ? new Date(l.created_at).toISOString() : "",
     ]);
 
@@ -131,21 +154,32 @@ export default function DashboardClient({
                 <th className="p-3 text-left">Email</th>
                 <th className="p-3 text-left">Phone</th>
                 <th className="p-3 text-left">Market</th>
+                <th className="p-3 text-left">Lead Score</th>
                 <th className="p-3 text-left">Created</th>
               </tr>
             </thead>
             <tbody>
-              {filteredLeads.map((l) => (
-                <tr key={l.id} className="border-t border-white/10">
-                  <td className="p-3">{l.full_name || "-"}</td>
-                  <td className="p-3">{l.email || "-"}</td>
-                  <td className="p-3">{l.phone || "-"}</td>
-                  <td className="p-3">{l.market_area || "-"}</td>
-                  <td className="p-3">
-                    {l.created_at ? new Date(l.created_at).toLocaleString() : "-"}
-                  </td>
-                </tr>
-              ))}
+              {filteredLeads.map((l) => {
+                const score = getLeadScore(l.challenge);
+                const tag = scoreLabel(score);
+
+                return (
+                  <tr key={l.id} className="border-t border-white/10">
+                    <td className="p-3">{l.full_name || "-"}</td>
+                    <td className="p-3">{l.email || "-"}</td>
+                    <td className="p-3">{l.phone || "-"}</td>
+                    <td className="p-3">{l.market_area || "-"}</td>
+                    <td className="p-3">
+                      <span className={`rounded-lg px-2 py-1 text-xs font-semibold ${tag.style}`}>
+                        {tag.label} ({score})
+                      </span>
+                    </td>
+                    <td className="p-3">
+                      {l.created_at ? new Date(l.created_at).toLocaleString() : "-"}
+                    </td>
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
         </div>

@@ -181,6 +181,27 @@ export default function HomePage() {
         </div>
       </section>
 
+      <section className="mx-auto w-full max-w-6xl px-6 py-20">
+        <h2 className="text-3xl font-bold md:text-4xl">Featured Case Studies</h2>
+        <div className="mt-8 grid gap-6 md:grid-cols-3">
+          <div className="rounded-2xl border border-white/10 bg-white/5 p-6">
+            <p className="text-xs uppercase tracking-[0.12em] text-yellow-300">Luxury Team — Chicago</p>
+            <p className="mt-3 text-2xl font-bold">+41% Consult Rate</p>
+            <p className="mt-2 text-white/75">Rebuilt inquiry-to-consult follow-up with AI cadence and qualification tagging.</p>
+          </div>
+          <div className="rounded-2xl border border-white/10 bg-white/5 p-6">
+            <p className="text-xs uppercase tracking-[0.12em] text-yellow-300">Broker Associate — Miami</p>
+            <p className="mt-3 text-2xl font-bold">+27% Close Rate</p>
+            <p className="mt-2 text-white/75">Implemented structured nurture sequences to reduce pipeline leakage across warm leads.</p>
+          </div>
+          <div className="rounded-2xl border border-white/10 bg-white/5 p-6">
+            <p className="text-xs uppercase tracking-[0.12em] text-yellow-300">Principal Agent — OC</p>
+            <p className="mt-3 text-2xl font-bold">8 hrs/week Saved</p>
+            <p className="mt-2 text-white/75">Deployed compliance-first automations for follow-up, reminders, and lead routing.</p>
+          </div>
+        </div>
+      </section>
+
       <section className="border-y border-white/10 bg-white/5 py-20">
         <div className="mx-auto w-full max-w-6xl px-6">
           <h2 className="text-3xl font-bold md:text-4xl">How It Works</h2>
@@ -256,6 +277,14 @@ export default function HomePage() {
       </section>
 
       <section className="mx-auto w-full max-w-6xl px-6 py-20">
+        <div className="rounded-3xl border border-white/10 bg-white/5 p-8">
+          <p className="text-xs uppercase tracking-[0.12em] text-yellow-300">Operator-Led Implementation</p>
+          <h2 className="mt-3 text-3xl font-bold md:text-4xl">Built by Practitioners, Not Template Sellers</h2>
+          <p className="mt-4 max-w-3xl text-white/75">Every deployment is customized to your market, lead profile, and compliance constraints. You work directly with an operator who owns outcomes, not a handoff queue.</p>
+        </div>
+      </section>
+
+      <section className="mx-auto w-full max-w-6xl px-6 py-20">
         <h2 className="text-3xl font-bold md:text-4xl">Frequently Asked Questions</h2>
         <p className="mt-3 max-w-3xl text-white/70">Clear answers before you book — concise, strategic, and tailored to serious agents.</p>
         <div className="mt-8 grid gap-4">
@@ -273,6 +302,15 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      <div className="fixed bottom-6 right-6 z-40 hidden md:block">
+        <a
+          href="#lead-form"
+          className="rounded-xl bg-yellow-400 px-5 py-3 text-sm font-semibold text-black shadow-[0_10px_35px_rgba(250,204,21,0.35)] transition hover:-translate-y-0.5 hover:bg-yellow-300"
+        >
+          Book Priority Audit
+        </a>
+      </div>
 
       <div className="fixed inset-x-0 bottom-0 z-40 border-t border-white/10 bg-black/90 p-3 backdrop-blur md:hidden">
         <a

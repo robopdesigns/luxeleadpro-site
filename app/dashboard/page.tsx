@@ -7,6 +7,7 @@ type Lead = {
   email: string | null;
   phone: string | null;
   market_area: string | null;
+  challenge: string | null;
   created_at: string | null;
 };
 
