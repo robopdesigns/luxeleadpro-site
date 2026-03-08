@@ -132,7 +132,7 @@ export default function HomePage() {
             "Cloudflare Turnstile",
             "Vercel Global Hosting",
           ].map((item) => (
-            <div key={item} className="rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-center text-sm text-white/80">
+            <div key={item} className="rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-center text-sm text-white/80 transition hover:-translate-y-0.5 hover:border-yellow-400/40 hover:bg-white/[0.08]">
               {item}
             </div>
           ))}
@@ -141,7 +141,7 @@ export default function HomePage() {
 
       <section className="mx-auto grid w-full max-w-6xl gap-4 px-6 pb-20 md:grid-cols-3">
         {["30–50% more consult/showing bookings", "20–40% more closings in 60–90 days", "Zero compliance-risk workflow setup"].map((item) => (
-          <div key={item} className="rounded-2xl border border-white/10 bg-white/5 p-6 text-white/90">
+          <div key={item} className="rounded-2xl border border-white/10 bg-white/5 p-6 text-white/90 transition hover:-translate-y-1 hover:border-yellow-400/40 hover:bg-white/[0.08]">
             {item}
           </div>
         ))}
@@ -172,6 +172,13 @@ export default function HomePage() {
             <div className="rounded-2xl border border-white/10 p-6"><p className="mb-2 text-sm text-yellow-300">Step 02</p><h3 className="text-xl font-semibold">Activate AI Workflows</h3><p className="mt-2 text-white/75">Nurture, content, and compliance automation go live.</p></div>
             <div className="rounded-2xl border border-white/10 p-6"><p className="mb-2 text-sm text-yellow-300">Step 03</p><h3 className="text-xl font-semibold">Track + Close</h3><p className="mt-2 text-white/75">Convert more opportunities consistently.</p></div>
           </div>
+        </div>
+      </section>
+
+      <section className="mx-auto w-full max-w-6xl px-6 pb-4">
+        <div className="rounded-2xl border border-yellow-400/40 bg-yellow-400/10 p-6 text-sm text-yellow-100">
+          <p className="font-semibold">Premium Positioning Promise</p>
+          <p className="mt-1 text-yellow-100/90">You get a tailored, compliance-conscious system built around your market, brand voice, and follow-up style — not a generic template.</p>
         </div>
       </section>
 
@@ -250,7 +257,16 @@ export default function HomePage() {
         </div>
       </section>
 
-      <footer className="border-t border-white/10">
+      <div className="fixed inset-x-0 bottom-0 z-40 border-t border-white/10 bg-black/90 p-3 backdrop-blur md:hidden">
+        <a
+          href="#lead-form"
+          className="block w-full rounded-xl bg-yellow-400 px-4 py-3 text-center text-sm font-semibold text-black"
+        >
+          Get My Free Profit Audit
+        </a>
+      </div>
+
+      <footer className="border-t border-white/10 pb-20 md:pb-0">
         <div className="mx-auto flex w-full max-w-6xl flex-col gap-3 px-6 py-8 text-sm text-white/60 md:flex-row md:items-center md:justify-between">
           <p>© {new Date().getFullYear()} Luxe Lead AI Pro. All rights reserved.</p>
           <div className="flex items-center gap-4"><a href="/privacy" className="hover:text-white">Privacy</a><a href="/terms" className="hover:text-white">Terms</a><a href="mailto:robopdesigns@gmail.com" className="hover:text-white">Contact</a></div>
