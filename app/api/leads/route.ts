@@ -125,6 +125,8 @@ export async function POST(request: Request) {
         brokerage?: string;
         market_area?: string;
         challenge?: string;
+        timeline?: string;
+        monthly_revenue?: string;
         website?: string; // honeypot
         turnstileToken?: string;
       }
@@ -183,13 +185,17 @@ export async function POST(request: Request) {
 
   const supabase = createClient(supabaseUrl, supabaseKey);
 
+  const timeline = (body.timeline || "").trim();
+  const monthlyRevenue = (body.monthly_revenue || "").trim();
+  const baseChallenge = (body.challenge || "").trim();
+
   const payload: LeadPayload = {
     full_name,
     email,
     phone: (body.phone || "").trim(),
     brokerage: (body.brokerage || "").trim(),
     market_area: (body.market_area || "").trim(),
-    challenge: (body.challenge || "").trim(),
+    challenge: `${baseChallenge}${baseChallenge ? "\n\n" : ""}Qualification:\n- Timeline: ${timeline || "n/a"}\n- Monthly GCI: ${monthlyRevenue || "n/a"}`,
     source: "website",
   };
 
