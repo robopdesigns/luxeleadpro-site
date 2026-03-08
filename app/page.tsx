@@ -113,11 +113,29 @@ export default function HomePage() {
 
         <div className="mt-8 flex flex-wrap gap-4">
           <a href="#lead-form" className="rounded-xl bg-yellow-400 px-6 py-3 font-semibold text-black hover:bg-yellow-300">
-            Book a 15-Minute Profit Audit
+            Get My Free Profit Audit
           </a>
           <a href="#pricing" className="rounded-xl border border-white/20 px-6 py-3 font-semibold text-white hover:bg-white/10">
             View Pricing
           </a>
+        </div>
+
+        <p className="mt-4 text-sm text-white/60">No long-term contracts. Implementation support included.</p>
+      </section>
+
+      <section className="mx-auto w-full max-w-6xl px-6 pb-14">
+        <p className="mb-4 text-xs uppercase tracking-[0.2em] text-white/50">Trusted workflow stack</p>
+        <div className="grid gap-3 sm:grid-cols-2 md:grid-cols-4">
+          {[
+            "Supabase Secure Data",
+            "Calendly Scheduling",
+            "Cloudflare Turnstile",
+            "Vercel Global Hosting",
+          ].map((item) => (
+            <div key={item} className="rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-center text-sm text-white/80">
+              {item}
+            </div>
+          ))}
         </div>
       </section>
 
@@ -203,10 +221,11 @@ export default function HomePage() {
             {TURNSTILE_SITE_KEY && <div className="cf-turnstile" data-sitekey={TURNSTILE_SITE_KEY} data-theme="dark" />}
 
             <button type="submit" disabled={loading} className="rounded-xl bg-yellow-400 px-6 py-3 font-semibold text-black hover:bg-yellow-300 disabled:opacity-60">
-              {loading ? "Sending..." : "Submit & Continue to Booking"}
+              {loading ? "Securing your audit slot..." : "Submit & Continue to Priority Booking"}
             </button>
 
             {message && <p className="text-sm text-yellow-300">{message}</p>}
+            <p className="text-xs text-white/60">Takes 45 seconds. You’ll be redirected to choose your best call time.</p>
             <p className="text-xs text-white/60">By submitting, you agree to our <a href="/privacy" className="text-yellow-300 hover:text-yellow-200">Privacy Policy</a> and <a href="/terms" className="text-yellow-300 hover:text-yellow-200">Terms of Service</a>.</p>
           </form>
         </div>
@@ -214,6 +233,7 @@ export default function HomePage() {
 
       <section className="mx-auto w-full max-w-6xl px-6 py-20">
         <h2 className="text-3xl font-bold md:text-4xl">Frequently Asked Questions</h2>
+        <p className="mt-3 max-w-3xl text-white/70">Straight answers before you book. No fluff, no pressure.</p>
         <div className="mt-8 grid gap-4">
           <div className="rounded-2xl border border-white/10 bg-white/5 p-6">
             <h3 className="text-lg font-semibold">How fast can this go live?</h3>
