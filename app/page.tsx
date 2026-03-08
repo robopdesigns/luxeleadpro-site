@@ -7,6 +7,7 @@ declare global {
     turnstile?: {
       reset: (selector?: string) => void;
     };
+    gtag?: (...args: unknown[]) => void;
   }
 }
 
@@ -67,12 +68,26 @@ export default function HomePage() {
     }
 
     setMessage("Thanks — redirecting you to book your audit now...");
+    if (window.gtag) {
+      window.gtag("event", "lead_form_submit", {
+        event_category: "engagement",
+        event_label: "profit_audit_form",
+      });
+    }
+
     form.reset();
     if (TURNSTILE_SITE_KEY && window.turnstile) {
       window.turnstile.reset();
     }
 
     setTimeout(() => {
+      if (window.gtag) {
+        window.gtag("event", "calendly_redirect", {
+          event_category: "conversion",
+          event_label: "profit_audit_redirect",
+        });
+      }
+
       window.location.href =
         process.env.NEXT_PUBLIC_CALENDLY_URL ||
         "https://calendly.com/robopdesigns/profit-audit";

@@ -68,6 +68,45 @@ async function verifyTurnstile(token: string, ip: string): Promise<boolean> {
   return Boolean(verifyJson.success);
 }
 
+async function sendLeadAlert(payload: LeadPayload) {
+  const apiKey = process.env.RESEND_API_KEY?.trim();
+  const to = process.env.ALERT_EMAIL_TO?.trim();
+  const from = process.env.ALERT_EMAIL_FROM?.trim() || "Luxe Lead AI Pro <onboarding@resend.dev>";
+
+  if (!apiKey || !to) {
+    return;
+  }
+
+  const submittedAt = new Date().toLocaleString("en-US", { timeZone: "America/Chicago" });
+
+  const html = `
+    <h2>New Luxe Lead AI Pro Lead</h2>
+    <p><strong>Name:</strong> ${payload.full_name || "-"}</p>
+    <p><strong>Email:</strong> ${payload.email || "-"}</p>
+    <p><strong>Phone:</strong> ${payload.phone || "-"}</p>
+    <p><strong>Brokerage:</strong> ${payload.brokerage || "-"}</p>
+    <p><strong>Market:</strong> ${payload.market_area || "-"}</p>
+    <p><strong>Challenge:</strong> ${payload.challenge || "-"}</p>
+    <p><strong>Source:</strong> ${payload.source}</p>
+    <p><strong>Submitted:</strong> ${submittedAt} (America/Chicago)</p>
+  `;
+
+  await fetch("https://api.resend.com/emails", {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${apiKey}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      from,
+      to: [to],
+      subject: `New lead: ${payload.full_name}`,
+      html,
+    }),
+    cache: "no-store",
+  });
+}
+
 export async function POST(request: Request) {
   const ip = getIp(request);
 
@@ -162,6 +201,10 @@ export async function POST(request: Request) {
       { status: 500 }
     );
   }
+
+  sendLeadAlert(payload).catch((err) => {
+    console.error("Lead alert send failed", err);
+  });
 
   return NextResponse.json({ ok: true });
 }
