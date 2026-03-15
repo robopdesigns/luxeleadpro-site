@@ -1,216 +1,105 @@
+import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
-import { NextResponse } from "next/server";
 
-type LeadPayload = {
-  full_name: string;
-  email: string;
-  phone: string;
-  brokerage: string;
-  market_area: string;
-  challenge: string;
-  source: string;
-};
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || "";
+const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY || "";
 
-type TurnstileVerifyResponse = {
-  success: boolean;
-  "error-codes"?: string[];
-};
+const supabase = createClient(supabaseUrl, supabaseServiceKey, {
+  auth: {
+    autoRefreshToken: false,
+    persistSession: false,
+  },
+});
 
-const requestsByIp = new Map<string, number[]>();
-const WINDOW_MS = 10 * 60 * 1000; // 10 min
-const MAX_REQUESTS_PER_WINDOW = 8;
+export async function POST(req: NextRequest) {
+  try {
+    const body = await req.json();
+    const {
+      full_name,
+      email,
+      phone,
+      brokerage,
+      market_area,
+      challenge,
+      timeline,
+      monthly_revenue,
+      turnstileToken,
+    } = body;
 
-function getIp(request: Request): string {
-  const forwarded = request.headers.get("x-forwarded-for");
-  if (forwarded) {
-    return forwarded.split(",")[0].trim();
-  }
-  return "unknown";
-}
-
-function isRateLimited(ip: string): boolean {
-  const now = Date.now();
-  const history = requestsByIp.get(ip) || [];
-  const recent = history.filter((ts) => now - ts < WINDOW_MS);
-  recent.push(now);
-  requestsByIp.set(ip, recent);
-  return recent.length > MAX_REQUESTS_PER_WINDOW;
-}
-
-async function verifyTurnstile(token: string, ip: string): Promise<boolean> {
-  const secret = process.env.TURNSTILE_SECRET_KEY?.trim();
-  if (!secret) {
-    return false;
-  }
-
-  const formData = new URLSearchParams();
-  formData.set("secret", secret);
-  formData.set("response", token);
-  if (ip && ip !== "unknown") {
-    formData.set("remoteip", ip);
-  }
-
-  const verifyRes = await fetch(
-    "https://challenges.cloudflare.com/turnstile/v0/siteverify",
-    {
-      method: "POST",
-      body: formData,
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      cache: "no-store",
-    }
-  );
-
-  if (!verifyRes.ok) {
-    return false;
-  }
-
-  const verifyJson = (await verifyRes.json()) as TurnstileVerifyResponse;
-  return Boolean(verifyJson.success);
-}
-
-async function sendLeadAlert(payload: LeadPayload) {
-  const apiKey = process.env.RESEND_API_KEY?.trim();
-  const to = process.env.ALERT_EMAIL_TO?.trim();
-  const from = process.env.ALERT_EMAIL_FROM?.trim() || "Luxe Lead AI Pro <onboarding@resend.dev>";
-
-  if (!apiKey || !to) {
-    return;
-  }
-
-  const submittedAt = new Date().toLocaleString("en-US", { timeZone: "America/Chicago" });
-
-  const html = `
-    <h2>New Luxe Lead AI Pro Lead</h2>
-    <p><strong>Name:</strong> ${payload.full_name || "-"}</p>
-    <p><strong>Email:</strong> ${payload.email || "-"}</p>
-    <p><strong>Phone:</strong> ${payload.phone || "-"}</p>
-    <p><strong>Brokerage:</strong> ${payload.brokerage || "-"}</p>
-    <p><strong>Market:</strong> ${payload.market_area || "-"}</p>
-    <p><strong>Challenge:</strong> ${payload.challenge || "-"}</p>
-    <p><strong>Source:</strong> ${payload.source}</p>
-    <p><strong>Submitted:</strong> ${submittedAt} (America/Chicago)</p>
-  `;
-
-  await fetch("https://api.resend.com/emails", {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${apiKey}`,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      from,
-      to: [to],
-      subject: `New lead: ${payload.full_name}`,
-      html,
-    }),
-    cache: "no-store",
-  });
-}
-
-export async function POST(request: Request) {
-  const ip = getIp(request);
-
-  if (isRateLimited(ip)) {
-    return NextResponse.json(
-      { error: "Too many requests. Please try again later." },
-      { status: 429 }
-    );
-  }
-
-  const body = (await request.json().catch(() => null)) as
-    | {
-        full_name?: string;
-        email?: string;
-        phone?: string;
-        brokerage?: string;
-        market_area?: string;
-        challenge?: string;
-        timeline?: string;
-        monthly_revenue?: string;
-        website?: string; // honeypot
-        turnstileToken?: string;
-      }
-    | null;
-
-  if (!body) {
-    return NextResponse.json({ error: "Invalid request" }, { status: 400 });
-  }
-
-  if ((body.website || "").trim()) {
-    return NextResponse.json({ error: "Invalid request" }, { status: 400 });
-  }
-
-  const full_name = (body.full_name || "").trim();
-  const email = (body.email || "").trim();
-
-  if (!full_name || !email) {
-    return NextResponse.json(
-      { error: "Name and email are required." },
-      { status: 400 }
-    );
-  }
-
-  const turnstileSiteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY?.trim();
-  const turnstileSecret = process.env.TURNSTILE_SECRET_KEY?.trim();
-
-  if (turnstileSiteKey || turnstileSecret) {
-    const token = (body.turnstileToken || "").trim();
-    if (!token) {
+    // Validate required fields
+    if (!full_name || !email) {
       return NextResponse.json(
-        { error: "Please complete the spam check." },
+        { error: "Name and email are required" },
         { status: 400 }
       );
     }
 
-    const turnstileOk = await verifyTurnstile(token, ip);
-    if (!turnstileOk) {
+    // Validate email format
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
       return NextResponse.json(
-        { error: "Spam check failed. Please try again." },
+        { error: "Invalid email format" },
         { status: 400 }
       );
     }
-  }
 
-  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const supabaseKey =
-    process.env.SUPABASE_SERVICE_ROLE_KEY ||
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+    // Check for duplicate email
+    const { data: existingLead, error: checkError } = await supabase
+      .from("leads")
+      .select("id")
+      .eq("email", email)
+      .single();
 
-  if (!supabaseUrl || !supabaseKey) {
+    if (checkError && checkError.code !== "PGRST116") {
+      throw checkError;
+    }
+
+    if (existingLead) {
+      return NextResponse.json(
+        { error: "This email has already been submitted" },
+        { status: 409 }
+      );
+    }
+
+    // Insert lead into Supabase
+    const { data, error } = await supabase
+      .from("leads")
+      .insert([
+        {
+          name: full_name,
+          email,
+          phone: phone || null,
+          brokerage: brokerage || null,
+          market: market_area || null,
+          gci_range: monthly_revenue || null,
+          timeline: timeline || null,
+          challenge: challenge || null,
+          status: "new",
+        },
+      ])
+      .select();
+
+    if (error) {
+      console.error("Supabase insert error:", error);
+      throw error;
+    }
+
     return NextResponse.json(
-      { error: "Server is not configured" },
+      {
+        success: true,
+        message: "Lead submitted successfully",
+        lead: data?.[0] || {},
+      },
+      { status: 201 }
+    );
+  } catch (error) {
+    console.error("API error:", error);
+    return NextResponse.json(
+      {
+        error: "Failed to submit lead",
+        details: error instanceof Error ? error.message : "Unknown error",
+      },
       { status: 500 }
     );
   }
-
-  const supabase = createClient(supabaseUrl, supabaseKey);
-
-  const timeline = (body.timeline || "").trim();
-  const monthlyRevenue = (body.monthly_revenue || "").trim();
-  const baseChallenge = (body.challenge || "").trim();
-
-  const payload: LeadPayload = {
-    full_name,
-    email,
-    phone: (body.phone || "").trim(),
-    brokerage: (body.brokerage || "").trim(),
-    market_area: (body.market_area || "").trim(),
-    challenge: `${baseChallenge}${baseChallenge ? "\n\n" : ""}Qualification:\n- Timeline: ${timeline || "n/a"}\n- Monthly GCI: ${monthlyRevenue || "n/a"}`,
-    source: "website",
-  };
-
-  const { error } = await supabase.from("leads").insert([payload]);
-
-  if (error) {
-    return NextResponse.json(
-      { error: "Something went wrong. Please try again." },
-      { status: 500 }
-    );
-  }
-
-  sendLeadAlert(payload).catch((err) => {
-    console.error("Lead alert send failed", err);
-  });
-
-  return NextResponse.json({ ok: true });
 }
