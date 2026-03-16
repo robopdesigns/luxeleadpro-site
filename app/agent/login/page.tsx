@@ -32,7 +32,7 @@ export default function AgentLoginPage() {
       const result = await auth.login(formData.email, formData.password);
 
       if (result.error) {
-        setError(result.error.message || "Failed to login");
+        setError(typeof result.error === 'string' ? result.error : "Failed to login");
         setLoading(false);
         return;
       }
