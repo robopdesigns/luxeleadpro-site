@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { Lead } from '@/lib/supabase';
-import { FiEdit2, FiDownload, FiFilter } from 'react-icons/fi';
+import { FiDownload, FiFilter } from 'react-icons/fi';
 
 interface LeadsTableProps {
   leads: Lead[];
