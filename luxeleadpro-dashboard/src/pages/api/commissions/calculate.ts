@@ -28,7 +28,7 @@ export default async function handler(
       status = 'pending',
     } = req.body as CommissionParams;
 
-    if (!teamId || !agentId || !leadValue) {
+    if (!teamId || !agentId || !dealValue) {
       return res.status(400).json({
         error: 'Missing required fields: teamId, agentId, dealValue',
       });
