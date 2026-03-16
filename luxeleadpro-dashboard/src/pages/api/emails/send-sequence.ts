@@ -9,6 +9,7 @@ async function sendEmailViaProvider(
 ): Promise<{ success: boolean; messageId?: string; error?: string }> {
   // TODO: Integrate with SendGrid, Resend, or similar
   // For now, just simulate success
+  console.log(`Email would be sent to: ${to}, Subject: ${subject}`);
   return {
     success: true,
     messageId: `msg_${Date.now()}`,
