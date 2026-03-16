@@ -22,9 +22,15 @@ export default async function handler(
 
         // Sort
         leads.sort((a, b) => {
-          const aVal = new Date(a[sortBy as keyof Lead] || '').getTime();
-          const bVal = new Date(b[sortBy as keyof Lead] || '').getTime();
-          return order === 'asc' ? aVal - bVal : bVal - aVal;
+          const aField = a[sortBy as keyof Lead];
+          const bField = b[sortBy as keyof Lead];
+          
+          if (typeof aField === 'string' && typeof bField === 'string') {
+            const aVal = new Date(aField).getTime();
+            const bVal = new Date(bField).getTime();
+            return order === 'asc' ? aVal - bVal : bVal - aVal;
+          }
+          return 0;
         });
 
         return res.status(200).json(leads);
@@ -69,6 +75,7 @@ export default async function handler(
           timeline,
           challenge,
           status: 'new',
+          qualification_score: 0,
         });
         return res.status(201).json(newLead);
       }

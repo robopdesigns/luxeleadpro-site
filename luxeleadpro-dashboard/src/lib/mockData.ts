@@ -7,7 +7,6 @@ export const generateMockLeads = (): Lead[] => {
   const markets = ['New York', 'Los Angeles', 'Chicago', 'Houston', 'Phoenix', 'Miami', 'Seattle', 'Denver', 'Austin', 'Boston'];
   const gciRanges = ['$500K - $1M', '$1M - $2M', '$2M - $5M', '$5M+', 'Not Disclosed'];
   const timelines = ['This month', 'Next 3 months', 'Next 6 months', 'Next 12 months', 'Exploratory'];
-  const statuses: Array<Lead['status']> = ['new', 'contacted', 'converted', 'lost'];
 
   const leads: Lead[] = [];
   const now = new Date();
@@ -15,7 +14,6 @@ export const generateMockLeads = (): Lead[] => {
   for (let i = 0; i < 25; i++) {
     const firstName = firstNames[Math.floor(Math.random() * firstNames.length)];
     const lastName = lastNames[Math.floor(Math.random() * lastNames.length)];
-    const status = statuses[Math.floor(Math.random() * statuses.length)];
     
     // 70% chance of new, 15% contacted, 10% converted, 5% lost
     let randomStatus = 'new' as Lead['status'];
@@ -40,6 +38,7 @@ export const generateMockLeads = (): Lead[] => {
       timeline: timelines[Math.floor(Math.random() * timelines.length)],
       challenge: ['Lead generation', 'Team growth', 'Technology upgrade', 'Coaching program'][Math.floor(Math.random() * 4)],
       status: randomStatus,
+      qualification_score: Math.floor(Math.random() * 100),
       created_at: createdDate.toISOString(),
       updated_at: createdDate.toISOString(),
       notes: ['Follow up needed', 'Great fit', 'Needs more info', ''][Math.floor(Math.random() * 4)],

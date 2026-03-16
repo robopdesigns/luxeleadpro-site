@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { supabase } from '@/lib/supabase';
 
 interface TeamMember {
   id: string;
@@ -49,28 +48,22 @@ export default function ManagerDashboard() {
     try {
       setLoading(true);
 
-      // Fetch team members
-      const { data: membersData } = await supabase
-        .from('team_members')
-        .select('*');
-
-      setTeamMembers(membersData || []);
-
-      // Fetch all team leads
-      const { data: leadsData } = await supabase
-        .from('leads')
-        .select('*')
-        .order('created_at', { ascending: false });
+      // Fetch all team leads from API
+      const leadsResponse = await fetch('/api/leads');
+      const leadsData = leadsResponse.ok ? await leadsResponse.json() : [];
 
       setLeads(leadsData || []);
+      
+      // For now, set mock team members (would need a team members API endpoint)
+      setTeamMembers([]);
 
       // Calculate stats
       if (leadsData && leadsData.length > 0) {
-        const newCount = leadsData.filter((l) => l.status === 'new').length;
-        const qualifiedCount = leadsData.filter((l) => l.status === 'qualified').length;
-        const convertedCount = leadsData.filter((l) => l.status === 'converted').length;
-        const totalDealValue = leadsData.reduce((sum, l) => sum + (l.deal_value || 0), 0);
-        const avgScore = leadsData.reduce((sum, l) => sum + (l.qualification_score || 0), 0) / leadsData.length;
+        const newCount = leadsData.filter((l: Lead) => l.status === 'new').length;
+        const qualifiedCount = leadsData.filter((l: Lead) => l.status === 'qualified').length;
+        const convertedCount = leadsData.filter((l: Lead) => l.status === 'converted').length;
+        const totalDealValue = leadsData.reduce((sum: number, l: Lead) => sum + (l.deal_value || 0), 0);
+        const avgScore = leadsData.reduce((sum: number, l: Lead) => sum + (l.qualification_score || 0), 0) / leadsData.length;
 
         setStats({
           totalLeads: leadsData.length,
@@ -220,3 +213,7 @@ export default function ManagerDashboard() {
     </main>
   );
 }
+
+export const getServerSideProps = async () => {
+  return { props: {} };
+};

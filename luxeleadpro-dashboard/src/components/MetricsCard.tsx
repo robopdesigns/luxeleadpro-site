@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { Lead } from '@/lib/supabase';
-import { FiTrendingUp, FiUsers, FiCheckCircle, FiXCircle, FiSmile } from 'react-icons/fi';
+import { FiTrendingUp, FiCheckCircle, FiXCircle, FiSmile } from 'react-icons/fi';
 
 interface MetricsCardProps {
   leads: Lead[];
@@ -10,7 +10,6 @@ interface MetricsCardProps {
 
 export default function MetricsCard({ leads }: MetricsCardProps) {
   // Calculate metrics
-  const total = leads.length;
   const newLeads = leads.filter(l => l.status === 'new').length;
   const contactedLeads = leads.filter(l => l.status === 'contacted').length;
   const convertedLeads = leads.filter(l => l.status === 'converted').length;

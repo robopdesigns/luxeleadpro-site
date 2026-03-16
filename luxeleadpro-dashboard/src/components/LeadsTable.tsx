@@ -31,6 +31,7 @@ export default function LeadsTable({ leads, onStatusChange, onRefresh }: LeadsTa
   const statusBadge: Record<Lead['status'], string> = {
     new: 'status-new',
     contacted: 'status-contacted',
+    qualified: 'status-qualified',
     converted: 'status-converted',
     lost: 'status-lost',
   };
