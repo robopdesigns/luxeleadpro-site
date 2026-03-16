@@ -56,7 +56,7 @@ export default function AgentSignupPage() {
       );
 
       if (result.error) {
-        setError(result.error.message || "Failed to sign up");
+        setError(result.error);
         setLoading(false);
         return;
       }

@@ -19,6 +19,18 @@ export interface UserProfile {
   created_at: string;
 }
 
+// Auth return types
+export interface AuthResult {
+  user: any;
+  error: string | null;
+}
+
+export interface LoginResult {
+  user: any | null;
+  profile: UserProfile | null;
+  error: string | null;
+}
+
 // Auth Functions
 export const auth = {
   // Sign up agent
@@ -29,7 +41,7 @@ export const auth = {
     lastName: string,
     officeName: string,
     phone?: string
-  ) {
+  ): Promise<AuthResult> {
     try {
       // Create auth user
       const { data: authData, error: authError } = await supabase.auth.signUp({
@@ -58,8 +70,9 @@ export const auth = {
       if (profileError) throw profileError;
 
       return { user: authData.user, error: null };
-    } catch (error) {
-      return { user: null, error };
+    } catch (error: any) {
+      const errorMessage = error?.message || "Sign up failed";
+      return { user: null, error: errorMessage };
     }
   },
 
@@ -71,7 +84,7 @@ export const auth = {
     lastName: string,
     officeName: string,
     phone?: string
-  ) {
+  ): Promise<AuthResult> {
     try {
       const { data: authData, error: authError } = await supabase.auth.signUp({
         email,
@@ -98,13 +111,14 @@ export const auth = {
       if (profileError) throw profileError;
 
       return { user: authData.user, error: null };
-    } catch (error) {
-      return { user: null, error };
+    } catch (error: any) {
+      const errorMessage = error?.message || "Sign up failed";
+      return { user: null, error: errorMessage };
     }
   },
 
   // Login
-  async login(email: string, password: string) {
+  async login(email: string, password: string): Promise<LoginResult> {
     try {
       const { data, error } = await supabase.auth.signInWithPassword({
         email,
