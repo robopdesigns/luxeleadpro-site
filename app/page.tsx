@@ -1,332 +1,210 @@
 "use client";
 
-import { FormEvent, useEffect, useState } from "react";
-
-declare global {
-  interface Window {
-    turnstile?: {
-      reset: (selector?: string) => void;
-    };
-    gtag?: (...args: unknown[]) => void;
-  }
-}
-
-const TURNSTILE_SITE_KEY = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || "";
+import Link from "next/link";
+import { Header } from "@/components/Header";
+import { Footer } from "@/components/Footer";
+import { useAuth } from "@/contexts/AuthContext";
 
 export default function HomePage() {
-  const [loading, setLoading] = useState(false);
-  const [message, setMessage] = useState("");
-
-  useEffect(() => {
-    if (!TURNSTILE_SITE_KEY) return;
-
-    const scriptId = "cf-turnstile-script";
-    if (document.getElementById(scriptId)) return;
-
-    const script = document.createElement("script");
-    script.id = scriptId;
-    script.src = "https://challenges.cloudflare.com/turnstile/v0/api.js";
-    script.async = true;
-    script.defer = true;
-    document.body.appendChild(script);
-  }, []);
-
-  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    setLoading(true);
-    setMessage("");
-
-    const form = e.currentTarget;
-    const formData = new FormData(form);
-
-    const payload = {
-      full_name: String(formData.get("full_name") || ""),
-      email: String(formData.get("email") || ""),
-      phone: String(formData.get("phone") || ""),
-      brokerage: String(formData.get("brokerage") || ""),
-      market_area: String(formData.get("market_area") || ""),
-      challenge: String(formData.get("challenge") || ""),
-      timeline: String(formData.get("timeline") || ""),
-      monthly_revenue: String(formData.get("monthly_revenue") || ""),
-      website: String(formData.get("website") || ""),
-      turnstileToken: String(formData.get("cf-turnstile-response") || ""),
-    };
-
-    const res = await fetch("/api/leads", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload),
-    });
-
-    if (!res.ok) {
-      const data = (await res.json().catch(() => null)) as { error?: string } | null;
-      setMessage(data?.error || "Something went wrong. Please try again.");
-      setLoading(false);
-      return;
-    }
-
-    setMessage("Thanks — redirecting you to book your audit now...");
-    window.gtag?.("event", "lead_form_submit", {
-      event_category: "engagement",
-      event_label: "profit_audit_form",
-    });
-
-    form.reset();
-    if (TURNSTILE_SITE_KEY && window.turnstile) window.turnstile.reset();
-
-    setTimeout(() => {
-      window.gtag?.("event", "calendly_redirect", {
-        event_category: "conversion",
-        event_label: "profit_audit_redirect",
-      });
-      window.location.href =
-        process.env.NEXT_PUBLIC_CALENDLY_URL ||
-        "https://calendly.com/robopdesigns/profit-audit";
-    }, 800);
-
-    setLoading(false);
-  }
+  const { user, profile } = useAuth();
 
   return (
-    <main className="min-h-screen bg-black text-white">
-      <header className="border-b border-white/10">
-        <div className="mx-auto flex w-full max-w-6xl items-center justify-between px-6 py-4">
-          <div className="text-lg font-semibold tracking-[0.14em] uppercase">
-            Luxe Lead <span className="text-yellow-400">AI Pro</span>
-          </div>
-          <a href="#lead-form" className="rounded-xl bg-yellow-400 px-4 py-2 text-sm font-semibold text-black hover:bg-yellow-300">
-            Book Profit Audit
-          </a>
-        </div>
-      </header>
-
-      <section className="mx-auto w-full max-w-6xl px-6 py-20">
-        <p className="mb-4 inline-block rounded-full border border-yellow-400/40 bg-yellow-400/10 px-3 py-1 text-xs font-medium text-yellow-300">
-          Built for Luxury Real Estate Agents
-        </p>
-        <h1 className="max-w-4xl text-4xl font-bold leading-tight md:text-6xl">
-          Add 10-20 Qualified Luxury Leads Per Month Without Hiring More Staff
-        </h1>
-        <p className="mt-6 max-w-2xl text-lg text-white/80">
-          We install AI-driven nurture, follow-up, and pipeline systems that help high-end agents convert more opportunities into closings.
-        </p>
-
-        <div className="mt-8 flex flex-wrap gap-4">
-          <a href="#lead-form" className="rounded-xl bg-yellow-400 px-6 py-3 font-semibold text-black hover:bg-yellow-300">
-            Get My Free Profit Audit
-          </a>
-          <a href="#pricing" className="rounded-xl border border-white/20 px-6 py-3 font-semibold text-white hover:bg-white/10">
-            View Pricing
-          </a>
-        </div>
-
-        <p className="mt-4 text-sm text-white/60">No long-term contracts. Implementation support included.</p>
-      </section>
-
-      <section className="mx-auto w-full max-w-6xl px-6 pb-14">
-        <p className="mb-4 text-xs uppercase tracking-[0.2em] text-white/50">Trusted workflow stack</p>
-        <div className="grid gap-3 sm:grid-cols-2 md:grid-cols-4">
-          {[
-            "✦ Supabase Secure Data",
-            "✦ Calendly Scheduling",
-            "✦ Cloudflare Turnstile",
-            "✦ Vercel Global Hosting",
-          ].map((item) => (
-            <div key={item} className="rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-center text-sm text-white/80 transition hover:-translate-y-0.5 hover:border-yellow-400/40 hover:bg-white/[0.08]">
-              {item}
+    <>
+      <Header />
+      <main className="bg-neutral-950">
+        {/* Hero Section */}
+        <section className="px-4 py-20 md:py-32 bg-gradient-to-b from-neutral-900 to-neutral-950">
+          <div className="max-w-4xl mx-auto text-center">
+            <div className="inline-block mb-6">
+              <span className="px-4 py-2 bg-yellow-500/10 border border-yellow-500/30 rounded-full text-yellow-400 text-sm font-medium">
+                ✨ AI-Powered Lead Management
+              </span>
             </div>
-          ))}
-        </div>
-      </section>
+            <h1 className="text-5xl md:text-7xl font-display font-bold text-white mb-6 leading-tight">
+              Automate Your Luxury{" "}
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-yellow-600">
+                Real Estate Pipeline
+              </span>
+            </h1>
+            <p className="text-xl text-neutral-300 mb-8 max-w-2xl mx-auto">
+              AI-powered lead management for luxury real estate agents. Automate
+              nurture, follow-up, and pipeline workflows to close more high-end deals
+              effortlessly.
+            </p>
 
-      <div className="mx-auto h-px w-full max-w-6xl bg-gradient-to-r from-transparent via-yellow-400/50 to-transparent" />
+            {/* CTA Buttons */}
+            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
+              {user && profile ? (
+                <>
+                  <Link
+                    href={profile.role === "manager" ? "/manager" : "/agent"}
+                    className="px-8 py-4 bg-yellow-500 text-neutral-950 font-bold text-lg rounded-lg hover:bg-yellow-400 transition inline-block"
+                  >
+                    Go to Dashboard
+                  </Link>
+                  <Link
+                    href="/pricing"
+                    className="px-8 py-4 border border-neutral-700 text-white font-bold text-lg rounded-lg hover:bg-neutral-900 transition inline-block"
+                  >
+                    View Pricing
+                  </Link>
+                </>
+              ) : (
+                <>
+                  <Link
+                    href="/manager/login"
+                    className="px-8 py-4 bg-yellow-500 text-neutral-950 font-bold text-lg rounded-lg hover:bg-yellow-400 transition inline-block"
+                  >
+                    Login for Managers
+                  </Link>
+                  <Link
+                    href="/agent/login"
+                    className="px-8 py-4 border border-neutral-700 text-white font-bold text-lg rounded-lg hover:bg-neutral-900 transition inline-block"
+                  >
+                    Login for Agents
+                  </Link>
+                </>
+              )}
+            </div>
 
-      <section className="mx-auto grid w-full max-w-6xl gap-4 px-6 pb-20 pt-10 md:grid-cols-3">
-        {["30–50% more consult/showing bookings", "20–40% more closings in 60–90 days", "Zero compliance-risk workflow setup"].map((item) => (
-          <div key={item} className="rounded-2xl border border-white/10 bg-white/5 p-6 text-white/90 transition hover:-translate-y-1 hover:border-yellow-400/40 hover:bg-white/[0.08]">
-            {item}
+            {/* New Agent? CTA */}
+            {!user && (
+              <p className="text-neutral-400">
+                New to LuxeLead?{" "}
+                <Link
+                  href="/agent/signup"
+                  className="text-yellow-400 hover:text-yellow-300 font-semibold transition"
+                >
+                  Create an agent account
+                </Link>
+              </p>
+            )}
           </div>
-        ))}
-      </section>
+        </section>
 
-      <div className="mx-auto h-px w-full max-w-6xl bg-gradient-to-r from-transparent via-yellow-400/35 to-transparent" />
+        {/* Features Section */}
+        <section className="px-4 py-20 border-b border-neutral-800">
+          <div className="max-w-6xl mx-auto">
+            <div className="text-center mb-16">
+              <h2 className="text-4xl font-display font-bold text-white mb-4">
+                Luxury Lead Management Made Simple
+              </h2>
+              <p className="text-neutral-400 text-lg">
+                Everything you need to convert more luxury real estate leads
+              </p>
+            </div>
 
-      <section className="border-y border-white/10 bg-white/5 py-20">
-        <div className="mx-auto w-full max-w-6xl px-6">
-          <h2 className="text-3xl font-bold md:text-4xl">Client Results</h2>
-          <div className="mt-8 grid gap-6 md:grid-cols-3">
-            {[
-              {
-                quote:
-                  "We stopped losing high-intent buyers between inquiry and consult. The consistency alone changed our quarter.",
-                author: "Top-Producing Team Lead, Chicago",
-              },
-              {
-                quote:
-                  "Our pipeline now feels curated, not chaotic. Follow-up happens on time, every time.",
-                author: "Luxury Broker Associate, Miami",
-              },
-              {
-                quote:
-                  "The system respects brand voice and compliance while still moving fast. Exactly what our market needed.",
-                author: "Principal Agent, Orange County",
-              },
-            ].map((item) => (
-              <div key={item.quote} className="rounded-2xl border border-white/10 bg-black/40 p-6 text-white/85">
-                <p className="leading-relaxed">“{item.quote}”</p>
-                <p className="mt-4 text-sm uppercase tracking-[0.12em] text-yellow-300/90">{item.author}</p>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {/* Feature 1 */}
+              <div className="bg-neutral-900 border border-neutral-800 rounded-lg p-8 hover:border-yellow-500/50 transition">
+                <div className="w-12 h-12 bg-yellow-500/20 rounded-lg flex items-center justify-center mb-4">
+                  <svg
+                    className="w-6 h-6 text-yellow-400"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M13 10V3L4 14h7v7l9-11h-7z"
+                    />
+                  </svg>
+                </div>
+                <h3 className="text-xl font-semibold text-white mb-3">
+                  AI-Powered Automation
+                </h3>
+                <p className="text-neutral-400">
+                  Automatically follow up with leads, qualify prospects, and schedule
+                  appointments 24/7.
+                </p>
               </div>
-            ))}
+
+              {/* Feature 2 */}
+              <div className="bg-neutral-900 border border-neutral-800 rounded-lg p-8 hover:border-yellow-500/50 transition">
+                <div className="w-12 h-12 bg-yellow-500/20 rounded-lg flex items-center justify-center mb-4">
+                  <svg
+                    className="w-6 h-6 text-yellow-400"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
+                    />
+                  </svg>
+                </div>
+                <h3 className="text-xl font-semibold text-white mb-3">
+                  Real-Time Analytics
+                </h3>
+                <p className="text-neutral-400">
+                  Track conversion rates, lead sources, and agent performance with
+                  detailed dashboards.
+                </p>
+              </div>
+
+              {/* Feature 3 */}
+              <div className="bg-neutral-900 border border-neutral-800 rounded-lg p-8 hover:border-yellow-500/50 transition">
+                <div className="w-12 h-12 bg-yellow-500/20 rounded-lg flex items-center justify-center mb-4">
+                  <svg
+                    className="w-6 h-6 text-yellow-400"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
+                    />
+                  </svg>
+                </div>
+                <h3 className="text-xl font-semibold text-white mb-3">
+                  Enterprise Security
+                </h3>
+                <p className="text-neutral-400">
+                  Bank-level encryption and compliance for luxury client data
+                  protection.
+                </p>
+              </div>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      <section className="mx-auto w-full max-w-6xl px-6 py-20">
-        <h2 className="text-3xl font-bold md:text-4xl">Featured Case Studies</h2>
-        <div className="mt-8 grid gap-6 md:grid-cols-3">
-          <div className="rounded-2xl border border-white/10 bg-white/5 p-6">
-            <p className="text-xs uppercase tracking-[0.12em] text-yellow-300">Luxury Team — Chicago</p>
-            <p className="mt-3 text-2xl font-bold">+41% Consult Rate</p>
-            <p className="mt-2 text-white/75">Rebuilt inquiry-to-consult follow-up with AI cadence and qualification tagging.</p>
+        {/* CTA Section */}
+        <section className="px-4 py-20">
+          <div className="max-w-4xl mx-auto bg-gradient-to-r from-yellow-500 to-yellow-600 rounded-2xl p-12 text-center">
+            <h2 className="text-4xl font-display font-bold text-neutral-950 mb-4">
+              Ready to Transform Your Business?
+            </h2>
+            <p className="text-neutral-900 text-lg mb-8">
+              Join luxury real estate teams closing more deals with AI-powered lead
+              management.
+            </p>
+            {!user ? (
+              <Link
+                href="/agent/signup"
+                className="inline-block px-8 py-4 bg-neutral-950 text-yellow-400 font-bold text-lg rounded-lg hover:bg-neutral-900 transition"
+              >
+                Start Your Free Trial
+              </Link>
+            ) : (
+              <Link
+                href="/pricing"
+                className="inline-block px-8 py-4 bg-neutral-950 text-yellow-400 font-bold text-lg rounded-lg hover:bg-neutral-900 transition"
+              >
+                View Pricing Plans
+              </Link>
+            )}
           </div>
-          <div className="rounded-2xl border border-white/10 bg-white/5 p-6">
-            <p className="text-xs uppercase tracking-[0.12em] text-yellow-300">Broker Associate — Miami</p>
-            <p className="mt-3 text-2xl font-bold">+27% Close Rate</p>
-            <p className="mt-2 text-white/75">Implemented structured nurture sequences to reduce pipeline leakage across warm leads.</p>
-          </div>
-          <div className="rounded-2xl border border-white/10 bg-white/5 p-6">
-            <p className="text-xs uppercase tracking-[0.12em] text-yellow-300">Principal Agent — OC</p>
-            <p className="mt-3 text-2xl font-bold">8 hrs/week Saved</p>
-            <p className="mt-2 text-white/75">Deployed compliance-first automations for follow-up, reminders, and lead routing.</p>
-          </div>
-        </div>
-      </section>
-
-      <section className="border-y border-white/10 bg-white/5 py-20">
-        <div className="mx-auto w-full max-w-6xl px-6">
-          <h2 className="text-3xl font-bold md:text-4xl">How It Works</h2>
-          <div className="mt-8 grid gap-6 md:grid-cols-3">
-            <div className="rounded-2xl border border-white/10 p-6"><p className="mb-2 text-sm text-yellow-300">Step 01</p><h3 className="text-xl font-semibold">Connect Your Pipeline</h3><p className="mt-2 text-white/75">We map your lead flow and bottlenecks.</p></div>
-            <div className="rounded-2xl border border-white/10 p-6"><p className="mb-2 text-sm text-yellow-300">Step 02</p><h3 className="text-xl font-semibold">Activate AI Workflows</h3><p className="mt-2 text-white/75">Nurture, content, and compliance automation go live.</p></div>
-            <div className="rounded-2xl border border-white/10 p-6"><p className="mb-2 text-sm text-yellow-300">Step 03</p><h3 className="text-xl font-semibold">Track + Close</h3><p className="mt-2 text-white/75">Convert more opportunities consistently.</p></div>
-          </div>
-        </div>
-      </section>
-
-      <section className="mx-auto w-full max-w-6xl px-6 pb-4">
-        <div className="rounded-2xl border border-yellow-400/40 bg-yellow-400/10 p-6 text-sm text-yellow-100">
-          <p className="font-semibold">Premium Positioning Promise</p>
-          <p className="mt-1 text-yellow-100/90">You get a tailored, compliance-conscious system built around your market, brand voice, and follow-up style — not a generic template.</p>
-        </div>
-      </section>
-
-      <section id="pricing" className="mx-auto w-full max-w-6xl px-6 py-20">
-        <h2 className="text-3xl font-bold md:text-4xl">Simple Pricing</h2>
-        <div className="mt-8 max-w-xl rounded-3xl border border-yellow-400/40 bg-yellow-400/10 p-8">
-          <p className="text-sm uppercase tracking-widest text-yellow-300">Signature Tier</p>
-          <p className="mt-2 text-4xl font-bold">$249/mo</p>
-          <p className="mt-2 text-white/80">+ one-time setup fee: $249</p>
-          <ul className="mt-6 space-y-2 text-white/90">
-            <li>• Onboarding + custom workflow config</li><li>• Lead nurture automation</li><li>• Compliance-first setup</li><li>• Pipeline visibility support</li>
-          </ul>
-          <a href="#lead-form" className="mt-8 inline-block rounded-xl bg-yellow-400 px-6 py-3 font-semibold text-black hover:bg-yellow-300">Start With Free Audit</a>
-        </div>
-      </section>
-
-      <section id="lead-form" className="border-y border-white/10 bg-white/5 py-20">
-        <div className="mx-auto w-full max-w-3xl px-6">
-          <h2 className="text-3xl font-bold md:text-4xl">Request Your Free Profit Audit</h2>
-          <p className="mt-3 text-white/75">Quick qualification helps us tailor your plan before the call.</p>
-
-          <form onSubmit={handleSubmit} className="mt-8 space-y-4">
-            <input name="full_name" required placeholder="Full Name" className="w-full rounded-xl border border-white/20 bg-black/40 px-4 py-3 outline-none focus:border-yellow-400" />
-            <input name="email" type="email" required placeholder="Email" className="w-full rounded-xl border border-white/20 bg-black/40 px-4 py-3 outline-none focus:border-yellow-400" />
-            <input name="phone" placeholder="Phone" className="w-full rounded-xl border border-white/20 bg-black/40 px-4 py-3 outline-none focus:border-yellow-400" />
-            <input name="brokerage" placeholder="Brokerage / Team" className="w-full rounded-xl border border-white/20 bg-black/40 px-4 py-3 outline-none focus:border-yellow-400" />
-            <input name="market_area" placeholder="Market / Area" className="w-full rounded-xl border border-white/20 bg-black/40 px-4 py-3 outline-none focus:border-yellow-400" />
-
-            <select name="timeline" required className="w-full rounded-xl border border-white/20 bg-black/40 px-4 py-3 outline-none focus:border-yellow-400">
-              <option value="">When do you want this live?</option>
-              <option value="asap">ASAP (0-30 days)</option>
-              <option value="30-60">30-60 days</option>
-              <option value="60-plus">60+ days</option>
-            </select>
-
-            <select name="monthly_revenue" required className="w-full rounded-xl border border-white/20 bg-black/40 px-4 py-3 outline-none focus:border-yellow-400">
-              <option value="">Current monthly GCI range?</option>
-              <option value="under-10k">Under $10k</option>
-              <option value="10k-25k">$10k-$25k</option>
-              <option value="25k-50k">$25k-$50k</option>
-              <option value="50k-plus">$50k+</option>
-            </select>
-
-            <textarea name="challenge" rows={4} placeholder="Biggest challenge right now" className="w-full rounded-xl border border-white/20 bg-black/40 px-4 py-3 outline-none focus:border-yellow-400" />
-            <input type="text" name="website" tabIndex={-1} autoComplete="off" className="hidden" aria-hidden="true" />
-
-            {TURNSTILE_SITE_KEY && <div className="cf-turnstile" data-sitekey={TURNSTILE_SITE_KEY} data-theme="dark" />}
-
-            <button type="submit" disabled={loading} className="rounded-xl bg-yellow-400 px-6 py-3 font-semibold text-black hover:bg-yellow-300 disabled:opacity-60">
-              {loading ? "Securing your audit slot..." : "Submit & Continue to Priority Booking"}
-            </button>
-
-            {message && <p className="text-sm text-yellow-300">{message}</p>}
-            <p className="text-xs text-white/60">Takes 45 seconds. You’ll be redirected to choose your best call time.</p>
-            <p className="text-xs text-white/60">By submitting, you agree to our <a href="/privacy" className="text-yellow-300 hover:text-yellow-200">Privacy Policy</a> and <a href="/terms" className="text-yellow-300 hover:text-yellow-200">Terms of Service</a>.</p>
-          </form>
-        </div>
-      </section>
-
-      <section className="mx-auto w-full max-w-6xl px-6 py-20">
-        <div className="rounded-3xl border border-white/10 bg-white/5 p-8">
-          <p className="text-xs uppercase tracking-[0.12em] text-yellow-300">Operator-Led Implementation</p>
-          <h2 className="mt-3 text-3xl font-bold md:text-4xl">Built by Practitioners, Not Template Sellers</h2>
-          <p className="mt-4 max-w-3xl text-white/75">Every deployment is customized to your market, lead profile, and compliance constraints. You work directly with an operator who owns outcomes, not a handoff queue.</p>
-        </div>
-      </section>
-
-      <section className="mx-auto w-full max-w-6xl px-6 py-20">
-        <h2 className="text-3xl font-bold md:text-4xl">Frequently Asked Questions</h2>
-        <p className="mt-3 max-w-3xl text-white/70">Clear answers before you book — concise, strategic, and tailored to serious agents.</p>
-        <div className="mt-8 grid gap-4">
-          <div className="rounded-2xl border border-white/10 bg-white/5 p-6">
-            <h3 className="text-lg font-semibold">How fast can this go live?</h3>
-            <p className="mt-2 text-white/75">Most agents are live in 7-14 days depending on CRM and workflow complexity.</p>
-          </div>
-          <div className="rounded-2xl border border-white/10 bg-white/5 p-6">
-            <h3 className="text-lg font-semibold">Will this work with my current process?</h3>
-            <p className="mt-2 text-white/75">Yes. We adapt around your existing pipeline, scripts, and compliance requirements.</p>
-          </div>
-          <div className="rounded-2xl border border-white/10 bg-white/5 p-6">
-            <h3 className="text-lg font-semibold">What happens on the free audit call?</h3>
-            <p className="mt-2 text-white/75">We identify pipeline leaks, estimate upside, and give you a clear implementation plan.</p>
-          </div>
-        </div>
-      </section>
-
-      <div className="fixed bottom-6 right-6 z-40 hidden md:block">
-        <a
-          href="#lead-form"
-          className="rounded-xl bg-yellow-400 px-5 py-3 text-sm font-semibold text-black shadow-[0_10px_35px_rgba(250,204,21,0.35)] transition hover:-translate-y-0.5 hover:bg-yellow-300"
-        >
-          Book Priority Audit
-        </a>
-      </div>
-
-      <div className="fixed inset-x-0 bottom-0 z-40 border-t border-white/10 bg-black/90 p-3 backdrop-blur md:hidden">
-        <a
-          href="#lead-form"
-          className="block w-full rounded-xl bg-yellow-400 px-4 py-3 text-center text-sm font-semibold text-black"
-        >
-          Get My Free Profit Audit
-        </a>
-      </div>
-
-      <footer className="border-t border-white/10 pb-20 md:pb-0">
-        <div className="mx-auto flex w-full max-w-6xl flex-col gap-3 px-6 py-8 text-sm text-white/60 md:flex-row md:items-center md:justify-between">
-          <p>© {new Date().getFullYear()} Luxe Lead AI Pro. All rights reserved.</p>
-          <div className="flex items-center gap-4"><a href="/privacy" className="hover:text-white">Privacy</a><a href="/terms" className="hover:text-white">Terms</a><a href="mailto:robopdesigns@gmail.com" className="hover:text-white">Contact</a></div>
-        </div>
-      </footer>
-    </main>
+        </section>
+      </main>
+      <Footer />
+    </>
   );
 }
