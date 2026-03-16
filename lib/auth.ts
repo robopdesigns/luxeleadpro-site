@@ -121,8 +121,9 @@ export const auth = {
         .single();
 
       return { user: data.user, profile, error: null };
-    } catch (error) {
-      return { user: null, profile: null, error };
+    } catch (error: any) {
+      const errorMessage = error?.message || "Login failed";
+      return { user: null, profile: null, error: errorMessage };
     }
   },
 

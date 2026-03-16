@@ -32,7 +32,7 @@ export default function ManagerLoginPage() {
       const result = await auth.login(formData.email, formData.password);
 
       if (result.error) {
-        setError(typeof result.error === 'string' ? result.error : "Failed to login");
+        setError(result.error);
         setLoading(false);
         return;
       }
