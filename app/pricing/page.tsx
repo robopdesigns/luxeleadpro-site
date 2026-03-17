@@ -16,10 +16,10 @@ export default function PricingPage() {
         <section className="px-4 py-20 border-b border-neutral-800">
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="text-5xl font-display font-bold text-white mb-4">
-              Simple, Transparent Pricing
+              Luxury Pricing for Luxury Results
             </h1>
             <p className="text-xl text-neutral-400">
-              Choose the plan that fits your real estate business
+              Premium features at transparent pricing. Built for $1M+ luxury real estate markets.
             </p>
           </div>
         </section>
@@ -38,7 +38,7 @@ export default function PricingPage() {
                     Perfect for solo agents
                   </p>
                   <div className="mb-6">
-                    <span className="text-5xl font-bold text-white">$99</span>
+                    <span className="text-5xl font-bold text-white">$199</span>
                     <span className="text-neutral-400 ml-2">/month per agent</span>
                   </div>
                   <button className="w-full px-6 py-3 bg-yellow-500 text-neutral-950 font-semibold rounded-lg hover:bg-yellow-400 transition">
@@ -138,7 +138,7 @@ export default function PricingPage() {
                     For established offices
                   </p>
                   <div className="mb-6">
-                    <span className="text-5xl font-bold text-white">$499</span>
+                    <span className="text-5xl font-bold text-white">$799</span>
                     <span className="text-neutral-400 ml-2">/month unlimited agents</span>
                   </div>
                   <button className="w-full px-6 py-3 bg-yellow-500 text-neutral-950 font-semibold rounded-lg hover:bg-yellow-400 transition">
