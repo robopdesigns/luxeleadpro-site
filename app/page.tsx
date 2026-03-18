@@ -67,19 +67,56 @@ export default function HomePage() {
               </p>
             </div>
 
-            {/* Right: Image/Visual */}
+            {/* Right: Dashboard Preview */}
             <div className="hidden lg:block">
-              <div className="bg-gradient-to-br from-amber-100 to-amber-50 rounded-2xl p-8 border-2 border-amber-200">
-                <div className="bg-white rounded-xl p-6 shadow-lg">
-                  <h3 className="font-serif text-2xl font-bold text-gray-900 mb-4">Your AI Command Center</h3>
-                  <div className="space-y-3">
-                    <div className="bg-gray-100 rounded-lg p-3 h-8"></div>
-                    <div className="grid grid-cols-2 gap-2">
-                      <div className="bg-gray-100 rounded-lg p-3 h-20"></div>
-                      <div className="bg-gray-100 rounded-lg p-3 h-20"></div>
+              <div className="bg-gradient-to-br from-amber-100 to-amber-50 rounded-2xl p-6 border-2 border-amber-200 shadow-xl">
+                <div className="bg-gradient-to-br from-gray-900 to-gray-800 rounded-xl p-6 text-white">
+                  <h3 className="font-serif text-lg font-bold mb-4">🤖 Your AI Command Center</h3>
+                  
+                  {/* Top Stats */}
+                  <div className="grid grid-cols-3 gap-2 mb-4">
+                    <div className="bg-gray-700 rounded-lg p-3">
+                      <div className="text-xs text-gray-400">Hot Leads</div>
+                      <div className="text-2xl font-bold text-amber-500">12</div>
                     </div>
-                    <div className="bg-gray-100 rounded-lg p-3 h-12"></div>
+                    <div className="bg-gray-700 rounded-lg p-3">
+                      <div className="text-xs text-gray-400">Conv. Rate</div>
+                      <div className="text-2xl font-bold text-green-500">8.2%</div>
+                    </div>
+                    <div className="bg-gray-700 rounded-lg p-3">
+                      <div className="text-xs text-gray-400">Revenue</div>
+                      <div className="text-2xl font-bold text-blue-500">$2.8M</div>
+                    </div>
                   </div>
+
+                  {/* Lead List */}
+                  <div className="space-y-2 mb-4">
+                    <div className="text-xs font-semibold text-gray-400 mb-2">TODAY'S TOP LEADS</div>
+                    {[
+                      { name: 'Sarah Johnson', score: 92, status: 'Hot' },
+                      { name: 'Michael Chen', score: 78, status: 'Warm' },
+                      { name: 'Elizabeth Brown', score: 65, status: 'Cool' },
+                    ].map((lead, i) => (
+                      <div key={i} className="bg-gray-700 rounded-lg p-2 flex justify-between items-center">
+                        <div>
+                          <div className="text-sm font-medium">{lead.name}</div>
+                          <div className="text-xs text-gray-400">Score: {lead.score}</div>
+                        </div>
+                        <span className={`text-xs font-bold px-2 py-1 rounded ${
+                          lead.status === 'Hot' ? 'bg-red-500' :
+                          lead.status === 'Warm' ? 'bg-amber-500' :
+                          'bg-blue-500'
+                        }`}>
+                          {lead.status}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* AI Briefing Button */}
+                  <button className="w-full bg-amber-600 hover:bg-amber-700 text-white font-semibold py-2 rounded-lg text-sm transition">
+                    📊 View Daily AI Briefing
+                  </button>
                 </div>
               </div>
             </div>
