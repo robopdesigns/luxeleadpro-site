@@ -1,167 +1,295 @@
 'use client';
 
 import React, { useState } from 'react';
-import Link from 'next/link';
 
-export default function MobileHome() {
-  const [userType] = useState<'agent' | 'manager'>('agent');
+export default function LuxeLeadProMobileApp() {
+  const [activeTab, setActiveTab] = useState('home');
+  const [userType] = useState('agent');
 
-  // Sample hot leads for today
+  // Sample data
   const hotLeads = [
-    { id: 1, name: 'Sarah Johnson', score: 92, budget: '$3.5M', action: 'Call NOW' },
-    { id: 2, name: 'Michael Chen', score: 78, budget: '$2.8M', action: 'Email' },
-    { id: 3, name: 'Elizabeth Brown', score: 65, budget: '$2.2M', action: 'Follow-up' },
+    { id: 1, name: 'Sarah Johnson', score: 92, budget: '$3.5M', status: 'hot', neighborhood: 'Gold Coast', days: 1 },
+    { id: 2, name: 'Michael Chen', score: 78, budget: '$2.8M', status: 'warm', neighborhood: 'Lincoln Park', days: 3 },
+    { id: 3, name: 'Elizabeth Brown', score: 65, budget: '$2.2M', status: 'cool', neighborhood: 'Naperville', days: 5 },
   ];
 
-  const managerStats = [
-    { label: 'Team MRR', value: '$15,000', color: 'text-green-600' },
-    { label: 'Active Customers', value: '5', color: 'text-blue-600' },
-    { label: 'Top Agent', value: 'John Smith', color: 'text-amber-600' },
-  ];
+  const briefing = {
+    date: 'Wed, Mar 18',
+    topLead: { name: 'Sarah Johnson', score: 92, reason: 'New buyer + $3.5M budget + active last 24h' },
+    marketUpdate: 'Luxury inventory down 8% YoY in premium neighborhoods. Urgency: HIGH',
+    action: 'Follow up with top 3 leads today for best conversion rate'
+  };
+
+  const marketData = {
+    neighborhood: 'Gold Coast',
+    listings: 234,
+    avgPrice: '$3.2M',
+    daysOnMarket: 28,
+    trend: '-12%',
+    buyerProfile: 'C-suite execs, foreign investors, established professionals'
+  };
 
   return (
-    <div className="min-h-screen bg-white pb-20">
+    <div className="min-h-screen bg-gradient-to-b from-white to-gray-50" style={{ paddingBottom: '80px' }}>
       {/* Header */}
-      <header className="bg-gradient-to-r from-amber-600 to-amber-500 text-white sticky top-0 z-50 px-4 py-6 rounded-b-2xl shadow-lg">
-        <div className="flex justify-between items-center">
+      <div className="sticky top-0 z-50 bg-gradient-to-r from-amber-600 to-amber-500 text-white px-4 py-4 shadow-lg">
+        <div className="flex justify-between items-center max-w-md mx-auto">
           <div>
-            <h1 className="text-2xl font-bold">LuxeLeadPro</h1>
-            <p className="text-sm text-amber-100">Mobile App</p>
+            <h1 className="text-2xl font-bold font-serif">LuxeLeadPro</h1>
+            <p className="text-xs text-amber-100">AI Lead Scoring</p>
           </div>
-          <div className="text-right">
-            <p className="text-xs text-amber-100">Wed, Mar 18</p>
-            <p className="text-lg font-bold">11:26 AM</p>
+          <div className="text-right text-sm">
+            <p className="text-amber-100">Wed, Mar 18</p>
+            <p className="font-bold">3:35 PM</p>
           </div>
         </div>
-      </header>
+      </div>
 
-      <main className="px-4 py-6 max-w-md mx-auto">
-        {/* Agent View */}
-        {userType === 'agent' && (
+      {/* Main Content */}
+      <div className="max-w-md mx-auto px-4 py-6">
+        
+        {/* HOME TAB */}
+        {activeTab === 'home' && (
           <>
             {/* Daily Briefing CTA */}
-            <Link href="/mobile/briefing" className="block mb-6 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-lg p-6 shadow-md hover:shadow-lg transition">
-              <div className="flex justify-between items-start">
-                <div>
-                  <h2 className="font-bold text-lg mb-1">📊 Your Daily Briefing</h2>
-                  <p className="text-sm text-blue-100">3 hot leads + market update</p>
-                </div>
-                <span className="text-2xl">→</span>
-              </div>
-            </Link>
-
-            {/* Hot Leads Section */}
-            <div className="mb-8">
-              <h2 className="text-xl font-bold text-gray-900 mb-4">🔥 Today's Hot Leads</h2>
-              <div className="space-y-3">
-                {hotLeads.map((lead) => (
-                  <Link 
-                    key={lead.id}
-                    href={`/mobile/leads/${lead.id}`}
-                    className="block bg-gray-50 rounded-lg p-4 border-l-4 border-amber-500 hover:bg-gray-100 transition"
-                  >
-                    <div className="flex justify-between items-start mb-2">
-                      <h3 className="font-semibold text-gray-900">{lead.name}</h3>
-                      <span className="bg-amber-600 text-white text-xs font-bold px-2 py-1 rounded-full">
-                        {lead.score}
-                      </span>
-                    </div>
-                    <p className="text-sm text-gray-600 mb-3">{lead.budget} budget</p>
-                    <div className="flex gap-2">
-                      <button className="flex-1 bg-green-500 text-white py-2 rounded font-semibold text-sm hover:bg-green-600 transition">
-                        📞 {lead.action}
-                      </button>
-                      <button className="flex-1 bg-blue-500 text-white py-2 rounded font-semibold text-sm hover:bg-blue-600 transition">
-                        ✉️ Email
-                      </button>
-                    </div>
-                  </Link>
-                ))}
-              </div>
-              <Link href="/mobile/leads" className="block mt-4 text-center text-amber-600 font-semibold hover:text-amber-700">
-                View All Leads →
-              </Link>
+            <div className="bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-xl p-6 mb-6 shadow-lg">
+              <h2 className="font-bold text-lg mb-2">📊 Your Daily Briefing</h2>
+              <p className="text-sm text-blue-100 mb-4">3 hot leads + market update</p>
+              <button 
+                onClick={() => setActiveTab('briefing')}
+                className="bg-white text-blue-600 px-4 py-2 rounded-lg font-semibold text-sm hover:bg-blue-50 transition"
+              >
+                View Now →
+              </button>
             </div>
 
-            {/* Quick Actions */}
-            <div className="mb-8">
-              <h2 className="text-lg font-bold text-gray-900 mb-4">Quick Actions</h2>
-              <div className="grid grid-cols-2 gap-3">
-                <button className="bg-blue-50 border-2 border-blue-200 rounded-lg p-4 text-center hover:bg-blue-100 transition">
-                  <div className="text-2xl mb-2">📋</div>
-                  <p className="text-sm font-semibold text-blue-900">My Contacts</p>
-                </button>
-                <button className="bg-purple-50 border-2 border-purple-200 rounded-lg p-4 text-center hover:bg-purple-100 transition">
-                  <div className="text-2xl mb-2">📊</div>
-                  <p className="text-sm font-semibold text-purple-900">Analytics</p>
-                </button>
-                <button className="bg-green-50 border-2 border-green-200 rounded-lg p-4 text-center hover:bg-green-100 transition">
-                  <div className="text-2xl mb-2">✅</div>
-                  <p className="text-sm font-semibold text-green-900">Compliance</p>
-                </button>
-                <button className="bg-orange-50 border-2 border-orange-200 rounded-lg p-4 text-center hover:bg-orange-100 transition">
-                  <div className="text-2xl mb-2">⚙️</div>
-                  <p className="text-sm font-semibold text-orange-900">Settings</p>
-                </button>
+            {/* Quick Stats */}
+            <div className="grid grid-cols-3 gap-3 mb-6">
+              <div className="bg-gradient-to-br from-green-50 to-green-100 rounded-lg p-4 text-center border border-green-200">
+                <p className="text-2xl font-bold text-green-600">3</p>
+                <p className="text-xs text-green-700 mt-1">Hot Leads</p>
+              </div>
+              <div className="bg-gradient-to-br from-amber-50 to-amber-100 rounded-lg p-4 text-center border border-amber-200">
+                <p className="text-2xl font-bold text-amber-600">8.2%</p>
+                <p className="text-xs text-amber-700 mt-1">Conversion</p>
+              </div>
+              <div className="bg-gradient-to-br from-purple-50 to-purple-100 rounded-lg p-4 text-center border border-purple-200">
+                <p className="text-2xl font-bold text-purple-600">$2.8M</p>
+                <p className="text-xs text-purple-700 mt-1">Total MRR</p>
               </div>
             </div>
-          </>
-        )}
 
-        {/* Manager View */}
-        {userType === 'manager' && (
-          <>
-            {/* Stats */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mb-6">
-              {managerStats.map((stat, i) => (
-                <div key={i} className="bg-gradient-to-br from-gray-50 to-gray-100 rounded-lg p-4 border border-gray-200">
-                  <p className="text-xs text-gray-600 mb-2">{stat.label}</p>
-                  <p className={`text-2xl font-bold ${stat.color}`}>{stat.value}</p>
+            {/* Today's Top Leads */}
+            <h2 className="font-bold text-lg text-gray-900 mb-4">🔥 Today's Hot Leads</h2>
+            <div className="space-y-3 mb-6">
+              {hotLeads.slice(0, 3).map((lead) => (
+                <div 
+                  key={lead.id}
+                  className="bg-white rounded-lg border-l-4 border-amber-500 p-4 shadow-sm hover:shadow-md transition"
+                >
+                  <div className="flex justify-between items-start mb-3">
+                    <div>
+                      <h3 className="font-bold text-gray-900">{lead.name}</h3>
+                      <p className="text-sm text-gray-600">{lead.neighborhood}</p>
+                    </div>
+                    <span className="bg-amber-600 text-white text-xs font-bold px-3 py-1 rounded-full">
+                      {lead.score}
+                    </span>
+                  </div>
+                  <p className="text-sm text-gray-600 mb-3">{lead.budget} budget</p>
+                  <div className="flex gap-2">
+                    <button className="flex-1 bg-green-500 text-white py-2 rounded font-semibold text-xs hover:bg-green-600 transition">
+                      📞 Call
+                    </button>
+                    <button className="flex-1 bg-blue-500 text-white py-2 rounded font-semibold text-xs hover:bg-blue-600 transition">
+                      ✉️ Email
+                    </button>
+                    <button className="flex-1 bg-gray-300 text-gray-900 py-2 rounded font-semibold text-xs hover:bg-gray-400 transition">
+                      📋 Details
+                    </button>
+                  </div>
                 </div>
               ))}
             </div>
+          </>
+        )}
 
-            {/* Team Dashboard */}
-            <div className="bg-white rounded-lg border border-gray-200 p-4 mb-6">
-              <h2 className="text-lg font-bold text-gray-900 mb-4">👥 Team Leaderboard</h2>
-              <div className="space-y-3">
-                {[
-                  { rank: 1, name: 'John Smith', deals: 12, commission: '$2,890' },
-                  { rank: 2, name: 'Sarah Johnson', deals: 8, commission: '$1,920' },
-                  { rank: 3, name: 'Mike Chen', deals: 5, commission: '$1,200' },
-                ].map((agent) => (
-                  <div key={agent.rank} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-                    <div className="flex items-center gap-3">
-                      <span className="text-2xl font-bold text-amber-600">#{agent.rank}</span>
-                      <div>
-                        <p className="font-semibold text-gray-900">{agent.name}</p>
-                        <p className="text-xs text-gray-600">{agent.deals} deals this month</p>
-                      </div>
-                    </div>
-                    <p className="font-bold text-green-600">{agent.commission}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Manager Actions */}
+        {/* LEADS TAB */}
+        {activeTab === 'leads' && (
+          <>
+            <h2 className="font-bold text-lg text-gray-900 mb-4">All Leads</h2>
             <div className="space-y-3">
-              <button className="w-full bg-amber-600 text-white py-3 rounded-lg font-semibold hover:bg-amber-700 transition">
-                📊 View Full Dashboard
-              </button>
-              <button className="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition">
-                💬 Message Team
-              </button>
+              {hotLeads.map((lead) => (
+                <div 
+                  key={lead.id}
+                  className={`bg-white rounded-lg p-4 border-l-4 ${
+                    lead.score >= 80 ? 'border-red-500' : lead.score >= 60 ? 'border-amber-500' : 'border-blue-500'
+                  } shadow-sm`}
+                >
+                  <div className="flex justify-between mb-2">
+                    <h3 className="font-bold text-gray-900">{lead.name}</h3>
+                    <span className={`text-xs font-bold px-2 py-1 rounded ${
+                      lead.score >= 80 ? 'bg-red-100 text-red-700' :
+                      lead.score >= 60 ? 'bg-amber-100 text-amber-700' :
+                      'bg-blue-100 text-blue-700'
+                    }`}>
+                      {lead.score}
+                    </span>
+                  </div>
+                  <p className="text-sm text-gray-600">{lead.neighborhood} • {lead.budget}</p>
+                </div>
+              ))}
             </div>
           </>
         )}
 
-        {/* Footer */}
-        <div className="mt-8 pt-8 border-t border-gray-200 text-center text-xs text-gray-500">
-          <p>LuxeLeadPro Mobile v1.0</p>
-          <p>Available offline • Push notifications enabled</p>
+        {/* BRIEFING TAB */}
+        {activeTab === 'briefing' && (
+          <>
+            <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-lg p-6 mb-6 border border-blue-200">
+              <h2 className="font-bold text-lg text-gray-900 mb-2">Daily AI Briefing</h2>
+              <p className="text-sm text-gray-600 mb-4">{briefing.date}</p>
+              
+              <div className="bg-white rounded-lg p-4 mb-4">
+                <h3 className="font-bold text-gray-900 mb-2">🎯 Top Lead Today</h3>
+                <p className="font-semibold text-amber-600 mb-1">{briefing.topLead.name}</p>
+                <p className="text-sm text-gray-600">{briefing.topLead.reason}</p>
+              </div>
+
+              <div className="bg-white rounded-lg p-4 mb-4">
+                <h3 className="font-bold text-gray-900 mb-2">📈 Market Update</h3>
+                <p className="text-sm text-gray-600">{briefing.marketUpdate}</p>
+              </div>
+
+              <div className="bg-white rounded-lg p-4">
+                <h3 className="font-bold text-gray-900 mb-2">✅ Action Item</h3>
+                <p className="text-sm text-gray-600">{briefing.action}</p>
+              </div>
+            </div>
+          </>
+        )}
+
+        {/* MARKET INTEL TAB */}
+        {activeTab === 'market' && (
+          <>
+            <h2 className="font-bold text-lg text-gray-900 mb-4">Market Intelligence</h2>
+            
+            <div className="bg-white rounded-lg p-6 mb-4 shadow-sm border border-gray-200">
+              <h3 className="font-bold text-gray-900 mb-4">{marketData.neighborhood}</h3>
+              
+              <div className="space-y-4">
+                <div className="flex justify-between items-center pb-3 border-b border-gray-200">
+                  <span className="text-sm text-gray-600">Active Listings</span>
+                  <span className="font-bold text-gray-900">{marketData.listings}</span>
+                </div>
+                
+                <div className="flex justify-between items-center pb-3 border-b border-gray-200">
+                  <span className="text-sm text-gray-600">Avg Price</span>
+                  <span className="font-bold text-gray-900">{marketData.avgPrice}</span>
+                </div>
+                
+                <div className="flex justify-between items-center pb-3 border-b border-gray-200">
+                  <span className="text-sm text-gray-600">Days on Market</span>
+                  <span className="font-bold text-gray-900">{marketData.daysOnMarket}</span>
+                </div>
+                
+                <div className="flex justify-between items-center pb-3 border-b border-gray-200">
+                  <span className="text-sm text-gray-600">Year-over-Year Trend</span>
+                  <span className="font-bold text-red-600">{marketData.trend}</span>
+                </div>
+                
+                <div>
+                  <span className="text-sm text-gray-600">Buyer Profile</span>
+                  <p className="font-semibold text-gray-900 mt-2">{marketData.buyerProfile}</p>
+                </div>
+              </div>
+            </div>
+          </>
+        )}
+
+        {/* COMPLIANCE TAB */}
+        {activeTab === 'compliance' && (
+          <>
+            <h2 className="font-bold text-lg text-gray-900 mb-4">Compliance Check</h2>
+            
+            <div className="bg-green-50 border border-green-200 rounded-lg p-6 mb-6">
+              <div className="flex items-center gap-3 mb-4">
+                <span className="text-3xl">✅</span>
+                <div>
+                  <p className="font-bold text-green-900">Compliance Clear</p>
+                  <p className="text-sm text-green-700">All leads verified</p>
+                </div>
+              </div>
+            </div>
+
+            <h3 className="font-bold text-gray-900 mb-3">DNC Status by Lead</h3>
+            <div className="space-y-2">
+              {hotLeads.map((lead) => (
+                <div key={lead.id} className="bg-white rounded-lg p-3 border border-gray-200 flex justify-between items-center">
+                  <span className="text-sm font-medium text-gray-900">{lead.name}</span>
+                  <span className="text-xs bg-green-100 text-green-700 px-2 py-1 rounded font-semibold">CLEAR</span>
+                </div>
+              ))}
+            </div>
+          </>
+        )}
+      </div>
+
+      {/* Bottom Navigation */}
+      <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 max-w-md mx-auto">
+        <div className="grid grid-cols-5 gap-0">
+          <button
+            onClick={() => setActiveTab('home')}
+            className={`py-4 text-center text-xs font-semibold transition ${
+              activeTab === 'home'
+                ? 'text-amber-600 border-t-2 border-amber-600'
+                : 'text-gray-600'
+            }`}
+          >
+            🏠 Home
+          </button>
+          <button
+            onClick={() => setActiveTab('leads')}
+            className={`py-4 text-center text-xs font-semibold transition ${
+              activeTab === 'leads'
+                ? 'text-amber-600 border-t-2 border-amber-600'
+                : 'text-gray-600'
+            }`}
+          >
+            📋 Leads
+          </button>
+          <button
+            onClick={() => setActiveTab('briefing')}
+            className={`py-4 text-center text-xs font-semibold transition ${
+              activeTab === 'briefing'
+                ? 'text-amber-600 border-t-2 border-amber-600'
+                : 'text-gray-600'
+            }`}
+          >
+            📊 Brief
+          </button>
+          <button
+            onClick={() => setActiveTab('market')}
+            className={`py-4 text-center text-xs font-semibold transition ${
+              activeTab === 'market'
+                ? 'text-amber-600 border-t-2 border-amber-600'
+                : 'text-gray-600'
+            }`}
+          >
+            📈 Market
+          </button>
+          <button
+            onClick={() => setActiveTab('compliance')}
+            className={`py-4 text-center text-xs font-semibold transition ${
+              activeTab === 'compliance'
+                ? 'text-amber-600 border-t-2 border-amber-600'
+                : 'text-gray-600'
+            }`}
+          >
+            ✅ Legal
+          </button>
         </div>
-      </main>
+      </div>
     </div>
   );
 }
