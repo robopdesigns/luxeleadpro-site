@@ -89,7 +89,7 @@ export default function AgentLoginPage() {
                 required
                 value={formData.email}
                 onChange={handleChange}
-                className="w-full px-4 py-3 bg-neutral-900 border border-neutral-700 rounded-lg text-white placeholder-neutral-500 focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition"
+                className="w-full px-4 py-3 bg-gray-50 border border-neutral-700 rounded-lg text-white placeholder-neutral-500 focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition"
                 placeholder="you@example.com"
               />
             </div>
@@ -161,4 +161,5 @@ export default function AgentLoginPage() {
 
  );
 }
+
 

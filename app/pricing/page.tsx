@@ -437,24 +437,24 @@ export default function PricingPage() {
 
         {/* Final CTA */}
         <section className="px-4 py-20">
-          <div className="max-w-4xl mx-auto bg-gradient-to-r from-neutral-900 to-neutral-800 border border-neutral-700 rounded-lg p-12 text-center">
-            <h2 className="text-3xl font-display font-bold text-gray-900 mb-4">
-              Ready to close more luxury deals?
+          <div className="max-w-4xl mx-auto bg-white border-2 border-purple-200 rounded-2xl p-12 text-center shadow-lg">
+            <h2 className="text-4xl font-display font-bold text-gray-900 mb-4">
+              Ready to Close 2x More Deals?
             </h2>
-            <p className="text-gray-700 mb-8">
-              Start your free trial today. No credit card required.
+            <p className="text-lg text-gray-600 mb-8">
+              Start your free 14-day trial today. No credit card required.
             </p>
             {!user ? (
               <Link
                 href="/agent/signup"
-                className="inline-block px-8 py-4 bg-purple-500 text-neutral-950 font-bold rounded-lg hover:bg-purple-400 transition"
+                className="inline-block px-8 py-4 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold rounded-lg hover:from-purple-700 hover:to-pink-700 transition shadow-md"
               >
                 Start Free Trial
               </Link>
             ) : (
               <Link
                 href={profile?.role === "manager" ? "/manager" : "/agent"}
-                className="inline-block px-8 py-4 bg-purple-500 text-neutral-950 font-bold rounded-lg hover:bg-purple-400 transition"
+                className="inline-block px-8 py-4 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold rounded-lg hover:from-purple-700 hover:to-pink-700 transition shadow-md"
               >
                 Go to Dashboard
               </Link>
@@ -466,5 +466,6 @@ export default function PricingPage() {
     </>
   );
 }
+
 
 

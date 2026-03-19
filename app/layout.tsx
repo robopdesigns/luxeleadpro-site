@@ -63,7 +63,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${playfair.variable} antialiased bg-neutral-950 text-white`}
+        className={`${geistSans.variable} ${geistMono.variable} ${playfair.variable} antialiased bg-white text-white`}
       >
         <AuthProvider>
           {process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID && (
@@ -89,4 +89,5 @@ export default function RootLayout({
     </html>
   );
 }
+
 

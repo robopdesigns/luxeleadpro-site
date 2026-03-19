@@ -53,7 +53,7 @@ export default function ManagerLoginPage() {
   return (
     <>
       <Header />
-      <div className="min-h-screen bg-neutral-950 flex items-center justify-center px-4 py-12">
+      <div className="min-h-screen bg-white flex items-center justify-center px-4 py-12">
         <div className="w-full max-w-md">
           {/* Logo */}
           <div className="text-center mb-8">
@@ -89,7 +89,7 @@ export default function ManagerLoginPage() {
                 required
                 value={formData.email}
                 onChange={handleChange}
-                className="w-full px-4 py-3 bg-neutral-900 border border-neutral-700 rounded-lg text-white placeholder-neutral-500 focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition"
+                className="w-full px-4 py-3 bg-gray-50 border border-neutral-700 rounded-lg text-white placeholder-neutral-500 focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition"
                 placeholder="manager@example.com"
               />
             </div>
@@ -105,7 +105,7 @@ export default function ManagerLoginPage() {
                 required
                 value={formData.password}
                 onChange={handleChange}
-                className="w-full px-4 py-3 bg-neutral-900 border border-neutral-700 rounded-lg text-white placeholder-neutral-500 focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition"
+                className="w-full px-4 py-3 bg-gray-50 border border-neutral-700 rounded-lg text-white placeholder-neutral-500 focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition"
                 placeholder="••••••••"
               />
             </div>
@@ -158,4 +158,5 @@ export default function ManagerLoginPage() {
     </>
   );
 }
+
 

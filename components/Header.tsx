@@ -105,13 +105,13 @@ export function Header() {
           <div className="md:hidden py-4 border-t border-neutral-800 space-y-2">
             <Link
               href="/"
-              className="block px-4 py-2 text-neutral-400 hover:text-purple-400 hover:bg-neutral-900 rounded"
+              className="block px-4 py-2 text-neutral-400 hover:text-purple-400 hover:bg-gray-50 rounded"
             >
               Home
             </Link>
             <Link
               href="/pricing"
-              className="block px-4 py-2 text-neutral-400 hover:text-purple-400 hover:bg-neutral-900 rounded"
+              className="block px-4 py-2 text-neutral-400 hover:text-purple-400 hover:bg-gray-50 rounded"
             >
               Pricing
             </Link>
@@ -119,13 +119,13 @@ export function Header() {
               <>
                 <Link
                   href={profile.role === "manager" ? "/manager" : "/agent"}
-                  className="block px-4 py-2 text-neutral-400 hover:text-purple-400 hover:bg-neutral-900 rounded"
+                  className="block px-4 py-2 text-neutral-400 hover:text-purple-400 hover:bg-gray-50 rounded"
                 >
                   Dashboard
                 </Link>
                 <button
                   onClick={handleLogout}
-                  className="w-full text-left px-4 py-2 text-neutral-400 hover:text-purple-400 hover:bg-neutral-900 rounded"
+                  className="w-full text-left px-4 py-2 text-neutral-400 hover:text-purple-400 hover:bg-gray-50 rounded"
                 >
                   Logout
                 </button>
@@ -134,13 +134,13 @@ export function Header() {
               <>
                 <Link
                   href="/agent/login"
-                  className="block px-4 py-2 text-neutral-400 hover:text-purple-400 hover:bg-neutral-900 rounded"
+                  className="block px-4 py-2 text-neutral-400 hover:text-purple-400 hover:bg-gray-50 rounded"
                 >
                   Agent Login
                 </Link>
                 <Link
                   href="/manager/login"
-                  className="block px-4 py-2 text-neutral-400 hover:text-purple-400 hover:bg-neutral-900 rounded"
+                  className="block px-4 py-2 text-neutral-400 hover:text-purple-400 hover:bg-gray-50 rounded"
                 >
                   Manager Login
                 </Link>
@@ -152,4 +152,5 @@ export function Header() {
     </header>
   );
 }
+
 

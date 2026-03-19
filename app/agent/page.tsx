@@ -11,7 +11,7 @@ function AgentDashboardContent() {
   return (
     <>
       <Header />
-      <div className="min-h-screen bg-neutral-950 px-4 py-12">
+      <div className="min-h-screen bg-white px-4 py-12">
         <div className="max-w-7xl mx-auto">
           {/* Header */}
           <div className="mb-12">
@@ -25,28 +25,28 @@ function AgentDashboardContent() {
 
           {/* Stats Grid */}
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-12">
-            <div className="bg-neutral-900 border border-neutral-800 rounded-lg p-6">
+            <div className="bg-gray-50 border border-neutral-800 rounded-lg p-6">
               <div className="text-neutral-400 text-sm font-medium mb-2">
                 Total Leads
               </div>
               <div className="text-3xl font-bold text-white">0</div>
               <div className="text-xs text-neutral-500 mt-2">This month</div>
             </div>
-            <div className="bg-neutral-900 border border-neutral-800 rounded-lg p-6">
+            <div className="bg-gray-50 border border-neutral-800 rounded-lg p-6">
               <div className="text-neutral-400 text-sm font-medium mb-2">
                 Follow-ups Due
               </div>
               <div className="text-3xl font-bold text-purple-500">0</div>
               <div className="text-xs text-neutral-500 mt-2">Urgent action</div>
             </div>
-            <div className="bg-neutral-900 border border-neutral-800 rounded-lg p-6">
+            <div className="bg-gray-50 border border-neutral-800 rounded-lg p-6">
               <div className="text-neutral-400 text-sm font-medium mb-2">
                 Appointments
               </div>
               <div className="text-3xl font-bold text-white">0</div>
               <div className="text-xs text-neutral-500 mt-2">Scheduled</div>
             </div>
-            <div className="bg-neutral-900 border border-neutral-800 rounded-lg p-6">
+            <div className="bg-gray-50 border border-neutral-800 rounded-lg p-6">
               <div className="text-neutral-400 text-sm font-medium mb-2">
                 Conversion Rate
               </div>
@@ -58,7 +58,7 @@ function AgentDashboardContent() {
           {/* Main Content */}
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             {/* Recent Leads */}
-            <div className="lg:col-span-2 bg-neutral-900 border border-neutral-800 rounded-lg p-6">
+            <div className="lg:col-span-2 bg-gray-50 border border-neutral-800 rounded-lg p-6">
               <h2 className="text-xl font-semibold text-white mb-6">
                 Recent Leads
               </h2>
@@ -71,7 +71,7 @@ function AgentDashboardContent() {
             </div>
 
             {/* Quick Actions */}
-            <div className="bg-neutral-900 border border-neutral-800 rounded-lg p-6">
+            <div className="bg-gray-50 border border-neutral-800 rounded-lg p-6">
               <h2 className="text-xl font-semibold text-white mb-6">
                 Quick Actions
               </h2>
@@ -90,7 +90,7 @@ function AgentDashboardContent() {
           </div>
 
           {/* Feature Callout */}
-          <div className="mt-12 bg-gradient-to-r from-neutral-900 to-neutral-800 border border-neutral-700 rounded-lg p-8">
+          <div className="mt-12 bg-gradient-to-r from-white to-gray-50 border border-neutral-700 rounded-lg p-8">
             <h3 className="text-2xl font-display font-semibold text-white mb-3">
               AI-Powered Lead Management
             </h3>
@@ -116,4 +116,5 @@ export default function AgentDashboardPage() {
     </ProtectedRoute>
   );
 }
+
 
