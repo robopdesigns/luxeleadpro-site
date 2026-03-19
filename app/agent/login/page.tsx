@@ -73,7 +73,7 @@ export default function AgentLoginPage() {
           {/* Form */}
           <form onSubmit={handleSubmit} className="space-y-6">
             {error && (
-              <div className="p-4 bg-red-950 border border-red-800 rounded-lg text-red-200 text-sm">
+              <div className="p-4 bg-red-100 border border-red-300 rounded-lg text-red-800 text-sm">
                 {error}
               </div>
             )}
@@ -157,5 +157,8 @@ export default function AgentLoginPage() {
       <Footer />
     </>
   );
+}
+
+ );
 }
 

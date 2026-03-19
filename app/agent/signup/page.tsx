@@ -71,17 +71,19 @@ export default function AgentSignupPage() {
   return (
     <>
       <Header />
-      <div className="min-h-screen bg-neutral-950 flex items-center justify-center px-4 py-12">
+      <div className="min-h-screen bg-white flex items-center justify-center px-4 py-12">
         <div className="w-full max-w-md">
           {/* Logo */}
           <div className="text-center mb-8">
-            <div className="w-12 h-12 bg-gradient-to-br from-purple-600 to-purple-700 rounded-lg flex items-center justify-center font-bold text-neutral-950 mx-auto mb-4">
-              ✨
-            </div>
-            <h1 className="text-3xl font-display font-semibold text-white">
+            <svg className="w-12 h-12 mx-auto mb-4" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="50" cy="50" r="48" fill="none" stroke="#7c3aed" strokeWidth="1.5" opacity="0.2"/>
+              <path d="M 35 65 L 50 35 L 65 65" fill="none" stroke="#7c3aed" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/>
+              <path d="M 50 35 L 50 65" fill="none" stroke="#d946ef" strokeWidth="2.5" strokeLinecap="round"/>
+            </svg>
+            <h1 className="text-3xl font-display font-semibold text-gray-900">
               Agent Sign Up
             </h1>
-            <p className="text-neutral-400 mt-2">
+            <p className="text-gray-600 mt-2">
               Create your lead management account
             </p>
           </div>
@@ -89,7 +91,7 @@ export default function AgentSignupPage() {
           {/* Form */}
           <form onSubmit={handleSubmit} className="space-y-4">
             {error && (
-              <div className="p-4 bg-red-950 border border-red-800 rounded-lg text-red-200 text-sm">
+              <div className="p-4 bg-red-100 border border-red-300 rounded-lg text-red-800 text-sm">
                 {error}
               </div>
             )}
@@ -106,7 +108,7 @@ export default function AgentSignupPage() {
                   required
                   value={formData.firstName}
                   onChange={handleChange}
-                  className="w-full px-4 py-2 bg-neutral-900 border border-neutral-700 rounded-lg text-white placeholder-neutral-500 focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition text-sm"
+                  className="w-full px-4 py-2 bg-white border border-gray-300 rounded-lg text-gray-900 placeholder-gray-500 focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition text-sm"
                   placeholder="John"
                 />
               </div>
@@ -121,7 +123,7 @@ export default function AgentSignupPage() {
                   required
                   value={formData.lastName}
                   onChange={handleChange}
-                  className="w-full px-4 py-2 bg-neutral-900 border border-neutral-700 rounded-lg text-white placeholder-neutral-500 focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition text-sm"
+                  className="w-full px-4 py-2 bg-white border border-gray-300 rounded-lg text-gray-900 placeholder-gray-500 focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition text-sm"
                   placeholder="Doe"
                 />
               </div>
@@ -138,7 +140,7 @@ export default function AgentSignupPage() {
                 required
                 value={formData.email}
                 onChange={handleChange}
-                className="w-full px-4 py-2 bg-neutral-900 border border-neutral-700 rounded-lg text-white placeholder-neutral-500 focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition text-sm"
+                className="w-full px-4 py-2 bg-white border border-gray-300 rounded-lg text-gray-900 placeholder-gray-500 focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition text-sm"
                 placeholder="you@example.com"
               />
             </div>
@@ -154,7 +156,7 @@ export default function AgentSignupPage() {
                 required
                 value={formData.officeName}
                 onChange={handleChange}
-                className="w-full px-4 py-2 bg-neutral-900 border border-neutral-700 rounded-lg text-white placeholder-neutral-500 focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition text-sm"
+                className="w-full px-4 py-2 bg-white border border-gray-300 rounded-lg text-gray-900 placeholder-gray-500 focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition text-sm"
                 placeholder="Your Real Estate Office"
               />
             </div>
@@ -169,7 +171,7 @@ export default function AgentSignupPage() {
                 type="tel"
                 value={formData.phone}
                 onChange={handleChange}
-                className="w-full px-4 py-2 bg-neutral-900 border border-neutral-700 rounded-lg text-white placeholder-neutral-500 focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition text-sm"
+                className="w-full px-4 py-2 bg-white border border-gray-300 rounded-lg text-gray-900 placeholder-gray-500 focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition text-sm"
                 placeholder="(555) 123-4567"
               />
             </div>
@@ -185,7 +187,7 @@ export default function AgentSignupPage() {
                 required
                 value={formData.password}
                 onChange={handleChange}
-                className="w-full px-4 py-2 bg-neutral-900 border border-neutral-700 rounded-lg text-white placeholder-neutral-500 focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition text-sm"
+                className="w-full px-4 py-2 bg-white border border-gray-300 rounded-lg text-gray-900 placeholder-gray-500 focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition text-sm"
                 placeholder="••••••••"
               />
               <p className="text-xs text-neutral-500 mt-1">At least 8 characters</p>
@@ -202,7 +204,7 @@ export default function AgentSignupPage() {
                 required
                 value={formData.confirmPassword}
                 onChange={handleChange}
-                className="w-full px-4 py-2 bg-neutral-900 border border-neutral-700 rounded-lg text-white placeholder-neutral-500 focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition text-sm"
+                className="w-full px-4 py-2 bg-white border border-gray-300 rounded-lg text-gray-900 placeholder-gray-500 focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition text-sm"
                 placeholder="••••••••"
               />
             </div>
@@ -210,7 +212,7 @@ export default function AgentSignupPage() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-3 bg-purple-500 text-neutral-950 font-semibold rounded-lg hover:bg-purple-400 transition disabled:opacity-50 disabled:cursor-not-allowed mt-6"
+              className="w-full py-3 bg-purple-500 text-gray-900 font-semibold rounded-lg hover:bg-purple-400 transition disabled:opacity-50 disabled:cursor-not-allowed mt-6"
             >
               {loading ? "Creating account..." : "Create Account"}
             </button>
@@ -218,7 +220,7 @@ export default function AgentSignupPage() {
 
           {/* Links */}
           <div className="mt-6 text-center text-sm">
-            <p className="text-neutral-400">
+            <p className="text-gray-600">
               Already have an account?{" "}
               <Link
                 href="/agent/login"
@@ -234,4 +236,5 @@ export default function AgentSignupPage() {
     </>
   );
 }
+
 

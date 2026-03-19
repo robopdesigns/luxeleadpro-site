@@ -242,17 +242,17 @@ export default function HomePage() {
       </section>
 
       {/* CTA Section */}
-      <section className="px-4 py-20 sm:py-32 bg-gradient-to-r from-purple-900 to-purple-800 text-white">
+      <section className="px-4 py-20 sm:py-32 bg-white">
         <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-5xl sm:text-6xl font-serif font-bold mb-6">
+          <h2 className="text-5xl sm:text-6xl font-serif font-bold mb-6 text-gray-900">
             Close 2x More Deals. Dominate Your Market.
           </h2>
-          <p className="text-xl text-purple-100 mb-8">
+          <p className="text-xl text-gray-600 mb-8">
             Luxury agents using LuxeLeadPro win deals before their competition even sees them.
           </p>
           <Link
             href="/agent/signup"
-            className="inline-block bg-pink-500 text-white px-8 py-4 rounded-lg font-semibold hover:bg-pink-600 transition"
+            className="inline-block bg-gradient-to-r from-purple-600 to-pink-600 text-white px-8 py-4 rounded-lg font-semibold hover:from-purple-700 hover:to-pink-700 transition shadow-lg"
           >
             Start Closing More Deals - Free Trial
           </Link>
