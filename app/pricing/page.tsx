@@ -11,14 +11,14 @@ export default function PricingPage() {
   return (
     <>
       <Header />
-      <main className="bg-neutral-950">
+      <main className="bg-white">
         {/* Header */}
-        <section className="px-4 py-20 border-b border-neutral-800">
+        <section className="px-4 py-20 border-b border-gray-200">
           <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-5xl font-display font-bold text-white mb-4">
+            <h1 className="text-5xl font-display font-bold text-gray-900 mb-4">
               Luxury Pricing for Luxury Results
             </h1>
-            <p className="text-xl text-neutral-400">
+            <p className="text-xl text-gray-600">
               Premium features at transparent pricing. Built for $1M+ luxury real estate markets.
             </p>
           </div>
@@ -29,17 +29,17 @@ export default function PricingPage() {
           <div className="max-w-7xl mx-auto">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {/* Tier 1: Per Agent */}
-              <div className="bg-neutral-900 border border-neutral-800 rounded-lg overflow-hidden hover:border-purple-500/50 transition">
-                <div className="p-8 border-b border-neutral-800">
-                  <h3 className="text-2xl font-semibold text-white mb-2">
+              <div className="bg-gray-50 border border-gray-200 rounded-lg overflow-hidden hover:border-purple-500/50 transition">
+                <div className="p-8 border-b border-gray-200">
+                  <h3 className="text-2xl font-semibold text-gray-900 mb-2">
                     Per Agent
                   </h3>
-                  <p className="text-neutral-400 text-sm mb-6">
+                  <p className="text-gray-600 text-sm mb-6">
                     Perfect for solo agents
                   </p>
                   <div className="mb-6">
-                    <span className="text-5xl font-bold text-white">$199</span>
-                    <span className="text-neutral-400 ml-2">/month per agent</span>
+                    <span className="text-5xl font-bold text-gray-900">$199</span>
+                    <span className="text-gray-600 ml-2">/month per agent</span>
                   </div>
                   <button className="w-full px-6 py-3 bg-purple-500 text-neutral-950 font-semibold rounded-lg hover:bg-purple-400 transition">
                     Get Started
@@ -60,7 +60,7 @@ export default function PricingPage() {
                           clipRule="evenodd"
                         />
                       </svg>
-                      <span className="text-neutral-300">Lead management dashboard</span>
+                      <span className="text-gray-700">Lead management dashboard</span>
                     </div>
                     <div className="flex items-start gap-3">
                       <svg
@@ -74,7 +74,7 @@ export default function PricingPage() {
                           clipRule="evenodd"
                         />
                       </svg>
-                      <span className="text-neutral-300">AI-powered follow-ups</span>
+                      <span className="text-gray-700">AI-powered follow-ups</span>
                     </div>
                     <div className="flex items-start gap-3">
                       <svg
@@ -88,7 +88,7 @@ export default function PricingPage() {
                           clipRule="evenodd"
                         />
                       </svg>
-                      <span className="text-neutral-300">Mobile app access</span>
+                      <span className="text-gray-700">Mobile app access</span>
                     </div>
                     <div className="flex items-start gap-3">
                       <svg
@@ -102,7 +102,7 @@ export default function PricingPage() {
                           clipRule="evenodd"
                         />
                       </svg>
-                      <span className="text-neutral-300">Email support</span>
+                      <span className="text-gray-700">Email support</span>
                     </div>
                     <div className="flex items-start gap-3">
                       <svg
@@ -116,30 +116,30 @@ export default function PricingPage() {
                           clipRule="evenodd"
                         />
                       </svg>
-                      <span className="text-neutral-300">Basic analytics</span>
+                      <span className="text-gray-700">Basic analytics</span>
                     </div>
                   </div>
                 </div>
               </div>
 
               {/* Tier 2: Team Plan (Featured) */}
-              <div className="bg-neutral-900 border-2 border-purple-500 rounded-lg overflow-hidden ring-2 ring-purple-500/10 relative">
+              <div className="bg-gray-50 border-2 border-purple-500 rounded-lg overflow-hidden ring-2 ring-purple-500/10 relative">
                 <div className="absolute -top-4 left-1/2 -translate-x-1/2">
                   <span className="px-4 py-1 bg-purple-500 text-neutral-950 text-sm font-semibold rounded-full">
                     Most Popular
                   </span>
                 </div>
 
-                <div className="p-8 border-b border-neutral-800">
-                  <h3 className="text-2xl font-semibold text-white mb-2">
+                <div className="p-8 border-b border-gray-200">
+                  <h3 className="text-2xl font-semibold text-gray-900 mb-2">
                     Team Plan
                   </h3>
-                  <p className="text-neutral-400 text-sm mb-6">
+                  <p className="text-gray-600 text-sm mb-6">
                     For established offices
                   </p>
                   <div className="mb-6">
-                    <span className="text-5xl font-bold text-white">$799</span>
-                    <span className="text-neutral-400 ml-2">/month unlimited agents</span>
+                    <span className="text-5xl font-bold text-gray-900">$799</span>
+                    <span className="text-gray-600 ml-2">/month unlimited agents</span>
                   </div>
                   <button className="w-full px-6 py-3 bg-purple-500 text-neutral-950 font-semibold rounded-lg hover:bg-purple-400 transition">
                     Get Started
@@ -160,7 +160,7 @@ export default function PricingPage() {
                           clipRule="evenodd"
                         />
                       </svg>
-                      <span className="text-neutral-300">
+                      <span className="text-gray-700">
                         Unlimited agents in one office
                       </span>
                     </div>
@@ -176,7 +176,7 @@ export default function PricingPage() {
                           clipRule="evenodd"
                         />
                       </svg>
-                      <span className="text-neutral-300">Manager dashboard</span>
+                      <span className="text-gray-700">Manager dashboard</span>
                     </div>
                     <div className="flex items-start gap-3">
                       <svg
@@ -190,7 +190,7 @@ export default function PricingPage() {
                           clipRule="evenodd"
                         />
                       </svg>
-                      <span className="text-neutral-300">Team performance reports</span>
+                      <span className="text-gray-700">Team performance reports</span>
                     </div>
                     <div className="flex items-start gap-3">
                       <svg
@@ -204,7 +204,7 @@ export default function PricingPage() {
                           clipRule="evenodd"
                         />
                       </svg>
-                      <span className="text-neutral-300">Advanced analytics</span>
+                      <span className="text-gray-700">Advanced analytics</span>
                     </div>
                     <div className="flex items-start gap-3">
                       <svg
@@ -218,24 +218,24 @@ export default function PricingPage() {
                           clipRule="evenodd"
                         />
                       </svg>
-                      <span className="text-neutral-300">Priority support</span>
+                      <span className="text-gray-700">Priority support</span>
                     </div>
                   </div>
                 </div>
               </div>
 
               {/* Tier 3: Enterprise */}
-              <div className="bg-neutral-900 border border-neutral-800 rounded-lg overflow-hidden hover:border-purple-500/50 transition">
-                <div className="p-8 border-b border-neutral-800">
-                  <h3 className="text-2xl font-semibold text-white mb-2">
+              <div className="bg-gray-50 border border-gray-200 rounded-lg overflow-hidden hover:border-purple-500/50 transition">
+                <div className="p-8 border-b border-gray-200">
+                  <h3 className="text-2xl font-semibold text-gray-900 mb-2">
                     Enterprise
                   </h3>
-                  <p className="text-neutral-400 text-sm mb-6">
+                  <p className="text-gray-600 text-sm mb-6">
                     For large organizations
                   </p>
                   <div className="mb-6">
-                    <span className="text-5xl font-bold text-white">Custom</span>
-                    <span className="text-neutral-400 ml-2">/ contact us</span>
+                    <span className="text-5xl font-bold text-gray-900">Custom</span>
+                    <span className="text-gray-600 ml-2">/ contact us</span>
                   </div>
                   <button className="w-full px-6 py-3 border border-purple-500 text-purple-400 font-semibold rounded-lg hover:bg-purple-500/10 transition">
                     Schedule Demo
@@ -256,7 +256,7 @@ export default function PricingPage() {
                           clipRule="evenodd"
                         />
                       </svg>
-                      <span className="text-neutral-300">
+                      <span className="text-gray-700">
                         Unlimited agents and teams
                       </span>
                     </div>
@@ -272,7 +272,7 @@ export default function PricingPage() {
                           clipRule="evenodd"
                         />
                       </svg>
-                      <span className="text-neutral-300">API access</span>
+                      <span className="text-gray-700">API access</span>
                     </div>
                     <div className="flex items-start gap-3">
                       <svg
@@ -286,7 +286,7 @@ export default function PricingPage() {
                           clipRule="evenodd"
                         />
                       </svg>
-                      <span className="text-neutral-300">Custom workflows</span>
+                      <span className="text-gray-700">Custom workflows</span>
                     </div>
                     <div className="flex items-start gap-3">
                       <svg
@@ -300,7 +300,7 @@ export default function PricingPage() {
                           clipRule="evenodd"
                         />
                       </svg>
-                      <span className="text-neutral-300">Dedicated account manager</span>
+                      <span className="text-gray-700">Dedicated account manager</span>
                     </div>
                     <div className="flex items-start gap-3">
                       <svg
@@ -314,7 +314,7 @@ export default function PricingPage() {
                           clipRule="evenodd"
                         />
                       </svg>
-                      <span className="text-neutral-300">White-glove onboarding</span>
+                      <span className="text-gray-700">White-glove onboarding</span>
                     </div>
                   </div>
                 </div>
@@ -324,15 +324,15 @@ export default function PricingPage() {
         </section>
 
         {/* FAQ */}
-        <section className="px-4 py-20 border-t border-neutral-800">
+        <section className="px-4 py-20 border-t border-gray-200">
           <div className="max-w-4xl mx-auto">
-            <h2 className="text-4xl font-display font-bold text-white mb-12 text-center">
+            <h2 className="text-4xl font-display font-bold text-gray-900 mb-12 text-center">
               Frequently Asked Questions
             </h2>
 
             <div className="space-y-6">
-              <details className="group bg-neutral-900 border border-neutral-800 rounded-lg p-6">
-                <summary className="flex cursor-pointer items-center justify-between font-semibold text-white">
+              <details className="group bg-gray-50 border border-gray-200 rounded-lg p-6">
+                <summary className="flex cursor-pointer items-center justify-between font-semibold text-gray-900">
                   Can I switch plans anytime?
                   <span className="transition group-open:rotate-180">
                     <svg
@@ -350,14 +350,14 @@ export default function PricingPage() {
                     </svg>
                   </span>
                 </summary>
-                <p className="text-neutral-400 mt-4">
+                <p className="text-gray-600 mt-4">
                   Yes! You can upgrade or downgrade your plan anytime. Changes take effect
                   at the start of your next billing cycle.
                 </p>
               </details>
 
-              <details className="group bg-neutral-900 border border-neutral-800 rounded-lg p-6">
-                <summary className="flex cursor-pointer items-center justify-between font-semibold text-white">
+              <details className="group bg-gray-50 border border-gray-200 rounded-lg p-6">
+                <summary className="flex cursor-pointer items-center justify-between font-semibold text-gray-900">
                   Is there a free trial?
                   <span className="transition group-open:rotate-180">
                     <svg
@@ -375,14 +375,14 @@ export default function PricingPage() {
                     </svg>
                   </span>
                 </summary>
-                <p className="text-neutral-400 mt-4">
+                <p className="text-gray-600 mt-4">
                   Yes! All new agents get a 14-day free trial with full access to all
                   features. No credit card required.
                 </p>
               </details>
 
-              <details className="group bg-neutral-900 border border-neutral-800 rounded-lg p-6">
-                <summary className="flex cursor-pointer items-center justify-between font-semibold text-white">
+              <details className="group bg-gray-50 border border-gray-200 rounded-lg p-6">
+                <summary className="flex cursor-pointer items-center justify-between font-semibold text-gray-900">
                   What about training and support?
                   <span className="transition group-open:rotate-180">
                     <svg
@@ -400,15 +400,15 @@ export default function PricingPage() {
                     </svg>
                   </span>
                 </summary>
-                <p className="text-neutral-400 mt-4">
+                <p className="text-gray-600 mt-4">
                   We provide onboarding training, video tutorials, and comprehensive
                   documentation. Team Plan and Enterprise customers get priority phone
                   support.
                 </p>
               </details>
 
-              <details className="group bg-neutral-900 border border-neutral-800 rounded-lg p-6">
-                <summary className="flex cursor-pointer items-center justify-between font-semibold text-white">
+              <details className="group bg-gray-50 border border-gray-200 rounded-lg p-6">
+                <summary className="flex cursor-pointer items-center justify-between font-semibold text-gray-900">
                   Can I cancel anytime?
                   <span className="transition group-open:rotate-180">
                     <svg
@@ -426,7 +426,7 @@ export default function PricingPage() {
                     </svg>
                   </span>
                 </summary>
-                <p className="text-neutral-400 mt-4">
+                <p className="text-gray-600 mt-4">
                   Absolutely. No long-term contracts. Cancel anytime before your billing
                   date.
                 </p>
@@ -438,10 +438,10 @@ export default function PricingPage() {
         {/* Final CTA */}
         <section className="px-4 py-20">
           <div className="max-w-4xl mx-auto bg-gradient-to-r from-neutral-900 to-neutral-800 border border-neutral-700 rounded-lg p-12 text-center">
-            <h2 className="text-3xl font-display font-bold text-white mb-4">
+            <h2 className="text-3xl font-display font-bold text-gray-900 mb-4">
               Ready to close more luxury deals?
             </h2>
-            <p className="text-neutral-300 mb-8">
+            <p className="text-gray-700 mb-8">
               Start your free trial today. No credit card required.
             </p>
             {!user ? (
@@ -466,4 +466,5 @@ export default function PricingPage() {
     </>
   );
 }
+
 

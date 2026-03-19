@@ -57,13 +57,15 @@ export default function ManagerLoginPage() {
         <div className="w-full max-w-md">
           {/* Logo */}
           <div className="text-center mb-8">
-            <div className="w-12 h-12 bg-gradient-to-br from-purple-600 to-purple-700 rounded-lg flex items-center justify-center font-bold text-neutral-950 mx-auto mb-4">
-              ✨
-            </div>
-            <h1 className="text-3xl font-display font-semibold text-white">
+            <svg className="w-12 h-12 mx-auto mb-4" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="50" cy="50" r="48" fill="none" stroke="#7c3aed" strokeWidth="1.5" opacity="0.2"/>
+              <path d="M 35 65 L 50 35 L 65 65" fill="none" stroke="#7c3aed" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/>
+              <path d="M 50 35 L 50 65" fill="none" stroke="#d946ef" strokeWidth="2.5" strokeLinecap="round"/>
+            </svg>
+            <h1 className="text-3xl font-display font-semibold text-gray-900">
               Manager Login
             </h1>
-            <p className="text-neutral-400 mt-2">
+            <p className="text-gray-600 mt-2">
               Access your management dashboard
             </p>
           </div>
