@@ -159,7 +159,4 @@ export default function AgentLoginPage() {
   );
 }
 
- );
-}
-
 

@@ -35,13 +35,13 @@ export function Header() {
           <nav className="hidden md:flex items-center gap-8">
             <Link
               href="/"
-              className="text-neutral-400 hover:text-purple-400 transition text-sm"
+              className="text-gray-900 hover:text-purple-600 font-medium transition text-sm"
             >
               Home
             </Link>
             <Link
               href="/pricing"
-              className="text-neutral-400 hover:text-purple-400 transition text-sm"
+              className="text-gray-900 hover:text-purple-600 font-medium transition text-sm"
             >
               Pricing
             </Link>
@@ -50,13 +50,13 @@ export function Header() {
               <>
                 <Link
                   href={profile.role === "manager" ? "/manager" : "/agent"}
-                  className="text-neutral-400 hover:text-purple-400 transition text-sm"
+                  className="text-gray-900 hover:text-purple-600 font-medium transition text-sm"
                 >
                   Dashboard
                 </Link>
                 <button
                   onClick={handleLogout}
-                  className="px-4 py-2 text-sm rounded-lg border border-neutral-700 text-neutral-300 hover:bg-neutral-800 transition"
+                  className="px-4 py-2 text-sm rounded-lg border border-gray-300 text-gray-900 hover:bg-gray-100 transition"
                 >
                   Logout
                 </button>
@@ -65,13 +65,13 @@ export function Header() {
               <>
                 <Link
                   href="/agent/login"
-                  className="px-4 py-2 text-sm rounded-lg border border-neutral-700 text-neutral-300 hover:bg-neutral-800 transition"
+                  className="px-4 py-2 text-sm rounded-lg border border-gray-300 text-gray-900 hover:bg-gray-100 transition font-medium"
                 >
                   Agent Login
                 </Link>
                 <Link
                   href="/manager/login"
-                  className="px-4 py-2 text-sm rounded-lg bg-purple-500 text-neutral-950 font-semibold hover:bg-purple-400 transition"
+                  className="px-4 py-2 text-sm rounded-lg bg-gradient-to-r from-purple-600 to-pink-600 text-white font-semibold hover:from-purple-700 hover:to-pink-700 transition"
                 >
                   Manager Login
                 </Link>
