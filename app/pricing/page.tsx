@@ -29,7 +29,7 @@ export default function PricingPage() {
           <div className="max-w-7xl mx-auto">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {/* Tier 1: Per Agent */}
-              <div className="bg-neutral-900 border border-neutral-800 rounded-lg overflow-hidden hover:border-yellow-500/50 transition">
+              <div className="bg-neutral-900 border border-neutral-800 rounded-lg overflow-hidden hover:border-purple-500/50 transition">
                 <div className="p-8 border-b border-neutral-800">
                   <h3 className="text-2xl font-semibold text-white mb-2">
                     Per Agent
@@ -41,7 +41,7 @@ export default function PricingPage() {
                     <span className="text-5xl font-bold text-white">$199</span>
                     <span className="text-neutral-400 ml-2">/month per agent</span>
                   </div>
-                  <button className="w-full px-6 py-3 bg-yellow-500 text-neutral-950 font-semibold rounded-lg hover:bg-yellow-400 transition">
+                  <button className="w-full px-6 py-3 bg-purple-500 text-neutral-950 font-semibold rounded-lg hover:bg-purple-400 transition">
                     Get Started
                   </button>
                 </div>
@@ -50,7 +50,7 @@ export default function PricingPage() {
                   <div className="space-y-4">
                     <div className="flex items-start gap-3">
                       <svg
-                        className="w-5 h-5 text-yellow-400 flex-shrink-0 mt-0.5"
+                        className="w-5 h-5 text-purple-400 flex-shrink-0 mt-0.5"
                         fill="currentColor"
                         viewBox="0 0 20 20"
                       >
@@ -64,7 +64,7 @@ export default function PricingPage() {
                     </div>
                     <div className="flex items-start gap-3">
                       <svg
-                        className="w-5 h-5 text-yellow-400 flex-shrink-0 mt-0.5"
+                        className="w-5 h-5 text-purple-400 flex-shrink-0 mt-0.5"
                         fill="currentColor"
                         viewBox="0 0 20 20"
                       >
@@ -78,7 +78,7 @@ export default function PricingPage() {
                     </div>
                     <div className="flex items-start gap-3">
                       <svg
-                        className="w-5 h-5 text-yellow-400 flex-shrink-0 mt-0.5"
+                        className="w-5 h-5 text-purple-400 flex-shrink-0 mt-0.5"
                         fill="currentColor"
                         viewBox="0 0 20 20"
                       >
@@ -92,7 +92,7 @@ export default function PricingPage() {
                     </div>
                     <div className="flex items-start gap-3">
                       <svg
-                        className="w-5 h-5 text-yellow-400 flex-shrink-0 mt-0.5"
+                        className="w-5 h-5 text-purple-400 flex-shrink-0 mt-0.5"
                         fill="currentColor"
                         viewBox="0 0 20 20"
                       >
@@ -106,7 +106,7 @@ export default function PricingPage() {
                     </div>
                     <div className="flex items-start gap-3">
                       <svg
-                        className="w-5 h-5 text-yellow-400 flex-shrink-0 mt-0.5"
+                        className="w-5 h-5 text-purple-400 flex-shrink-0 mt-0.5"
                         fill="currentColor"
                         viewBox="0 0 20 20"
                       >
@@ -123,9 +123,9 @@ export default function PricingPage() {
               </div>
 
               {/* Tier 2: Team Plan (Featured) */}
-              <div className="bg-neutral-900 border-2 border-yellow-500 rounded-lg overflow-hidden ring-2 ring-yellow-500/10 relative">
+              <div className="bg-neutral-900 border-2 border-purple-500 rounded-lg overflow-hidden ring-2 ring-purple-500/10 relative">
                 <div className="absolute -top-4 left-1/2 -translate-x-1/2">
-                  <span className="px-4 py-1 bg-yellow-500 text-neutral-950 text-sm font-semibold rounded-full">
+                  <span className="px-4 py-1 bg-purple-500 text-neutral-950 text-sm font-semibold rounded-full">
                     Most Popular
                   </span>
                 </div>
@@ -141,7 +141,7 @@ export default function PricingPage() {
                     <span className="text-5xl font-bold text-white">$799</span>
                     <span className="text-neutral-400 ml-2">/month unlimited agents</span>
                   </div>
-                  <button className="w-full px-6 py-3 bg-yellow-500 text-neutral-950 font-semibold rounded-lg hover:bg-yellow-400 transition">
+                  <button className="w-full px-6 py-3 bg-purple-500 text-neutral-950 font-semibold rounded-lg hover:bg-purple-400 transition">
                     Get Started
                   </button>
                 </div>
@@ -150,7 +150,7 @@ export default function PricingPage() {
                   <div className="space-y-4">
                     <div className="flex items-start gap-3">
                       <svg
-                        className="w-5 h-5 text-yellow-400 flex-shrink-0 mt-0.5"
+                        className="w-5 h-5 text-purple-400 flex-shrink-0 mt-0.5"
                         fill="currentColor"
                         viewBox="0 0 20 20"
                       >
@@ -166,7 +166,7 @@ export default function PricingPage() {
                     </div>
                     <div className="flex items-start gap-3">
                       <svg
-                        className="w-5 h-5 text-yellow-400 flex-shrink-0 mt-0.5"
+                        className="w-5 h-5 text-purple-400 flex-shrink-0 mt-0.5"
                         fill="currentColor"
                         viewBox="0 0 20 20"
                       >
@@ -180,7 +180,7 @@ export default function PricingPage() {
                     </div>
                     <div className="flex items-start gap-3">
                       <svg
-                        className="w-5 h-5 text-yellow-400 flex-shrink-0 mt-0.5"
+                        className="w-5 h-5 text-purple-400 flex-shrink-0 mt-0.5"
                         fill="currentColor"
                         viewBox="0 0 20 20"
                       >
@@ -194,7 +194,7 @@ export default function PricingPage() {
                     </div>
                     <div className="flex items-start gap-3">
                       <svg
-                        className="w-5 h-5 text-yellow-400 flex-shrink-0 mt-0.5"
+                        className="w-5 h-5 text-purple-400 flex-shrink-0 mt-0.5"
                         fill="currentColor"
                         viewBox="0 0 20 20"
                       >
@@ -208,7 +208,7 @@ export default function PricingPage() {
                     </div>
                     <div className="flex items-start gap-3">
                       <svg
-                        className="w-5 h-5 text-yellow-400 flex-shrink-0 mt-0.5"
+                        className="w-5 h-5 text-purple-400 flex-shrink-0 mt-0.5"
                         fill="currentColor"
                         viewBox="0 0 20 20"
                       >
@@ -225,7 +225,7 @@ export default function PricingPage() {
               </div>
 
               {/* Tier 3: Enterprise */}
-              <div className="bg-neutral-900 border border-neutral-800 rounded-lg overflow-hidden hover:border-yellow-500/50 transition">
+              <div className="bg-neutral-900 border border-neutral-800 rounded-lg overflow-hidden hover:border-purple-500/50 transition">
                 <div className="p-8 border-b border-neutral-800">
                   <h3 className="text-2xl font-semibold text-white mb-2">
                     Enterprise
@@ -237,7 +237,7 @@ export default function PricingPage() {
                     <span className="text-5xl font-bold text-white">Custom</span>
                     <span className="text-neutral-400 ml-2">/ contact us</span>
                   </div>
-                  <button className="w-full px-6 py-3 border border-yellow-500 text-yellow-400 font-semibold rounded-lg hover:bg-yellow-500/10 transition">
+                  <button className="w-full px-6 py-3 border border-purple-500 text-purple-400 font-semibold rounded-lg hover:bg-purple-500/10 transition">
                     Schedule Demo
                   </button>
                 </div>
@@ -246,7 +246,7 @@ export default function PricingPage() {
                   <div className="space-y-4">
                     <div className="flex items-start gap-3">
                       <svg
-                        className="w-5 h-5 text-yellow-400 flex-shrink-0 mt-0.5"
+                        className="w-5 h-5 text-purple-400 flex-shrink-0 mt-0.5"
                         fill="currentColor"
                         viewBox="0 0 20 20"
                       >
@@ -262,7 +262,7 @@ export default function PricingPage() {
                     </div>
                     <div className="flex items-start gap-3">
                       <svg
-                        className="w-5 h-5 text-yellow-400 flex-shrink-0 mt-0.5"
+                        className="w-5 h-5 text-purple-400 flex-shrink-0 mt-0.5"
                         fill="currentColor"
                         viewBox="0 0 20 20"
                       >
@@ -276,7 +276,7 @@ export default function PricingPage() {
                     </div>
                     <div className="flex items-start gap-3">
                       <svg
-                        className="w-5 h-5 text-yellow-400 flex-shrink-0 mt-0.5"
+                        className="w-5 h-5 text-purple-400 flex-shrink-0 mt-0.5"
                         fill="currentColor"
                         viewBox="0 0 20 20"
                       >
@@ -290,7 +290,7 @@ export default function PricingPage() {
                     </div>
                     <div className="flex items-start gap-3">
                       <svg
-                        className="w-5 h-5 text-yellow-400 flex-shrink-0 mt-0.5"
+                        className="w-5 h-5 text-purple-400 flex-shrink-0 mt-0.5"
                         fill="currentColor"
                         viewBox="0 0 20 20"
                       >
@@ -304,7 +304,7 @@ export default function PricingPage() {
                     </div>
                     <div className="flex items-start gap-3">
                       <svg
-                        className="w-5 h-5 text-yellow-400 flex-shrink-0 mt-0.5"
+                        className="w-5 h-5 text-purple-400 flex-shrink-0 mt-0.5"
                         fill="currentColor"
                         viewBox="0 0 20 20"
                       >
@@ -447,14 +447,14 @@ export default function PricingPage() {
             {!user ? (
               <Link
                 href="/agent/signup"
-                className="inline-block px-8 py-4 bg-yellow-500 text-neutral-950 font-bold rounded-lg hover:bg-yellow-400 transition"
+                className="inline-block px-8 py-4 bg-purple-500 text-neutral-950 font-bold rounded-lg hover:bg-purple-400 transition"
               >
                 Start Free Trial
               </Link>
             ) : (
               <Link
                 href={profile?.role === "manager" ? "/manager" : "/agent"}
-                className="inline-block px-8 py-4 bg-yellow-500 text-neutral-950 font-bold rounded-lg hover:bg-yellow-400 transition"
+                className="inline-block px-8 py-4 bg-purple-500 text-neutral-950 font-bold rounded-lg hover:bg-purple-400 transition"
               >
                 Go to Dashboard
               </Link>
@@ -466,3 +466,4 @@ export default function PricingPage() {
     </>
   );
 }
+

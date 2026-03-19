@@ -32,14 +32,14 @@ export default function LuxeLeadProMobileApp() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-gray-50" style={{ paddingBottom: '80px' }}>
       {/* Header */}
-      <div className="sticky top-0 z-50 bg-gradient-to-r from-amber-600 to-amber-500 text-white px-4 py-4 shadow-lg">
+      <div className="sticky top-0 z-50 bg-gradient-to-r from-purple-600 to-pink-500 text-white px-4 py-4 shadow-lg">
         <div className="flex justify-between items-center max-w-md mx-auto">
           <div>
             <h1 className="text-2xl font-bold font-serif">LuxeLeadPro</h1>
-            <p className="text-xs text-amber-100">AI Lead Scoring</p>
+            <p className="text-xs text-purple-100">AI Lead Scoring</p>
           </div>
           <div className="text-right text-sm">
-            <p className="text-amber-100">Wed, Mar 18</p>
+            <p className="text-purple-100">Wed, Mar 18</p>
             <p className="font-bold">3:35 PM</p>
           </div>
         </div>
@@ -69,9 +69,9 @@ export default function LuxeLeadProMobileApp() {
                 <p className="text-2xl font-bold text-green-600">3</p>
                 <p className="text-xs text-green-700 mt-1">Hot Leads</p>
               </div>
-              <div className="bg-gradient-to-br from-amber-50 to-amber-100 rounded-lg p-4 text-center border border-amber-200">
-                <p className="text-2xl font-bold text-amber-600">8.2%</p>
-                <p className="text-xs text-amber-700 mt-1">Conversion</p>
+              <div className="bg-gradient-to-br from-purple-50 to-pink-100 rounded-lg p-4 text-center border border-purple-200">
+                <p className="text-2xl font-bold text-purple-600">8.2%</p>
+                <p className="text-xs text-purple-700 mt-1">Conversion</p>
               </div>
               <div className="bg-gradient-to-br from-purple-50 to-purple-100 rounded-lg p-4 text-center border border-purple-200">
                 <p className="text-2xl font-bold text-purple-600">$2.8M</p>
@@ -85,14 +85,14 @@ export default function LuxeLeadProMobileApp() {
               {hotLeads.slice(0, 3).map((lead) => (
                 <div 
                   key={lead.id}
-                  className="bg-white rounded-lg border-l-4 border-amber-500 p-4 shadow-sm hover:shadow-md transition"
+                  className="bg-white rounded-lg border-l-4 border-purple-500 p-4 shadow-sm hover:shadow-md transition"
                 >
                   <div className="flex justify-between items-start mb-3">
                     <div>
                       <h3 className="font-bold text-gray-900">{lead.name}</h3>
                       <p className="text-sm text-gray-600">{lead.neighborhood}</p>
                     </div>
-                    <span className="bg-amber-600 text-white text-xs font-bold px-3 py-1 rounded-full">
+                    <span className="bg-purple-600 text-white text-xs font-bold px-3 py-1 rounded-full">
                       {lead.score}
                     </span>
                   </div>
@@ -123,14 +123,14 @@ export default function LuxeLeadProMobileApp() {
                 <div 
                   key={lead.id}
                   className={`bg-white rounded-lg p-4 border-l-4 ${
-                    lead.score >= 80 ? 'border-red-500' : lead.score >= 60 ? 'border-amber-500' : 'border-blue-500'
+                    lead.score >= 80 ? 'border-red-500' : lead.score >= 60 ? 'border-purple-500' : 'border-blue-500'
                   } shadow-sm`}
                 >
                   <div className="flex justify-between mb-2">
                     <h3 className="font-bold text-gray-900">{lead.name}</h3>
                     <span className={`text-xs font-bold px-2 py-1 rounded ${
                       lead.score >= 80 ? 'bg-red-100 text-red-700' :
-                      lead.score >= 60 ? 'bg-amber-100 text-amber-700' :
+                      lead.score >= 60 ? 'bg-purple-100 text-purple-700' :
                       'bg-blue-100 text-blue-700'
                     }`}>
                       {lead.score}
@@ -152,7 +152,7 @@ export default function LuxeLeadProMobileApp() {
               
               <div className="bg-white rounded-lg p-4 mb-4">
                 <h3 className="font-bold text-gray-900 mb-2">🎯 Top Lead Today</h3>
-                <p className="font-semibold text-amber-600 mb-1">{briefing.topLead.name}</p>
+                <p className="font-semibold text-purple-600 mb-1">{briefing.topLead.name}</p>
                 <p className="text-sm text-gray-600">{briefing.topLead.reason}</p>
               </div>
 
@@ -242,7 +242,7 @@ export default function LuxeLeadProMobileApp() {
             onClick={() => setActiveTab('home')}
             className={`py-4 text-center text-xs font-semibold transition ${
               activeTab === 'home'
-                ? 'text-amber-600 border-t-2 border-amber-600'
+                ? 'text-purple-600 border-t-2 border-purple-600'
                 : 'text-gray-600'
             }`}
           >
@@ -252,7 +252,7 @@ export default function LuxeLeadProMobileApp() {
             onClick={() => setActiveTab('leads')}
             className={`py-4 text-center text-xs font-semibold transition ${
               activeTab === 'leads'
-                ? 'text-amber-600 border-t-2 border-amber-600'
+                ? 'text-purple-600 border-t-2 border-purple-600'
                 : 'text-gray-600'
             }`}
           >
@@ -262,7 +262,7 @@ export default function LuxeLeadProMobileApp() {
             onClick={() => setActiveTab('briefing')}
             className={`py-4 text-center text-xs font-semibold transition ${
               activeTab === 'briefing'
-                ? 'text-amber-600 border-t-2 border-amber-600'
+                ? 'text-purple-600 border-t-2 border-purple-600'
                 : 'text-gray-600'
             }`}
           >
@@ -272,7 +272,7 @@ export default function LuxeLeadProMobileApp() {
             onClick={() => setActiveTab('market')}
             className={`py-4 text-center text-xs font-semibold transition ${
               activeTab === 'market'
-                ? 'text-amber-600 border-t-2 border-amber-600'
+                ? 'text-purple-600 border-t-2 border-purple-600'
                 : 'text-gray-600'
             }`}
           >
@@ -282,7 +282,7 @@ export default function LuxeLeadProMobileApp() {
             onClick={() => setActiveTab('compliance')}
             className={`py-4 text-center text-xs font-semibold transition ${
               activeTab === 'compliance'
-                ? 'text-amber-600 border-t-2 border-amber-600'
+                ? 'text-purple-600 border-t-2 border-purple-600'
                 : 'text-gray-600'
             }`}
           >
@@ -293,3 +293,4 @@ export default function LuxeLeadProMobileApp() {
     </div>
   );
 }
+

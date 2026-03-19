@@ -17,13 +17,13 @@ export default function HomePage() {
             {/* Left: Content */}
             <div>
               <div className="inline-block mb-6">
-                <span className="bg-gradient-to-r from-amber-600 to-amber-500 text-white px-4 py-2 rounded-full text-sm font-semibold">
+                <span className="bg-gradient-to-r from-purple-600 to-pink-500 text-white px-4 py-2 rounded-full text-sm font-semibold">
                   ✨ Built for $1M+ Luxury Markets
                 </span>
               </div>
 
               <h1 className="text-6xl sm:text-7xl font-serif font-bold text-gray-900 mb-6 leading-tight">
-                Close More <span className="text-amber-600">Luxury</span> Deals
+                Close More <span className="text-purple-600">Luxury</span> Deals
               </h1>
 
               <p className="text-xl text-gray-600 mb-8 leading-relaxed">
@@ -33,15 +33,15 @@ export default function HomePage() {
               {/* Value Props */}
               <div className="space-y-3 mb-8">
                 <div className="flex items-center gap-3">
-                  <span className="text-amber-600 text-2xl">✓</span>
+                  <span className="text-purple-600 text-2xl">✓</span>
                   <span className="text-gray-700">AI lead scoring that identifies your best prospects</span>
                 </div>
                 <div className="flex items-center gap-3">
-                  <span className="text-amber-600 text-2xl">✓</span>
+                  <span className="text-purple-600 text-2xl">✓</span>
                   <span className="text-gray-700">Daily briefings with market intelligence and leads</span>
                 </div>
                 <div className="flex items-center gap-3">
-                  <span className="text-amber-600 text-2xl">✓</span>
+                  <span className="text-purple-600 text-2xl">✓</span>
                   <span className="text-gray-700">TCPA/DNC compliance built-in - zero legal risk</span>
                 </div>
               </div>
@@ -50,13 +50,13 @@ export default function HomePage() {
               <div className="flex flex-col sm:flex-row gap-4">
                 <Link
                   href="/agent/signup"
-                  className="inline-block bg-gradient-to-r from-amber-600 to-amber-500 text-white px-8 py-4 rounded-lg font-semibold hover:from-amber-700 hover:to-amber-600 transition shadow-lg"
+                  className="inline-block bg-gradient-to-r from-purple-600 to-pink-500 text-white px-8 py-4 rounded-lg font-semibold hover:from-purple-700 hover:to-pink-600 transition shadow-lg"
                 >
                   Start Free Trial
                 </Link>
                 <Link
                   href="/manager/login"
-                  className="inline-block border-2 border-gray-300 text-gray-900 px-8 py-4 rounded-lg font-semibold hover:border-amber-600 hover:text-amber-600 transition"
+                  className="inline-block border-2 border-gray-300 text-gray-900 px-8 py-4 rounded-lg font-semibold hover:border-purple-600 hover:text-purple-600 transition"
                 >
                   Manager Login
                 </Link>
@@ -104,7 +104,7 @@ export default function HomePage() {
                         </div>
                         <span className={`text-xs font-bold px-3 py-1 rounded ${
                           lead.status === 'Hot' ? 'bg-red-100 text-red-700' :
-                          lead.status === 'Warm' ? 'bg-yellow-100 text-yellow-700' :
+                          lead.status === 'Warm' ? 'bg-purple-100 text-purple-700' :
                           'bg-blue-100 text-blue-700'
                         }`}>
                           {lead.status}
@@ -201,12 +201,12 @@ export default function HomePage() {
                 key={index}
                 className={`rounded-lg p-8 border-2 transition ${
                   tier.popular
-                    ? 'border-amber-600 bg-gradient-to-b from-amber-50 to-white shadow-lg'
-                    : 'border-gray-200 bg-white hover:border-amber-300'
+                    ? 'border-purple-600 bg-gradient-to-b from-purple-50 to-white shadow-lg'
+                    : 'border-gray-200 bg-white hover:border-purple-300'
                 }`}
               >
                 {tier.popular && (
-                  <div className="bg-amber-600 text-white px-3 py-1 rounded-full text-sm font-semibold inline-block mb-4">
+                  <div className="bg-purple-600 text-white px-3 py-1 rounded-full text-sm font-semibold inline-block mb-4">
                     Most Popular
                   </div>
                 )}
@@ -215,7 +215,7 @@ export default function HomePage() {
                 <ul className="space-y-3 mb-8">
                   {tier.features.map((feature, i) => (
                     <li key={i} className="flex items-center gap-2 text-gray-700">
-                      <span className="text-amber-600 font-bold">✓</span>
+                      <span className="text-purple-600 font-bold">✓</span>
                       {feature}
                     </li>
                   ))}
@@ -223,7 +223,7 @@ export default function HomePage() {
                 <button
                   className={`w-full py-3 rounded-lg font-semibold transition ${
                     tier.popular
-                      ? 'bg-amber-600 text-white hover:bg-amber-700'
+                      ? 'bg-purple-600 text-white hover:bg-purple-700'
                       : 'bg-gray-100 text-gray-900 hover:bg-gray-200'
                   }`}
                 >
@@ -234,7 +234,7 @@ export default function HomePage() {
           </div>
 
           <div className="text-center">
-            <Link href="/pricing" className="text-amber-600 font-semibold hover:text-amber-700">
+            <Link href="/pricing" className="text-purple-600 font-semibold hover:text-purple-700">
               See full pricing & compare features →
             </Link>
           </div>
@@ -263,3 +263,4 @@ export default function HomePage() {
     </div>
   );
 }
+

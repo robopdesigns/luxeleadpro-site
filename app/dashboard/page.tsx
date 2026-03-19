@@ -65,7 +65,7 @@ export default function LuxeLeadProDashboard() {
             onClick={() => setTheme(isDark ? 'light' : 'dark')}
             className={`px-4 py-2 rounded-lg font-semibold transition ${
               isDark 
-                ? 'bg-amber-600 text-white hover:bg-amber-700' 
+                ? 'bg-purple-600 text-white hover:bg-purple-700' 
                 : 'bg-gray-800 text-white hover:bg-gray-900'
             }`}
           >
@@ -79,7 +79,7 @@ export default function LuxeLeadProDashboard() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
           <div className={`${cardClass} border rounded-lg p-6`}>
             <p className="text-sm text-gray-500 mb-2">Annual Revenue Target</p>
-            <p className={`text-3xl font-bold text-amber-600`}>${(metrics.mrrTarget * 12).toLocaleString()}</p>
+            <p className={`text-3xl font-bold text-purple-600`}>${(metrics.mrrTarget * 12).toLocaleString()}</p>
             <p className="text-xs text-gray-500 mt-2">Year 1 goal</p>
           </div>
           <div className={`${cardClass} border rounded-lg p-6`}>
@@ -108,7 +108,7 @@ export default function LuxeLeadProDashboard() {
                 onClick={() => setActiveTab(tab as any)}
                 className={`flex-1 py-4 px-6 font-semibold text-center uppercase text-xs tracking-wide transition ${
                   activeTab === tab
-                    ? isDark ? 'bg-amber-600 text-white' : 'bg-amber-600 text-white'
+                    ? isDark ? 'bg-purple-600 text-white' : 'bg-purple-600 text-white'
                     : isDark ? 'text-gray-400 hover:text-white' : 'text-gray-600 hover:text-gray-900'
                 }`}
               >
@@ -158,14 +158,14 @@ export default function LuxeLeadProDashboard() {
                     {milestones.map((m, i) => (
                       <div key={i} className={`${isDark ? 'bg-gray-700' : 'bg-gray-100'} rounded-lg p-4`}>
                         <div className="flex justify-between items-center mb-2">
-                          <p className="font-bold text-amber-600">{m.quarter}</p>
+                          <p className="font-bold text-purple-600">{m.quarter}</p>
                           <span className={`text-xs px-2 py-1 rounded ${m.status === 'In Progress' ? 'bg-blue-500 text-white' : 'bg-gray-500 text-white'}`}>
                             {m.status}
                           </span>
                         </div>
                         <p className={`${textClass} text-sm mb-2`}>{m.goal}</p>
                         <div className={`w-full h-2 rounded-full ${isDark ? 'bg-gray-600' : 'bg-gray-300'}`}>
-                          <div className="h-2 rounded-full bg-gradient-to-r from-amber-500 to-amber-600" style={{width: `${m.progress}%`}}></div>
+                          <div className="h-2 rounded-full bg-gradient-to-r from-purple-500 to-pink-600" style={{width: `${m.progress}%`}}></div>
                         </div>
                       </div>
                     ))}
@@ -179,17 +179,17 @@ export default function LuxeLeadProDashboard() {
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   <div className={`${isDark ? 'bg-gray-700' : 'bg-gray-100'} rounded-lg p-4`}>
                     <p className="text-xs text-gray-500 mb-2">Per Agent Plan</p>
-                    <p className="text-2xl font-bold text-amber-600">$199/mo</p>
+                    <p className="text-2xl font-bold text-purple-600">$199/mo</p>
                     <p className="text-xs text-gray-500 mt-2">Commission: $477.60</p>
                   </div>
                   <div className={`${isDark ? 'bg-gray-700' : 'bg-gray-100'} rounded-lg p-4`}>
                     <p className="text-xs text-gray-500 mb-2">Team Plan</p>
-                    <p className="text-2xl font-bold text-amber-600">$799/mo</p>
+                    <p className="text-2xl font-bold text-purple-600">$799/mo</p>
                     <p className="text-xs text-gray-500 mt-2">Commission: $2,397</p>
                   </div>
                   <div className={`${isDark ? 'bg-gray-700' : 'bg-gray-100'} rounded-lg p-4`}>
                     <p className="text-xs text-gray-500 mb-2">Enterprise</p>
-                    <p className="text-2xl font-bold text-amber-600">Custom</p>
+                    <p className="text-2xl font-bold text-purple-600">Custom</p>
                     <p className="text-xs text-gray-500 mt-2">Commission: 20%</p>
                   </div>
                 </div>
@@ -205,7 +205,7 @@ export default function LuxeLeadProDashboard() {
                 {tasks.map((task) => (
                   <div key={task.id} className={`${isDark ? 'bg-gray-700 hover:bg-gray-650' : 'bg-gray-100 hover:bg-gray-50'} border-l-4 ${
                     task.priority === 'Critical' ? 'border-red-500' :
-                    task.priority === 'High' ? 'border-amber-500' :
+                    task.priority === 'High' ? 'border-purple-500' :
                     'border-blue-500'
                   } rounded-lg p-4 transition`}>
                     <div className="flex items-start justify-between mb-3">
@@ -257,10 +257,10 @@ export default function LuxeLeadProDashboard() {
                       <tr key={sale.id} className={`border-b ${isDark ? 'border-gray-700 hover:bg-gray-700' : 'border-gray-300 hover:bg-gray-100'} transition`}>
                         <td className="py-4 px-4 text-sm font-medium">{sale.customer}</td>
                         <td className="py-4 px-4 text-sm">{sale.plan}</td>
-                        <td className="py-4 px-4 text-sm font-bold text-amber-600">${sale.mrr}</td>
+                        <td className="py-4 px-4 text-sm font-bold text-purple-600">${sale.mrr}</td>
                         <td className="py-4 px-4 text-sm">{sale.stage}</td>
                         <td className="py-4 px-4">
-                          <span className="text-xs px-2 py-1 rounded bg-yellow-500 text-white font-semibold">
+                          <span className="text-xs px-2 py-1 rounded bg-purple-500 text-white font-semibold">
                             {sale.status}
                           </span>
                         </td>
@@ -269,7 +269,7 @@ export default function LuxeLeadProDashboard() {
                   </tbody>
                 </table>
               </div>
-              <button className="mt-6 px-6 py-2 bg-amber-600 text-white rounded-lg font-semibold hover:bg-amber-700 transition">
+              <button className="mt-6 px-6 py-2 bg-purple-600 text-white rounded-lg font-semibold hover:bg-purple-700 transition">
                 + Add Prospect
               </button>
             </div>
@@ -285,7 +285,7 @@ export default function LuxeLeadProDashboard() {
                   <div className="space-y-3">
                     <div className="flex justify-between">
                       <span className="text-gray-500">Current MRR:</span>
-                      <span className={`font-bold text-amber-600`}>$0</span>
+                      <span className={`font-bold text-purple-600`}>$0</span>
                     </div>
                     <div className="flex justify-between">
                       <span className="text-gray-500">Target MRR (Year 1):</span>
@@ -296,7 +296,7 @@ export default function LuxeLeadProDashboard() {
                       <span className={`font-bold text-blue-600`}>0%</span>
                     </div>
                     <div className={`w-full h-3 rounded-full ${isDark ? 'bg-gray-600' : 'bg-gray-300'}`}>
-                      <div className="h-3 rounded-full bg-gradient-to-r from-amber-500 to-amber-600" style={{width: '0%'}}></div>
+                      <div className="h-3 rounded-full bg-gradient-to-r from-purple-500 to-pink-600" style={{width: '0%'}}></div>
                     </div>
                   </div>
                 </div>
@@ -318,7 +318,7 @@ export default function LuxeLeadProDashboard() {
                     </div>
                     <div className="flex justify-between">
                       <span className="text-gray-500">Customer Goal:</span>
-                      <span className={`font-bold text-amber-600`}>50</span>
+                      <span className={`font-bold text-purple-600`}>50</span>
                     </div>
                   </div>
                 </div>
@@ -362,7 +362,7 @@ export default function LuxeLeadProDashboard() {
                     </div>
                     <div className="flex justify-between">
                       <span className="text-gray-500">Completion Rate:</span>
-                      <span className={`font-bold text-amber-600`}>{Math.round((metrics.tasksCompleted / (metrics.tasksCompleted + metrics.tasksRemaining)) * 100)}%</span>
+                      <span className={`font-bold text-purple-600`}>{Math.round((metrics.tasksCompleted / (metrics.tasksCompleted + metrics.tasksRemaining)) * 100)}%</span>
                     </div>
                   </div>
                 </div>
@@ -374,3 +374,4 @@ export default function LuxeLeadProDashboard() {
     </div>
   );
 }
+

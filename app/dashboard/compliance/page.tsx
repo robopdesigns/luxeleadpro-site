@@ -85,10 +85,10 @@ export default function ComplianceDashboard() {
                   </p>
                 </div>
                 <div className="text-right">
-                  <div className={`text-4xl font-bold ${agent.score >= 95 ? 'text-green-500' : agent.score >= 85 ? 'text-yellow-500' : 'text-red-500'}`}>
+                  <div className={`text-4xl font-bold ${agent.score >= 95 ? 'text-green-500' : agent.score >= 85 ? 'text-purple-500' : 'text-red-500'}`}>
                     {agent.score}
                   </div>
-                  <span className={`text-sm font-semibold ${agent.status === 'Compliant' ? 'text-green-500' : 'text-yellow-500'}`}>
+                  <span className={`text-sm font-semibold ${agent.status === 'Compliant' ? 'text-green-500' : 'text-purple-500'}`}>
                     {agent.status}
                   </span>
                 </div>
@@ -113,3 +113,4 @@ export default function ComplianceDashboard() {
     </main>
   );
 }
+

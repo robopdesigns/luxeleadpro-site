@@ -35,13 +35,13 @@ export function Header() {
           <nav className="hidden md:flex items-center gap-8">
             <Link
               href="/"
-              className="text-neutral-400 hover:text-yellow-400 transition text-sm"
+              className="text-neutral-400 hover:text-purple-400 transition text-sm"
             >
               Home
             </Link>
             <Link
               href="/pricing"
-              className="text-neutral-400 hover:text-yellow-400 transition text-sm"
+              className="text-neutral-400 hover:text-purple-400 transition text-sm"
             >
               Pricing
             </Link>
@@ -50,7 +50,7 @@ export function Header() {
               <>
                 <Link
                   href={profile.role === "manager" ? "/manager" : "/agent"}
-                  className="text-neutral-400 hover:text-yellow-400 transition text-sm"
+                  className="text-neutral-400 hover:text-purple-400 transition text-sm"
                 >
                   Dashboard
                 </Link>
@@ -71,7 +71,7 @@ export function Header() {
                 </Link>
                 <Link
                   href="/manager/login"
-                  className="px-4 py-2 text-sm rounded-lg bg-yellow-500 text-neutral-950 font-semibold hover:bg-yellow-400 transition"
+                  className="px-4 py-2 text-sm rounded-lg bg-purple-500 text-neutral-950 font-semibold hover:bg-purple-400 transition"
                 >
                   Manager Login
                 </Link>
@@ -105,13 +105,13 @@ export function Header() {
           <div className="md:hidden py-4 border-t border-neutral-800 space-y-2">
             <Link
               href="/"
-              className="block px-4 py-2 text-neutral-400 hover:text-yellow-400 hover:bg-neutral-900 rounded"
+              className="block px-4 py-2 text-neutral-400 hover:text-purple-400 hover:bg-neutral-900 rounded"
             >
               Home
             </Link>
             <Link
               href="/pricing"
-              className="block px-4 py-2 text-neutral-400 hover:text-yellow-400 hover:bg-neutral-900 rounded"
+              className="block px-4 py-2 text-neutral-400 hover:text-purple-400 hover:bg-neutral-900 rounded"
             >
               Pricing
             </Link>
@@ -119,13 +119,13 @@ export function Header() {
               <>
                 <Link
                   href={profile.role === "manager" ? "/manager" : "/agent"}
-                  className="block px-4 py-2 text-neutral-400 hover:text-yellow-400 hover:bg-neutral-900 rounded"
+                  className="block px-4 py-2 text-neutral-400 hover:text-purple-400 hover:bg-neutral-900 rounded"
                 >
                   Dashboard
                 </Link>
                 <button
                   onClick={handleLogout}
-                  className="w-full text-left px-4 py-2 text-neutral-400 hover:text-yellow-400 hover:bg-neutral-900 rounded"
+                  className="w-full text-left px-4 py-2 text-neutral-400 hover:text-purple-400 hover:bg-neutral-900 rounded"
                 >
                   Logout
                 </button>
@@ -134,13 +134,13 @@ export function Header() {
               <>
                 <Link
                   href="/agent/login"
-                  className="block px-4 py-2 text-neutral-400 hover:text-yellow-400 hover:bg-neutral-900 rounded"
+                  className="block px-4 py-2 text-neutral-400 hover:text-purple-400 hover:bg-neutral-900 rounded"
                 >
                   Agent Login
                 </Link>
                 <Link
                   href="/manager/login"
-                  className="block px-4 py-2 text-neutral-400 hover:text-yellow-400 hover:bg-neutral-900 rounded"
+                  className="block px-4 py-2 text-neutral-400 hover:text-purple-400 hover:bg-neutral-900 rounded"
                 >
                   Manager Login
                 </Link>
@@ -152,3 +152,4 @@ export function Header() {
     </header>
   );
 }
+

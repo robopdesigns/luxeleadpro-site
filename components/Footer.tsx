@@ -18,17 +18,17 @@ export function Footer() {
             <h4 className="font-semibold text-white mb-4">Product</h4>
             <ul className="space-y-2 text-sm text-neutral-400">
               <li>
-                <a href="/pricing" className="hover:text-yellow-400 transition">
+                <a href="/pricing" className="hover:text-purple-400 transition">
                   Pricing
                 </a>
               </li>
               <li>
-                <a href="/#features" className="hover:text-yellow-400 transition">
+                <a href="/#features" className="hover:text-purple-400 transition">
                   Features
                 </a>
               </li>
               <li>
-                <a href="/" className="hover:text-yellow-400 transition">
+                <a href="/" className="hover:text-purple-400 transition">
                   Dashboard
                 </a>
               </li>
@@ -40,12 +40,12 @@ export function Footer() {
             <h4 className="font-semibold text-white mb-4">Legal</h4>
             <ul className="space-y-2 text-sm text-neutral-400">
               <li>
-                <a href="/privacy" className="hover:text-yellow-400 transition">
+                <a href="/privacy" className="hover:text-purple-400 transition">
                   Privacy Policy
                 </a>
               </li>
               <li>
-                <a href="/terms" className="hover:text-yellow-400 transition">
+                <a href="/terms" className="hover:text-purple-400 transition">
                   Terms of Service
                 </a>
               </li>
@@ -59,7 +59,7 @@ export function Footer() {
               <li>
                 <a
                   href="mailto:hello@luxeleadpro.com"
-                  className="hover:text-yellow-400 transition"
+                  className="hover:text-purple-400 transition"
                 >
                   hello@luxeleadpro.com
                 </a>
@@ -67,7 +67,7 @@ export function Footer() {
               <li>
                 <a
                   href="tel:+1234567890"
-                  className="hover:text-yellow-400 transition"
+                  className="hover:text-purple-400 transition"
                 >
                   (123) 456-7890
                 </a>
@@ -79,13 +79,13 @@ export function Footer() {
         <div className="border-t border-neutral-800 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-neutral-500">
           <p>&copy; 2025 Luxe Lead Pro. All rights reserved.</p>
           <div className="flex gap-4 mt-4 md:mt-0">
-            <a href="#" className="hover:text-yellow-400 transition">
+            <a href="#" className="hover:text-purple-400 transition">
               Twitter
             </a>
-            <a href="#" className="hover:text-yellow-400 transition">
+            <a href="#" className="hover:text-purple-400 transition">
               LinkedIn
             </a>
-            <a href="#" className="hover:text-yellow-400 transition">
+            <a href="#" className="hover:text-purple-400 transition">
               Instagram
             </a>
           </div>
@@ -94,3 +94,4 @@ export function Footer() {
     </footer>
   );
 }
+

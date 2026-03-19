@@ -42,13 +42,13 @@ export default function DashboardLoginPage() {
           onChange={(e) => setPassword(e.target.value)}
           required
           placeholder="Password"
-          className="w-full rounded-xl border border-white/20 bg-black/40 px-4 py-3 outline-none focus:border-yellow-400"
+          className="w-full rounded-xl border border-white/20 bg-black/40 px-4 py-3 outline-none focus:border-purple-400"
         />
 
         <button
           type="submit"
           disabled={loading}
-          className="w-full rounded-xl bg-yellow-400 px-6 py-3 font-semibold text-black hover:bg-yellow-300 disabled:opacity-60"
+          className="w-full rounded-xl bg-purple-400 px-6 py-3 font-semibold text-black hover:bg-purple-300 disabled:opacity-60"
         >
           {loading ? "Checking..." : "Unlock Dashboard"}
         </button>
@@ -58,3 +58,4 @@ export default function DashboardLoginPage() {
     </main>
   );
 }
+

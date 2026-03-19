@@ -57,7 +57,7 @@ export default function ManagerLoginPage() {
         <div className="w-full max-w-md">
           {/* Logo */}
           <div className="text-center mb-8">
-            <div className="w-12 h-12 bg-gradient-to-br from-yellow-400 to-yellow-600 rounded-lg flex items-center justify-center font-bold text-neutral-950 mx-auto mb-4">
+            <div className="w-12 h-12 bg-gradient-to-br from-purple-600 to-purple-700 rounded-lg flex items-center justify-center font-bold text-neutral-950 mx-auto mb-4">
               ✨
             </div>
             <h1 className="text-3xl font-display font-semibold text-white">
@@ -87,7 +87,7 @@ export default function ManagerLoginPage() {
                 required
                 value={formData.email}
                 onChange={handleChange}
-                className="w-full px-4 py-3 bg-neutral-900 border border-neutral-700 rounded-lg text-white placeholder-neutral-500 focus:outline-none focus:border-yellow-500 focus:ring-1 focus:ring-yellow-500 transition"
+                className="w-full px-4 py-3 bg-neutral-900 border border-neutral-700 rounded-lg text-white placeholder-neutral-500 focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition"
                 placeholder="manager@example.com"
               />
             </div>
@@ -103,7 +103,7 @@ export default function ManagerLoginPage() {
                 required
                 value={formData.password}
                 onChange={handleChange}
-                className="w-full px-4 py-3 bg-neutral-900 border border-neutral-700 rounded-lg text-white placeholder-neutral-500 focus:outline-none focus:border-yellow-500 focus:ring-1 focus:ring-yellow-500 transition"
+                className="w-full px-4 py-3 bg-neutral-900 border border-neutral-700 rounded-lg text-white placeholder-neutral-500 focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition"
                 placeholder="••••••••"
               />
             </div>
@@ -111,7 +111,7 @@ export default function ManagerLoginPage() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-3 bg-yellow-500 text-neutral-950 font-semibold rounded-lg hover:bg-yellow-400 transition disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full py-3 bg-purple-500 text-neutral-950 font-semibold rounded-lg hover:bg-purple-400 transition disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {loading ? "Signing in..." : "Sign In"}
             </button>
@@ -122,7 +122,7 @@ export default function ManagerLoginPage() {
             <div>
               <Link
                 href="/manager/forgot-password"
-                className="text-yellow-400 hover:text-yellow-300 transition"
+                className="text-purple-400 hover:text-purple-300 transition"
               >
                 Forgot your password?
               </Link>
@@ -132,7 +132,7 @@ export default function ManagerLoginPage() {
                 Need to create an account?{" "}
                 <Link
                   href="/pricing"
-                  className="text-yellow-400 hover:text-yellow-300 transition"
+                  className="text-purple-400 hover:text-purple-300 transition"
                 >
                   Contact us
                 </Link>
@@ -143,7 +143,7 @@ export default function ManagerLoginPage() {
                 Are you an agent?{" "}
                 <Link
                   href="/agent/login"
-                  className="text-yellow-400 hover:text-yellow-300 transition"
+                  className="text-purple-400 hover:text-purple-300 transition"
                 >
                   Agent login
                 </Link>
@@ -156,3 +156,4 @@ export default function ManagerLoginPage() {
     </>
   );
 }
+
