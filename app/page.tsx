@@ -67,24 +67,24 @@ export default function HomePage() {
               </p>
             </div>
 
-            {/* Right: Dashboard Preview */}
-            <div className="hidden lg:block">
-              <div className="bg-white rounded-2xl p-8 border-2 border-purple-200 shadow-xl">
-                <h3 className="font-serif text-xl font-bold mb-6 text-gray-900">🤖 Your AI Command Center</h3>
+            {/* Right: Dashboard Preview (Mobile + Desktop) */}
+            <div className="mt-8 lg:mt-0">
+              <div className="bg-white rounded-2xl p-6 sm:p-8 border-2 border-purple-200 shadow-xl">
+                <h3 className="font-serif text-lg sm:text-xl font-bold mb-6 text-gray-900">🤖 Your AI Command Center</h3>
                 
                 {/* Top Stats */}
-                <div className="grid grid-cols-3 gap-4 mb-6">
-                  <div className="bg-gradient-to-br from-purple-600 to-purple-700 rounded-lg p-4 text-white">
+                <div className="grid grid-cols-3 gap-3 sm:gap-4 mb-6">
+                  <div className="bg-gradient-to-br from-purple-600 to-purple-700 rounded-lg p-3 sm:p-4 text-white">
                     <div className="text-xs font-semibold opacity-90">Hot Leads</div>
-                    <div className="text-3xl font-bold mt-2">12</div>
+                    <div className="text-2xl sm:text-3xl font-bold mt-2">12</div>
                   </div>
-                  <div className="bg-gradient-to-br from-green-500 to-green-600 rounded-lg p-4 text-white">
+                  <div className="bg-gradient-to-br from-green-500 to-green-600 rounded-lg p-3 sm:p-4 text-white">
                     <div className="text-xs font-semibold opacity-90">Close Rate</div>
-                    <div className="text-3xl font-bold mt-2">8.2%</div>
+                    <div className="text-2xl sm:text-3xl font-bold mt-2">8.2%</div>
                   </div>
-                  <div className="bg-gradient-to-br from-pink-500 to-pink-600 rounded-lg p-4 text-white">
+                  <div className="bg-gradient-to-br from-pink-500 to-pink-600 rounded-lg p-3 sm:p-4 text-white">
                     <div className="text-xs font-semibold opacity-90">This Month</div>
-                    <div className="text-3xl font-bold mt-2">$2.8M</div>
+                    <div className="text-2xl sm:text-3xl font-bold mt-2">$2.8M</div>
                   </div>
                 </div>
 
@@ -98,11 +98,11 @@ export default function HomePage() {
                       { name: 'Elizabeth Brown', score: 65, status: 'Cool' },
                     ].map((lead, i) => (
                       <div key={i} className="bg-gray-50 rounded-lg p-3 flex justify-between items-center border border-gray-200">
-                        <div>
+                        <div className="flex-1">
                           <div className="text-sm font-semibold text-gray-900">{lead.name}</div>
                           <div className="text-xs text-gray-500">Score: {lead.score}</div>
                         </div>
-                        <span className={`text-xs font-bold px-3 py-1 rounded ${
+                        <span className={`text-xs font-bold px-2 sm:px-3 py-1 rounded ml-2 flex-shrink-0 ${
                           lead.status === 'Hot' ? 'bg-red-100 text-red-700' :
                           lead.status === 'Warm' ? 'bg-purple-100 text-purple-700' :
                           'bg-blue-100 text-blue-700'
