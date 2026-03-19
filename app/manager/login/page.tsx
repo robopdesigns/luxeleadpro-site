@@ -124,28 +124,28 @@ export default function ManagerLoginPage() {
             <div>
               <Link
                 href="/manager/forgot-password"
-                className="text-purple-400 hover:text-purple-300 transition"
+                className="text-gray-600 hover:text-purple-600 font-medium transition"
               >
                 Forgot your password?
               </Link>
             </div>
             <div>
-              <p className="text-neutral-400">
+              <p className="text-gray-600">
                 Need to create an account?{" "}
                 <Link
                   href="/pricing"
-                  className="text-purple-400 hover:text-purple-300 transition"
+                  className="text-purple-600 hover:text-purple-700 font-medium transition"
                 >
                   Contact us
                 </Link>
               </p>
             </div>
             <div>
-              <p className="text-neutral-400">
+              <p className="text-gray-600">
                 Are you an agent?{" "}
                 <Link
                   href="/agent/login"
-                  className="text-purple-400 hover:text-purple-300 transition"
+                  className="text-purple-600 hover:text-purple-700 font-medium transition"
                 >
                   Agent login
                 </Link>
