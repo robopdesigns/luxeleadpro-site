@@ -16,16 +16,18 @@ export function Header() {
   };
 
   return (
-    <header className="sticky top-0 z-50 border-b border-neutral-800 bg-neutral-950/95 backdrop-blur">
+    <header className="sticky top-0 z-50 border-b border-purple-700 bg-white/95 backdrop-blur">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-gradient-to-br from-yellow-400 to-yellow-600 rounded-lg flex items-center justify-center font-bold text-neutral-950">
-              ✨
-            </div>
-            <span className="font-display text-xl font-semibold text-white hidden sm:inline">
-              Luxe Lead
+          <Link href="/" className="flex items-center gap-3">
+            <svg className="w-8 h-8" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="50" cy="50" r="48" fill="none" stroke="#7c3aed" strokeWidth="1.5" opacity="0.2"/>
+              <path d="M 35 65 L 50 35 L 65 65" fill="none" stroke="#7c3aed" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/>
+              <path d="M 50 35 L 50 65" fill="none" stroke="#d946ef" strokeWidth="2.5" strokeLinecap="round"/>
+            </svg>
+            <span className="font-display text-xl font-semibold text-purple-900 hidden sm:inline">
+              LuxeLeadPro
             </span>
           </Link>
 

@@ -75,17 +75,17 @@ export default function HomePage() {
                   
                   {/* Top Stats */}
                   <div className="grid grid-cols-3 gap-2 mb-4">
-                    <div className="bg-gray-700 rounded-lg p-3">
-                      <div className="text-xs text-gray-400">Hot Leads</div>
-                      <div className="text-2xl font-bold text-amber-500">12</div>
+                    <div className="bg-purple-700 rounded-lg p-3">
+                      <div className="text-xs text-purple-300">Hot Leads</div>
+                      <div className="text-2xl font-bold text-pink-400">12</div>
                     </div>
-                    <div className="bg-gray-700 rounded-lg p-3">
-                      <div className="text-xs text-gray-400">Conv. Rate</div>
-                      <div className="text-2xl font-bold text-green-500">8.2%</div>
+                    <div className="bg-purple-700 rounded-lg p-3">
+                      <div className="text-xs text-purple-300">Close Rate</div>
+                      <div className="text-2xl font-bold text-green-400">8.2%</div>
                     </div>
-                    <div className="bg-gray-700 rounded-lg p-3">
-                      <div className="text-xs text-gray-400">Revenue</div>
-                      <div className="text-2xl font-bold text-blue-500">$2.8M</div>
+                    <div className="bg-purple-700 rounded-lg p-3">
+                      <div className="text-xs text-purple-300">This Month</div>
+                      <div className="text-2xl font-bold text-blue-400">$2.8M</div>
                     </div>
                   </div>
 
@@ -242,19 +242,19 @@ export default function HomePage() {
       </section>
 
       {/* CTA Section */}
-      <section className="px-4 py-20 sm:py-32 bg-gradient-to-r from-gray-900 to-gray-800 text-white">
+      <section className="px-4 py-20 sm:py-32 bg-gradient-to-r from-purple-900 to-purple-800 text-white">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-5xl sm:text-6xl font-serif font-bold mb-6">
-            Ready to close more luxury deals?
+            Close 2x More Deals. Dominate Your Market.
           </h2>
-          <p className="text-xl text-gray-200 mb-8">
-            Join hundreds of luxury agents using LuxeLeadPro to automate their business and close bigger deals.
+          <p className="text-xl text-purple-100 mb-8">
+            Luxury agents using LuxeLeadPro win deals before their competition even sees them.
           </p>
           <Link
             href="/agent/signup"
-            className="inline-block bg-amber-600 text-white px-8 py-4 rounded-lg font-semibold hover:bg-amber-700 transition"
+            className="inline-block bg-pink-500 text-white px-8 py-4 rounded-lg font-semibold hover:bg-pink-600 transition"
           >
-            Start Free Trial - No Card Required
+            Start Closing More Deals - Free Trial
           </Link>
         </div>
       </section>
@@ -262,4 +262,8 @@ export default function HomePage() {
       <Footer />
     </div>
   );
+}
+;
+}
+;
 }
