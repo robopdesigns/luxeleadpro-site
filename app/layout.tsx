@@ -22,32 +22,32 @@ const playfair = Playfair_Display({
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.luxeleadpro.com"),
   title: {
-    default: "Luxe Lead AI Pro | AI Lead Management for Luxury Real Estate",
-    template: "%s | Luxe Lead AI Pro",
+    default: "LuxeLeadPro | AI Lead Scoring for Luxury Real Estate",
+    template: "%s | LuxeLeadPro",
   },
   description:
-    "AI-powered lead management for luxury real estate agents. Automate nurture, follow-up, and pipeline workflows to close more high-end deals.",
+    "Close 2x more luxury deals with AI-powered lead scoring. Know your best prospects every morning. TCPA/DNC compliant. Built for $1M+ markets.",
   openGraph: {
-    title: "Luxe Lead AI Pro",
+    title: "LuxeLeadPro | AI Lead Scoring for Luxury Real Estate",
     description:
-      "AI-powered lead management for luxury real estate agents to increase consults, bookings, and closings.",
+      "Close 2x more luxury deals with AI-powered lead scoring. Know your best prospects every morning. TCPA/DNC compliant. Built for $1M+ markets.",
     url: "https://www.luxeleadpro.com",
-    siteName: "Luxe Lead AI Pro",
+    siteName: "LuxeLeadPro",
     type: "website",
     images: [
       {
         url: "/opengraph-image",
         width: 1200,
         height: 630,
-        alt: "Luxe Lead AI Pro",
+        alt: "LuxeLeadPro - AI Lead Scoring for Luxury Real Estate",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Luxe Lead AI Pro",
+    title: "LuxeLeadPro | AI Lead Scoring for Luxury Real Estate",
     description:
-      "AI-powered lead management for luxury real estate agents.",
+      "Close 2x more luxury deals with AI-powered lead scoring. TCPA/DNC compliant. Built for $1M+ markets.",
     images: ["/twitter-image"],
   },
   alternates: {
@@ -63,7 +63,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${playfair.variable} antialiased bg-white text-white`}
+        className={`${geistSans.variable} ${geistMono.variable} ${playfair.variable} antialiased bg-white text-gray-900`}
       >
         <AuthProvider>
           {process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID && (
@@ -83,11 +83,14 @@ export default function RootLayout({
               </Script>
             </>
           )}
+          {process.env.NEXT_PUBLIC_CRISP_WEBSITE_ID && (
+            <Script id="crisp-widget" strategy="afterInteractive">
+              {`window.$crisp=[];window.CRISP_WEBSITE_ID="${process.env.NEXT_PUBLIC_CRISP_WEBSITE_ID}";(function(){d=document;s=d.createElement("script");s.src="https://client.crisp.chat/l.js";s.async=1;d.getElementsByTagName("head")[0].appendChild(s);})();`}
+            </Script>
+          )}
           {children}
         </AuthProvider>
       </body>
     </html>
   );
 }
-
-
