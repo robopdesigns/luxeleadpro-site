@@ -16,33 +16,45 @@ export function Header() {
   };
 
   return (
-    <header className="sticky top-0 z-50 border-b border-purple-700 bg-white/95 backdrop-blur">
+    <header className="sticky top-0 z-50 border-b border-gray-100 bg-white/95 backdrop-blur">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
-          {/* Logo */}
-          <Link href="/" className="flex items-center gap-3">
-            <svg className="w-8 h-8" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-              <circle cx="50" cy="50" r="48" fill="none" stroke="#7c3aed" strokeWidth="1.5" opacity="0.2"/>
-              <path d="M 35 65 L 50 35 L 65 65" fill="none" stroke="#7c3aed" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/>
-              <path d="M 50 35 L 50 65" fill="none" stroke="#d946ef" strokeWidth="2.5" strokeLinecap="round"/>
+
+          {/* ── LOGO ──────────────────────────────────────────── */}
+          <Link href="/" className="flex items-center gap-2.5 group">
+            {/* Icon: solid filled diamond/arrow mark — clear at any size */}
+            <svg className="w-8 h-8 flex-shrink-0" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+              {/* Solid purple rounded square bg */}
+              <rect width="40" height="40" rx="10" fill="url(#logoGrad)"/>
+              {/* Bold upward arrow / chevron — filled, not outline */}
+              <path d="M20 10 L30 28 H10 Z" fill="white" opacity="0.15"/>
+              <path d="M20 8 L31 27 H9 Z" fill="white" opacity="0.9"/>
+              <rect x="18.5" y="21" width="3" height="9" rx="1.5" fill="white"/>
+              <defs>
+                <linearGradient id="logoGrad" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse">
+                  <stop offset="0%" stopColor="#7c3aed"/>
+                  <stop offset="100%" stopColor="#c026d3"/>
+                </linearGradient>
+              </defs>
             </svg>
-            <span className="font-display text-xl font-semibold text-purple-900 hidden sm:inline">
-              LuxeLeadPro
-            </span>
+
+            {/* Wordmark */}
+            <div className="hidden sm:flex flex-col leading-none">
+              <span className="text-[17px] font-bold tracking-tight text-gray-900 group-hover:text-purple-700 transition">
+                LuxeLeadPro
+              </span>
+              <span className="text-[10px] font-medium tracking-widest text-purple-500 uppercase">
+                AI Lead Intelligence
+              </span>
+            </div>
           </Link>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-8">
-            <Link
-              href="/"
-              className="text-gray-900 hover:text-purple-600 font-medium transition text-sm"
-            >
+          {/* ── DESKTOP NAV ───────────────────────────────────── */}
+          <nav className="hidden md:flex items-center gap-6">
+            <Link href="/" className="text-gray-700 hover:text-purple-600 font-medium transition text-sm">
               Home
             </Link>
-            <Link
-              href="/pricing"
-              className="text-gray-900 hover:text-purple-600 font-medium transition text-sm"
-            >
+            <Link href="/pricing" className="text-gray-700 hover:text-purple-600 font-medium transition text-sm">
               Pricing
             </Link>
 
@@ -50,13 +62,13 @@ export function Header() {
               <>
                 <Link
                   href={profile.role === "manager" ? "/manager" : "/agent"}
-                  className="text-gray-900 hover:text-purple-600 font-medium transition text-sm"
+                  className="text-gray-700 hover:text-purple-600 font-medium transition text-sm"
                 >
                   Dashboard
                 </Link>
                 <button
                   onClick={handleLogout}
-                  className="px-4 py-2 text-sm rounded-lg border border-gray-300 text-gray-900 hover:bg-gray-100 transition"
+                  className="px-4 py-2 text-sm rounded-lg border border-gray-200 text-gray-700 hover:bg-gray-50 transition font-medium"
                 >
                   Logout
                 </button>
@@ -65,13 +77,13 @@ export function Header() {
               <>
                 <Link
                   href="/agent/login"
-                  className="px-4 py-2 text-sm rounded-lg border border-gray-300 text-gray-900 hover:bg-gray-100 transition font-medium"
+                  className="px-4 py-2 text-sm rounded-lg border border-gray-200 text-gray-700 hover:bg-gray-50 hover:border-purple-300 transition font-medium"
                 >
                   Agent Login
                 </Link>
                 <Link
                   href="/manager/login"
-                  className="px-4 py-2 text-sm rounded-lg bg-gradient-to-r from-purple-600 to-pink-600 text-white font-semibold hover:from-purple-700 hover:to-pink-700 transition"
+                  className="px-4 py-2 text-sm rounded-lg bg-gradient-to-r from-purple-600 to-pink-600 text-white font-semibold hover:from-purple-700 hover:to-pink-700 transition shadow-sm"
                 >
                   Manager Login
                 </Link>
@@ -79,71 +91,56 @@ export function Header() {
             )}
           </nav>
 
-          {/* Mobile Menu Button */}
+          {/* ── MOBILE HAMBURGER ──────────────────────────────── */}
           <button
-            className="md:hidden"
+            className="md:hidden p-2 rounded-lg hover:bg-gray-100 transition"
             onClick={() => setMenuOpen(!menuOpen)}
+            aria-label="Toggle menu"
           >
-            <svg
-              className="w-6 h-6"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M4 6h16M4 12h16M4 18h16"
-              />
+            <svg className="w-5 h-5 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              {menuOpen
+                ? <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12"/>
+                : <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16"/>
+              }
             </svg>
           </button>
         </div>
 
-        {/* Mobile Menu */}
+        {/* ── MOBILE MENU ───────────────────────────────────── */}
         {menuOpen && (
-          <div className="md:hidden py-4 border-t border-neutral-800 space-y-2">
-            <Link
-              href="/"
-              className="block px-4 py-2 text-neutral-400 hover:text-purple-400 hover:bg-gray-50 rounded"
-            >
+          <div className="md:hidden py-4 border-t border-gray-100 space-y-1">
+            <Link href="/" onClick={() => setMenuOpen(false)}
+              className="block px-4 py-3 text-gray-900 font-medium hover:text-purple-600 hover:bg-purple-50 rounded-lg transition text-sm">
               Home
             </Link>
-            <Link
-              href="/pricing"
-              className="block px-4 py-2 text-neutral-400 hover:text-purple-400 hover:bg-gray-50 rounded"
-            >
+            <Link href="/pricing" onClick={() => setMenuOpen(false)}
+              className="block px-4 py-3 text-gray-900 font-medium hover:text-purple-600 hover:bg-purple-50 rounded-lg transition text-sm">
               Pricing
             </Link>
+
             {user && profile ? (
               <>
-                <Link
-                  href={profile.role === "manager" ? "/manager" : "/agent"}
-                  className="block px-4 py-2 text-neutral-400 hover:text-purple-400 hover:bg-gray-50 rounded"
-                >
+                <Link href={profile.role === "manager" ? "/manager" : "/agent"} onClick={() => setMenuOpen(false)}
+                  className="block px-4 py-3 text-gray-900 font-medium hover:text-purple-600 hover:bg-purple-50 rounded-lg transition text-sm">
                   Dashboard
                 </Link>
-                <button
-                  onClick={handleLogout}
-                  className="w-full text-left px-4 py-2 text-neutral-400 hover:text-purple-400 hover:bg-gray-50 rounded"
-                >
+                <button onClick={handleLogout}
+                  className="w-full text-left px-4 py-3 text-gray-900 font-medium hover:text-purple-600 hover:bg-purple-50 rounded-lg transition text-sm">
                   Logout
                 </button>
               </>
             ) : (
               <>
-                <Link
-                  href="/agent/login"
-                  className="block px-4 py-2 text-neutral-400 hover:text-purple-400 hover:bg-gray-50 rounded"
-                >
+                <Link href="/agent/login" onClick={() => setMenuOpen(false)}
+                  className="block px-4 py-3 text-gray-900 font-medium hover:text-purple-600 hover:bg-purple-50 rounded-lg transition text-sm">
                   Agent Login
                 </Link>
-                <Link
-                  href="/manager/login"
-                  className="block px-4 py-2 text-neutral-400 hover:text-purple-400 hover:bg-gray-50 rounded"
-                >
-                  Manager Login
-                </Link>
+                <div className="px-4 pt-2 pb-1">
+                  <Link href="/manager/login" onClick={() => setMenuOpen(false)}
+                    className="block w-full text-center py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-semibold rounded-xl text-sm hover:from-purple-700 hover:to-pink-700 transition">
+                    Manager Login
+                  </Link>
+                </div>
               </>
             )}
           </div>
@@ -152,5 +149,3 @@ export function Header() {
     </header>
   );
 }
-
-
