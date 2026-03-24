@@ -325,32 +325,35 @@ export default function HomePage() {
               {
                 name: 'Per Agent',
                 price: '$199',
-                sub: '/month per agent',
-                features: ['AI Lead Scoring', 'Daily Briefings', 'Smart Automation', 'Market Intel', 'Email Support'],
+                sub: '/month',
+                features: ['AI Lead Scoring', 'Daily AI Briefing', 'Market Intelligence', 'TCPA/DNC Compliance', 'Email Support'],
                 popular: false,
+                badge: null,
                 cta: 'Start Free Trial',
               },
               {
-                name: 'Team Plan',
-                price: '$799',
-                sub: '/month unlimited agents',
-                features: ['Everything in Per Agent', 'Unlimited Agents', 'Manager Dashboard', 'Team Reports', 'Priority Support', 'API Access'],
+                name: 'Agent + Outreach',
+                price: '$299',
+                sub: '/month',
+                features: ['Everything in Per Agent', '✉️ Automated email sequences', '🤖 AI writes emails per lead', '📊 Open & reply tracking', 'Priority Support'],
                 popular: true,
+                badge: '🔥 Best Value',
                 cta: 'Start Free Trial',
               },
               {
-                name: 'Enterprise',
-                price: 'Custom',
-                sub: '/ contact us',
-                features: ['Everything in Team', 'White-Label Option', 'Dedicated CSM', 'Custom Dev', 'SLA Guarantee', '24/7 Phone Support'],
+                name: 'Team + Outreach',
+                price: '$999',
+                sub: '/month',
+                features: ['Unlimited Agents', 'Outreach for all agents', 'Manager Dashboard', 'Team Analytics', 'Dedicated Support'],
                 popular: false,
-                cta: 'Schedule Demo',
+                badge: null,
+                cta: 'Start Free Trial',
               },
             ].map((tier, i) => (
               <div key={i} className={`rounded-2xl p-7 border-2 transition relative ${tier.popular ? 'border-purple-500 bg-white shadow-xl shadow-purple-100' : 'border-gray-200 bg-white hover:border-purple-200'}`}>
-                {tier.popular && (
+                {tier.badge && (
                   <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-gradient-to-r from-purple-600 to-pink-600 text-white text-xs font-bold px-4 py-1.5 rounded-full whitespace-nowrap">
-                    ⭐ Most Popular
+                    {tier.badge}
                   </div>
                 )}
                 <h3 className="text-xl font-bold text-gray-900 mb-1">{tier.name}</h3>
@@ -366,7 +369,7 @@ export default function HomePage() {
                     </li>
                   ))}
                 </ul>
-                <Link href={i === 2 ? '/pricing' : '/agent/signup'} className={`block w-full text-center py-3 rounded-xl font-semibold transition text-sm ${tier.popular ? 'bg-gradient-to-r from-purple-600 to-pink-600 text-white hover:from-purple-700 hover:to-pink-700 shadow-md' : 'border-2 border-gray-200 text-gray-900 hover:border-purple-400 hover:text-purple-600'}`}>
+                <Link href="/agent/signup" className={`block w-full text-center py-3 rounded-xl font-semibold transition text-sm ${tier.popular ? 'bg-gradient-to-r from-purple-600 to-pink-600 text-white hover:from-purple-700 hover:to-pink-700 shadow-md' : 'border-2 border-gray-200 text-gray-900 hover:border-purple-400 hover:text-purple-600'}`}>
                   {tier.cta}
                 </Link>
               </div>

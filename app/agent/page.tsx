@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { ProtectedRoute } from "@/components/ProtectedRoute";
@@ -82,6 +83,12 @@ function AgentDashboardContent() {
                 <button className="w-full px-4 py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-semibold rounded-lg hover:opacity-90 transition shadow-sm">
                   Add Lead Manually
                 </button>
+                <Link
+                  href="/dashboard/outreach"
+                  className="block w-full px-4 py-3 bg-gradient-to-r from-purple-500 to-fuchsia-500 text-white font-semibold rounded-lg hover:opacity-90 transition shadow-sm text-center"
+                >
+                  ✉️ Automated Outreach
+                </Link>
                 <button className="w-full px-4 py-3 border border-gray-200 text-gray-700 font-semibold rounded-lg hover:bg-gray-100 transition bg-white">
                   View Settings
                 </button>
