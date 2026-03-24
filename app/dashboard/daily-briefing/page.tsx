@@ -11,25 +11,31 @@ export default function DailyBriefing() {
         id: 1,
         name: 'Sarah Johnson',
         score: 92,
-        action: 'Call today - hot lead',
+        action: 'Call today — hot lead',
         budget: '$3.5M',
         timeline: 'ASAP',
+        neighborhood: 'Lincoln Park',
+        tags: ['🔥 High Intent', '💰 $3.5M+ Buyer', '✅ DNC Clear'],
       },
       {
         id: 2,
         name: 'Michael Chen',
         score: 78,
-        action: 'Follow up - send market report',
+        action: 'Follow up — send market report',
         budget: '$2.8M',
         timeline: '30 days',
+        neighborhood: 'Gold Coast',
+        tags: ['📈 Active Searcher', '🏡 Upsizer'],
       },
       {
         id: 3,
         name: 'Elizabeth Brown',
         score: 65,
-        action: 'Add to nurture sequence',
+        action: 'Add to nurture email sequence',
         budget: '$2.2M',
         timeline: '60 days',
+        neighborhood: 'River North',
+        tags: ['🌱 Nurture', '📊 Watching Market'],
       },
     ],
     marketUpdate: {
@@ -37,82 +43,121 @@ export default function DailyBriefing() {
       summary: 'Average prices up 8.5% YoY. Only 24 active listings (low inventory). 38 days avg on market.',
       opportunities: 2,
     },
-    coachingTip: 'Focus on active leads with ASAP timelines. They convert 3x faster than exploratory leads.',
+    coachingTip: 'Focus on active leads with ASAP timelines. They convert 3× faster than exploratory leads.',
     completionRate: 78,
   };
 
   return (
-    <main className="min-h-screen bg-gradient-to-b from-gray-900 to-gray-800 p-8">
+    <main className="min-h-screen bg-gray-50 p-8">
       <div className="max-w-4xl mx-auto">
         {/* Header */}
-        <div className="mb-8">
-          <h1 className="text-4xl font-bold text-white mb-2">Daily AI Briefing</h1>
-          <p className="text-gray-400">{briefing.date}</p>
+        <div className="mb-8 flex items-center justify-between">
+          <div>
+            <h1 className="text-3xl font-bold text-gray-900 mb-1">📊 Daily AI Briefing</h1>
+            <p className="text-gray-500 text-sm">{briefing.date}</p>
+          </div>
+          <div className="flex items-center gap-2 bg-purple-50 border border-purple-200 px-4 py-2 rounded-full">
+            <span className="w-2 h-2 rounded-full bg-purple-500 animate-pulse"></span>
+            <span className="text-purple-700 text-sm font-semibold">🤖 AI Generated</span>
+          </div>
         </div>
 
-        {/* Welcome */}
-        <div className="bg-gradient-to-r from-gold-600 to-gold-500 rounded-lg p-8 mb-8 text-gray-900">
-          <h2 className="text-2xl font-bold mb-2">Good morning, {briefing.agentName}!</h2>
-          <p>Here's your AI-powered briefing to maximize today's deals.</p>
+        {/* Welcome Banner */}
+        <div className="bg-gradient-to-r from-purple-600 to-pink-600 rounded-xl p-8 mb-8 text-white shadow-sm">
+          <h2 className="text-2xl font-bold mb-1">Good morning, {briefing.agentName}!</h2>
+          <p className="text-white/80">Here&apos;s your AI-powered briefing to maximize today&apos;s deals.</p>
         </div>
 
         {/* Top 3 Leads */}
-        <div className="bg-gray-800 rounded-lg p-8 border border-gray-700 mb-8">
-          <h2 className="text-2xl font-bold text-white mb-6">🔥 Your Top 3 Leads Today</h2>
+        <div className="bg-white border border-gray-200 rounded-xl p-8 shadow-sm mb-8">
+          <h2 className="text-xl font-bold text-gray-900 mb-6">🔥 Your Top 3 Leads Today</h2>
           <div className="space-y-4">
-            {briefing.topLeads.map((lead) => (
-              <div key={lead.id} className="bg-gray-700 rounded-lg p-6 border-l-4 border-gold-500">
-                <div className="flex justify-between items-start mb-3">
-                  <div>
-                    <h3 className="text-lg font-semibold text-white">{lead.name}</h3>
-                    <p className="text-gray-400 text-sm">{lead.budget} budget • {lead.timeline} timeline</p>
+            {briefing.topLeads.map((lead, i) => (
+              <div
+                key={lead.id}
+                className="border border-gray-200 rounded-xl p-5 hover:shadow-sm transition"
+                style={{ borderLeftColor: i === 0 ? '#9333ea' : i === 1 ? '#ec4899' : '#a855f7', borderLeftWidth: '4px' }}
+              >
+                <div className="flex justify-between items-start gap-4 mb-3">
+                  <div className="flex-1">
+                    <div className="flex items-center gap-2 mb-1 flex-wrap">
+                      <h3 className="text-base font-bold text-gray-900">{lead.name}</h3>
+                      <span className="text-gray-400 text-sm">·</span>
+                      <span className="text-gray-500 text-sm">{lead.neighborhood}</span>
+                      <span className="text-gray-400 text-sm">·</span>
+                      <span className="text-gray-500 text-sm">{lead.budget} budget</span>
+                      <span className="text-gray-400 text-sm">·</span>
+                      <span className="text-gray-500 text-sm">{lead.timeline} timeline</span>
+                    </div>
+                    <p className="text-purple-700 font-semibold text-sm mb-2">→ {lead.action}</p>
+                    <div className="flex flex-wrap gap-2">
+                      {lead.tags.map((tag) => (
+                        <span key={tag} className="bg-gray-100 text-gray-600 text-xs font-medium px-2.5 py-1 rounded-full">{tag}</span>
+                      ))}
+                    </div>
                   </div>
-                  <div className="bg-gold-500 text-gray-900 px-4 py-2 rounded-full font-bold text-lg">
-                    {lead.score}
+                  <div className="shrink-0 text-center">
+                    <div className="w-14 h-14 rounded-full bg-gradient-to-br from-purple-500 to-pink-600 flex items-center justify-center shadow-sm">
+                      <span className="text-white font-bold text-lg">{lead.score}</span>
+                    </div>
+                    <p className="text-xs text-gray-400 mt-1">AI Score</p>
                   </div>
                 </div>
-                <p className="text-gold-300 font-semibold">→ {lead.action}</p>
               </div>
             ))}
           </div>
         </div>
 
         {/* Market Update */}
-        <div className="bg-gray-800 rounded-lg p-8 border border-gray-700 mb-8">
-          <h2 className="text-2xl font-bold text-white mb-4">📊 Market Update</h2>
-          <h3 className="text-xl font-semibold text-gold-500 mb-2">{briefing.marketUpdate.headline}</h3>
-          <p className="text-gray-300 mb-4">{briefing.marketUpdate.summary}</p>
-          <p className="text-gray-400">
-            💡 <span className="text-gold-300">Opportunity:</span> {briefing.marketUpdate.opportunities} new luxury properties listed today that match your buyer profiles.
+        <div className="bg-white border border-gray-200 rounded-xl p-8 shadow-sm mb-8">
+          <h2 className="text-xl font-bold text-gray-900 mb-4">📊 Market Update</h2>
+          <div className="bg-blue-50 border border-blue-100 rounded-lg p-5 mb-4">
+            <h3 className="text-base font-bold text-blue-900 mb-1">{briefing.marketUpdate.headline}</h3>
+            <p className="text-blue-700 text-sm">{briefing.marketUpdate.summary}</p>
+          </div>
+          <p className="text-gray-600 text-sm">
+            💡 <strong>Opportunity:</strong> {briefing.marketUpdate.opportunities} new luxury properties listed today that match your buyer profiles. Act fast — inventory is tight.
           </p>
         </div>
 
         {/* Coaching Tip */}
-        <div className="bg-blue-900 bg-opacity-30 rounded-lg p-8 border border-blue-700 mb-8">
-          <h2 className="text-2xl font-bold text-white mb-4">💡 Daily Coaching Tip</h2>
-          <p className="text-gray-300 text-lg">{briefing.coachingTip}</p>
+        <div className="bg-gradient-to-r from-purple-50 to-pink-50 border border-purple-100 rounded-xl p-8 mb-8">
+          <h2 className="text-xl font-bold text-gray-900 mb-3">💡 Daily Coaching Tip</h2>
+          <p className="text-gray-700 text-base leading-relaxed">{briefing.coachingTip}</p>
         </div>
 
-        {/* Daily Goal */}
-        <div className="bg-gray-800 rounded-lg p-8 border border-gray-700">
-          <h2 className="text-2xl font-bold text-white mb-6">📈 Today's Goal</h2>
-          <div className="mb-6">
-            <div className="flex justify-between items-center mb-2">
-              <p className="text-gray-300">Lead follow-ups completed</p>
-              <p className="text-gold-500 font-semibold">{briefing.completionRate}%</p>
+        {/* Daily Goal Progress */}
+        <div className="bg-white border border-gray-200 rounded-xl p-8 shadow-sm">
+          <h2 className="text-xl font-bold text-gray-900 mb-6">📈 Today&apos;s Goal</h2>
+          <div className="space-y-5">
+            <div>
+              <div className="flex justify-between items-center mb-2">
+                <p className="text-sm font-medium text-gray-700">Lead follow-ups completed</p>
+                <p className="text-purple-600 font-bold text-sm">{briefing.completionRate}%</p>
+              </div>
+              <div className="w-full bg-gray-100 rounded-full h-3">
+                <div
+                  className="bg-gradient-to-r from-purple-600 to-pink-600 h-3 rounded-full transition-all duration-500"
+                  style={{ width: `${briefing.completionRate}%` }}
+                />
+              </div>
             </div>
-            <div className="w-full bg-gray-700 rounded-full h-4">
-              <div 
-                className="bg-gradient-to-r from-gold-500 to-gold-400 h-4 rounded-full"
-                style={{ width: `${briefing.completionRate}%` }}
-              />
+            <div>
+              <div className="flex justify-between items-center mb-2">
+                <p className="text-sm font-medium text-gray-700">Calls made today</p>
+                <p className="text-pink-600 font-bold text-sm">40%</p>
+              </div>
+              <div className="w-full bg-gray-100 rounded-full h-3">
+                <div
+                  className="bg-gradient-to-r from-pink-500 to-rose-500 h-3 rounded-full"
+                  style={{ width: '40%' }}
+                />
+              </div>
             </div>
           </div>
-          <p className="text-gray-400 text-sm">Goal: 100% daily follow-ups. You're doing great! 🎯</p>
+          <p className="text-gray-400 text-sm mt-5">Goal: 100% daily follow-ups. You&apos;re doing great! 🎯</p>
         </div>
       </div>
     </main>
   );
 }
-
-
