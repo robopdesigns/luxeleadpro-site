@@ -132,25 +132,25 @@ export default function PricingPage() {
         {/* ─── PRICING CARDS ─── */}
         <section className="px-4 py-16 sm:py-20">
           <div className="max-w-7xl mx-auto">
-            <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6 mt-4">
               {plans.map((plan, i) => (
                 <div
                   key={i}
-                  className={`rounded-2xl border-2 overflow-hidden flex flex-col transition hover:shadow-lg relative ${
+                  className={`rounded-2xl border-2 flex flex-col transition hover:shadow-lg relative ${
                     plan.popular
                       ? 'border-purple-500 shadow-xl shadow-purple-100'
                       : 'border-gray-200 bg-white'
                   }`}
                 >
                   {plan.badge && (
-                    <div className={`absolute -top-3.5 left-1/2 -translate-x-1/2 text-xs font-bold px-4 py-1 rounded-full whitespace-nowrap ${
+                    <div className={`absolute -top-4 left-1/2 -translate-x-1/2 text-xs font-bold px-4 py-1.5 rounded-full whitespace-nowrap z-10 ${
                       plan.popular ? 'bg-gradient-to-r from-purple-600 to-pink-600 text-white' : 'bg-gray-900 text-white'
                     }`}>
                       {plan.badge}
                     </div>
                   )}
 
-                  <div className={`p-6 ${plan.popular ? 'bg-gradient-to-b from-purple-50 to-white' : 'bg-white'}`}>
+                  <div className={`p-6 ${plan.badge ? 'pt-8' : 'pt-6'} ${plan.popular ? 'bg-gradient-to-b from-purple-50 to-white' : 'bg-white'} rounded-t-2xl`}>
                     <h3 className="text-lg font-bold text-gray-900 mb-1">{plan.name}</h3>
                     <p className="text-xs text-gray-500 mb-4">{plan.desc}</p>
                     <div className="mb-5">

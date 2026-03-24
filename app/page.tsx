@@ -320,7 +320,7 @@ export default function HomePage() {
             <p className="text-lg text-gray-600">Start free for 14 days. No credit card. No commitment.</p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10 mt-4">
             {[
               {
                 name: 'Per Agent',
@@ -350,12 +350,13 @@ export default function HomePage() {
                 cta: 'Start Free Trial',
               },
             ].map((tier, i) => (
-              <div key={i} className={`rounded-2xl p-7 border-2 transition relative ${tier.popular ? 'border-purple-500 bg-white shadow-xl shadow-purple-100' : 'border-gray-200 bg-white hover:border-purple-200'}`}>
+              <div key={i} className={`rounded-2xl border-2 transition relative flex flex-col ${tier.popular ? 'border-purple-500 bg-white shadow-xl shadow-purple-100' : 'border-gray-200 bg-white hover:border-purple-200'}`}>
                 {tier.badge && (
-                  <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-gradient-to-r from-purple-600 to-pink-600 text-white text-xs font-bold px-4 py-1.5 rounded-full whitespace-nowrap">
+                  <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-gradient-to-r from-purple-600 to-pink-600 text-white text-xs font-bold px-4 py-1.5 rounded-full whitespace-nowrap z-10">
                     {tier.badge}
                   </div>
                 )}
+                <div className={`p-7 ${tier.badge ? 'pt-10' : 'pt-7'} flex-1 flex flex-col`}>
                 <h3 className="text-xl font-bold text-gray-900 mb-1">{tier.name}</h3>
                 <div className="mb-5">
                   <span className="text-4xl font-bold text-gray-900">{tier.price}</span>
@@ -369,9 +370,10 @@ export default function HomePage() {
                     </li>
                   ))}
                 </ul>
-                <Link href="/agent/signup" className={`block w-full text-center py-3 rounded-xl font-semibold transition text-sm ${tier.popular ? 'bg-gradient-to-r from-purple-600 to-pink-600 text-white hover:from-purple-700 hover:to-pink-700 shadow-md' : 'border-2 border-gray-200 text-gray-900 hover:border-purple-400 hover:text-purple-600'}`}>
+                <Link href="/agent/signup" className={`block w-full text-center py-3 rounded-xl font-semibold transition text-sm mt-auto ${tier.popular ? 'bg-gradient-to-r from-purple-600 to-pink-600 text-white hover:from-purple-700 hover:to-pink-700 shadow-md' : 'border-2 border-gray-200 text-gray-900 hover:border-purple-400 hover:text-purple-600'}`}>
                   {tier.cta}
                 </Link>
+                </div>
               </div>
             ))}
           </div>
