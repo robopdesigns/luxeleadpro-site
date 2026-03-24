@@ -11,7 +11,7 @@ export default function HomePage() {
       <Header />
 
       {/* ─── HERO ─────────────────────────────────────────────── */}
-      <section className="relative px-4 pt-20 pb-24 sm:pt-28 sm:pb-32 overflow-hidden">
+      <section className="relative px-4 pt-8 pb-16 sm:pt-20 sm:pb-24 lg:pt-28 lg:pb-32 overflow-hidden">
         {/* Subtle gradient background blob */}
         <div className="absolute inset-0 -z-10">
           <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-purple-100 rounded-full opacity-30 blur-3xl translate-x-1/3 -translate-y-1/4" />
@@ -27,16 +27,16 @@ export default function HomePage() {
                 AI-Powered · Built for $1M+ Luxury Markets
               </div>
 
-              <h1 className="text-5xl sm:text-6xl lg:text-7xl font-serif font-bold text-gray-900 mb-6 leading-[1.05]">
+              <h1 className="text-4xl sm:text-6xl lg:text-7xl font-serif font-bold text-gray-900 mb-4 sm:mb-6 leading-[1.05]">
                 Close <span className="bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">2x More</span><br />Luxury Deals
               </h1>
 
-              <p className="text-lg sm:text-xl text-gray-600 mb-8 leading-relaxed max-w-lg">
+              <p className="text-base sm:text-xl text-gray-600 mb-5 sm:mb-8 leading-relaxed max-w-lg">
                 The only AI lead-scoring platform built exclusively for luxury real estate. Know your best prospects every morning. Win deals before your competition even sees them.
               </p>
 
               {/* Social proof mini-bar */}
-              <div className="flex items-center gap-3 mb-8">
+              <div className="flex items-center gap-3 mb-5 sm:mb-8">
                 <div className="flex -space-x-2">
                   {['SC','MJ','EB','RT','LW'].map((init, i) => (
                     <div key={i} className="w-8 h-8 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 border-2 border-white flex items-center justify-center text-white text-xs font-bold">{init}</div>
@@ -47,8 +47,8 @@ export default function HomePage() {
                 </p>
               </div>
 
-              {/* Value Props */}
-              <div className="space-y-3 mb-8">
+              {/* Value Props - hidden on smallest screens to keep CTA visible */}
+              <div className="hidden sm:block space-y-3 mb-8">
                 {[
                   'AI scoring identifies your top buyers before competitors',
                   'Daily market briefing — your 3 best deals every morning',
@@ -66,7 +66,7 @@ export default function HomePage() {
               </div>
 
               {/* CTAs */}
-              <div className="flex flex-col sm:flex-row gap-3">
+              <div className="flex flex-col sm:flex-row gap-3 mt-6 sm:mt-0">
                 <Link href="/agent/signup" className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-purple-600 to-pink-600 text-white px-8 py-4 rounded-xl font-semibold hover:from-purple-700 hover:to-pink-700 transition shadow-lg shadow-purple-200">
                   Start Free 14-Day Trial
                   <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7"/></svg>

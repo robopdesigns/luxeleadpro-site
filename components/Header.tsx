@@ -91,9 +91,15 @@ export function Header() {
             )}
           </nav>
 
+          {/* ── MOBILE CTA ────────────────────────────────────── */}
+          <div className="flex items-center gap-2 md:hidden">
+            <Link href="/agent/signup" className="px-4 py-2 text-sm bg-gradient-to-r from-purple-600 to-pink-600 text-white font-semibold rounded-lg">
+              Free Trial
+            </Link>
+
           {/* ── MOBILE HAMBURGER ──────────────────────────────── */}
           <button
-            className="md:hidden p-2 rounded-lg hover:bg-gray-100 transition"
+            className="p-2 rounded-lg hover:bg-gray-100 transition"
             onClick={() => setMenuOpen(!menuOpen)}
             aria-label="Toggle menu"
           >
@@ -104,6 +110,7 @@ export function Header() {
               }
             </svg>
           </button>
+          </div>
         </div>
 
         {/* ── MOBILE MENU ───────────────────────────────────── */}
