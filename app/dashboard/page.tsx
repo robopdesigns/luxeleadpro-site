@@ -180,17 +180,17 @@ export default function LuxeLeadProDashboard() {
                   <div className={`${isDark ? 'bg-gray-700' : 'bg-gray-100'} rounded-lg p-4`}>
                     <p className="text-xs text-gray-500 mb-2">Per Agent Plan</p>
                     <p className="text-2xl font-bold text-purple-600">$199/mo</p>
-                    <p className="text-xs text-gray-500 mt-2">Commission: $477.60</p>
+                    <p className="text-xs text-gray-500 mt-2">Rep earns: $50/mo recurring</p>
+                  </div>
+                  <div className={`${isDark ? 'bg-gray-700' : 'bg-gray-100'} rounded-lg p-4`}>
+                    <p className="text-xs text-gray-500 mb-2">Agent + Outreach</p>
+                    <p className="text-2xl font-bold text-purple-600">$299/mo</p>
+                    <p className="text-xs text-gray-500 mt-2">Rep earns: $75/mo recurring</p>
                   </div>
                   <div className={`${isDark ? 'bg-gray-700' : 'bg-gray-100'} rounded-lg p-4`}>
                     <p className="text-xs text-gray-500 mb-2">Team Plan</p>
                     <p className="text-2xl font-bold text-purple-600">$799/mo</p>
-                    <p className="text-xs text-gray-500 mt-2">Commission: $2,397</p>
-                  </div>
-                  <div className={`${isDark ? 'bg-gray-700' : 'bg-gray-100'} rounded-lg p-4`}>
-                    <p className="text-xs text-gray-500 mb-2">Enterprise</p>
-                    <p className="text-2xl font-bold text-purple-600">Custom</p>
-                    <p className="text-xs text-gray-500 mt-2">Commission: 20%</p>
+                    <p className="text-xs text-gray-500 mt-2">Rep earns: $150/mo recurring</p>
                   </div>
                 </div>
               </div>
