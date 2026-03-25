@@ -39,7 +39,7 @@ export function Header() {
             </svg>
 
             {/* Wordmark */}
-            <div className="hidden sm:flex flex-col leading-none">
+            <div className="flex flex-col leading-none">
               <span className="text-[17px] font-bold tracking-tight text-gray-900 group-hover:text-purple-700 transition">
                 LuxeLeadPro
               </span>
