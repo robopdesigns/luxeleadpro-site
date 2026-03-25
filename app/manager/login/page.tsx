@@ -16,6 +16,10 @@ export default function ManagerLoginPage() {
     password: "",
   });
 
+  const handleDemoLogin = () => {
+    router.push("/manager");
+  };
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
       ...formData,
@@ -73,13 +77,13 @@ export default function ManagerLoginPage() {
           {/* Form */}
           <form onSubmit={handleSubmit} className="space-y-6">
             {error && (
-              <div className="p-4 bg-red-950 border border-red-800 rounded-lg text-red-200 text-sm">
+              <div className="p-4 bg-red-100 border border-red-300 rounded-lg text-red-800 text-sm">
                 {error}
               </div>
             )}
 
             <div>
-              <label htmlFor="email" className="block text-sm font-medium mb-2">
+              <label htmlFor="email" className="block text-sm font-semibold text-gray-900 mb-2">
                 Email Address
               </label>
               <input
@@ -89,13 +93,13 @@ export default function ManagerLoginPage() {
                 required
                 value={formData.email}
                 onChange={handleChange}
-                className="w-full px-4 py-3 bg-gray-50 border border-neutral-700 rounded-lg text-white placeholder-neutral-500 focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition"
+                className="w-full px-4 py-3 bg-white border border-gray-300 rounded-lg text-gray-900 placeholder-gray-400 focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-100 transition"
                 placeholder="manager@example.com"
               />
             </div>
 
             <div>
-              <label htmlFor="password" className="block text-sm font-medium mb-2">
+              <label htmlFor="password" className="block text-sm font-semibold text-gray-900 mb-2">
                 Password
               </label>
               <input
@@ -105,7 +109,7 @@ export default function ManagerLoginPage() {
                 required
                 value={formData.password}
                 onChange={handleChange}
-                className="w-full px-4 py-3 bg-gray-50 border border-neutral-700 rounded-lg text-white placeholder-neutral-500 focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition"
+                className="w-full px-4 py-3 bg-white border border-gray-300 rounded-lg text-gray-900 placeholder-gray-400 focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-100 transition"
                 placeholder="••••••••"
               />
             </div>
@@ -113,9 +117,26 @@ export default function ManagerLoginPage() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-3 bg-purple-500 text-neutral-950 font-semibold rounded-lg hover:bg-purple-400 transition disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-semibold rounded-lg hover:from-purple-700 hover:to-pink-700 transition disabled:opacity-50 disabled:cursor-not-allowed shadow-md"
             >
               {loading ? "Signing in..." : "Sign In"}
+            </button>
+
+            <div className="relative my-4">
+              <div className="absolute inset-0 flex items-center">
+                <div className="w-full border-t border-gray-200" />
+              </div>
+              <div className="relative flex justify-center text-xs uppercase">
+                <span className="bg-white px-3 text-gray-400 font-medium">or</span>
+              </div>
+            </div>
+
+            <button
+              type="button"
+              onClick={handleDemoLogin}
+              className="w-full py-3 border-2 border-purple-300 text-purple-700 font-semibold rounded-lg hover:bg-purple-50 transition"
+            >
+              &#9654; Preview Manager Dashboard (Demo)
             </button>
           </form>
 

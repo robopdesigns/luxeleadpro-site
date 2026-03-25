@@ -9,6 +9,9 @@ interface ProtectedRouteProps {
   requiredRole?: "agent" | "manager" | "admin";
 }
 
+// DEMO MODE: Set to true to bypass auth and preview dashboards
+const DEMO_MODE = true;
+
 export function ProtectedRoute({
   children,
   requiredRole,
@@ -17,10 +20,17 @@ export function ProtectedRoute({
   const router = useRouter();
 
   useEffect(() => {
+    // Allow demo access without auth
+    if (DEMO_MODE) return;
+
     if (loading) return;
 
     if (!user) {
-      router.push("/agent/login");
+      if (requiredRole === "manager") {
+        router.push("/manager/login");
+      } else {
+        router.push("/agent/login");
+      }
       return;
     }
 
@@ -30,26 +40,24 @@ export function ProtectedRoute({
     }
   }, [user, profile, loading, requiredRole, router]);
 
-  if (loading) {
+  if (!DEMO_MODE && loading) {
     return (
-      <div className="flex items-center justify-center min-h-screen">
+      <div className="flex items-center justify-center min-h-screen bg-white">
         <div className="text-center">
-          <div className="w-12 h-12 border-4 border-neutral-700 border-t-purple-500 rounded-full animate-spin mx-auto mb-4"></div>
-          <p className="text-neutral-400">Loading...</p>
+          <div className="w-12 h-12 border-4 border-gray-200 border-t-purple-500 rounded-full animate-spin mx-auto mb-4"></div>
+          <p className="text-gray-500">Loading...</p>
         </div>
       </div>
     );
   }
 
-  if (!user) {
+  if (!DEMO_MODE && !user) {
     return null;
   }
 
-  if (requiredRole && profile?.role !== requiredRole) {
+  if (!DEMO_MODE && requiredRole && profile?.role !== requiredRole) {
     return null;
   }
 
   return <>{children}</>;
 }
-
-
