@@ -4,7 +4,115 @@ import React, { useState } from 'react';
 
 export default function LuxeLeadProDashboard() {
   const [theme, setTheme] = useState<'light' | 'dark'>('light');
-  const [activeTab, setActiveTab] = useState<'overview' | 'tasks' | 'sales' | 'metrics'>('overview');
+  const [activeTab, setActiveTab] = useState<'overview' | 'tasks' | 'sales' | 'metrics' | 'docs'>('overview');
+  const [selectedDoc, setSelectedDoc] = useState<string | null>(null);
+
+  const strategyDocs = [
+    {
+      slug: 'brand-audit',
+      title: 'Opus Brand & Strategy Audit',
+      category: 'Strategy',
+      description: 'Deep analysis of brand positioning, website, pricing, credibility, and competitive landscape.',
+      highlights: [
+        'Replaced fake testimonials with Founding Agent Program',
+        'New positioning: "The AI That Knows Your Market Before You Wake Up"',
+        'Founding pricing strategy ($249/mo → $497 after 50 agents)',
+        'Daily Briefing identified as the killer differentiator',
+        'Full competitive landscape analysis',
+      ],
+    },
+    {
+      slug: 'sales-launch',
+      title: 'Sales Launch Plan',
+      category: 'Sales',
+      description: 'Complete playbook for hiring, training, and launching a commission-based sales team.',
+      highlights: [
+        'Commission: 30% first month + 10% recurring + bonuses',
+        'Tony Robbins-style daily sales rituals & mantras',
+        '5-step pitch framework: Connect → Diagnose → Prescribe → Prove → Close',
+        'Week-by-week rep schedule for first 2 weeks',
+        'Prospect sourcing: LinkedIn, directories, brokerages, open houses',
+      ],
+    },
+    {
+      slug: 'hiring-kit',
+      title: 'Hiring Kit',
+      category: 'Sales',
+      description: 'Job posting, interview scripts, screening criteria, role-play scoring rubric, onboarding checklist.',
+      highlights: [
+        'Ready-to-post job listing for LinkedIn/Indeed',
+        '60-second video application filter (eliminates 80% bad fits)',
+        '15-min phone screen with 5 sales DNA questions',
+        '30-min final interview with live role-play scoring (1-5 × 5 skills)',
+        'Red flags checklist & onboarding Day 1 checklist',
+      ],
+    },
+    {
+      slug: 'walkthrough',
+      title: 'Company Walkthrough',
+      category: 'Sales',
+      description: 'Complete explainer for new hires — 30-sec pitch, 2-min explainer, product walkthrough, competitive landscape.',
+      highlights: [
+        '30-second pitch memorization script',
+        'Full product feature walkthrough with selling points',
+        'Competitive analysis: Zillow, Real Geeks, CINC, Luxury Presence, FUB',
+        'How to explain LuxeLeadPro to agents, brokerages, friends, investors',
+        'Company values & culture document',
+      ],
+    },
+    {
+      slug: 'vertical-expansion',
+      title: 'Vertical Expansion Strategy',
+      category: 'Strategy',
+      description: 'Multi-industry roadmap — insurance, solar, roofing, construction, medical, financial, auto, gyms.',
+      highlights: [
+        'Tier 1: InsureLeadPro, SolarLeadPro, BuildLeadPro',
+        'Tier 2: PracticeLeadPro, WealthLeadPro, DealerLeadPro, FitLeadPro',
+        'Parent company: LeadPro AI',
+        'Year 2: $480K-$960K ARR across 2 verticals',
+        'Year 5: $3-5M ARR → $25-45M acquisition target',
+      ],
+    },
+    {
+      slug: 'timeline',
+      title: 'Timeline & Revenue Projections',
+      category: 'Strategy',
+      description: 'Month-by-month projections — conservative and aggressive scenarios through December 2026.',
+      highlights: [
+        'Conservative Dec 2026: 80-125 clients, $20-31K MRR',
+        'Aggressive Dec 2026: 180 clients, $45K MRR ($540K ARR)',
+        '5 phases: Launch Prep → Hire → First Sales → Prove → Accelerate',
+        'Risk analysis with mitigation strategies',
+        'Key milestone: Get one agent one deal',
+      ],
+    },
+    {
+      slug: 'demo-script',
+      title: 'Sales Demo Script',
+      category: 'Sales',
+      description: '20-30 minute structured demo with hook, problem, live demo, ROI, and close sequences.',
+      highlights: [
+        '6-part structure: Hook → Problem → Demo → Results → Pricing → Close',
+        'Key line: "In the luxury space, your time is worth more than chasing ghosts"',
+        'Trial close and hard close scripts',
+        'Demo do\'s and don\'ts',
+        'Post-demo follow-up checklist',
+      ],
+    },
+    {
+      slug: 'objections',
+      title: 'Objection Handling Guide',
+      category: 'Sales',
+      description: '8 common objections with scripted responses and follow-up strategies.',
+      highlights: [
+        '"Too expensive" → ROI math (one deal = 50-100x return)',
+        '"I already have a lead source" → We\'re a layer on top, not replacement',
+        '"Need to think about it" → Ask what specifically',
+        '"Want to wait and see" → FOMO + limited spots per market',
+        'Golden rule: Acknowledge → Redirect → Close',
+      ],
+    },
+  ];
 
   const isDark = theme === 'dark';
   const bgClass = isDark ? 'bg-gray-900' : 'bg-gray-50';
@@ -102,10 +210,10 @@ export default function LuxeLeadProDashboard() {
         {/* Tab Navigation */}
         <div className={`${cardClass} border rounded-lg mb-8 overflow-hidden`}>
           <div className="flex border-b border-gray-700">
-            {['overview', 'tasks', 'sales', 'metrics'].map((tab) => (
+            {['overview', 'tasks', 'sales', 'metrics', 'docs'].map((tab) => (
               <button
                 key={tab}
-                onClick={() => setActiveTab(tab as any)}
+                onClick={() => { setActiveTab(tab as any); setSelectedDoc(null); }}
                 className={`flex-1 py-4 px-6 font-semibold text-center uppercase text-xs tracking-wide transition ${
                   activeTab === tab
                     ? isDark ? 'bg-purple-600 text-white' : 'bg-purple-600 text-white'
@@ -116,6 +224,7 @@ export default function LuxeLeadProDashboard() {
                 {tab === 'tasks' && '✅ Tasks'}
                 {tab === 'sales' && '💰 Sales'}
                 {tab === 'metrics' && '📈 Metrics'}
+                {tab === 'docs' && '📄 Strategy Docs'}
               </button>
             ))}
           </div>
@@ -178,19 +287,19 @@ export default function LuxeLeadProDashboard() {
                 <h2 className={`text-2xl font-bold ${textClass} mb-6`}>💡 Quick Reference</h2>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   <div className={`${isDark ? 'bg-gray-700' : 'bg-gray-100'} rounded-lg p-4`}>
-                    <p className="text-xs text-gray-500 mb-2">Per Agent Plan</p>
-                    <p className="text-2xl font-bold text-purple-600">$199/mo</p>
-                    <p className="text-xs text-gray-500 mt-2">Rep earns: $50/mo recurring</p>
+                    <p className="text-xs text-gray-500 mb-2">Signature Plan</p>
+                    <p className="text-2xl font-bold text-purple-600">$249/mo</p>
+                    <p className="text-xs text-gray-500 mt-2">+ $249 setup · Rep earns: $75 first mo + $25/mo</p>
                   </div>
                   <div className={`${isDark ? 'bg-gray-700' : 'bg-gray-100'} rounded-lg p-4`}>
-                    <p className="text-xs text-gray-500 mb-2">Agent + Outreach</p>
-                    <p className="text-2xl font-bold text-purple-600">$299/mo</p>
-                    <p className="text-xs text-gray-500 mt-2">Rep earns: $75/mo recurring</p>
+                    <p className="text-xs text-gray-500 mb-2">Signature + Outreach</p>
+                    <p className="text-2xl font-bold text-purple-600">$349/mo</p>
+                    <p className="text-xs text-gray-500 mt-2">+ $249 setup · Rep earns: $105 first mo + $35/mo</p>
                   </div>
                   <div className={`${isDark ? 'bg-gray-700' : 'bg-gray-100'} rounded-lg p-4`}>
-                    <p className="text-xs text-gray-500 mb-2">Team Plan</p>
-                    <p className="text-2xl font-bold text-purple-600">$799/mo</p>
-                    <p className="text-xs text-gray-500 mt-2">Rep earns: $150/mo recurring</p>
+                    <p className="text-xs text-gray-500 mb-2">Team + Outreach</p>
+                    <p className="text-2xl font-bold text-purple-600">$999/mo</p>
+                    <p className="text-xs text-gray-500 mt-2">+ $499 setup · Rep earns: $300 first mo + $100/mo</p>
                   </div>
                 </div>
               </div>
@@ -369,10 +478,76 @@ export default function LuxeLeadProDashboard() {
               </div>
             </div>
           )}
+
+          {/* DOCS TAB */}
+          {activeTab === 'docs' && !selectedDoc && (
+            <div className="p-8">
+              <h2 className={`text-2xl font-bold ${textClass} mb-2`}>Strategy Documents</h2>
+              <p className="text-sm text-gray-500 mb-8">All strategy, sales, and operational documents created by Atlas. Click any document to view key highlights.</p>
+              
+              {['Strategy', 'Sales'].map(cat => {
+                const docs = strategyDocs.filter(d => d.category === cat);
+                return (
+                  <div key={cat} className="mb-8">
+                    <h3 className="text-sm uppercase tracking-wider text-purple-600 font-semibold mb-4">{cat === 'Strategy' ? '📊 Strategy & Planning' : '💼 Sales & Training'}</h3>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      {docs.map(doc => (
+                        <button
+                          key={doc.slug}
+                          onClick={() => setSelectedDoc(doc.slug)}
+                          className={`${cardClass} border rounded-xl p-5 text-left hover:border-purple-400 transition`}
+                        >
+                          <h4 className={`font-bold ${textClass}`}>{doc.title}</h4>
+                          <p className="text-sm text-gray-500 mt-1">{doc.description}</p>
+                          <p className="text-xs text-purple-600 font-medium mt-3">View Details →</p>
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          )}
+
+          {/* SINGLE DOC VIEW */}
+          {activeTab === 'docs' && selectedDoc && (() => {
+            const doc = strategyDocs.find(d => d.slug === selectedDoc);
+            if (!doc) return null;
+            return (
+              <div className="p-8">
+                <button
+                  onClick={() => setSelectedDoc(null)}
+                  className="text-sm text-purple-600 hover:text-purple-700 font-medium mb-6 inline-block"
+                >
+                  ← Back to all documents
+                </button>
+                <div className={`${cardClass} border rounded-xl p-6`}>
+                  <span className="text-xs uppercase tracking-wider text-purple-600 font-semibold">{doc.category}</span>
+                  <h2 className={`text-2xl font-bold ${textClass} mt-2 mb-2`}>{doc.title}</h2>
+                  <p className="text-sm text-gray-500 mb-6">{doc.description}</p>
+                  
+                  <h3 className={`font-semibold ${textClass} mb-4`}>Key Highlights</h3>
+                  <div className="space-y-3">
+                    {doc.highlights.map((h, i) => (
+                      <div key={i} className={`flex items-start gap-3 ${isDark ? 'bg-gray-700' : 'bg-gray-50'} rounded-lg p-4`}>
+                        <div className="w-6 h-6 rounded-full bg-purple-100 flex items-center justify-center flex-shrink-0 mt-0.5">
+                          <span className="text-purple-600 text-xs font-bold">{i + 1}</span>
+                        </div>
+                        <p className={`text-sm ${textClass}`}>{h}</p>
+                      </div>
+                    ))}
+                  </div>
+                  
+                  <div className={`mt-6 p-4 rounded-lg ${isDark ? 'bg-gray-700' : 'bg-purple-50'} border ${isDark ? 'border-gray-600' : 'border-purple-200'}`}>
+                    <p className="text-sm text-gray-500">📁 Full document available in workspace: <span className="font-mono text-purple-600">luxeleadpro/{doc.slug === 'brand-audit' ? 'OPUS_BRAND_AUDIT.md' : doc.slug === 'sales-launch' ? 'SALES_LAUNCH_PLAN.md' : doc.slug === 'hiring-kit' ? 'HIRING_KIT.md' : doc.slug === 'walkthrough' ? 'COMPANY_WALKTHROUGH.md' : doc.slug === 'vertical-expansion' ? 'VERTICAL_EXPANSION.md' : doc.slug === 'timeline' ? 'TIMELINE_PROJECTION.md' : doc.slug === 'demo-script' ? 'SALES_DEMO.md' : 'OBJECTIONS.md'}</span></p>
+                  </div>
+                </div>
+              </div>
+            );
+          })()}
         </div>
       </main>
     </div>
   );
 }
-
 
