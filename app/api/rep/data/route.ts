@@ -10,7 +10,7 @@ function getSupabase() {
 }
 
 export async function GET() {
-  const cookieStore = cookies();
+  const cookieStore = await cookies();
   const repId = cookieStore.get("rep_auth")?.value;
   if (!repId) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
@@ -34,7 +34,7 @@ export async function GET() {
 }
 
 export async function POST(request: Request) {
-  const cookieStore = cookies();
+  const cookieStore = await cookies();
   const repId = cookieStore.get("rep_auth")?.value;
   if (!repId) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 

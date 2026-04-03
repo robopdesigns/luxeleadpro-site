@@ -10,7 +10,7 @@ function getSupabase() {
 }
 
 export async function GET() {
-  const cookieStore = cookies();
+  const cookieStore = await cookies();
   if (cookieStore.get("dashboard_auth")?.value !== "1") {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }

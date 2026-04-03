@@ -15,7 +15,7 @@ function isOwnerAuthed(cookieStore: ReturnType<typeof cookies>) {
 
 // GET - list all reps (owner only)
 export async function GET() {
-  const cookieStore = cookies();
+  const cookieStore = await cookies();
   if (!isOwnerAuthed(cookieStore)) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
@@ -32,7 +32,7 @@ export async function GET() {
 
 // POST - create a new rep (owner only)
 export async function POST(request: Request) {
-  const cookieStore = cookies();
+  const cookieStore = await cookies();
   if (!isOwnerAuthed(cookieStore)) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
