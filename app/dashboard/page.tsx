@@ -478,7 +478,6 @@ export default function LuxeLeadProDashboard() {
               </div>
             </div>
           )}
-        </div>
 
           {/* DOCS TAB */}
           {activeTab === 'docs' && !selectedDoc && (
