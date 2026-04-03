@@ -35,16 +35,12 @@ export default function HomePage() {
                 The only AI lead-scoring platform built exclusively for luxury real estate. Know your best prospects every morning. Win deals before your competition even sees them.
               </p>
 
-              {/* Social proof mini-bar */}
+              {/* Founding cohort badge */}
               <div className="flex items-center gap-3 mb-5 sm:mb-8">
-                <div className="flex -space-x-2">
-                  {['SC','MJ','EB','RT','LW'].map((init, i) => (
-                    <div key={i} className="w-8 h-8 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 border-2 border-white flex items-center justify-center text-white text-xs font-bold">{init}</div>
-                  ))}
+                <div className="inline-flex items-center gap-2 bg-green-50 border border-green-200 text-green-700 px-3 py-1.5 rounded-full text-sm font-medium">
+                  <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
+                  Founding Agent Cohort — Limited Availability
                 </div>
-                <p className="text-sm text-gray-600">
-                  <span className="font-semibold text-gray-900">500+ luxury agents</span> closing more deals
-                </p>
               </div>
 
               {/* Value Props - hidden on smallest screens to keep CTA visible */}
@@ -67,15 +63,15 @@ export default function HomePage() {
 
               {/* CTAs */}
               <div className="flex flex-col sm:flex-row gap-3 mt-6 sm:mt-0">
-                <Link href="/agent/signup" className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-purple-600 to-pink-600 text-white px-8 py-4 rounded-xl font-semibold hover:from-purple-700 hover:to-pink-700 transition shadow-lg shadow-purple-200">
-                  Start Free 14-Day Trial
+                <a href="https://calendly.com/robopdesigns/profit-audit" target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-purple-600 to-pink-600 text-white px-8 py-4 rounded-xl font-semibold hover:from-purple-700 hover:to-pink-700 transition shadow-lg shadow-purple-200">
+                  Book a Strategy Call
                   <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7"/></svg>
-                </Link>
+                </a>
                 <Link href="/pricing" className="inline-flex items-center justify-center gap-2 border-2 border-gray-200 text-gray-900 px-8 py-4 rounded-xl font-semibold hover:border-purple-400 hover:text-purple-700 transition">
                   See Pricing
                 </Link>
               </div>
-              <p className="text-sm text-gray-500 mt-4">No credit card required · Cancel anytime · Full feature access</p>
+              <p className="text-sm text-gray-500 mt-4">No obligation · Personalized to your market · Setup in under 10 minutes</p>
             </div>
 
             {/* Right: AI Command Center */}
@@ -135,14 +131,14 @@ export default function HomePage() {
       {/* ─── SOCIAL PROOF BAR ─────────────────────────────────── */}
       <section className="border-y border-gray-100 bg-gray-50 py-6 px-4">
         <div className="max-w-5xl mx-auto">
-          <p className="text-center text-sm text-gray-500 font-medium mb-4 uppercase tracking-wider">Trusted by luxury agents in top markets</p>
+          <p className="text-center text-sm text-gray-500 font-medium mb-4 uppercase tracking-wider">Built exclusively for luxury real estate</p>
           <div className="flex flex-wrap justify-center gap-8 text-center">
             {[
-              { value: '500+', label: 'Active Agents' },
-              { value: '$1.2B+', label: 'Pipeline Tracked' },
-              { value: '2.3x', label: 'Avg Deal Increase' },
-              { value: '99.9%', label: 'Uptime SLA' },
-              { value: '0', label: 'Compliance Violations' },
+              { value: '40+', label: 'Data Signals Per Lead' },
+              { value: '6 AM', label: 'Daily Briefing Delivered' },
+              { value: '0-100', label: 'AI Lead Scoring' },
+              { value: '100%', label: 'TCPA/DNC Compliance' },
+              { value: '< 10 min', label: 'Setup Time' },
             ].map((stat, i) => (
               <div key={i}>
                 <div className="text-2xl font-bold text-gray-900">{stat.value}</div>
@@ -260,51 +256,27 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ─── TESTIMONIALS ──────────────────────────────────────── */}
+      {/* ─── FOUNDING AGENT PROGRAM ──────────────────────────── */}
       <section className="px-4 py-20 sm:py-28 bg-white border-t border-gray-100">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-14">
-            <span className="text-purple-600 font-semibold text-sm uppercase tracking-wider">Testimonials</span>
+            <span className="text-purple-600 font-semibold text-sm uppercase tracking-wider">Limited to 50 Agents</span>
             <h2 className="text-4xl sm:text-5xl font-serif font-bold text-gray-900 mt-2 mb-4">
-              Agents Who Closed More Deals
+              Founding Agent Program
             </h2>
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">We&apos;re onboarding our first cohort of luxury agents at a special introductory rate. Lock in your founding pricing for life.</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
-              {
-                quote: "I went from closing 2 deals a month to 4 in my first 90 days. The daily briefing tells me exactly who to call. It's like having an analyst on my team.",
-                name: 'Sarah C.',
-                role: 'Luxury Agent · Chicago, IL',
-                result: '+2 deals/month',
-              },
-              {
-                quote: "The AI scoring is scary accurate. It flagged a lead I would have ignored — that lead turned into a $4.2M sale. LuxeLeadPro paid for itself 200x in one deal.",
-                name: 'Marcus J.',
-                role: 'Top Producer · Miami, FL',
-                result: '$4.2M deal won',
-              },
-              {
-                quote: "I stopped worrying about compliance the day I signed up. The DNC checking is automatic. My broker was impressed when I showed them the audit logs.",
-                name: 'Elena B.',
-                role: 'Team Lead · Los Angeles, CA',
-                result: 'Zero compliance issues',
-              },
-            ].map((t, i) => (
+              { badge: 'For Life', title: 'Locked Pricing', desc: 'Your founding rate stays the same as long as you\'re a member — even after we raise prices for new agents.' },
+              { badge: 'White Glove', title: 'Direct Team Access', desc: 'Work directly with our team. Priority support, feature requests, and a dedicated onboarding specialist.' },
+              { badge: 'VIP Access', title: 'Shape the Product', desc: 'Your feedback drives what we build next. Founding agents have a direct line to our product roadmap.' },
+            ].map((item, i) => (
               <div key={i} className="bg-gray-50 rounded-2xl p-7 border border-gray-200 flex flex-col">
-                <div className="flex gap-1 mb-4">
-                  {[...Array(5)].map((_, s) => (
-                    <svg key={s} className="w-4 h-4 text-yellow-400 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
-                  ))}
-                </div>
-                <p className="text-gray-700 leading-relaxed flex-1 mb-5 italic">"{t.quote}"</p>
-                <div className="flex items-center justify-between">
-                  <div>
-                    <div className="font-bold text-gray-900 text-sm">{t.name}</div>
-                    <div className="text-xs text-gray-500">{t.role}</div>
-                  </div>
-                  <div className="bg-green-100 text-green-700 text-xs font-bold px-3 py-1 rounded-full">{t.result}</div>
-                </div>
+                <div className="bg-purple-100 text-purple-700 text-xs font-bold px-3 py-1 rounded-full w-fit mb-4">{item.badge}</div>
+                <h3 className="text-xl font-bold text-gray-900 mb-3">{item.title}</h3>
+                <p className="text-gray-600 leading-relaxed">{item.desc}</p>
               </div>
             ))}
           </div>
@@ -316,29 +288,29 @@ export default function HomePage() {
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-14">
             <span className="text-purple-600 font-semibold text-sm uppercase tracking-wider">Pricing</span>
-            <h2 className="text-4xl sm:text-5xl font-serif font-bold text-gray-900 mt-2 mb-4">Simple, Premium Pricing</h2>
-            <p className="text-lg text-gray-600">Start free for 14 days. No credit card. No commitment.</p>
+            <h2 className="text-4xl sm:text-5xl font-serif font-bold text-gray-900 mt-2 mb-4">Founding Agent Pricing</h2>
+            <p className="text-lg text-gray-600">Lock in your introductory rate today. Pricing increases after our first 50 agents.</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10 mt-4">
             {[
               {
-                name: 'Per Agent',
-                price: '$199',
+                name: 'Signature',
+                price: '$249',
                 sub: '/month',
-                features: ['AI Lead Scoring', 'Daily AI Briefing', 'Market Intelligence', 'TCPA/DNC Compliance', 'Email Support'],
+                features: ['AI Lead Scoring (0-100)', 'Daily AI Briefing', 'Market Intelligence', 'TCPA/DNC Compliance', 'White-Glove Onboarding'],
                 popular: false,
                 badge: null,
-                cta: 'Start Free Trial',
+                cta: 'Book a Strategy Call',
               },
               {
-                name: 'Agent + Outreach',
-                price: '$299',
+                name: 'Signature + Outreach',
+                price: '$349',
                 sub: '/month',
-                features: ['Everything in Per Agent', '✉️ Automated email sequences', '🤖 AI writes emails per lead', '📊 Open & reply tracking', 'Priority Support'],
+                features: ['Everything in Signature', '✉️ Automated email sequences', '🤖 AI writes emails per lead', '📊 Open & reply tracking', 'Priority Support'],
                 popular: true,
-                badge: '🔥 Best Value',
-                cta: 'Start Free Trial',
+                badge: 'Most Popular',
+                cta: 'Book a Strategy Call',
               },
               {
                 name: 'Team + Outreach',
@@ -347,7 +319,7 @@ export default function HomePage() {
                 features: ['Unlimited Agents', 'Outreach for all agents', 'Manager Dashboard', 'Team Analytics', 'Dedicated Support'],
                 popular: false,
                 badge: null,
-                cta: 'Start Free Trial',
+                cta: 'Contact Us',
               },
             ].map((tier, i) => (
               <div key={i} className={`rounded-2xl border-2 transition relative flex flex-col ${tier.popular ? 'border-purple-500 bg-white shadow-xl shadow-purple-100' : 'border-gray-200 bg-white hover:border-purple-200'}`}>
@@ -370,16 +342,16 @@ export default function HomePage() {
                     </li>
                   ))}
                 </ul>
-                <Link href="/agent/signup" className={`block w-full text-center py-3 rounded-xl font-semibold transition text-sm mt-auto ${tier.popular ? 'bg-gradient-to-r from-purple-600 to-pink-600 text-white hover:from-purple-700 hover:to-pink-700 shadow-md' : 'border-2 border-gray-200 text-gray-900 hover:border-purple-400 hover:text-purple-600'}`}>
+                <a href="https://calendly.com/robopdesigns/profit-audit" target="_blank" rel="noopener noreferrer" className={`block w-full text-center py-3 rounded-xl font-semibold transition text-sm mt-auto ${tier.popular ? 'bg-gradient-to-r from-purple-600 to-pink-600 text-white hover:from-purple-700 hover:to-pink-700 shadow-md' : 'border-2 border-gray-200 text-gray-900 hover:border-purple-400 hover:text-purple-600'}`}>
                   {tier.cta}
-                </Link>
+                </a>
                 </div>
               </div>
             ))}
           </div>
 
           <p className="text-center text-sm text-gray-500">
-            All plans include a 14-day free trial. No credit card required.{' '}
+            All plans include white-glove onboarding. No long-term contracts.{' '}
             <Link href="/pricing" className="text-purple-600 font-medium hover:underline">Compare all features →</Link>
           </p>
         </div>
@@ -395,7 +367,7 @@ export default function HomePage() {
               { icon: '📋', label: 'DNC Registered' },
               { icon: '🛡️', label: 'Data Encrypted' },
               { icon: '✅', label: 'Audit Logs' },
-              { icon: '🔐', label: 'SOC 2 Ready' },
+              { icon: '🔐', label: 'Enterprise Security' },
             ].map((t, i) => (
               <div key={i} className="flex flex-col items-center gap-2">
                 <div className="text-3xl">{t.icon}</div>
@@ -413,18 +385,18 @@ export default function HomePage() {
             Ready to Close 2x More Deals?
           </h2>
           <p className="text-lg text-purple-100 mb-10 max-w-xl mx-auto">
-            Join 500+ luxury agents who wake up every morning knowing exactly who to call and why. Start free today.
+            Join our founding cohort of luxury agents who wake up every morning knowing exactly who to call and why. Limited spots available.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/agent/signup" className="inline-flex items-center justify-center gap-2 bg-white text-purple-700 font-bold px-8 py-4 rounded-xl hover:bg-purple-50 transition shadow-lg">
-              Start Free 14-Day Trial
+            <a href="https://calendly.com/robopdesigns/profit-audit" target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center gap-2 bg-white text-purple-700 font-bold px-8 py-4 rounded-xl hover:bg-purple-50 transition shadow-lg">
+              Book a Strategy Call
               <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7"/></svg>
-            </Link>
+            </a>
             <Link href="/pricing" className="inline-flex items-center justify-center gap-2 border-2 border-purple-300 text-white font-semibold px-8 py-4 rounded-xl hover:border-white transition">
               View Pricing
             </Link>
           </div>
-          <p className="text-sm text-purple-200 mt-6">No credit card required · Cancel anytime · Setup in 10 minutes</p>
+          <p className="text-sm text-purple-200 mt-6">No obligation · Personalized to your market · Setup in under 10 minutes</p>
         </div>
       </section>
 

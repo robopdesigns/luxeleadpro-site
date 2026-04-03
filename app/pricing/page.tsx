@@ -13,10 +13,10 @@ const checkIcon = (
 
 const plans = [
   {
-    name: 'Per Agent',
-    price: '$199',
+    name: 'Signature',
+    price: '$249',
     period: '/month',
-    desc: 'Perfect for individual agents',
+    desc: 'Everything a solo luxury agent needs',
     popular: false,
     badge: null,
     features: [
@@ -25,21 +25,21 @@ const plans = [
       'Market intelligence reports',
       'TCPA/DNC compliance automation',
       'Lead management dashboard',
-      'Mobile app access',
+      'White-glove onboarding',
       'Email support',
     ],
-    cta: 'Start Free Trial',
-    href: '/agent/signup',
+    cta: 'Book a Strategy Call',
+    href: 'https://calendly.com/robopdesigns/profit-audit',
   },
   {
-    name: 'Per Agent + Outreach',
-    price: '$299',
+    name: 'Signature + Outreach',
+    price: '$349',
     period: '/month',
     desc: 'AI scores AND emails your leads for you',
     popular: true,
-    badge: '🔥 Best Value',
+    badge: 'Most Popular',
     features: [
-      'Everything in Per Agent',
+      'Everything in Signature',
       '✉️ Automated cold email sequences',
       '🤖 AI writes personalized emails',
       '📬 Sends when lead scores 85+',
@@ -47,46 +47,46 @@ const plans = [
       'A/B subject line testing',
       'Priority support',
     ],
-    cta: 'Start Free Trial',
-    href: '/agent/signup',
-  },
-  {
-    name: 'Team Plan',
-    price: '$799',
-    period: '/month',
-    desc: 'For teams of 2-10 agents',
-    popular: false,
-    badge: null,
-    features: [
-      'Unlimited agents',
-      'Manager dashboard',
-      'Team performance reports',
-      'Agent leaderboards',
-      'Bulk lead import',
-      'API access',
-      'Priority support',
-    ],
-    cta: 'Start Free Trial',
-    href: '/agent/signup',
+    cta: 'Book a Strategy Call',
+    href: 'https://calendly.com/robopdesigns/profit-audit',
   },
   {
     name: 'Team + Outreach',
     price: '$999',
     period: '/month',
-    desc: 'Full team with automated outreach for all',
+    desc: 'Full team with automated outreach',
     popular: false,
-    badge: '⚡ Most Powerful',
+    badge: null,
     features: [
-      'Everything in Team Plan',
-      '✉️ Automated outreach for all agents',
-      '🤖 AI email writer per agent',
-      'Shared reply inbox',
-      'Campaign analytics dashboard',
+      'Unlimited agents',
+      'Outreach for all agents',
+      'Manager dashboard',
+      'Team analytics & leaderboards',
+      'Bulk lead import',
       'Dedicated account manager',
-      '24/7 priority support',
+      'Priority support',
     ],
     cta: 'Contact Us',
-    href: '/agent/signup',
+    href: 'https://calendly.com/robopdesigns/profit-audit',
+  },
+  {
+    name: 'Enterprise',
+    price: '$1,299',
+    period: '/month',
+    desc: 'Custom deployment for brokerages',
+    popular: false,
+    badge: '⚡ Full Power',
+    features: [
+      'Everything in Team + Outreach',
+      'Custom API integrations',
+      'Shared reply inbox',
+      'Campaign analytics dashboard',
+      'Dedicated success manager',
+      'Custom compliance workflows',
+      'SLA guarantees',
+    ],
+    cta: 'Contact Us',
+    href: 'https://calendly.com/robopdesigns/profit-audit',
   },
 ];
 
@@ -102,16 +102,16 @@ export default function PricingPage() {
         <section className="px-4 py-16 sm:py-20 border-b border-gray-100 text-center">
           <div className="max-w-3xl mx-auto">
             <span className="inline-block bg-purple-50 text-purple-700 text-sm font-semibold px-4 py-1.5 rounded-full mb-4">
-              Simple, Transparent Pricing
+              Founding Agent Pricing
             </span>
             <h1 className="text-4xl sm:text-5xl font-display font-bold text-gray-900 mb-4">
               Choose Your Plan
             </h1>
             <p className="text-lg text-gray-600 mb-2">
-              All plans include a 14-day free trial. No credit card required.
+              Lock in your introductory rate today. Pricing increases after our first 50 agents.
             </p>
             <p className="text-sm text-gray-500">
-              Built for $1M+ luxury real estate markets.
+              Built for $1M+ luxury real estate markets. White-glove onboarding included.
             </p>
           </div>
         </section>
@@ -123,9 +123,9 @@ export default function PricingPage() {
               <p className="font-bold text-lg">🆕 New: Automated Cold Outreach Add-On</p>
               <p className="text-purple-100 text-sm">AI scores your leads AND emails them for you. Like Instantly — but built for luxury real estate.</p>
             </div>
-            <Link href="/agent/signup" className="flex-shrink-0 bg-white text-purple-700 font-bold px-6 py-2.5 rounded-lg hover:bg-purple-50 transition text-sm whitespace-nowrap">
-              Try It Free →
-            </Link>
+            <a href="https://calendly.com/robopdesigns/profit-audit" target="_blank" rel="noopener noreferrer" className="flex-shrink-0 bg-white text-purple-700 font-bold px-6 py-2.5 rounded-lg hover:bg-purple-50 transition text-sm whitespace-nowrap">
+              Learn More →
+            </a>
           </div>
         </section>
 
@@ -157,8 +157,10 @@ export default function PricingPage() {
                       <span className="text-4xl font-bold text-gray-900">{plan.price}</span>
                       <span className="text-sm text-gray-500">{plan.period}</span>
                     </div>
-                    <Link
+                    <a
                       href={plan.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
                       className={`block w-full text-center py-3 rounded-xl font-semibold text-sm transition ${
                         plan.popular
                           ? 'bg-gradient-to-r from-purple-600 to-pink-600 text-white hover:from-purple-700 hover:to-pink-700 shadow-md'
@@ -166,7 +168,7 @@ export default function PricingPage() {
                       }`}
                     >
                       {plan.cta}
-                    </Link>
+                    </a>
                   </div>
 
                   <div className="p-6 pt-0 flex-1 bg-white">
@@ -187,7 +189,7 @@ export default function PricingPage() {
             </div>
 
             <p className="text-center text-sm text-gray-500 mt-8">
-              All plans include 14-day free trial · No credit card required · Cancel anytime
+              All plans include white-glove onboarding · No long-term contracts · Cancel anytime
             </p>
           </div>
         </section>
@@ -201,10 +203,10 @@ export default function PricingPage() {
                 <thead>
                   <tr className="bg-gray-900 text-white">
                     <th className="text-left px-6 py-4 font-semibold">Feature</th>
-                    <th className="text-center px-4 py-4 font-semibold">Per Agent<br/><span className="font-normal text-gray-300">$199/mo</span></th>
-                    <th className="text-center px-4 py-4 font-semibold bg-purple-700">+ Outreach<br/><span className="font-normal text-purple-200">$299/mo</span></th>
-                    <th className="text-center px-4 py-4 font-semibold">Team<br/><span className="font-normal text-gray-300">$799/mo</span></th>
-                    <th className="text-center px-4 py-4 font-semibold">Team+<br/><span className="font-normal text-gray-300">$999/mo</span></th>
+                    <th className="text-center px-4 py-4 font-semibold">Signature<br/><span className="font-normal text-gray-300">$249/mo</span></th>
+                    <th className="text-center px-4 py-4 font-semibold bg-purple-700">+ Outreach<br/><span className="font-normal text-purple-200">$349/mo</span></th>
+                    <th className="text-center px-4 py-4 font-semibold">Team<br/><span className="font-normal text-gray-300">$999/mo</span></th>
+                    <th className="text-center px-4 py-4 font-semibold">Enterprise<br/><span className="font-normal text-gray-300">$1,299/mo</span></th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-100">
@@ -244,7 +246,7 @@ export default function PricingPage() {
             <div className="space-y-4">
               {[
                 { q: 'Can I switch plans anytime?', a: 'Yes! Upgrade or downgrade anytime. Changes take effect at the start of your next billing cycle.' },
-                { q: 'Is there a free trial?', a: '14-day free trial on all plans. No credit card required. Full feature access from day one.' },
+                { q: 'How do I get started?', a: 'Book a free strategy call. We\'ll analyze your pipeline, identify opportunities, and build a custom plan for your market. No obligation.' },
                 { q: 'How does the Outreach add-on work?', a: 'When our AI scores a lead 85 or higher, it automatically sends a personalized 3-email sequence on your behalf. You wake up to replies in your inbox — not just a list of names to call.' },
                 { q: 'Do I need my own email account for Outreach?', a: 'Yes — you connect your existing Gmail or Outlook account. Emails are sent from your address so replies come directly to you.' },
                 { q: 'Is automated outreach TCPA compliant?', a: 'Yes. All outreach respects DNC registry, includes unsubscribe options, and maintains audit logs. We keep you fully protected.' },
@@ -272,15 +274,17 @@ export default function PricingPage() {
               Ready to Close 2x More Deals?
             </h2>
             <p className="text-gray-600 mb-7">
-              Start your free 14-day trial. No credit card required.
+              Book a free strategy call and see how LuxeLeadPro can transform your pipeline.
             </p>
-            <Link
-              href="/agent/signup"
+            <a
+              href="https://calendly.com/robopdesigns/profit-audit"
+              target="_blank"
+              rel="noopener noreferrer"
               className="inline-block px-10 py-4 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold rounded-xl hover:from-purple-700 hover:to-pink-700 transition shadow-md"
             >
-              Start Free Trial
-            </Link>
-            <p className="text-xs text-gray-400 mt-4">14-day free trial · No credit card · Cancel anytime</p>
+              Book a Strategy Call
+            </a>
+            <p className="text-xs text-gray-400 mt-4">No obligation · Personalized to your market · White-glove onboarding</p>
           </div>
         </section>
 
