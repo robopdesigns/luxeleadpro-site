@@ -287,19 +287,19 @@ export default function LuxeLeadProDashboard() {
                 <h2 className={`text-2xl font-bold ${textClass} mb-6`}>💡 Quick Reference</h2>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   <div className={`${isDark ? 'bg-gray-700' : 'bg-gray-100'} rounded-lg p-4`}>
-                    <p className="text-xs text-gray-500 mb-2">Per Agent Plan</p>
-                    <p className="text-2xl font-bold text-purple-600">$199/mo</p>
-                    <p className="text-xs text-gray-500 mt-2">Rep earns: $50/mo recurring</p>
+                    <p className="text-xs text-gray-500 mb-2">Signature Plan</p>
+                    <p className="text-2xl font-bold text-purple-600">$249/mo</p>
+                    <p className="text-xs text-gray-500 mt-2">+ $249 setup · Rep earns: $75 first mo + $25/mo</p>
                   </div>
                   <div className={`${isDark ? 'bg-gray-700' : 'bg-gray-100'} rounded-lg p-4`}>
-                    <p className="text-xs text-gray-500 mb-2">Agent + Outreach</p>
-                    <p className="text-2xl font-bold text-purple-600">$299/mo</p>
-                    <p className="text-xs text-gray-500 mt-2">Rep earns: $75/mo recurring</p>
+                    <p className="text-xs text-gray-500 mb-2">Signature + Outreach</p>
+                    <p className="text-2xl font-bold text-purple-600">$349/mo</p>
+                    <p className="text-xs text-gray-500 mt-2">+ $249 setup · Rep earns: $105 first mo + $35/mo</p>
                   </div>
                   <div className={`${isDark ? 'bg-gray-700' : 'bg-gray-100'} rounded-lg p-4`}>
-                    <p className="text-xs text-gray-500 mb-2">Team Plan</p>
-                    <p className="text-2xl font-bold text-purple-600">$799/mo</p>
-                    <p className="text-xs text-gray-500 mt-2">Rep earns: $150/mo recurring</p>
+                    <p className="text-xs text-gray-500 mb-2">Team + Outreach</p>
+                    <p className="text-2xl font-bold text-purple-600">$999/mo</p>
+                    <p className="text-xs text-gray-500 mt-2">+ $499 setup · Rep earns: $300 first mo + $100/mo</p>
                   </div>
                 </div>
               </div>

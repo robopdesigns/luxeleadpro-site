@@ -309,22 +309,22 @@ export default function HomePage() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10 mt-4">
             {[
               {
-                name: 'Per Agent',
-                price: '$199',
+                name: 'Signature',
+                price: '$249',
                 sub: '/month',
-                features: ['AI Lead Scoring', 'Daily AI Briefing', 'Market Intelligence', 'TCPA/DNC Compliance', 'Email Support'],
+                features: ['AI Lead Scoring (0-100)', 'Daily AI Briefing', 'Market Intelligence', 'TCPA/DNC Compliance', 'White-Glove Onboarding'],
                 popular: false,
                 badge: null,
-                cta: 'Start Free Trial',
+                cta: 'Start With Free Audit',
               },
               {
-                name: 'Agent + Outreach',
-                price: '$299',
+                name: 'Signature + Outreach',
+                price: '$349',
                 sub: '/month',
-                features: ['Everything in Per Agent', '✉️ Automated email sequences', '🤖 AI writes emails per lead', '📊 Open & reply tracking', 'Priority Support'],
+                features: ['Everything in Signature', '✉️ Automated email sequences', '🤖 AI writes emails per lead', '📊 Open & reply tracking', 'Priority Support'],
                 popular: true,
-                badge: '🔥 Best Value',
-                cta: 'Start Free Trial',
+                badge: 'Most Popular',
+                cta: 'Start With Free Audit',
               },
               {
                 name: 'Team + Outreach',
@@ -333,7 +333,7 @@ export default function HomePage() {
                 features: ['Unlimited Agents', 'Outreach for all agents', 'Manager Dashboard', 'Team Analytics', 'Dedicated Support'],
                 popular: false,
                 badge: null,
-                cta: 'Start Free Trial',
+                cta: 'Contact Us',
               },
             ].map((tier, i) => (
               <div key={i} className={`rounded-2xl border-2 transition relative flex flex-col ${tier.popular ? 'border-purple-500 bg-white shadow-xl shadow-purple-100' : 'border-gray-200 bg-white hover:border-purple-200'}`}>

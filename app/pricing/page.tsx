@@ -13,13 +13,15 @@ const checkIcon = (
 
 const plans = [
   {
-    name: 'Per Agent',
-    price: '$199',
+    name: 'Signature',
+    price: '$249',
     period: '/month',
-    desc: 'Perfect for individual agents',
+    desc: 'Everything a luxury agent needs',
     popular: false,
     badge: null,
+    setupFee: '+ $249 one-time setup',
     features: [
+      'White-glove onboarding + custom config',
       'AI Lead Scoring (0-100)',
       'Daily AI Briefing — top 3 leads',
       'Market intelligence reports',
@@ -28,18 +30,19 @@ const plans = [
       'Mobile app access',
       'Email support',
     ],
-    cta: 'Start Free Trial',
+    cta: 'Start With Free Audit',
     href: '/agent/signup',
   },
   {
-    name: 'Per Agent + Outreach',
-    price: '$299',
+    name: 'Signature + Outreach',
+    price: '$349',
     period: '/month',
     desc: 'AI scores AND emails your leads for you',
     popular: true,
-    badge: '🔥 Best Value',
+    badge: 'Most Popular',
+    setupFee: '+ $249 one-time setup',
     features: [
-      'Everything in Per Agent',
+      'Everything in Signature',
       '✉️ Automated cold email sequences',
       '🤖 AI writes personalized emails',
       '📬 Sends when lead scores 85+',
@@ -47,16 +50,17 @@ const plans = [
       'A/B subject line testing',
       'Priority support',
     ],
-    cta: 'Start Free Trial',
+    cta: 'Start With Free Audit',
     href: '/agent/signup',
   },
   {
-    name: 'Team Plan',
-    price: '$799',
+    name: 'Team',
+    price: '$999',
     period: '/month',
-    desc: 'For teams of 2-10 agents',
+    desc: 'For teams and brokerages',
     popular: false,
     badge: null,
+    setupFee: '+ $499 one-time setup',
     features: [
       'Unlimited agents',
       'Manager dashboard',
@@ -66,18 +70,19 @@ const plans = [
       'API access',
       'Priority support',
     ],
-    cta: 'Start Free Trial',
+    cta: 'Start With Free Audit',
     href: '/agent/signup',
   },
   {
     name: 'Team + Outreach',
-    price: '$999',
+    price: '$1,299',
     period: '/month',
     desc: 'Full team with automated outreach for all',
     popular: false,
-    badge: '⚡ Most Powerful',
+    badge: 'Most Powerful',
+    setupFee: '+ $499 one-time setup',
     features: [
-      'Everything in Team Plan',
+      'Everything in Team',
       '✉️ Automated outreach for all agents',
       '🤖 AI email writer per agent',
       'Shared reply inbox',
@@ -102,16 +107,16 @@ export default function PricingPage() {
         <section className="px-4 py-16 sm:py-20 border-b border-gray-100 text-center">
           <div className="max-w-3xl mx-auto">
             <span className="inline-block bg-purple-50 text-purple-700 text-sm font-semibold px-4 py-1.5 rounded-full mb-4">
-              Simple, Transparent Pricing
+              Founding Agent Pricing — Limited Availability
             </span>
             <h1 className="text-4xl sm:text-5xl font-display font-bold text-gray-900 mb-4">
               Choose Your Plan
             </h1>
             <p className="text-lg text-gray-600 mb-2">
-              All plans include a 14-day free trial. No credit card required.
+              Lock in your founding rate today. Pricing increases after our first 50 agents.
             </p>
             <p className="text-sm text-gray-500">
-              Built for $1M+ luxury real estate markets.
+              Built exclusively for $1M+ luxury real estate markets.
             </p>
           </div>
         </section>
@@ -153,10 +158,11 @@ export default function PricingPage() {
                   <div className={`p-6 ${plan.badge ? 'pt-8' : 'pt-6'} ${plan.popular ? 'bg-gradient-to-b from-purple-50 to-white' : 'bg-white'} rounded-t-2xl`}>
                     <h3 className="text-lg font-bold text-gray-900 mb-1">{plan.name}</h3>
                     <p className="text-xs text-gray-500 mb-4">{plan.desc}</p>
-                    <div className="mb-5">
+                    <div className="mb-2">
                       <span className="text-4xl font-bold text-gray-900">{plan.price}</span>
                       <span className="text-sm text-gray-500">{plan.period}</span>
                     </div>
+                    {(plan as any).setupFee && <p className="text-xs text-gray-400 mb-3">{(plan as any).setupFee}</p>}
                     <Link
                       href={plan.href}
                       className={`block w-full text-center py-3 rounded-xl font-semibold text-sm transition ${
@@ -201,10 +207,10 @@ export default function PricingPage() {
                 <thead>
                   <tr className="bg-gray-900 text-white">
                     <th className="text-left px-6 py-4 font-semibold">Feature</th>
-                    <th className="text-center px-4 py-4 font-semibold">Per Agent<br/><span className="font-normal text-gray-300">$199/mo</span></th>
-                    <th className="text-center px-4 py-4 font-semibold bg-purple-700">+ Outreach<br/><span className="font-normal text-purple-200">$299/mo</span></th>
-                    <th className="text-center px-4 py-4 font-semibold">Team<br/><span className="font-normal text-gray-300">$799/mo</span></th>
-                    <th className="text-center px-4 py-4 font-semibold">Team+<br/><span className="font-normal text-gray-300">$999/mo</span></th>
+                    <th className="text-center px-4 py-4 font-semibold">Signature<br/><span className="font-normal text-gray-300">$249/mo</span></th>
+                    <th className="text-center px-4 py-4 font-semibold bg-purple-700">+ Outreach<br/><span className="font-normal text-purple-200">$349/mo</span></th>
+                    <th className="text-center px-4 py-4 font-semibold">Team<br/><span className="font-normal text-gray-300">$999/mo</span></th>
+                    <th className="text-center px-4 py-4 font-semibold">Team+<br/><span className="font-normal text-gray-300">$1,299/mo</span></th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-100">
@@ -269,10 +275,10 @@ export default function PricingPage() {
         <section className="px-4 py-16 bg-white border-t border-gray-100">
           <div className="max-w-2xl mx-auto bg-white border-2 border-purple-200 rounded-2xl p-10 text-center shadow-lg">
             <h2 className="text-3xl font-display font-bold text-gray-900 mb-3">
-              Ready to Close 2x More Deals?
+              Ready to Close More Luxury Deals?
             </h2>
             <p className="text-gray-600 mb-7">
-              Start your free 14-day trial. No credit card required.
+              Book a free profit audit. Lock in your founding rate before spots fill.
             </p>
             <Link
               href="/agent/signup"
