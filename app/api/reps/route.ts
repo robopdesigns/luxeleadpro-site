@@ -9,14 +9,10 @@ function getSupabase() {
   );
 }
 
-function isOwnerAuthed(cookieStore: ReturnType<typeof cookies>) {
-  return cookieStore.get("dashboard_auth")?.value === "1";
-}
-
 // GET - list all reps (owner only)
 export async function GET() {
   const cookieStore = await cookies();
-  if (!isOwnerAuthed(cookieStore)) {
+  if (cookieStore.get("dashboard_auth")?.value !== "1") {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
@@ -33,7 +29,7 @@ export async function GET() {
 // POST - create a new rep (owner only)
 export async function POST(request: Request) {
   const cookieStore = await cookies();
-  if (!isOwnerAuthed(cookieStore)) {
+  if (cookieStore.get("dashboard_auth")?.value !== "1") {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 

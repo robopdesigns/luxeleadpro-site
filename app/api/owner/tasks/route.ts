@@ -9,13 +9,9 @@ function getSupabase() {
   );
 }
 
-function isOwnerAuthed(cookieStore: ReturnType<typeof cookies>) {
-  return cookieStore.get("dashboard_auth")?.value === "1";
-}
-
 export async function GET() {
   const cookieStore = await cookies();
-  if (!isOwnerAuthed(cookieStore)) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  if (cookieStore.get("dashboard_auth")?.value !== "1") return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
   const supabase = getSupabase();
   const { data, error } = await supabase.from("owner_tasks").select("*").order("created_at", { ascending: false });
@@ -25,7 +21,7 @@ export async function GET() {
 
 export async function POST(request: Request) {
   const cookieStore = await cookies();
-  if (!isOwnerAuthed(cookieStore)) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  if (cookieStore.get("dashboard_auth")?.value !== "1") return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
   const body = await request.json().catch(() => null);
   if (!body?.title) return NextResponse.json({ error: "Title required" }, { status: 400 });
@@ -43,7 +39,7 @@ export async function POST(request: Request) {
 
 export async function PATCH(request: Request) {
   const cookieStore = await cookies();
-  if (!isOwnerAuthed(cookieStore)) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  if (cookieStore.get("dashboard_auth")?.value !== "1") return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
   const body = await request.json().catch(() => null);
   if (!body?.id) return NextResponse.json({ error: "Task ID required" }, { status: 400 });
