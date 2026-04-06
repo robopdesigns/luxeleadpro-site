@@ -34,7 +34,8 @@ export function ProtectedRoute({
       return;
     }
 
-    if (requiredRole && profile?.role !== requiredRole) {
+    // Admin can access everything
+    if (requiredRole && profile?.role !== requiredRole && profile?.role !== 'admin') {
       router.push("/");
       return;
     }
@@ -55,7 +56,7 @@ export function ProtectedRoute({
     return null;
   }
 
-  if (!DEMO_MODE && requiredRole && profile?.role !== requiredRole) {
+  if (!DEMO_MODE && requiredRole && profile?.role !== requiredRole && profile?.role !== 'admin') {
     return null;
   }
 

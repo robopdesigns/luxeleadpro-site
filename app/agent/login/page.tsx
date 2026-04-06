@@ -41,7 +41,7 @@ export default function AgentLoginPage() {
         return;
       }
 
-      if (result.profile?.role !== "agent") {
+      if (result.profile?.role !== "agent" && result.profile?.role !== "admin") {
         setError("This account is not an agent account");
         setLoading(false);
         return;

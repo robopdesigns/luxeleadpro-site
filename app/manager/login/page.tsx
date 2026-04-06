@@ -41,7 +41,7 @@ export default function ManagerLoginPage() {
         return;
       }
 
-      if (result.profile?.role !== "manager") {
+      if (result.profile?.role !== "manager" && result.profile?.role !== "admin") {
         setError("This account is not a manager account");
         setLoading(false);
         return;
