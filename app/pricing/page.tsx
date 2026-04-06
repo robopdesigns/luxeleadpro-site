@@ -132,7 +132,7 @@ export default function PricingPage() {
                 </div>
 
                 <a
-                  href="https://calendly.com/luxeleadpro/strategy"
+                  href="https://calendly.com/robopdesigns/strategy-call"
                   className={`block w-full py-3 px-6 rounded-xl font-semibold text-center transition mb-8 ${
                     tier.popular
                       ? "bg-gradient-to-r from-purple-600 to-pink-600 text-white hover:opacity-90 shadow-md"
@@ -181,7 +181,7 @@ export default function PricingPage() {
               No contracts. Cancel anytime. But your rate? Locked.
             </p>
             <a
-              href="https://calendly.com/luxeleadpro/strategy"
+              href="https://calendly.com/robopdesigns/strategy-call"
               className="inline-block px-8 py-4 bg-white text-purple-700 font-bold rounded-xl hover:bg-gray-50 transition shadow-lg"
             >
               Book a Strategy Call →
@@ -301,7 +301,7 @@ export default function PricingPage() {
               LuxeLeadPro works for your market.
             </p>
             <a
-              href="https://calendly.com/luxeleadpro/strategy"
+              href="https://calendly.com/robopdesigns/strategy-call"
               className="inline-block px-8 py-4 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold rounded-xl hover:opacity-90 transition shadow-lg"
             >
               Book Your Strategy Call →

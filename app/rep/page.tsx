@@ -180,19 +180,42 @@ export default function RepDashboard() {
 
         {tab === "scripts" && (
           <div className="space-y-6">
-            <h2 className="text-xl font-bold text-gray-900">Scripts & Resources</h2>
+            <h2 className="text-xl font-bold text-gray-900">Scripts & Talk Tracks</h2>
             {[
-              { title: "Opening Pitch", content: "Hi [Name], this is [Your Name] from LuxeLeadPro. We help luxury real estate agents like you identify their highest-value prospects using AI scoring — so you wake up every morning knowing exactly who to call. Do you have 2 minutes?" },
-              { title: "Value Proposition", content: "We analyze 40+ data signals per lead and score them 0-100. Our agents are closing 2x more deals because they're spending time on the RIGHT prospects instead of guessing. The daily briefing tells you your top 3 opportunities every morning at 6 AM." },
-              { title: "Objection: Too Expensive", content: "I hear that. Let me ask — what's one luxury deal worth to you in commission? $15K? $25K? Our platform is $249/month. If it helps you close just ONE extra deal this year, that's a 50-100x return. Most of our agents see results in the first 30 days." },
-              { title: "Objection: Already Have a CRM", content: "Great — we're not replacing your CRM. We plug INTO it. Think of us as the intelligence layer on top. Your CRM stores contacts. We tell you WHICH contacts to call, WHEN, and give you the talking points. It's like adding an analyst to your team for $8/day." },
-              { title: "Close", content: "Based on what you've shared, I think the Signature + Outreach plan would be perfect for you. It's $349/month, includes everything plus automated email sequences. We do all the setup for you — white-glove onboarding. Can we get you started this week?" },
+              { title: "Opening Pitch", content: "Hi [Name], this is [Your Name] from LuxeLeadPro. We're the only AI platform that both scores AND delivers verified luxury buyer leads directly to agents like you. Our agents wake up every morning knowing exactly who to call. Do you have 2 minutes?" },
+              { title: "Value Proposition", content: "We analyze 40+ data signals per lead and score them 0-100. But here's what makes us different — on our Generation plan, we actually DELIVER 15-25 pre-qualified luxury leads to your dashboard every month. We run the ads, qualify the leads, score them, and only send you prospects scoring 60 or above. You just close." },
+              { title: "The Territory Play (Best Close)", content: "Here's what our top agents are doing — they're locking in a territory. For $1,499/month, you own your ZIP codes exclusively. Nobody else on LuxeLeadPro gets leads in your area. We deliver 30-50 leads/month, our AI sends the first touch automatically, and you get white-glove everything. One closed deal pays for 6+ months." },
+              { title: "Objection: Too Expensive", content: "I hear that. Let me ask — what's one luxury deal worth in commission? $15K? $25K? Our Intelligence plan is $249/month — that's $8/day. If it helps you close just ONE extra deal this year, that's a 50-100x return. And if you want leads delivered, the Generation plan at $749/month typically pays for itself in the first 30 days." },
+              { title: "Objection: Already Have a CRM", content: "Great — we're not replacing your CRM. We plug INTO it. Think of us as the intelligence + lead gen layer on top. Your CRM stores contacts. We tell you WHICH contacts to call, WHEN, and deliver fresh qualified leads you've never seen before. It's like adding a full-time analyst AND marketing team for a fraction of the cost." },
+              { title: "Objection: I Already Get Leads from Zillow", content: "Right, and so does every other agent in your ZIP code. Zillow sells the same lead to 3-5 agents. With our Territory plan, you're the ONLY agent getting leads in your area. Exclusivity is the whole game in luxury. When's the last time a $2M buyer wanted to feel like one of many?" },
+              { title: "Standard Close", content: "Based on what you've shared, I'd recommend starting with Intelligence + Generation at $749/month — you get the AI scoring PLUS 15-25 qualified leads delivered monthly. We handle everything. Can we get you started this week? As a founding agent, you lock in this rate for life." },
             ].map((script, i) => (
               <div key={i} className="bg-white rounded-xl border border-gray-200 p-6">
                 <h3 className="font-bold text-gray-900 mb-2">{script.title}</h3>
                 <p className="text-gray-600 text-sm leading-relaxed whitespace-pre-wrap">{script.content}</p>
               </div>
             ))}
+
+            {/* Training Resources */}
+            <h2 className="text-xl font-bold text-gray-900 mt-10">📚 Training Resources</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {[
+                { title: "Pitch Deck", desc: "14-slide presentation for selling LuxeLeadPro", href: "/training/pitch-deck.md", icon: "🎯" },
+                { title: "Cold Outreach Templates", desc: "Email, LinkedIn, phone, text templates + follow-up sequence", href: "/training/outreach-templates.md", icon: "📧" },
+                { title: "Quick Start Guide", desc: "Your first 4 weeks — what to do and when", href: "/training/quick-start.md", icon: "🚀" },
+                { title: "Commission Structure", desc: "How much you earn per customer, per tier", href: "/training/commission-structure.md", icon: "💰" },
+                { title: "Competitive Positioning", desc: "Why we beat Zillow, BoldLeads, CINC, and others", href: "/training/competitive-positioning.md", icon: "🏆" },
+                { title: "Full Training Guide", desc: "Complete employee training program", href: "/training/training-guide.html", icon: "📖" },
+              ].map((res, i) => (
+                <a key={i} href={res.href} target="_blank" rel="noopener noreferrer" className="bg-white rounded-xl border border-gray-200 p-5 hover:border-purple-300 hover:shadow-md transition flex items-start gap-4">
+                  <span className="text-2xl">{res.icon}</span>
+                  <div>
+                    <h3 className="font-bold text-gray-900 text-sm">{res.title}</h3>
+                    <p className="text-xs text-gray-500 mt-1">{res.desc}</p>
+                  </div>
+                </a>
+              ))}
+            </div>
           </div>
         )}
 

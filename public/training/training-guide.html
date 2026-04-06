@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LuxeLeadPro - Employee Training</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #1a1a2e;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            aspect-ratio: 16/9;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        .slides { flex: 1; position: relative; overflow: hidden; }
+        .slide {
+            display: none;
+            width: 100%;
+            height: 100%;
+            padding: 50px 70px;
+            animation: fadeIn 0.4s ease;
+            overflow: auto;
+        }
+        .slide.active { display: flex; flex-direction: column; justify-content: center; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        h1 { font-family: 'Playfair Display', serif; font-size: 52px; font-weight: 800; color: #0f172a; margin-bottom: 10px; }
+        h2 { font-family: 'Playfair Display', serif; font-size: 40px; font-weight: 700; color: #7c3aed; margin-bottom: 14px; }
+        p { font-size: 17px; line-height: 1.6; color: #475569; }
+        .subtitle { font-size: 19px; color: #7c3aed; font-weight: 600; margin-bottom: 14px; }
+        .highlight { color: #7c3aed; font-weight: 700; }
+        ul { list-style: none; margin: 16px 0; }
+        li { font-size: 16px; margin: 10px 0; padding-left: 28px; position: relative; color: #334155; }
+        li:before { content: "\2192"; position: absolute; left: 0; color: #d946ef; font-weight: 700; }
+        .stats-box {
+            background: linear-gradient(135deg, #7c3aed 0%, #d946ef 100%);
+            color: white; padding: 18px; border-radius: 12px;
+            margin: 14px 0; text-align: center;
+        }
+        .stats-box .number { font-size: 34px; font-weight: 800; margin-bottom: 4px; }
+        .stats-box .label { font-size: 13px; opacity: 0.9; }
+        .slide-title { text-align: center; }
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 36px;
+            background: linear-gradient(90deg, #7c3aed 0%, #d946ef 100%);
+        }
+        .controls button {
+            background: rgba(255,255,255,0.2);
+            color: white; border: 1px solid rgba(255,255,255,0.4);
+            padding: 8px 18px; border-radius: 6px; cursor: pointer;
+            font-weight: 600; font-size: 13px;
+            font-family: 'Inter', sans-serif;
+        }
+        .controls button:hover { background: rgba(255,255,255,0.35); }
+        .slide-counter { color: white; font-weight: 600; font-size: 14px; }
+        .logo-svg { width: 90px; height: 90px; margin: 0 auto 16px; display: block; }
+        .comp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 18px; }
+        .comp-card { padding: 18px; border-radius: 12px; text-align: center; border: 2px solid #e9d5ff; background: #f8f5ff; }
+        .comp-card.featured { background: linear-gradient(135deg, #7c3aed, #d946ef); border-color: transparent; }
+        .comp-card h4 { font-size: 14px; font-weight: 700; color: #1e293b; margin-bottom: 6px; }
+        .comp-card.featured h4 { color: white; }
+        .comp-card .earn { font-size: 26px; font-weight: 800; color: #7c3aed; }
+        .comp-card.featured .earn { color: white; }
+        .comp-card .plan { font-size: 12px; color: #64748b; margin-top: 4px; }
+        .comp-card.featured .plan { color: rgba(255,255,255,0.85); }
+        .outreach-steps { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; margin-top: 18px; }
+        .step-card { background: #f8f5ff; border-radius: 12px; padding: 18px; text-align: center; border-top: 4px solid #7c3aed; }
+        .step-num { background: linear-gradient(135deg, #7c3aed, #d946ef); color: white; width: 34px; height: 34px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 15px; margin: 0 auto 8px; }
+        .step-card h4 { font-size: 14px; font-weight: 700; color: #0f172a; margin-bottom: 5px; }
+        .step-card p { font-size: 12px; color: #64748b; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="slides">
+
+        <!-- SLIDE 1: Welcome -->
+        <div class="slide active slide-title">
+            <svg class="logo-svg" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect width="40" height="40" rx="10" fill="url(#lg1)"/>
+                <path d="M20 8 L31 27 H9 Z" fill="white" opacity="0.9"/>
+                <rect x="18.5" y="21" width="3" height="9" rx="1.5" fill="white"/>
+                <defs><linearGradient id="lg1" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#7c3aed"/><stop offset="100%" stop-color="#c026d3"/></linearGradient></defs>
+            </svg>
+            <h1>Welcome to LuxeLeadPro</h1>
+            <p class="subtitle">Employee Training &amp; Onboarding</p>
+            <p style="font-size: 18px; margin-top: 18px; color: #334155;">You are about to learn how we help luxury agents close 2x more deals and dominate their markets.</p>
+        </div>
+
+        <!-- SLIDE 2: Our Mission -->
+        <div class="slide">
+            <h2>Our Mission</h2>
+            <p>Help luxury real estate agents <span class="highlight">close 2x more deals</span> and <span class="highlight">dominate their markets</span> with AI-powered intelligence and zero compliance risk.</p>
+            <ul style="margin-top: 28px;">
+                <li>We build AI that identifies high-probability buyers</li>
+                <li>We deliver daily market intelligence</li>
+                <li>We eliminate compliance risk completely</li>
+                <li>We automate cold outreach so agents wake up to replies</li>
+                <li>We make luxury agents unstoppable</li>
+            </ul>
+        </div>
+
+        <!-- SLIDE 3: What We Build -->
+        <div class="slide">
+            <h2>What We Build</h2>
+            <ul>
+                <li><strong>AI Lead Scoring:</strong> 0-100 luxury market algorithm that identifies high-probability buyers</li>
+                <li><strong>Daily Briefing:</strong> Top 3 opportunities every morning, ready to act on</li>
+                <li><strong>Automated Outreach:</strong> AI emails leads on behalf of the agent when score hits 85+</li>
+                <li><strong>Market Intelligence:</strong> Real-time data on buyers, neighborhoods, trends</li>
+                <li><strong>Compliance Automation:</strong> DNC checking, TCPA protection, legal audit trail</li>
+            </ul>
+            <p style="margin-top: 16px; color: #7c3aed; font-weight: 700;">Starting at $249/month. Add Automated Outreach for $749/month.</p>
+        </div>
+
+        <!-- SLIDE 4: Our Market -->
+        <div class="slide">
+            <h2>Who We Serve</h2>
+            <p>Luxury real estate agents earning $250k to $1M+ annually.</p>
+            <ul style="margin-top: 22px;">
+                <li>$1M+ property portfolio markets ($5M to $50M+ transactions)</li>
+                <li>Highly competitive markets requiring edge</li>
+                <li>Tech-forward agents who trust AI</li>
+                <li>Agents demanding excellence and results</li>
+            </ul>
+            <div class="stats-box">
+                <div class="number">250,000+</div>
+                <div class="label">Luxury Agents in US Market</div>
+            </div>
+        </div>
+
+        <!-- SLIDE 5: Your Role -->
+        <div class="slide">
+            <h2>Your Role</h2>
+            <p>You are responsible for bringing LuxeLeadPro to agents.</p>
+            <ul style="margin-top: 22px;">
+                <li>Prospect luxury agents in your territory (insurance, real estate, solar)</li>
+                <li>Present the product and ROI clearly using the pitch deck</li>
+                <li>Close deals and onboard customers</li>
+                <li>Support agent success &mdash; they are your recurring income</li>
+                <li>Upsell the Outreach add-on to increase your commission</li>
+            </ul>
+            <p style="margin-top: 18px; color: #7c3aed; font-weight: 700;">Your success = our success = customer success.</p>
+        </div>
+
+        <!-- SLIDE 6: Compensation -->
+        <div class="slide">
+            <h2>How You Earn</h2>
+            <p>Monthly recurring commissions from every customer you close.</p>
+            <div class="comp-grid">
+                <div class="comp-card">
+                    <h4>Intelligence Plan</h4>
+                    <div class="earn">$50</div>
+                    <div class="plan">per month per customer<br/>($249/mo plan)</div>
+                </div>
+                <div class="comp-card featured">
+                    <h4>Agent + Outreach</h4>
+                    <div class="earn">$75</div>
+                    <div class="plan">per month per customer<br/>($749/mo plan)</div>
+                </div>
+                <div class="comp-card">
+                    <h4>Intelligence + Generation Plan</h4>
+                    <div class="earn">$150</div>
+                    <div class="plan">per month per customer<br/>($749/mo plan)</div>
+                </div>
+                <div class="comp-card" style="background: linear-gradient(135deg, #1e1b4b, #4c1d95); border-color: transparent;">
+                    <h4 style="color: white;">Exclusive Territory</h4>
+                    <div class="earn" style="color: #d8b4fe;">$200</div>
+                    <div class="plan" style="color: rgba(255,255,255,0.8);">per month per customer<br/>($1,499/mo plan)</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 7: Secret Weapon - Outreach -->
+        <div class="slide">
+            <h2>Our Secret Weapon: Automated Outreach</h2>
+            <p style="margin-bottom: 8px;">This is what makes your pitch unstoppable against competitors.</p>
+            <div class="outreach-steps">
+                <div class="step-card">
+                    <div class="step-num">1</div>
+                    <h4>Lead Scores 85+</h4>
+                    <p>AI flags a high-probability buyer</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-num">2</div>
+                    <h4>AI Writes Email</h4>
+                    <p>Personalized to neighborhood and budget</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-num">3</div>
+                    <h4>Agent Gets Replies</h4>
+                    <p>Warm leads waiting &mdash; not cold calling</p>
+                </div>
+            </div>
+            <ul style="margin-top: 16px;">
+                <li>Agents love it &mdash; they wake up to replies instead of a list to call</li>
+                <li>Reduces churn &mdash; customers see real value fast</li>
+                <li>You earn $75/mo instead of $50/mo &mdash; 50% more commission</li>
+                <li>Comparable tools (Instantly.ai) charge $97/mo alone &mdash; we bundle it</li>
+            </ul>
+        </div>
+
+        <!-- SLIDE 8: How to Sell -->
+        <div class="slide">
+            <h2>How to Sell It</h2>
+            <p>Lead with the primary benefit every time:</p>
+            <div class="stats-box">
+                <p style="margin: 0; font-size: 20px; font-weight: 700;">"Close 2x More Deals"</p>
+            </div>
+            <ul style="margin-top: 18px;">
+                <li>Agents want revenue impact, not time-saving</li>
+                <li>Show ROI: 1 extra deal = 8x the annual cost</li>
+                <li>Emphasize competitive advantage &mdash; beat other agents</li>
+                <li>Pitch Outreach add-on: "We already reach out for you"</li>
+                <li>Build reputation and referrals from success</li>
+            </ul>
+            <p style="margin-top: 14px; color: #7c3aed; font-weight: 700;">Use the pitch deck. It tells the whole story.</p>
+        </div>
+
+        <!-- SLIDE 9: Objection Handling -->
+        <div class="slide">
+            <h2>When They Say No</h2>
+            <p style="margin-bottom: 14px;">Every objection has a perfect answer. Learn these cold.</p>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 10px;">
+
+                <div style="border-left: 4px solid #7c3aed; background: #f8f5ff; border-radius: 8px; padding: 14px;">
+                    <div style="display: inline-block; background: #fee2e2; color: #b91c1c; font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 20px; margin-bottom: 8px;">OBJECTION</div>
+                    <p style="font-size: 13px; font-style: italic; color: #1e293b; margin-bottom: 6px; font-weight: 600;">"I already use Instantly."</p>
+                    <p style="font-size: 13px; color: #374151; margin: 0;">Instantly sends to cold lists. We only email leads scored 85+ by AI &mdash; your close rate is 3-5x higher. Smarter, not the same.</p>
+                </div>
+
+                <div style="border-left: 4px solid #7c3aed; background: #f8f5ff; border-radius: 8px; padding: 14px;">
+                    <div style="display: inline-block; background: #fee2e2; color: #b91c1c; font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 20px; margin-bottom: 8px;">OBJECTION</div>
+                    <p style="font-size: 13px; font-style: italic; color: #1e293b; margin-bottom: 6px; font-weight: 600;">"It's too expensive."</p>
+                    <p style="font-size: 13px; color: #374151; margin: 0;">One luxury deal = $20k-100k+ commission. One extra deal per year = 8x your annual cost. What is your average commission?</p>
+                </div>
+
+                <div style="border-left: 4px solid #7c3aed; background: #f8f5ff; border-radius: 8px; padding: 14px;">
+                    <div style="display: inline-block; background: #fee2e2; color: #b91c1c; font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 20px; margin-bottom: 8px;">OBJECTION</div>
+                    <p style="font-size: 13px; font-style: italic; color: #1e293b; margin-bottom: 6px; font-weight: 600;">"I don't have time to learn it."</p>
+                    <p style="font-size: 13px; color: #374151; margin: 0;">Setup = 10 minutes. Daily use = 3 minutes reading your briefing. You actually save hours. No manual research ever again.</p>
+                </div>
+
+                <div style="border-left: 4px solid #7c3aed; background: #f8f5ff; border-radius: 8px; padding: 14px;">
+                    <div style="display: inline-block; background: #fee2e2; color: #b91c1c; font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 20px; margin-bottom: 8px;">OBJECTION</div>
+                    <p style="font-size: 13px; font-style: italic; color: #1e293b; margin-bottom: 6px; font-weight: 600;">"I want to try it free first."</p>
+                    <p style="font-size: 13px; color: #374151; margin: 0;">Perfect &mdash; 14-day free trial, full access, no credit card. You can start right now at luxeleadpro.com.</p>
+                </div>
+
+                <div style="border-left: 4px solid #7c3aed; background: #f8f5ff; border-radius: 8px; padding: 14px;">
+                    <div style="display: inline-block; background: #fee2e2; color: #b91c1c; font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 20px; margin-bottom: 8px;">OBJECTION</div>
+                    <p style="font-size: 13px; font-style: italic; color: #1e293b; margin-bottom: 6px; font-weight: 600;">"I need to think about it."</p>
+                    <p style="font-size: 13px; color: #374151; margin: 0;">While you think, your competitor is closing the deal. Can I send the free trial link right now? No commitment, see for yourself.</p>
+                </div>
+
+                <div style="border-left: 4px solid #7c3aed; background: #f8f5ff; border-radius: 8px; padding: 14px;">
+                    <div style="display: inline-block; background: #fee2e2; color: #b91c1c; font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 20px; margin-bottom: 8px;">OBJECTION</div>
+                    <p style="font-size: 13px; font-style: italic; color: #1e293b; margin-bottom: 6px; font-weight: 600;">"Does it actually work?"</p>
+                    <p style="font-size: 13px; color: #374151; margin: 0;">Marcus J. Miami: $4.2M deal from our AI flag &mdash; paid for itself 200x. Sarah C. Chicago: 2 to 4 closes/month in 90 days.</p>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- SLIDE 10: First 30 Days -->
+        <div class="slide">
+            <h2>Your First 30 Days</h2>
+            <ul>
+                <li><strong>Week 1:</strong> Master the product + pitch deck inside and out</li>
+                <li><strong>Week 1-2:</strong> Prospect 50-100 agents (emails, calls, LinkedIn)</li>
+                <li><strong>Week 2-3:</strong> Book 5-10 demos</li>
+                <li><strong>Week 3-4:</strong> Close 2-3 deals. Always pitch the Outreach add-on.</li>
+                <li><strong>Ongoing:</strong> Support customers, get referrals, keep building</li>
+            </ul>
+            <p style="margin-top: 18px; color: #7c3aed; font-weight: 700;">Questions? Ask. Support? Available. You have everything you need to win.</p>
+        </div>
+
+        <!-- SLIDE 11: Values -->
+        <div class="slide">
+            <h2>How We Operate</h2>
+            <ul>
+                <li><strong>Customer First:</strong> Agent success is everything</li>
+                <li><strong>Integrity:</strong> No overpromising. Real results only.</li>
+                <li><strong>Excellence:</strong> Premium product, premium service, premium people</li>
+                <li><strong>Transparency:</strong> You know exactly what you are selling and why</li>
+                <li><strong>Partnership:</strong> We win together or not at all</li>
+            </ul>
+        </div>
+
+        <!-- SLIDE 11: Let's Go -->
+        <div class="slide slide-title">
+            <svg class="logo-svg" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect width="40" height="40" rx="10" fill="url(#lg2)"/>
+                <path d="M20 8 L31 27 H9 Z" fill="white" opacity="0.9"/>
+                <rect x="18.5" y="21" width="3" height="9" rx="1.5" fill="white"/>
+                <defs><linearGradient id="lg2" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#7c3aed"/><stop offset="100%" stop-color="#c026d3"/></linearGradient></defs>
+            </svg>
+            <h2>Ready to Close 2x More Deals?</h2>
+            <p style="font-size: 18px; margin: 18px 0; color: #334155;">Open your pitch deck. Land your first customer. Build your recurring income.</p>
+            <div class="stats-box" style="max-width: 380px; margin: 24px auto;">
+                <p style="font-size: 16px; margin: 0; font-weight: 600;">Close deals. Build your business. Win together.</p>
+            </div>
+        </div>
+
+    </div><!-- end slides -->
+
+    <div class="controls">
+        <button onclick="previousSlide()">&#8592; Previous</button>
+        <span class="slide-counter"><span id="current">1</span> / 12</span>
+        <button onclick="nextSlide()">Next &#8594;</button>
+        <button onclick="toggleFullscreen()" style="margin-left: auto;">&#x26F6; Fullscreen</button>
+    </div>
+</div>
+
+<script>
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.slide');
+
+    function showSlide(n) {
+        slides[currentSlide].classList.remove('active');
+        currentSlide = (n + slides.length) % slides.length;
+        slides[currentSlide].classList.add('active');
+        document.getElementById('current').textContent = currentSlide + 1;
+    }
+    function nextSlide() { showSlide(currentSlide + 1); }
+    function previousSlide() { showSlide(currentSlide - 1); }
+    function toggleFullscreen() {
+        if (!document.fullscreenElement) {
+            document.querySelector('.container').requestFullscreen();
+        } else {
+            document.exitFullscreen();
+        }
+    }
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowRight' || e.key === 'ArrowDown') nextSlide();
+        if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') previousSlide();
+        if (e.key === 'f' || e.key === 'F') toggleFullscreen();
+    });
+</script>
+</body>
+</html>

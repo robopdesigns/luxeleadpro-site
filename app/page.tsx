@@ -63,7 +63,7 @@ export default function HomePage() {
 
               {/* CTAs */}
               <div className="flex flex-col sm:flex-row gap-3 mt-6 sm:mt-0">
-                <a href="https://calendly.com/robopdesigns/profit-audit" target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-purple-600 to-pink-600 text-white px-8 py-4 rounded-xl font-semibold hover:from-purple-700 hover:to-pink-700 transition shadow-lg shadow-purple-200">
+                <a href="https://calendly.com/robopdesigns/strategy-call" target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-purple-600 to-pink-600 text-white px-8 py-4 rounded-xl font-semibold hover:from-purple-700 hover:to-pink-700 transition shadow-lg shadow-purple-200">
                   Book a Strategy Call
                   <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7"/></svg>
                 </a>
@@ -342,7 +342,7 @@ export default function HomePage() {
                     </li>
                   ))}
                 </ul>
-                <a href="https://calendly.com/robopdesigns/profit-audit" target="_blank" rel="noopener noreferrer" className={`block w-full text-center py-3 rounded-xl font-semibold transition text-sm mt-auto ${tier.popular ? 'bg-gradient-to-r from-purple-600 to-pink-600 text-white hover:from-purple-700 hover:to-pink-700 shadow-md' : 'border-2 border-gray-200 text-gray-900 hover:border-purple-400 hover:text-purple-600'}`}>
+                <a href="https://calendly.com/robopdesigns/strategy-call" target="_blank" rel="noopener noreferrer" className={`block w-full text-center py-3 rounded-xl font-semibold transition text-sm mt-auto ${tier.popular ? 'bg-gradient-to-r from-purple-600 to-pink-600 text-white hover:from-purple-700 hover:to-pink-700 shadow-md' : 'border-2 border-gray-200 text-gray-900 hover:border-purple-400 hover:text-purple-600'}`}>
                   {tier.cta}
                 </a>
                 </div>
@@ -388,7 +388,7 @@ export default function HomePage() {
             Join our founding cohort of luxury agents who wake up every morning knowing exactly who to call and why. Limited spots available.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a href="https://calendly.com/robopdesigns/profit-audit" target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center gap-2 bg-white text-purple-700 font-bold px-8 py-4 rounded-xl hover:bg-purple-50 transition shadow-lg">
+            <a href="https://calendly.com/robopdesigns/strategy-call" target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center gap-2 bg-white text-purple-700 font-bold px-8 py-4 rounded-xl hover:bg-purple-50 transition shadow-lg">
               Book a Strategy Call
               <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7"/></svg>
             </a>

@@ -93,7 +93,7 @@ export function Header() {
 
           {/* ── MOBILE CTA ────────────────────────────────────── */}
           <div className="flex items-center gap-2 md:hidden">
-            <a href="https://calendly.com/robopdesigns/profit-audit" target="_blank" rel="noopener noreferrer" className="px-4 py-2 text-sm bg-gradient-to-r from-purple-600 to-pink-600 text-white font-semibold rounded-lg">
+            <a href="https://calendly.com/robopdesigns/strategy-call" target="_blank" rel="noopener noreferrer" className="px-4 py-2 text-sm bg-gradient-to-r from-purple-600 to-pink-600 text-white font-semibold rounded-lg">
               Book a Call
             </a>
 

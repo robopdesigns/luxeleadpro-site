@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LuxeLeadPro — Interview Prep Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:'Inter',sans-serif; background:#f8f7ff; color:#1e293b; }
+  .header { background:linear-gradient(135deg,#7c3aed,#d946ef); color:white; padding:48px 40px; }
+  .header-inner { max-width:900px; margin:0 auto; }
+  .logo { display:flex; align-items:center; gap:12px; margin-bottom:24px; }
+  .logo svg { width:40px; height:40px; }
+  .logo span { font-family:'Playfair Display',serif; font-size:20px; font-weight:700; }
+  .header h1 { font-family:'Playfair Display',serif; font-size:42px; font-weight:800; margin-bottom:8px; }
+  .header p { font-size:16px; opacity:.85; }
+  .content { max-width:900px; margin:0 auto; padding:40px; }
+  .section { background:white; border-radius:16px; border:1px solid #e2e8f0; padding:32px; margin-bottom:28px; box-shadow:0 2px 12px rgba(0,0,0,.05); }
+  .section h2 { font-family:'Playfair Display',serif; font-size:26px; color:#7c3aed; margin-bottom:6px; }
+  .section-sub { font-size:14px; color:#64748b; margin-bottom:24px; padding-bottom:16px; border-bottom:1px solid #f1f5f9; }
+  .trait-grid { display:grid; grid-template-columns:1fr 1fr 1fr; gap:14px; margin-bottom:16px; }
+  .trait { background:#f8f5ff; border-radius:10px; padding:16px; border-left:4px solid #7c3aed; }
+  .trait h4 { font-size:14px; font-weight:700; color:#1e293b; margin-bottom:5px; }
+  .trait p { font-size:13px; color:#64748b; line-height:1.5; }
+  .trait.red { border-left-color:#ef4444; background:#fef2f2; }
+  .q-block { margin-bottom:20px; border:1px solid #e2e8f0; border-radius:12px; overflow:hidden; }
+  .q-header { background:#f8f5ff; padding:14px 18px; font-weight:700; font-size:15px; color:#1e293b; border-bottom:1px solid #e2e8f0; }
+  .q-num { display:inline-flex; align-items:center; justify-content:center; width:26px; height:26px; background:linear-gradient(135deg,#7c3aed,#d946ef); color:white; border-radius:50%; font-size:12px; font-weight:800; margin-right:10px; flex-shrink:0; }
+  .q-body { display:grid; grid-template-columns:1fr 1fr; }
+  .q-good { padding:14px 18px; background:#f0fdf4; border-right:1px solid #e2e8f0; }
+  .q-bad { padding:14px 18px; background:#fef2f2; }
+  .q-label { font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.08em; margin-bottom:8px; }
+  .q-label.green { color:#059669; }
+  .q-label.red { color:#dc2626; }
+  .q-text { font-size:13px; color:#374151; line-height:1.6; }
+  .rubric-table { width:100%; border-collapse:collapse; }
+  .rubric-table th { background:linear-gradient(135deg,#7c3aed,#d946ef); color:white; padding:12px 16px; text-align:left; font-size:13px; font-weight:600; }
+  .rubric-table td { padding:12px 16px; border-bottom:1px solid #f1f5f9; font-size:14px; }
+  .rubric-table tr:last-child td { border-bottom:none; }
+  .rubric-table tr:nth-child(even) td { background:#f8f7ff; }
+  .score-dots { display:flex; gap:6px; }
+  .dot { width:28px; height:28px; border-radius:50%; border:2px solid #d1d5db; display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:700; color:#94a3b8; cursor:default; }
+  .dot.filled { background:#7c3aed; border-color:#7c3aed; color:white; }
+  .redflag { display:flex; align-items:flex-start; gap:12px; padding:12px 0; border-bottom:1px solid #f1f5f9; }
+  .redflag:last-child { border-bottom:none; }
+  .redflag-icon { width:24px; height:24px; background:#fee2e2; border-radius:50%; display:flex; align-items:center; justify-content:center; color:#dc2626; font-size:13px; font-weight:700; flex-shrink:0; margin-top:1px; }
+  .redflag-text { font-size:14px; color:#374151; line-height:1.5; }
+  .script-box { background:linear-gradient(135deg,#1e1b4b,#4c1d95); border-radius:12px; padding:28px; color:white; font-size:15px; line-height:1.8; font-style:italic; margin:16px 0; }
+  .next-step { display:flex; align-items:flex-start; gap:14px; padding:12px 0; border-bottom:1px solid #f1f5f9; }
+  .next-step:last-child { border-bottom:none; }
+  .step-badge { background:linear-gradient(135deg,#7c3aed,#d946ef); color:white; font-size:11px; font-weight:700; padding:4px 10px; border-radius:20px; flex-shrink:0; white-space:nowrap; margin-top:2px; }
+  .next-step-text { font-size:14px; color:#374151; line-height:1.5; }
+  .score-summary { background:#f8f5ff; border-radius:12px; padding:20px; margin-top:16px; display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px; text-align:center; }
+  .score-band { padding:14px; border-radius:10px; }
+  .score-band h3 { font-size:22px; font-weight:800; margin-bottom:4px; }
+  .score-band p { font-size:12px; font-weight:600; text-transform:uppercase; letter-spacing:.05em; }
+  .hire { background:#d1fae5; }
+  .hire h3 { color:#059669; }
+  .hire p { color:#065f46; }
+  .maybe { background:#fef3c7; }
+  .maybe h3 { color:#d97706; }
+  .maybe p { color:#92400e; }
+  .pass { background:#fee2e2; }
+  .pass h3 { color:#dc2626; }
+  .pass p { color:#991b1b; }
+  @media(max-width:640px) {
+    .content { padding:20px; }
+    .trait-grid { grid-template-columns:1fr; }
+    .q-body { grid-template-columns:1fr; }
+    .score-summary { grid-template-columns:1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-inner">
+    <div class="logo">
+      <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="40" height="40" rx="10" fill="rgba(255,255,255,0.2)"/>
+        <path d="M20 8 L31 27 H9 Z" fill="white" opacity="0.9"/>
+        <rect x="18.5" y="21" width="3" height="9" rx="1.5" fill="white"/>
+      </svg>
+      <span>LuxeLeadPro</span>
+    </div>
+    <h1>Interview Prep Guide</h1>
+    <p>How to find, evaluate and hire winning sales reps &mdash; every time</p>
+  </div>
+</div>
+
+<div class="content">
+
+  <!-- WHAT TO LOOK FOR -->
+  <div class="section">
+    <h2>What to Look For</h2>
+    <p class="section-sub">These 5 traits predict success. Score each candidate against them.</p>
+    <div class="trait-grid">
+      <div class="trait">
+        <h4>&#127942; Coachability</h4>
+        <p>Can they take feedback without getting defensive? This is #1. You can teach skills, you can't teach attitude.</p>
+      </div>
+      <div class="trait">
+        <h4>&#128293; Hunger</h4>
+        <p>Do they NEED to make money? Financial motivation drives results. Someone comfortable won't push hard enough.</p>
+      </div>
+      <div class="trait">
+        <h4>&#128200; Sales Experience</h4>
+        <p>Have they sold B2B before? Real estate, insurance, SaaS, or any professional services is ideal.</p>
+      </div>
+      <div class="trait">
+        <h4>&#128241; Tech Comfort</h4>
+        <p>Can they use basic software? They don't need to be technical, just comfortable using tools and apps.</p>
+      </div>
+      <div class="trait">
+        <h4>&#128172; Communication</h4>
+        <p>Are they clear, confident, articulate? If they can't sell themselves in the interview, they can't sell to agents.</p>
+      </div>
+      <div class="trait red">
+        <h4>&#128308; Red Flags</h4>
+        <p>Makes excuses, blames others for past failures, vague answers, no questions for you, asks about salary guarantee first.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- INTERVIEW QUESTIONS -->
+  <div class="section">
+    <h2>Interview Questions</h2>
+    <p class="section-sub">Ask all 7. Listen for specifics, not generalities. Good reps give real examples.</p>
+
+    <div class="q-block">
+      <div class="q-header"><span class="q-num">1</span>"Walk me through your sales process from first contact to close."</div>
+      <div class="q-body">
+        <div class="q-good">
+          <div class="q-label green">&#10003; GOOD ANSWER</div>
+          <div class="q-text">Describes specific steps. Mentions prospecting, qualifying, demo, follow-up, handling objections, close. Shows they have a system.</div>
+        </div>
+        <div class="q-bad">
+          <div class="q-label red">&#10007; RED FLAG</div>
+          <div class="q-text">Vague. Says "I just talk to people." No process. Can't explain what they actually do. No structure = no results.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-header"><span class="q-num">2</span>"Tell me about your biggest sale. How did you close it?"</div>
+      <div class="q-body">
+        <div class="q-good">
+          <div class="q-label green">&#10003; GOOD ANSWER</div>
+          <div class="q-text">Gives a specific deal size, explains what obstacle they overcame, takes personal credit. Can replay the close moment-by-moment.</div>
+        </div>
+        <div class="q-bad">
+          <div class="q-label red">&#10007; RED FLAG</div>
+          <div class="q-text">Can't remember details. Downplays role ("the team helped"). No specific number. If they can't recall their best win, it wasn't meaningful.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-header"><span class="q-num">3</span>"What do you do when someone says no?"</div>
+      <div class="q-body">
+        <div class="q-good">
+          <div class="q-label green">&#10003; GOOD ANSWER</div>
+          <div class="q-text">"I find out why, address the real objection, and follow up later." They see no as a starting point, not an ending.</div>
+        </div>
+        <div class="q-bad">
+          <div class="q-label red">&#10007; RED FLAG</div>
+          <div class="q-text">"I move on." or "I respect their decision." Sales is about persistence. Someone who gives up on no won't close anyone.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-header"><span class="q-num">4</span>"What do you know about LuxeLeadPro?"</div>
+      <div class="q-body">
+        <div class="q-good">
+          <div class="q-label green">&#10003; GOOD ANSWER</div>
+          <div class="q-text">Visited the site. Understands it's AI lead scoring for luxury agents. Can explain the value prop in their own words. Shows initiative.</div>
+        </div>
+        <div class="q-bad">
+          <div class="q-label red">&#10007; RED FLAG</div>
+          <div class="q-text">Nothing prepared. "I just saw the job posting." Didn't spend 5 minutes researching. If they won't prepare for an interview, they won't prepare for calls.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-header"><span class="q-num">5</span>"How do you handle rejection?"</div>
+      <div class="q-body">
+        <div class="q-good">
+          <div class="q-label green">&#10003; GOOD ANSWER</div>
+          <div class="q-text">Treats it as part of the game. "Every no gets me closer to a yes." Has specific mental strategies. Stays motivated and doesn't take it personally.</div>
+        </div>
+        <div class="q-bad">
+          <div class="q-label red">&#10007; RED FLAG</div>
+          <div class="q-text">Takes it personally. Gets demotivated. Needs to vent. In sales you hear no 80% of the time &mdash; this person will burn out in week 2.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-header"><span class="q-num">6</span>"What's your income goal this year?"</div>
+      <div class="q-body">
+        <div class="q-good">
+          <div class="q-label green">&#10003; GOOD ANSWER</div>
+          <div class="q-text">Specific number. Hungry. "I want to make $80k this year." Driven. Has a reason (family, debt, goal). The more specific, the better.</div>
+        </div>
+        <div class="q-bad">
+          <div class="q-label red">&#10007; RED FLAG</div>
+          <div class="q-text">"I don't know" or something low and comfortable. No clear target = no drive. You want someone who needs to close deals.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-header"><span class="q-num">7</span>"Why do you want to work on commission?"</div>
+      <div class="q-body">
+        <div class="q-good">
+          <div class="q-label green">&#10003; GOOD ANSWER</div>
+          <div class="q-text">"I love that my earnings are in my hands." Confident in their ability to close. Sees unlimited upside as a feature, not a risk.</div>
+        </div>
+        <div class="q-bad">
+          <div class="q-label red">&#10007; RED FLAG</div>
+          <div class="q-text">"I need some guaranteed base." Wrong fit for this role. Commission-only requires full confidence. Hesitation here is disqualifying.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCORING RUBRIC -->
+  <div class="section">
+    <h2>Scoring Rubric</h2>
+    <p class="section-sub">Score 1-5 in each category during the interview. Total = /30.</p>
+    <table class="rubric-table">
+      <thead>
+        <tr>
+          <th>Category</th>
+          <th>What You're Rating</th>
+          <th>Score (1-5)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Sales Experience</strong></td><td>Past B2B sales, deal sizes, industries</td><td><div class="score-dots"><div class="dot">1</div><div class="dot">2</div><div class="dot">3</div><div class="dot">4</div><div class="dot">5</div></div></td></tr>
+        <tr><td><strong>Communication</strong></td><td>Clarity, confidence, listening skills</td><td><div class="score-dots"><div class="dot">1</div><div class="dot">2</div><div class="dot">3</div><div class="dot">4</div><div class="dot">5</div></div></td></tr>
+        <tr><td><strong>Hunger / Motivation</strong></td><td>Income goal, drive, urgency</td><td><div class="score-dots"><div class="dot">1</div><div class="dot">2</div><div class="dot">3</div><div class="dot">4</div><div class="dot">5</div></div></td></tr>
+        <tr><td><strong>Coachability</strong></td><td>Takes feedback, open to learning</td><td><div class="score-dots"><div class="dot">1</div><div class="dot">2</div><div class="dot">3</div><div class="dot">4</div><div class="dot">5</div></div></td></tr>
+        <tr><td><strong>LuxeLeadPro Knowledge</strong></td><td>Did they research us? Understand the product?</td><td><div class="score-dots"><div class="dot">1</div><div class="dot">2</div><div class="dot">3</div><div class="dot">4</div><div class="dot">5</div></div></td></tr>
+        <tr><td><strong>Overall Fit</strong></td><td>Gut feel &mdash; would you want them representing you?</td><td><div class="score-dots"><div class="dot">1</div><div class="dot">2</div><div class="dot">3</div><div class="dot">4</div><div class="dot">5</div></div></td></tr>
+      </tbody>
+    </table>
+    <div class="score-summary">
+      <div class="score-band hire"><h3>24-30</h3><p>&#9989; Hire Immediately</p></div>
+      <div class="score-band maybe"><h3>18-23</h3><p>&#129300; Second Interview</p></div>
+      <div class="score-band pass"><h3>0-17</h3><p>&#10060; Pass</p></div>
+    </div>
+  </div>
+
+  <!-- RED FLAGS -->
+  <div class="section">
+    <h2>&#128308; Instant Disqualifiers</h2>
+    <p class="section-sub">See any of these? End the interview politely and move on.</p>
+    <div class="redflag"><div class="redflag-icon">!</div><div class="redflag-text"><strong>Late with no explanation or apology</strong> &mdash; If they can't show up on time for an interview, they won't show up for customers.</div></div>
+    <div class="redflag"><div class="redflag-icon">!</div><div class="redflag-text"><strong>Talks badly about previous employers</strong> &mdash; They'll talk badly about you too. Unprofessional and a major warning sign.</div></div>
+    <div class="redflag"><div class="redflag-icon">!</div><div class="redflag-text"><strong>Can't give specific examples</strong> &mdash; Everything is vague and general. Real salespeople have real stories. No stories = no experience.</div></div>
+    <div class="redflag"><div class="redflag-icon">!</div><div class="redflag-text"><strong>Doesn't ask a single question</strong> &mdash; Curious people ask questions. Sales requires curiosity. Someone who doesn't ask is passive, not a hunter.</div></div>
+    <div class="redflag"><div class="redflag-icon">!</div><div class="redflag-text"><strong>First question is about guaranteed salary</strong> &mdash; This is a commission role. If their first concern is guarantees, they're the wrong fit entirely.</div></div>
+    <div class="redflag"><div class="redflag-icon">!</div><div class="redflag-text"><strong>Seems desperate for any job</strong> &mdash; Desperation = poor judgment = bad representation of your brand. You want someone who CHOOSES this, not someone who has no options.</div></div>
+  </div>
+
+  <!-- WHAT TO TELL THEM -->
+  <div class="section">
+    <h2>&#127908; Your Pitch to Them</h2>
+    <p class="section-sub">Use this script when explaining the role. Word-for-word.</p>
+    <div class="script-box">
+      "We're building the sales team for LuxeLeadPro &mdash; AI-powered lead scoring for luxury real estate agents. Your job is simple: reach out to agents, book demos, close subscriptions. Commission is $50 to $200 per month per customer you close &mdash; and it stacks. Every customer you close keeps paying you every single month. 10 customers means $500 to $2,000 per month in recurring income. There's no cap. We give you every tool, all the training, and all the materials. You just need to show up and sell."
+    </div>
+    <p style="font-size:13px;color:#64748b;margin-top:12px;">&#128161; <strong>Tip:</strong> Let that land. Don't rush past it. The best reps will start doing the math in their head and get excited.</p>
+  </div>
+
+  <!-- NEXT STEPS -->
+  <div class="section">
+    <h2>After the Interview</h2>
+    <p class="section-sub">Move fast. Great candidates have options. Same-day follow-up wins.</p>
+    <div class="next-step"><span class="step-badge">Same Day</span><div class="next-step-text">Send a thank-you email to everyone you interviewed. Even passes. It's professional and they might refer someone better.</div></div>
+    <div class="next-step"><span class="step-badge">If YES &mdash; 24 hrs</span><div class="next-step-text">Send the contractor agreement immediately. Fill in their name, start date, commission rates ($50/$75 base/outreach). Use DocuSign free tier.</div></div>
+    <div class="next-step"><span class="step-badge">If NO &mdash; 48 hrs</span><div class="next-step-text">Send a polite rejection: "We've decided to move forward with another candidate. We appreciate your time and will keep you in mind for future opportunities."</div></div>
+    <div class="next-step"><span class="step-badge">Day 1 Onboarding</span><div class="next-step-text">Send: EMPLOYEE_TRAINING.html (12-slide deck) + EMPLOYEE_ONBOARDING_WELCOME.md + a personal welcome message from Rob.</div></div>
+    <div class="next-step"><span class="step-badge">Day 2-4</span><div class="next-step-text">30-minute video call: walk through the product live, practice the pitch deck together, answer questions, give them their first target list.</div></div>
+    <div class="next-step" style="border-bottom:none"><span class="step-badge">Week 1</span><div class="next-step-text">Set target: 30 prospecting outreach emails + 3 demos booked by end of week. Check in daily at first. Momentum matters.</div></div>
+  </div>
+
+  <div style="text-align:center;padding:20px 0 40px;color:#94a3b8;font-size:13px;">
+    LuxeLeadPro &mdash; Interview Prep Guide &mdash; Built by Atlas &#9889; &mdash; Confidential
+  </div>
+
+</div>
+</body>
+</html>

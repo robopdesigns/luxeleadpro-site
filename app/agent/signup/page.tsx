@@ -4,7 +4,7 @@ import { useEffect } from "react";
 
 export default function AgentSignupPage() {
   useEffect(() => {
-    window.location.href = "https://calendly.com/robopdesigns/profit-audit";
+    window.location.href = "https://calendly.com/robopdesigns/strategy-call";
   }, []);
 
   return (
