@@ -1,235 +1,242 @@
 "use client";
 
-import Link from "next/link";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
-import { useAuth } from "@/contexts/AuthContext";
+import { useState } from "react";
 
-const checkIcon = (
-  <svg className="w-4 h-4 text-purple-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"/>
-  </svg>
-);
-
-const plans = [
+const tiers = [
   {
-    name: 'Signature',
-    price: '$249',
-    period: '/month',
-    desc: 'Everything a solo luxury agent needs',
+    name: "Intelligence",
+    price: "$249",
+    period: "/mo",
+    description: "AI-powered lead scoring for agents who already have leads",
     popular: false,
-    badge: null,
+    cta: "Start with Intelligence",
     features: [
-      'AI Lead Scoring (0-100)',
-      'Daily AI Briefing — top 3 leads',
-      'Market intelligence reports',
-      'TCPA/DNC compliance automation',
-      'Lead management dashboard',
-      'White-glove onboarding',
-      'Email support',
+      "AI lead scoring on 40+ signals",
+      "Daily 6AM briefing — your hottest prospects",
+      "Market analytics dashboard",
+      "Lead behavior tracking & re-scoring",
+      "Email & phone support",
+      "Import from any CRM",
     ],
-    cta: 'Book a Strategy Call',
-    href: 'https://calendly.com/robopdesigns/profit-audit',
   },
   {
-    name: 'Signature + Outreach',
-    price: '$349',
-    period: '/month',
-    desc: 'AI scores AND emails your leads for you',
+    name: "Intelligence + Generation",
+    price: "$749",
+    period: "/mo",
+    description: "We find and score luxury leads for you — delivered to your dashboard",
     popular: true,
-    badge: 'Most Popular',
+    cta: "Get Qualified Leads",
     features: [
-      'Everything in Signature',
-      '✉️ Automated cold email sequences',
-      '🤖 AI writes personalized emails',
-      '📬 Sends when lead scores 85+',
-      '📊 Open & reply rate tracking',
-      'A/B subject line testing',
-      'Priority support',
+      "Everything in Intelligence",
+      "15–25 verified luxury leads/month",
+      "Targeted ad campaigns in your market",
+      "Pre-scored — only 60+ leads delivered",
+      "Dedicated AI account manager",
+      "Weekly performance reports",
+      "Custom landing pages for your market",
     ],
-    cta: 'Book a Strategy Call',
-    href: 'https://calendly.com/robopdesigns/profit-audit',
   },
   {
-    name: 'Team + Outreach',
-    price: '$999',
-    period: '/month',
-    desc: 'Full team with automated outreach',
+    name: "Exclusive Territory",
+    price: "$1,499",
+    period: "/mo",
+    description: "Own your ZIP code. No competition. Maximum exclusivity.",
     popular: false,
-    badge: null,
+    cta: "Claim Your Territory",
     features: [
-      'Unlimited agents',
-      'Outreach for all agents',
-      'Manager dashboard',
-      'Team analytics & leaderboards',
-      'Bulk lead import',
-      'Dedicated account manager',
-      'Priority support',
+      "Everything in Intelligence + Generation",
+      "30–50 leads per month",
+      "ZIP code exclusivity — 1 agent per territory",
+      "AI auto-outreach on new leads",
+      "White-glove onboarding",
+      "Priority support — direct line",
+      "Quarterly strategy reviews",
+      "First access to new features",
     ],
-    cta: 'Contact Us',
-    href: 'https://calendly.com/robopdesigns/profit-audit',
+  },
+];
+
+const faqs = [
+  {
+    q: "Where do the leads come from?",
+    a: "For Generation and Territory tiers, we run targeted Facebook, Instagram, and Google ad campaigns specifically in your luxury market. Leads fill out qualification forms on custom landing pages, get scored by our AI, and only leads scoring 60+ are delivered to your dashboard.",
   },
   {
-    name: 'Enterprise',
-    price: '$1,299',
-    period: '/month',
-    desc: 'Custom deployment for brokerages',
-    popular: false,
-    badge: '⚡ Full Power',
-    features: [
-      'Everything in Team + Outreach',
-      'Custom API integrations',
-      'Shared reply inbox',
-      'Campaign analytics dashboard',
-      'Dedicated success manager',
-      'Custom compliance workflows',
-      'SLA guarantees',
-    ],
-    cta: 'Contact Us',
-    href: 'https://calendly.com/robopdesigns/profit-audit',
+    q: "What does ZIP code exclusivity mean?",
+    a: "On the Exclusive Territory plan, we guarantee that no other LuxeLeadPro agent receives leads in your designated ZIP codes. You own that territory completely — every luxury lead in your area comes to you.",
+  },
+  {
+    q: "What are Founding Agent rates?",
+    a: "The first 50 agents to sign up lock in current pricing for life — even as we raise prices. This is a limited offer that won't come back once all spots are filled.",
+  },
+  {
+    q: "Can I upgrade between tiers?",
+    a: "Absolutely. You can upgrade at any time and your new plan takes effect immediately. If you're on Intelligence and want leads delivered, just upgrade to Generation — we'll have campaigns running within 48 hours.",
+  },
+  {
+    q: "How is this different from Zillow Premier Agent or BoldLeads?",
+    a: "Those platforms sell the same leads to multiple agents. LuxeLeadPro's AI scores leads before you see them, so you only spend time on qualified prospects. Our Territory plan guarantees exclusivity — something no other platform offers in luxury markets.",
   },
 ];
 
 export default function PricingPage() {
-  const { user, profile } = useAuth();
+  const [openFaq, setOpenFaq] = useState<number | null>(null);
 
   return (
     <>
       <Header />
       <main className="bg-white">
-
-        {/* ─── HERO ─── */}
-        <section className="px-4 py-16 sm:py-20 border-b border-gray-100 text-center">
+        {/* Hero */}
+        <section className="pt-24 pb-16 px-4 text-center">
           <div className="max-w-3xl mx-auto">
-            <span className="inline-block bg-purple-50 text-purple-700 text-sm font-semibold px-4 py-1.5 rounded-full mb-4">
-              Founding Agent Pricing
-            </span>
-            <h1 className="text-4xl sm:text-5xl font-display font-bold text-gray-900 mb-4">
-              Choose Your Plan
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-purple-50 rounded-full text-purple-700 text-sm font-semibold mb-6">
+              <span>🏆</span> Founding Agent Pricing — Limited to 50 Agents
+            </div>
+            <h1 className="text-4xl md:text-5xl font-display font-bold text-gray-900 mb-4">
+              Choose Your Competitive Edge
             </h1>
-            <p className="text-lg text-gray-600 mb-2">
-              Lock in your introductory rate today. Pricing increases after our first 50 agents.
-            </p>
-            <p className="text-sm text-gray-500">
-              Built for $1M+ luxury real estate markets. White-glove onboarding included.
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+              From AI-powered lead intelligence to exclusive territory ownership.
+              Every tier is built for agents who close $1M+ deals.
             </p>
           </div>
         </section>
 
-        {/* ─── OUTREACH BANNER ─── */}
-        <section className="px-4 py-6 bg-gradient-to-r from-purple-600 to-pink-600">
-          <div className="max-w-4xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-white text-center sm:text-left">
-            <div>
-              <p className="font-bold text-lg">🆕 New: Automated Cold Outreach Add-On</p>
-              <p className="text-purple-100 text-sm">AI scores your leads AND emails them for you. Like Instantly — but built for luxury real estate.</p>
-            </div>
-            <a href="https://calendly.com/robopdesigns/profit-audit" target="_blank" rel="noopener noreferrer" className="flex-shrink-0 bg-white text-purple-700 font-bold px-6 py-2.5 rounded-lg hover:bg-purple-50 transition text-sm whitespace-nowrap">
-              Learn More →
+        {/* Pricing Cards */}
+        <section className="pb-20 px-4">
+          <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6 items-start">
+            {tiers.map((tier) => (
+              <div
+                key={tier.name}
+                className={`relative rounded-2xl border-2 p-8 transition-all ${
+                  tier.popular
+                    ? "border-purple-600 shadow-xl shadow-purple-100 scale-[1.02] bg-white"
+                    : "border-gray-200 bg-white hover:border-purple-200 hover:shadow-lg"
+                }`}
+              >
+                {tier.popular && (
+                  <div className="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1.5 bg-gradient-to-r from-purple-600 to-pink-600 text-white text-xs font-bold rounded-full uppercase tracking-wider">
+                    Most Popular
+                  </div>
+                )}
+
+                <div className="mb-6">
+                  <h3 className="text-lg font-bold text-gray-900 mb-1">{tier.name}</h3>
+                  <p className="text-sm text-gray-500 mb-4">{tier.description}</p>
+                  <div className="flex items-baseline gap-1">
+                    <span className="text-4xl font-bold text-gray-900">{tier.price}</span>
+                    <span className="text-gray-500 text-sm">{tier.period}</span>
+                  </div>
+                </div>
+
+                <a
+                  href="https://calendly.com/luxeleadpro/strategy"
+                  className={`block w-full py-3 px-6 rounded-xl font-semibold text-center transition mb-8 ${
+                    tier.popular
+                      ? "bg-gradient-to-r from-purple-600 to-pink-600 text-white hover:opacity-90 shadow-md"
+                      : "bg-gray-900 text-white hover:bg-gray-800"
+                  }`}
+                >
+                  {tier.cta}
+                </a>
+
+                <ul className="space-y-3">
+                  {tier.features.map((feature) => (
+                    <li key={feature} className="flex items-start gap-3 text-sm">
+                      <svg
+                        className="w-5 h-5 text-purple-600 shrink-0 mt-0.5"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        strokeWidth={2.5}
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M5 13l4 4L19 7"
+                        />
+                      </svg>
+                      <span className="text-gray-700">{feature}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* Founding Agent Banner */}
+        <section className="py-16 px-4 bg-gradient-to-r from-purple-600 to-pink-600">
+          <div className="max-w-3xl mx-auto text-center text-white">
+            <h2 className="text-3xl font-bold mb-4">
+              🔒 Founding Agent Program
+            </h2>
+            <p className="text-lg opacity-90 mb-2">
+              The first 50 agents lock in these rates <strong>for life</strong>.
+            </p>
+            <p className="text-sm opacity-75 mb-8">
+              When we raise prices (and we will), Founding Agents keep their original rate. Forever.
+              No contracts. Cancel anytime. But your rate? Locked.
+            </p>
+            <a
+              href="https://calendly.com/luxeleadpro/strategy"
+              className="inline-block px-8 py-4 bg-white text-purple-700 font-bold rounded-xl hover:bg-gray-50 transition shadow-lg"
+            >
+              Book a Strategy Call →
             </a>
           </div>
         </section>
 
-        {/* ─── PRICING CARDS ─── */}
-        <section className="px-4 py-16 sm:py-20">
-          <div className="max-w-7xl mx-auto">
-            <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6 mt-4">
-              {plans.map((plan, i) => (
-                <div
-                  key={i}
-                  className={`rounded-2xl border-2 flex flex-col transition hover:shadow-lg relative ${
-                    plan.popular
-                      ? 'border-purple-500 shadow-xl shadow-purple-100'
-                      : 'border-gray-200 bg-white'
-                  }`}
-                >
-                  {plan.badge && (
-                    <div className={`absolute -top-4 left-1/2 -translate-x-1/2 text-xs font-bold px-4 py-1.5 rounded-full whitespace-nowrap z-10 ${
-                      plan.popular ? 'bg-gradient-to-r from-purple-600 to-pink-600 text-white' : 'bg-gray-900 text-white'
-                    }`}>
-                      {plan.badge}
-                    </div>
-                  )}
-
-                  <div className={`p-6 ${plan.badge ? 'pt-8' : 'pt-6'} ${plan.popular ? 'bg-gradient-to-b from-purple-50 to-white' : 'bg-white'} rounded-t-2xl`}>
-                    <h3 className="text-lg font-bold text-gray-900 mb-1">{plan.name}</h3>
-                    <p className="text-xs text-gray-500 mb-4">{plan.desc}</p>
-                    <div className="mb-5">
-                      <span className="text-4xl font-bold text-gray-900">{plan.price}</span>
-                      <span className="text-sm text-gray-500">{plan.period}</span>
-                    </div>
-                    <a
-                      href={plan.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className={`block w-full text-center py-3 rounded-xl font-semibold text-sm transition ${
-                        plan.popular
-                          ? 'bg-gradient-to-r from-purple-600 to-pink-600 text-white hover:from-purple-700 hover:to-pink-700 shadow-md'
-                          : 'border-2 border-gray-200 text-gray-900 hover:border-purple-400 hover:text-purple-600'
-                      }`}
-                    >
-                      {plan.cta}
-                    </a>
-                  </div>
-
-                  <div className="p-6 pt-0 flex-1 bg-white">
-                    <ul className="space-y-2.5">
-                      {plan.features.map((f, j) => (
-                        <li key={j} className="flex items-start gap-2 text-sm text-gray-700">
-                          {f.startsWith('✉️') || f.startsWith('🤖') || f.startsWith('📬') || f.startsWith('📊') || f.startsWith('🔥') || f.startsWith('⚡')
-                            ? <span className="flex-shrink-0 mt-0.5">→</span>
-                            : checkIcon
-                          }
-                          <span className={f.startsWith('Everything') ? 'font-semibold text-purple-700' : ''}>{f}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            <p className="text-center text-sm text-gray-500 mt-8">
-              All plans include white-glove onboarding · No long-term contracts · Cancel anytime
-            </p>
-          </div>
-        </section>
-
-        {/* ─── COMPARE TABLE ─── */}
-        <section className="px-4 py-16 bg-gray-50 border-t border-gray-100">
+        {/* Comparison Table */}
+        <section className="py-20 px-4">
           <div className="max-w-4xl mx-auto">
-            <h2 className="text-3xl font-display font-bold text-gray-900 text-center mb-10">Compare Plans</h2>
-            <div className="overflow-x-auto rounded-2xl border border-gray-200 shadow-sm">
+            <h2 className="text-2xl font-bold text-gray-900 text-center mb-10">
+              Compare Plans
+            </h2>
+            <div className="overflow-x-auto rounded-xl border border-gray-200">
               <table className="w-full text-sm">
                 <thead>
-                  <tr className="bg-gray-900 text-white">
-                    <th className="text-left px-6 py-4 font-semibold">Feature</th>
-                    <th className="text-center px-4 py-4 font-semibold">Signature<br/><span className="font-normal text-gray-300">$249/mo</span></th>
-                    <th className="text-center px-4 py-4 font-semibold bg-purple-700">+ Outreach<br/><span className="font-normal text-purple-200">$349/mo</span></th>
-                    <th className="text-center px-4 py-4 font-semibold">Team<br/><span className="font-normal text-gray-300">$999/mo</span></th>
-                    <th className="text-center px-4 py-4 font-semibold">Enterprise<br/><span className="font-normal text-gray-300">$1,299/mo</span></th>
+                  <tr className="bg-gray-50 border-b border-gray-200">
+                    <th className="text-left px-6 py-4 font-semibold text-gray-900">Feature</th>
+                    <th className="text-center px-4 py-4 font-semibold text-gray-900">Intelligence</th>
+                    <th className="text-center px-4 py-4 font-semibold text-purple-700 bg-purple-50">Generation</th>
+                    <th className="text-center px-4 py-4 font-semibold text-gray-900">Territory</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-gray-100">
+                <tbody>
                   {[
-                    ['AI Lead Scoring (0-100)', '✅', '✅', '✅', '✅'],
-                    ['Daily AI Briefing', '✅', '✅', '✅', '✅'],
-                    ['TCPA/DNC Compliance', '✅', '✅', '✅', '✅'],
-                    ['Market Intelligence', '✅', '✅', '✅', '✅'],
-                    ['Mobile App', '✅', '✅', '✅', '✅'],
-                    ['Automated Email Sequences', '❌', '✅', '❌', '✅'],
-                    ['AI Writes Emails Per Lead', '❌', '✅', '❌', '✅'],
-                    ['Open & Reply Tracking', '❌', '✅', '❌', '✅'],
-                    ['Unlimited Agents', '❌', '❌', '✅', '✅'],
-                    ['Manager Dashboard', '❌', '❌', '✅', '✅'],
-                    ['Team Reports', '❌', '❌', '✅', '✅'],
-                    ['API Access', '❌', '❌', '✅', '✅'],
-                    ['Dedicated Account Manager', '❌', '❌', '❌', '✅'],
-                    ['24/7 Support', '❌', '❌', '❌', '✅'],
-                  ].map(([feature, ...cols], i) => (
-                    <tr key={i} className={i % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
-                      <td className="px-6 py-3 text-gray-700 font-medium">{feature}</td>
-                      {cols.map((val, j) => (
-                        <td key={j} className={`text-center px-4 py-3 ${j === 1 ? 'bg-purple-50' : ''}`}>{val}</td>
+                    ["AI Lead Scoring", true, true, true],
+                    ["Daily 6AM Briefing", true, true, true],
+                    ["Market Analytics", true, true, true],
+                    ["Leads Delivered/Month", "—", "15–25", "30–50"],
+                    ["Targeted Ad Campaigns", false, true, true],
+                    ["Pre-scored Leads (60+)", false, true, true],
+                    ["AI Account Manager", false, true, true],
+                    ["ZIP Code Exclusivity", false, false, true],
+                    ["AI Auto-outreach", false, false, true],
+                    ["White-glove Onboarding", false, false, true],
+                    ["Priority Support", false, false, true],
+                  ].map(([feature, t1, t2, t3], i) => (
+                    <tr
+                      key={i}
+                      className="border-b border-gray-100 last:border-0"
+                    >
+                      <td className="px-6 py-3 text-gray-700 font-medium">{feature as string}</td>
+                      {[t1, t2, t3].map((val, j) => (
+                        <td
+                          key={j}
+                          className={`px-4 py-3 text-center ${j === 1 ? "bg-purple-50/50" : ""}`}
+                        >
+                          {val === true ? (
+                            <span className="text-purple-600 font-bold">✓</span>
+                          ) : val === false ? (
+                            <span className="text-gray-300">—</span>
+                          ) : (
+                            <span className="font-semibold text-gray-900">{val as string}</span>
+                          )}
+                        </td>
                       ))}
                     </tr>
                   ))}
@@ -239,55 +246,68 @@ export default function PricingPage() {
           </div>
         </section>
 
-        {/* ─── FAQ ─── */}
-        <section className="px-4 py-16 border-t border-gray-100">
+        {/* FAQ */}
+        <section className="py-20 px-4 bg-gray-50">
           <div className="max-w-3xl mx-auto">
-            <h2 className="text-3xl font-display font-bold text-gray-900 mb-10 text-center">Frequently Asked Questions</h2>
-            <div className="space-y-4">
-              {[
-                { q: 'Can I switch plans anytime?', a: 'Yes! Upgrade or downgrade anytime. Changes take effect at the start of your next billing cycle.' },
-                { q: 'How do I get started?', a: 'Book a free strategy call. We\'ll analyze your pipeline, identify opportunities, and build a custom plan for your market. No obligation.' },
-                { q: 'How does the Outreach add-on work?', a: 'When our AI scores a lead 85 or higher, it automatically sends a personalized 3-email sequence on your behalf. You wake up to replies in your inbox — not just a list of names to call.' },
-                { q: 'Do I need my own email account for Outreach?', a: 'Yes — you connect your existing Gmail or Outlook account. Emails are sent from your address so replies come directly to you.' },
-                { q: 'Is automated outreach TCPA compliant?', a: 'Yes. All outreach respects DNC registry, includes unsubscribe options, and maintains audit logs. We keep you fully protected.' },
-                { q: 'Can I cancel anytime?', a: 'Absolutely. No long-term contracts. Cancel before your billing date for a full stop.' },
-                { q: 'What support is available?', a: 'All plans include email support. Per Agent + Outreach and above get priority support. Team+ gets a dedicated account manager.' },
-              ].map((faq, i) => (
-                <details key={i} className="group bg-gray-50 border border-gray-200 rounded-xl p-5 cursor-pointer">
-                  <summary className="flex justify-between items-center font-semibold text-gray-900 list-none">
-                    {faq.q}
-                    <svg className="w-5 h-5 text-gray-400 transition group-open:rotate-180 flex-shrink-0 ml-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7"/>
+            <h2 className="text-2xl font-bold text-gray-900 text-center mb-10">
+              Frequently Asked Questions
+            </h2>
+            <div className="space-y-3">
+              {faqs.map((faq, i) => (
+                <div
+                  key={i}
+                  className="bg-white rounded-xl border border-gray-200 overflow-hidden"
+                >
+                  <button
+                    onClick={() => setOpenFaq(openFaq === i ? null : i)}
+                    className="w-full flex items-center justify-between px-6 py-4 text-left"
+                  >
+                    <span className="font-semibold text-gray-900">{faq.q}</span>
+                    <svg
+                      className={`w-5 h-5 text-gray-400 transition-transform ${
+                        openFaq === i ? "rotate-180" : ""
+                      }`}
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M19 9l-7 7-7-7"
+                      />
                     </svg>
-                  </summary>
-                  <p className="text-gray-600 mt-3 leading-relaxed">{faq.a}</p>
-                </details>
+                  </button>
+                  {openFaq === i && (
+                    <div className="px-6 pb-4 text-gray-600 text-sm leading-relaxed">
+                      {faq.a}
+                    </div>
+                  )}
+                </div>
               ))}
             </div>
           </div>
         </section>
 
-        {/* ─── FINAL CTA ─── */}
-        <section className="px-4 py-16 bg-white border-t border-gray-100">
-          <div className="max-w-2xl mx-auto bg-white border-2 border-purple-200 rounded-2xl p-10 text-center shadow-lg">
-            <h2 className="text-3xl font-display font-bold text-gray-900 mb-3">
-              Ready to Close 2x More Deals?
+        {/* Final CTA */}
+        <section className="py-20 px-4 text-center">
+          <div className="max-w-2xl mx-auto">
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">
+              Ready to Close More Luxury Deals?
             </h2>
-            <p className="text-gray-600 mb-7">
-              Book a free strategy call and see how LuxeLeadPro can transform your pipeline.
+            <p className="text-gray-600 mb-8">
+              Book a 15-minute strategy call. We&apos;ll show you exactly how
+              LuxeLeadPro works for your market.
             </p>
             <a
-              href="https://calendly.com/robopdesigns/profit-audit"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-block px-10 py-4 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold rounded-xl hover:from-purple-700 hover:to-pink-700 transition shadow-md"
+              href="https://calendly.com/luxeleadpro/strategy"
+              className="inline-block px-8 py-4 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold rounded-xl hover:opacity-90 transition shadow-lg"
             >
-              Book a Strategy Call
+              Book Your Strategy Call →
             </a>
-            <p className="text-xs text-gray-400 mt-4">No obligation · Personalized to your market · White-glove onboarding</p>
           </div>
         </section>
-
       </main>
       <Footer />
     </>

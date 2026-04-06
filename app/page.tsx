@@ -295,31 +295,31 @@ export default function HomePage() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10 mt-4">
             {[
               {
-                name: 'Signature',
+                name: 'Intelligence',
                 price: '$249',
                 sub: '/month',
-                features: ['AI Lead Scoring (0-100)', 'Daily AI Briefing', 'Market Intelligence', 'TCPA/DNC Compliance', 'White-Glove Onboarding'],
+                features: ['AI Lead Scoring (40+ signals)', 'Daily 6AM Briefing', 'Market Analytics Dashboard', 'Import from Any CRM', 'Email & Phone Support'],
                 popular: false,
                 badge: null,
-                cta: 'Book a Strategy Call',
+                cta: 'Start with Intelligence',
               },
               {
-                name: 'Signature + Outreach',
-                price: '$349',
+                name: 'Intelligence + Generation',
+                price: '$749',
                 sub: '/month',
-                features: ['Everything in Signature', '✉️ Automated email sequences', '🤖 AI writes emails per lead', '📊 Open & reply tracking', 'Priority Support'],
+                features: ['Everything in Intelligence', '15–25 Verified Luxury Leads/mo', 'Targeted Ad Campaigns', 'Pre-scored Leads (60+ only)', 'AI Account Manager'],
                 popular: true,
                 badge: 'Most Popular',
-                cta: 'Book a Strategy Call',
+                cta: 'Get Qualified Leads',
               },
               {
-                name: 'Team + Outreach',
-                price: '$999',
+                name: 'Exclusive Territory',
+                price: '$1,499',
                 sub: '/month',
-                features: ['Unlimited Agents', 'Outreach for all agents', 'Manager Dashboard', 'Team Analytics', 'Dedicated Support'],
+                features: ['Everything in Generation', '30–50 Leads/mo', 'ZIP Code Exclusivity', 'AI Auto-outreach', 'White-Glove Onboarding'],
                 popular: false,
                 badge: null,
-                cta: 'Contact Us',
+                cta: 'Claim Your Territory',
               },
             ].map((tier, i) => (
               <div key={i} className={`rounded-2xl border-2 transition relative flex flex-col ${tier.popular ? 'border-purple-500 bg-white shadow-xl shadow-purple-100' : 'border-gray-200 bg-white hover:border-purple-200'}`}>
