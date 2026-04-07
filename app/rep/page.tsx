@@ -277,6 +277,10 @@ export default function RepDashboard() {
                 { title: "Commission Structure", desc: "How much you earn per customer, per tier", href: "/training/commission-structure.html", icon: "💰" },
                 { title: "Competitive Positioning", desc: "Why we beat Zillow, BoldLeads, CINC, and others", href: "/training/competitive-positioning.html", icon: "🏆" },
                 { title: "Full Training Guide", desc: "Complete employee training program", href: "/training/training-guide.html", icon: "📖" },
+                { title: "Founding Agent Welcome Kit", desc: "Send to new Territory clients — founding rate", href: "/docs/founding-welcome.html", icon: "🏆" },
+                { title: "Territory Claim Confirmation", desc: "PDF to send after territory purchase", href: "/docs/LuxeLeadPro_Territory_Claim_Confirmation.pdf", icon: "📝" },
+                { title: "Territory Page (for prospects)", desc: "Show available territories — send this link during demos", href: "/territory", icon: "🗺️" },
+                { title: "Demo Dashboard", desc: "Live demo to show prospects during calls", href: "/demo", icon: "💻" },
               ].map((res, i) => (
                 <a key={i} href={res.href} target="_blank" rel="noopener noreferrer" className="bg-white rounded-xl border border-gray-200 p-5 hover:border-purple-300 hover:shadow-md transition flex items-start gap-4">
                   <span className="text-2xl">{res.icon}</span>
