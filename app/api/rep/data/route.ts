@@ -70,5 +70,24 @@ export async function POST(request: Request) {
     return NextResponse.json({ checkin: data });
   }
 
+  if (body.action === "edit_activity") {
+    if (!body.id) return NextResponse.json({ error: "Activity ID required" }, { status: 400 });
+    const updates: Record<string, unknown> = {};
+    if (body.type) updates.type = body.type;
+    if (body.notes !== undefined) updates.notes = body.notes;
+    if (body.outcome !== undefined) updates.outcome = body.outcome;
+
+    const { data, error } = await supabase.from("rep_activities").update(updates).eq("id", body.id).eq("rep_id", repId).select().single();
+    if (error) return NextResponse.json({ error: error.message }, { status: 500 });
+    return NextResponse.json({ activity: data });
+  }
+
+  if (body.action === "delete_activity") {
+    if (!body.id) return NextResponse.json({ error: "Activity ID required" }, { status: 400 });
+    const { error } = await supabase.from("rep_activities").delete().eq("id", body.id).eq("rep_id", repId);
+    if (error) return NextResponse.json({ error: error.message }, { status: 500 });
+    return NextResponse.json({ deleted: true });
+  }
+
   return NextResponse.json({ error: "Unknown action" }, { status: 400 });
 }

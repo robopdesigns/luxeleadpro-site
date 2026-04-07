@@ -136,12 +136,27 @@ export default function RepDashboard() {
               ) : (
                 <div className="space-y-2">
                   {activities.slice(0, 10).map(a => (
-                    <div key={a.id} className="flex items-center justify-between py-2 border-b border-gray-100 last:border-0">
+                    <div key={a.id} className="flex items-center justify-between py-2 border-b border-gray-100 last:border-0 group">
                       <div className="flex items-center gap-3">
                         <span className="text-lg">{a.type === "call" ? "📞" : a.type === "email" ? "📧" : a.type === "demo" ? "🎬" : a.type === "meeting" ? "🤝" : "🔄"}</span>
                         <span className="text-sm text-gray-700">{a.notes || a.type}</span>
                       </div>
-                      <span className="text-xs text-gray-400">{new Date(a.created_at).toLocaleString()}</span>
+                      <div className="flex items-center gap-2">
+                        <span className="text-xs text-gray-400">{new Date(a.created_at).toLocaleString()}</span>
+                        <button onClick={async () => {
+                          const newNote = prompt('Edit activity note:', a.notes || '');
+                          if (newNote !== null) {
+                            await fetch('/api/rep/data', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify({ action: 'edit_activity', id: a.id, notes: newNote }) });
+                            loadData();
+                          }
+                        }} className="text-xs text-purple-600 opacity-0 group-hover:opacity-100 transition hover:underline">edit</button>
+                        <button onClick={async () => {
+                          if (confirm('Delete this activity?')) {
+                            await fetch('/api/rep/data', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify({ action: 'delete_activity', id: a.id }) });
+                            loadData();
+                          }
+                        }} className="text-xs text-red-500 opacity-0 group-hover:opacity-100 transition hover:underline">delete</button>
+                      </div>
                     </div>
                   ))}
                 </div>
