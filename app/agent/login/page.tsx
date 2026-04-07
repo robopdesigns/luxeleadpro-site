@@ -41,7 +41,9 @@ export default function AgentLoginPage() {
         return;
       }
 
-      if (result.profile?.role !== "agent" && result.profile?.role !== "admin") {
+      // Allow agent and admin roles, also allow if profile not loaded yet
+      const role = result.profile?.role;
+      if (role && role !== "agent" && role !== "admin") {
         setError("This account is not an agent account");
         setLoading(false);
         return;

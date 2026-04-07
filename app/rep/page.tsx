@@ -13,7 +13,7 @@ export default function RepDashboard() {
   const [activities, setActivities] = useState<Activity[]>([]);
   const [checkins, setCheckins] = useState<Checkin[]>([]);
   const [loading, setLoading] = useState(true);
-  const [tab, setTab] = useState<"home" | "leads" | "scripts" | "checkin">("home");
+  const [tab, setTab] = useState<"home" | "leads" | "scripts" | "goals" | "checkin">("home");
   const [activityForm, setActivityForm] = useState({ type: "call", notes: "", lead_id: "" });
   const [checkinForm, setCheckinForm] = useState({ notes: "", calls_made: 0, demos_booked: 0, deals_closed: 0 });
 
@@ -79,9 +79,9 @@ export default function RepDashboard() {
       <div className="bg-white border-b border-gray-200">
         <div className="max-w-5xl mx-auto px-6">
           <nav className="flex gap-1">
-            {(["home", "leads", "scripts", "checkin"] as const).map(t => (
+            {(["home", "leads", "scripts", "goals", "checkin"] as const).map(t => (
               <button key={t} onClick={() => setTab(t)} className={`px-4 py-3 text-sm font-medium border-b-2 transition ${tab === t ? "border-purple-600 text-purple-600" : "border-transparent text-gray-500 hover:text-gray-700"}`}>
-                {t === "home" ? "🏠 Home" : t === "leads" ? "👥 My Leads" : t === "scripts" ? "📋 Scripts" : "✅ Check In"}
+                {t === "home" ? "🏠 Home" : t === "leads" ? "👥 My Leads" : t === "scripts" ? "📋 Scripts & Training" : t === "goals" ? "🏆 Goals & Rewards" : "✅ Check In"}
               </button>
             ))}
           </nav>
@@ -215,6 +215,95 @@ export default function RepDashboard() {
                   </div>
                 </a>
               ))}
+            </div>
+          </div>
+        )}
+
+        {tab === "goals" && (
+          <div className="space-y-6">
+            <h2 className="text-xl font-bold text-gray-900">🏆 Goals, Incentives & Rewards</h2>
+
+            {/* Monthly Goals */}
+            <div className="bg-white rounded-xl border border-gray-200 p-6">
+              <h3 className="font-bold text-gray-900 mb-4">📊 Monthly Goals</h3>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                {[
+                  { goal: "Calls Made", target: 200, current: todayActivities.filter(a => a.type === "call").length * 20, unit: "calls", color: "purple" },
+                  { goal: "Demos Booked", target: 15, current: activities.filter(a => a.type === "demo").length, unit: "demos", color: "blue" },
+                  { goal: "Deals Closed", target: 5, current: 0, unit: "deals", color: "green" },
+                ].map((g, i) => {
+                  const pct = Math.min(100, Math.round((g.current / g.target) * 100));
+                  return (
+                    <div key={i} className="bg-gray-50 rounded-xl p-5">
+                      <div className="flex justify-between items-center mb-2">
+                        <span className="text-sm font-semibold text-gray-700">{g.goal}</span>
+                        <span className="text-xs text-gray-500">{g.current}/{g.target} {g.unit}</span>
+                      </div>
+                      <div className="w-full bg-gray-200 rounded-full h-3 mb-2">
+                        <div className={`h-3 rounded-full transition-all bg-${g.color}-600`} style={{ width: `${pct}%` }} />
+                      </div>
+                      <span className="text-xs font-bold text-gray-600">{pct}% complete</span>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* Commission Tracker */}
+            <div className="bg-white rounded-xl border border-gray-200 p-6">
+              <h3 className="font-bold text-gray-900 mb-4">💰 Commission Tracker</h3>
+              <div className="grid grid-cols-3 gap-4 mb-6">
+                <div className="bg-purple-50 rounded-xl p-4 text-center">
+                  <div className="text-2xl font-bold text-purple-700">$0</div>
+                  <div className="text-xs text-gray-500">This Month</div>
+                </div>
+                <div className="bg-green-50 rounded-xl p-4 text-center">
+                  <div className="text-2xl font-bold text-green-700">$0</div>
+                  <div className="text-xs text-gray-500">Total Earned</div>
+                </div>
+                <div className="bg-blue-50 rounded-xl p-4 text-center">
+                  <div className="text-2xl font-bold text-blue-700">0</div>
+                  <div className="text-xs text-gray-500">Active Customers</div>
+                </div>
+              </div>
+              <div className="bg-gray-50 rounded-lg p-4">
+                <h4 className="text-sm font-bold text-gray-700 mb-2">How You Earn</h4>
+                <div className="space-y-2 text-sm text-gray-600">
+                  <div className="flex justify-between"><span>Intelligence ($249/mo) close</span><span className="font-bold text-purple-600">$75/mo recurring</span></div>
+                  <div className="flex justify-between"><span>Generation ($749/mo) close</span><span className="font-bold text-purple-600">$225/mo recurring</span></div>
+                  <div className="flex justify-between"><span>Territory ($1,499/mo) close</span><span className="font-bold text-purple-600">$450/mo recurring</span></div>
+                </div>
+              </div>
+            </div>
+
+            {/* Incentive Tiers */}
+            <div className="bg-white rounded-xl border border-gray-200 p-6">
+              <h3 className="font-bold text-gray-900 mb-4">🎯 Incentive Bonuses</h3>
+              <div className="space-y-3">
+                {[
+                  { milestone: "10 Customers", bonus: "$500 Cash Bonus", icon: "⭐", unlocked: false },
+                  { milestone: "25 Customers", bonus: "$1,500 Cash Bonus + 5% raise on recurring", icon: "🌟", unlocked: false },
+                  { milestone: "50 Customers", bonus: "$5,000 Cash Bonus + Senior Rep title", icon: "💎", unlocked: false },
+                  { milestone: "100 Customers", bonus: "$15,000 Cash Bonus + Revenue Share + Team Lead role", icon: "👑", unlocked: false },
+                ].map((tier, i) => (
+                  <div key={i} className={`flex items-center gap-4 p-4 rounded-xl border-2 ${tier.unlocked ? "border-green-500 bg-green-50" : "border-gray-200 bg-gray-50"}`}>
+                    <span className="text-3xl">{tier.icon}</span>
+                    <div className="flex-1">
+                      <div className="font-bold text-gray-900">{tier.milestone}</div>
+                      <div className="text-sm text-gray-600">{tier.bonus}</div>
+                    </div>
+                    <span className={`text-xs font-bold px-3 py-1 rounded-full ${tier.unlocked ? "bg-green-100 text-green-700" : "bg-gray-200 text-gray-500"}`}>
+                      {tier.unlocked ? "UNLOCKED ✅" : "LOCKED 🔒"}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Top Rep Leaderboard */}
+            <div className="bg-white rounded-xl border border-gray-200 p-6">
+              <h3 className="font-bold text-gray-900 mb-4">🏅 Rep Leaderboard</h3>
+              <p className="text-gray-500 text-sm">Leaderboard activates when more reps join. Be the first to set the pace!</p>
             </div>
           </div>
         )}

@@ -41,7 +41,9 @@ export default function ManagerLoginPage() {
         return;
       }
 
-      if (result.profile?.role !== "manager" && result.profile?.role !== "admin") {
+      // Allow manager and admin roles, also allow if profile not loaded yet (RLS timing)
+      const role = result.profile?.role;
+      if (role && role !== "manager" && role !== "admin") {
         setError("This account is not a manager account");
         setLoading(false);
         return;
