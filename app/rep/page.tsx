@@ -200,11 +200,11 @@ export default function RepDashboard() {
             <h2 className="text-xl font-bold text-gray-900 mt-10">📚 Training Resources</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {[
-                { title: "Pitch Deck", desc: "14-slide presentation for selling LuxeLeadPro", href: "/training/pitch-deck.md", icon: "🎯" },
-                { title: "Cold Outreach Templates", desc: "Email, LinkedIn, phone, text templates + follow-up sequence", href: "/training/outreach-templates.md", icon: "📧" },
-                { title: "Quick Start Guide", desc: "Your first 4 weeks — what to do and when", href: "/training/quick-start.md", icon: "🚀" },
-                { title: "Commission Structure", desc: "How much you earn per customer, per tier", href: "/training/commission-structure.md", icon: "💰" },
-                { title: "Competitive Positioning", desc: "Why we beat Zillow, BoldLeads, CINC, and others", href: "/training/competitive-positioning.md", icon: "🏆" },
+                { title: "Pitch Deck", desc: "14-slide presentation for selling LuxeLeadPro", href: "/training/pitch-deck.html", icon: "🎯" },
+                { title: "Cold Outreach Templates", desc: "Email, LinkedIn, phone, text templates + follow-up sequence", href: "/training/outreach-templates.html", icon: "📧" },
+                { title: "Quick Start Guide", desc: "Your first 4 weeks — what to do and when", href: "/training/quick-start.html", icon: "🚀" },
+                { title: "Commission Structure", desc: "How much you earn per customer, per tier", href: "/training/commission-structure.html", icon: "💰" },
+                { title: "Competitive Positioning", desc: "Why we beat Zillow, BoldLeads, CINC, and others", href: "/training/competitive-positioning.html", icon: "🏆" },
                 { title: "Full Training Guide", desc: "Complete employee training program", href: "/training/training-guide.html", icon: "📖" },
               ].map((res, i) => (
                 <a key={i} href={res.href} target="_blank" rel="noopener noreferrer" className="bg-white rounded-xl border border-gray-200 p-5 hover:border-purple-300 hover:shadow-md transition flex items-start gap-4">
