@@ -138,26 +138,32 @@ export default function RepDashboard() {
               ) : (
                 <div className="space-y-2">
                   {activities.slice(0, 10).map(a => (
-                    <div key={a.id} className="flex items-center justify-between py-2 border-b border-gray-100 last:border-0 group">
-                      <div className="flex items-center gap-3">
-                        <span className="text-lg">{a.type === "call" ? "📞" : a.type === "email" ? "📧" : a.type === "demo" ? "🎬" : a.type === "meeting" ? "🤝" : "🔄"}</span>
-                        <span className="text-sm text-gray-700">{a.notes || a.type}</span>
+                    <div key={a.id} className="flex items-center justify-between py-2 border-b border-gray-100 last:border-0">
+                      <div className="flex items-center gap-3 flex-1 min-w-0">
+                        <span className="text-lg shrink-0">{a.type === "call" ? "📞" : a.type === "email" ? "📧" : a.type === "demo" ? "🎬" : a.type === "meeting" ? "🤝" : "🔄"}</span>
+                        <span className="text-sm text-gray-700 truncate">{a.notes || a.type}</span>
                       </div>
-                      <div className="flex items-center gap-2">
-                        <span className="text-xs text-gray-400">{new Date(a.created_at).toLocaleString()}</span>
+                      <div className="flex items-center gap-1 shrink-0 ml-2">
+                        <span className="text-xs text-gray-400 mr-2 hidden md:inline">{new Date(a.created_at).toLocaleString()}</span>
                         <button onClick={async () => {
-                          const newNote = prompt('Edit activity note:', a.notes || '');
-                          if (newNote !== null) {
-                            await fetch('/api/rep/data', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify({ action: 'edit_activity', id: a.id, notes: newNote }) });
-                            loadData();
+                          const newNote = window.prompt('Edit activity note:', a.notes || '');
+                          if (newNote !== null && newNote !== a.notes) {
+                            try {
+                              const res = await fetch('/api/rep/data', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify({ action: 'edit_activity', id: a.id, notes: newNote }) });
+                              if (res.ok) loadData();
+                              else alert('Failed to save edit');
+                            } catch(e) { alert('Error saving'); }
                           }
-                        }} className="text-xs text-purple-600 opacity-0 group-hover:opacity-100 transition hover:underline">edit</button>
+                        }} className="text-xs bg-purple-50 text-purple-600 px-2 py-1 rounded font-semibold hover:bg-purple-100">✏️ Edit</button>
                         <button onClick={async () => {
-                          if (confirm('Delete this activity?')) {
-                            await fetch('/api/rep/data', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify({ action: 'delete_activity', id: a.id }) });
-                            loadData();
+                          if (window.confirm('Delete this activity?')) {
+                            try {
+                              const res = await fetch('/api/rep/data', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify({ action: 'delete_activity', id: a.id }) });
+                              if (res.ok) loadData();
+                              else alert('Failed to delete');
+                            } catch(e) { alert('Error deleting'); }
                           }
-                        }} className="text-xs text-red-500 opacity-0 group-hover:opacity-100 transition hover:underline">delete</button>
+                        }} className="text-xs bg-red-50 text-red-600 px-2 py-1 rounded font-semibold hover:bg-red-100">🗑️</button>
                       </div>
                     </div>
                   ))}
@@ -233,12 +239,15 @@ export default function RepDashboard() {
                           <option value="lost">Lost</option>
                         </select>
                         <button onClick={async () => {
-                          const notes = prompt('Edit notes:', l.challenge || '');
+                          const notes = window.prompt('Edit notes:', l.challenge || '');
                           if (notes !== null) {
-                            await fetch('/api/rep/data', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify({ action: 'edit_prospect', id: l.id, notes }) });
-                            loadData();
+                            try {
+                              const res = await fetch('/api/rep/data', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify({ action: 'edit_prospect', id: l.id, notes }) });
+                              if (res.ok) loadData();
+                              else alert('Failed to save');
+                            } catch(e) { alert('Error saving'); }
                           }
-                        }} className="text-xs text-purple-600 opacity-0 group-hover:opacity-100 transition hover:underline">edit</button>
+                        }} className="text-xs bg-purple-50 text-purple-600 px-2 py-1 rounded font-semibold hover:bg-purple-100">✏️ Edit</button>
                       </div>
                     </div>
                     {l.challenge && <p className="text-sm text-gray-600 mt-3 bg-gray-50 rounded-lg p-3">{l.challenge}</p>}
