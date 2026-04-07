@@ -281,10 +281,10 @@ export default function RepDashboard() {
               <h3 className="font-bold text-gray-900 mb-4">🎯 Incentive Bonuses</h3>
               <div className="space-y-3">
                 {[
-                  { milestone: "10 Customers", bonus: "$500 Cash Bonus", icon: "⭐", unlocked: false },
-                  { milestone: "25 Customers", bonus: "$1,500 Cash Bonus + 5% raise on recurring", icon: "🌟", unlocked: false },
-                  { milestone: "50 Customers", bonus: "$5,000 Cash Bonus + Senior Rep title", icon: "💎", unlocked: false },
-                  { milestone: "100 Customers", bonus: "$15,000 Cash Bonus + Revenue Share + Team Lead role", icon: "👑", unlocked: false },
+                  { milestone: "10 Active Customers (3+ months)", bonus: "$500 Cash Bonus", icon: "⭐", unlocked: false },
+                  { milestone: "25 Active Customers (3+ months)", bonus: "$1,500 Cash Bonus + 5% raise on recurring", icon: "🌟", unlocked: false },
+                  { milestone: "50 Active Customers (3+ months)", bonus: "$5,000 Cash Bonus + Senior Rep title", icon: "💎", unlocked: false },
+                  { milestone: "100 Active Customers (3+ months)", bonus: "$15,000 Cash Bonus + Revenue Share + Team Lead role", icon: "👑", unlocked: false },
                 ].map((tier, i) => (
                   <div key={i} className={`flex items-center gap-4 p-4 rounded-xl border-2 ${tier.unlocked ? "border-green-500 bg-green-50" : "border-gray-200 bg-gray-50"}`}>
                     <span className="text-3xl">{tier.icon}</span>
