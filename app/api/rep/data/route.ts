@@ -18,7 +18,7 @@ export async function GET() {
 
   const [repRes, leadsRes, activitiesRes, checkinsRes] = await Promise.all([
     supabase.from("sales_reps").select("*").eq("id", repId).single(),
-    supabase.from("leads").select("*").eq("assigned_rep_id", repId).order("created_at", { ascending: false }),
+    supabase.from("leads").select("*").order("created_at", { ascending: false }).limit(100),
     supabase.from("rep_activities").select("*").eq("rep_id", repId).order("created_at", { ascending: false }).limit(50),
     supabase.from("rep_checkins").select("*").eq("rep_id", repId).order("created_at", { ascending: false }).limit(10),
   ]);
@@ -87,6 +87,48 @@ export async function POST(request: Request) {
     const { error } = await supabase.from("rep_activities").delete().eq("id", body.id).eq("rep_id", repId);
     if (error) return NextResponse.json({ error: error.message }, { status: 500 });
     return NextResponse.json({ deleted: true });
+  }
+
+  // Add/edit a prospect (lead) from the rep portal
+  if (body.action === "add_prospect") {
+    const { data, error } = await supabase.from("leads").insert({
+      full_name: body.name,
+      email: body.email || null,
+      phone: body.phone || null,
+      market_area: body.territory || null,
+      challenge: body.notes || null,
+      current_stage: body.stage || "new",
+      assigned_rep_id: repId,
+    }).select().single();
+
+    if (error) return NextResponse.json({ error: error.message }, { status: 500 });
+    return NextResponse.json({ lead: data });
+  }
+
+  if (body.action === "edit_prospect") {
+    if (!body.id) return NextResponse.json({ error: "Lead ID required" }, { status: 400 });
+    const updates: Record<string, unknown> = {};
+    if (body.name !== undefined) updates.full_name = body.name;
+    if (body.email !== undefined) updates.email = body.email;
+    if (body.phone !== undefined) updates.phone = body.phone;
+    if (body.territory !== undefined) updates.market_area = body.territory;
+    if (body.notes !== undefined) updates.challenge = body.notes;
+    if (body.stage !== undefined) updates.current_stage = body.stage;
+
+    const { data, error } = await supabase.from("leads").update(updates).eq("id", body.id).select().single();
+    if (error) return NextResponse.json({ error: error.message }, { status: 500 });
+    return NextResponse.json({ lead: data });
+  }
+
+  if (body.action === "update_stage") {
+    if (!body.id || !body.stage) return NextResponse.json({ error: "Lead ID and stage required" }, { status: 400 });
+    const { data, error } = await supabase.from("leads").update({ current_stage: body.stage }).eq("id", body.id).select().single();
+    if (error) return NextResponse.json({ error: error.message }, { status: 500 });
+
+    // Also log to pipeline stages
+    await supabase.from("pipeline_stages").insert({ lead_id: body.id, stage: body.stage, changed_by: repId, notes: body.notes || null });
+
+    return NextResponse.json({ lead: data });
   }
 
   return NextResponse.json({ error: "Unknown action" }, { status: 400 });

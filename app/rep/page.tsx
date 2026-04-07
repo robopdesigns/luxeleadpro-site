@@ -16,6 +16,8 @@ export default function RepDashboard() {
   const [tab, setTab] = useState<"home" | "leads" | "scripts" | "goals" | "checkin">("home");
   const [activityForm, setActivityForm] = useState({ type: "call", notes: "", lead_id: "" });
   const [checkinForm, setCheckinForm] = useState({ notes: "", calls_made: 0, demos_booked: 0, deals_closed: 0 });
+  const [showAddProspect, setShowAddProspect] = useState(false);
+  const [prospectForm, setProspectForm] = useState({ name: "", email: "", phone: "", territory: "", notes: "", stage: "new" });
 
   async function loadData() {
     const res = await fetch("/api/rep/data");
@@ -167,23 +169,77 @@ export default function RepDashboard() {
 
         {tab === "leads" && (
           <div className="space-y-4">
-            <h2 className="text-xl font-bold text-gray-900">My Assigned Leads</h2>
+            <div className="flex items-center justify-between">
+              <h2 className="text-xl font-bold text-gray-900">Prospects & Clients</h2>
+              <button onClick={() => setShowAddProspect(true)} className="px-4 py-2 bg-purple-600 text-white text-sm font-semibold rounded-lg hover:bg-purple-700 transition">+ Add Prospect</button>
+            </div>
+
+            {showAddProspect && (
+              <div className="bg-white rounded-xl border-2 border-purple-200 p-6">
+                <h3 className="font-bold text-gray-900 mb-4">Add New Prospect</h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                  <input placeholder="Full Name *" value={prospectForm.name} onChange={e => setProspectForm(p => ({...p, name: e.target.value}))} className="border border-gray-200 rounded-lg px-4 py-2 text-sm" />
+                  <input placeholder="Email" value={prospectForm.email} onChange={e => setProspectForm(p => ({...p, email: e.target.value}))} className="border border-gray-200 rounded-lg px-4 py-2 text-sm" />
+                  <input placeholder="Phone" value={prospectForm.phone} onChange={e => setProspectForm(p => ({...p, phone: e.target.value}))} className="border border-gray-200 rounded-lg px-4 py-2 text-sm" />
+                  <input placeholder="Territory / Market Area" value={prospectForm.territory} onChange={e => setProspectForm(p => ({...p, territory: e.target.value}))} className="border border-gray-200 rounded-lg px-4 py-2 text-sm" />
+                  <select value={prospectForm.stage} onChange={e => setProspectForm(p => ({...p, stage: e.target.value}))} className="border border-gray-200 rounded-lg px-4 py-2 text-sm">
+                    <option value="new">New Lead</option>
+                    <option value="contacted">Contacted</option>
+                    <option value="demo">Demo Scheduled</option>
+                    <option value="proposal">Proposal Sent</option>
+                    <option value="won">Won / Signed</option>
+                    <option value="lost">Lost</option>
+                  </select>
+                </div>
+                <textarea placeholder="Notes (interested tier, territory preferences, objections, etc.)" value={prospectForm.notes} onChange={e => setProspectForm(p => ({...p, notes: e.target.value}))} rows={3} className="w-full border border-gray-200 rounded-lg px-4 py-2 text-sm mt-3" />
+                <div className="flex gap-2 mt-4">
+                  <button onClick={async () => {
+                    if (!prospectForm.name.trim()) return;
+                    await fetch('/api/rep/data', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify({ action: 'add_prospect', ...prospectForm }) });
+                    setProspectForm({ name: '', email: '', phone: '', territory: '', notes: '', stage: 'new' });
+                    setShowAddProspect(false);
+                    loadData();
+                  }} className="px-4 py-2 bg-purple-600 text-white text-sm font-semibold rounded-lg hover:bg-purple-700">Save Prospect</button>
+                  <button onClick={() => setShowAddProspect(false)} className="px-4 py-2 bg-gray-100 text-gray-700 text-sm rounded-lg hover:bg-gray-200">Cancel</button>
+                </div>
+              </div>
+            )}
+
             {leads.length === 0 ? (
               <div className="bg-white rounded-xl border border-gray-200 p-12 text-center">
-                <p className="text-gray-400 text-lg">No leads assigned yet</p>
-                <p className="text-gray-400 text-sm mt-1">Your manager will assign leads to you soon</p>
+                <p className="text-gray-400 text-lg">No prospects yet</p>
+                <p className="text-gray-400 text-sm mt-1">Click "+ Add Prospect" to start tracking your pipeline</p>
               </div>
             ) : (
               <div className="space-y-3">
                 {leads.map(l => (
-                  <div key={l.id} className="bg-white rounded-xl border border-gray-200 p-5">
+                  <div key={l.id} className="bg-white rounded-xl border border-gray-200 p-5 group">
                     <div className="flex items-center justify-between">
                       <div>
                         <h3 className="font-bold text-gray-900">{l.full_name || "Unknown"}</h3>
                         <p className="text-sm text-gray-500">{l.email} {l.phone && `· ${l.phone}`}</p>
-                        {l.market_area && <p className="text-xs text-purple-600 mt-1">{l.market_area}</p>}
+                        {l.market_area && <p className="text-xs text-purple-600 mt-1">📍 {l.market_area}</p>}
                       </div>
-                      <span className={`text-xs font-bold px-3 py-1 rounded-full ${l.current_stage === "won" ? "bg-green-100 text-green-700" : l.current_stage === "demo" ? "bg-purple-100 text-purple-700" : "bg-gray-100 text-gray-600"}`}>{l.current_stage || "new"}</span>
+                      <div className="flex items-center gap-2">
+                        <select value={l.current_stage || 'new'} onChange={async (e) => {
+                          await fetch('/api/rep/data', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify({ action: 'update_stage', id: l.id, stage: e.target.value }) });
+                          loadData();
+                        }} className={`text-xs font-bold px-3 py-1.5 rounded-full border-0 cursor-pointer ${l.current_stage === 'won' ? 'bg-green-100 text-green-700' : l.current_stage === 'demo' ? 'bg-purple-100 text-purple-700' : l.current_stage === 'proposal' ? 'bg-blue-100 text-blue-700' : l.current_stage === 'contacted' ? 'bg-amber-100 text-amber-700' : l.current_stage === 'lost' ? 'bg-red-100 text-red-700' : 'bg-gray-100 text-gray-600'}`}>
+                          <option value="new">New</option>
+                          <option value="contacted">Contacted</option>
+                          <option value="demo">Demo</option>
+                          <option value="proposal">Proposal</option>
+                          <option value="won">Won ✅</option>
+                          <option value="lost">Lost</option>
+                        </select>
+                        <button onClick={async () => {
+                          const notes = prompt('Edit notes:', l.challenge || '');
+                          if (notes !== null) {
+                            await fetch('/api/rep/data', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify({ action: 'edit_prospect', id: l.id, notes }) });
+                            loadData();
+                          }
+                        }} className="text-xs text-purple-600 opacity-0 group-hover:opacity-100 transition hover:underline">edit</button>
+                      </div>
                     </div>
                     {l.challenge && <p className="text-sm text-gray-600 mt-3 bg-gray-50 rounded-lg p-3">{l.challenge}</p>}
                   </div>
