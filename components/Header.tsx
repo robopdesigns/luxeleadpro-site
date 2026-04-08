@@ -16,7 +16,7 @@ export function Header() {
   };
 
   return (
-    <header className="sticky top-0 z-50 border-b border-gray-100 bg-white/95 backdrop-blur">
+    <header className="sticky top-0 z-50 border-b border-[#E2E8F0] bg-[#FDFBF7]/80 backdrop-blur-xl">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
 
@@ -82,10 +82,10 @@ export function Header() {
                   Agent Login
                 </Link>
                 <Link
-                  href="/manager/login"
-                  className="px-4 py-2 text-sm rounded-lg bg-gradient-to-r from-purple-600 to-pink-600 text-white font-semibold hover:from-purple-700 hover:to-pink-700 transition shadow-sm"
+                  href="https://calendly.com/robopdesigns/strategy-call"
+                  className="px-4 py-2 text-sm rounded-md bg-[#D4AF37] text-white font-medium hover:bg-[#B5952F] hover:shadow-md hover:-translate-y-0.5 transition-all shadow-sm"
                 >
-                  Manager Login
+                  Request Demo
                 </Link>
               </>
             )}
