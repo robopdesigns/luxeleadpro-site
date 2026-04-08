@@ -22,25 +22,19 @@ export function Header() {
 
           {/* ── LOGO ──────────────────────────────────────────── */}
           <Link href="/" className="flex items-center gap-2.5 group">
-            {/* Icon: solid filled diamond/arrow mark — clear at any size */}
-            <svg className="w-8 h-8 flex-shrink-0" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-              {/* Solid purple rounded square bg */}
-              <rect width="40" height="40" rx="10" fill="url(#logoGrad)"/>
-              {/* Bold upward arrow / chevron — filled, not outline */}
-              <path d="M20 10 L30 28 H10 Z" fill="white" opacity="0.15"/>
-              <path d="M20 8 L31 27 H9 Z" fill="white" opacity="0.9"/>
-              <rect x="18.5" y="21" width="3" height="9" rx="1.5" fill="white"/>
-              <defs>
-                <linearGradient id="logoGrad" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse">
-                  <stop offset="0%" stopColor="#0A192F"/>
-                  <stop offset="100%" stopColor="#D4AF37"/>
-                </linearGradient>
-              </defs>
+            <svg className="w-9 h-9 flex-shrink-0" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+              <rect width="512" height="512" rx="64" fill="#0A192F"/>
+              <g transform="translate(256, 270)">
+                <line x1="-104" y1="56" x2="0" y2="-104" stroke="#D4AF37" strokeWidth="20" strokeLinecap="round"/>
+                <line x1="104" y1="56" x2="0" y2="-104" stroke="#D4AF37" strokeWidth="20" strokeLinecap="round"/>
+                <line x1="-104" y1="56" x2="104" y2="56" stroke="#D4AF37" strokeWidth="8" strokeLinecap="round" opacity="0.35"/>
+                <line x1="-64" y1="-8" x2="64" y2="-8" stroke="#D4AF37" strokeWidth="7" strokeLinecap="round" opacity="0.5"/>
+                <circle cx="0" cy="-104" r="20" fill="#D4AF37"/>
+                <circle cx="0" cy="-104" r="8" fill="#0A192F"/>
+              </g>
             </svg>
-
-            {/* Wordmark */}
             <div className="flex flex-col leading-none">
-              <span className="text-[17px] font-bold tracking-tight text-gray-900 group-hover:text-[#D4AF37] transition">
+              <span className="text-[17px] font-bold tracking-tight text-[#1A1A1A] group-hover:text-[#D4AF37] transition">
                 LuxeLeadPro
               </span>
               <span className="text-[10px] font-medium tracking-widest text-[#D4AF37] uppercase">
