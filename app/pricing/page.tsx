@@ -83,6 +83,28 @@ const faqs = [
 
 export default function PricingPage() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const [checkoutLoading, setCheckoutLoading] = useState<string | null>(null);
+
+  async function handleCheckout(plan: string) {
+    setCheckoutLoading(plan);
+    try {
+      const res = await fetch('/api/checkout', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ plan }),
+      });
+      const data = await res.json();
+      if (data.url) {
+        window.location.href = data.url;
+      } else {
+        // Fallback to Calendly if Stripe isn't configured
+        window.location.href = 'https://calendly.com/robopdesigns/strategy-call';
+      }
+    } catch {
+      window.location.href = 'https://calendly.com/robopdesigns/strategy-call';
+    }
+    setCheckoutLoading(null);
+  }
 
   return (
     <>
@@ -131,15 +153,22 @@ export default function PricingPage() {
                   </div>
                 </div>
 
-                <a
-                  href="https://calendly.com/robopdesigns/strategy-call"
-                  className={`block w-full py-3 px-6 rounded-xl font-semibold text-center transition mb-8 ${
+                <button
+                  onClick={() => handleCheckout(tier.name === 'Intelligence' ? 'intelligence' : tier.name === 'Intelligence + Generation' ? 'generation' : 'territory')}
+                  disabled={checkoutLoading !== null}
+                  className={`block w-full py-3 px-6 rounded-xl font-semibold text-center transition mb-4 ${
                     tier.popular
                       ? "bg-gradient-to-r from-purple-600 to-pink-600 text-white hover:opacity-90 shadow-md"
                       : "bg-gray-900 text-white hover:bg-gray-800"
-                  }`}
+                  } disabled:opacity-50`}
                 >
-                  {tier.cta}
+                  {checkoutLoading === (tier.name === 'Intelligence' ? 'intelligence' : tier.name === 'Intelligence + Generation' ? 'generation' : 'territory') ? 'Processing...' : tier.cta}
+                </button>
+                <a
+                  href="https://calendly.com/robopdesigns/strategy-call"
+                  className="block w-full py-2 text-center text-sm text-gray-500 hover:text-purple-600 transition mb-4"
+                >
+                  Or book a strategy call first →
                 </a>
 
                 <ul className="space-y-3">
