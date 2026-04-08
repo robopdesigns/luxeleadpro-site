@@ -7,7 +7,7 @@ import { Footer } from '@/components/Footer';
 
 export default function HomePage() {
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-[#FDFBF7]">
       <Header />
 
       {/* ─── HERO ─────────────────────────────────────────────── */}
@@ -15,7 +15,7 @@ export default function HomePage() {
         {/* Subtle gradient background blob */}
         <div className="absolute inset-0 -z-10">
           <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-[#D4AF37]/10 rounded-full opacity-30 blur-3xl translate-x-1/3 -translate-y-1/4" />
-          <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-pink-100 rounded-full opacity-20 blur-3xl -translate-x-1/4 translate-y-1/4" />
+          <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-[#D4AF37]/5 rounded-full opacity-20 blur-3xl -translate-x-1/4 translate-y-1/4" />
         </div>
 
         <div className="max-w-6xl mx-auto">
@@ -28,7 +28,7 @@ export default function HomePage() {
               </div>
 
               <h1 className="text-4xl sm:text-6xl lg:text-7xl font-serif font-bold text-gray-900 mb-4 sm:mb-6 leading-[1.05]">
-                Close <span className="bg-[#0A192F] bg-clip-text text-transparent">2x More</span><br />Luxury Deals
+                Close <span className="text-[#D4AF37]">2x More</span><br />Luxury Deals
               </h1>
 
               <p className="text-base sm:text-xl text-gray-600 mb-5 sm:mb-8 leading-relaxed max-w-lg">
@@ -37,8 +37,8 @@ export default function HomePage() {
 
               {/* Founding cohort badge */}
               <div className="flex items-center gap-3 mb-5 sm:mb-8">
-                <div className="inline-flex items-center gap-2 bg-green-50 border border-green-200 text-green-700 px-3 py-1.5 rounded-full text-sm font-medium">
-                  <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
+                <div className="inline-flex items-center gap-2 bg-[#D4AF37]/5 border border-[#D4AF37]/20 text-[#D4AF37] px-3 py-1.5 rounded-full text-sm font-medium">
+                  <span className="w-2 h-2 bg-[#D4AF37] rounded-full animate-pulse" />
                   Founding Agent Cohort — Limited Availability
                 </div>
               </div>
@@ -79,7 +79,7 @@ export default function HomePage() {
               <div className="bg-white rounded-2xl p-6 sm:p-8 border border-gray-200 shadow-2xl shadow-gray-100">
                 <div className="flex items-center justify-between mb-6">
                   <h3 className="font-semibold text-gray-900">🤖 Your AI Command Center</h3>
-                  <span className="text-xs bg-green-100 text-green-700 px-2 py-1 rounded-full font-medium">● Live</span>
+                  <span className="text-xs bg-green-100 text-[#D4AF37] px-2 py-1 rounded-full font-medium">● Live</span>
                 </div>
 
                 {/* Stats */}
@@ -105,7 +105,7 @@ export default function HomePage() {
                       { name: 'Michael Chen', detail: 'Gold Coast · $1.8M', score: 78, badge: 'Warm', color: 'bg-[#D4AF37]/10 text-[#D4AF37]' },
                       { name: 'Elizabeth Brown', detail: 'River North · $2.4M', score: 65, badge: 'Active', color: 'bg-blue-100 text-blue-700' },
                     ].map((lead, i) => (
-                      <div key={i} className="flex items-center justify-between bg-[#FDFBF7] rounded-lg p-3 border border-gray-100">
+                      <div key={i} className="flex items-center justify-between bg-[#FDFBF7] rounded-lg p-3 border border-slate-200">
                         <div>
                           <div className="text-sm font-semibold text-gray-900">{lead.name}</div>
                           <div className="text-xs text-gray-500">{lead.detail}</div>
@@ -129,7 +129,7 @@ export default function HomePage() {
       </section>
 
       {/* ─── SOCIAL PROOF BAR ─────────────────────────────────── */}
-      <section className="border-y border-gray-100 bg-[#FDFBF7] py-6 px-4">
+      <section className="border-y border-slate-200 bg-[#FDFBF7] py-6 px-4">
         <div className="max-w-5xl mx-auto">
           <p className="text-center text-sm text-gray-500 font-medium mb-4 uppercase tracking-wider">Built exclusively for luxury real estate</p>
           <div className="flex flex-wrap justify-center gap-8 text-center">
@@ -195,7 +195,7 @@ export default function HomePage() {
       </section>
 
       {/* ─── FEATURES ──────────────────────────────────────────── */}
-      <section className="px-4 py-20 sm:py-28 bg-[#FDFBF7] border-t border-gray-100">
+      <section className="px-4 py-20 sm:py-28 bg-[#FDFBF7] border-t border-slate-200">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
             <span className="text-[#D4AF37] font-semibold text-sm uppercase tracking-wider">Features</span>
@@ -257,7 +257,7 @@ export default function HomePage() {
       </section>
 
       {/* ─── FOUNDING AGENT PROGRAM ──────────────────────────── */}
-      <section className="px-4 py-20 sm:py-28 bg-white border-t border-gray-100">
+      <section className="px-4 py-20 sm:py-28 bg-white border-t border-slate-200">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-14">
             <span className="text-[#D4AF37] font-semibold text-sm uppercase tracking-wider">Limited to 50 Agents</span>
@@ -284,7 +284,7 @@ export default function HomePage() {
       </section>
 
       {/* ─── PRICING PREVIEW ───────────────────────────────────── */}
-      <section className="px-4 py-20 sm:py-28 bg-[#FDFBF7] border-t border-gray-100">
+      <section className="px-4 py-20 sm:py-28 bg-[#FDFBF7] border-t border-slate-200">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-14">
             <span className="text-[#D4AF37] font-semibold text-sm uppercase tracking-wider">Pricing</span>
@@ -358,7 +358,7 @@ export default function HomePage() {
       </section>
 
       {/* ─── TRUST SIGNALS ─────────────────────────────────────── */}
-      <section className="px-4 py-16 bg-white border-t border-gray-100">
+      <section className="px-4 py-16 bg-white border-t border-slate-200">
         <div className="max-w-4xl mx-auto text-center">
           <p className="text-sm text-gray-500 font-medium uppercase tracking-wider mb-8">Enterprise-Grade Security & Compliance</p>
           <div className="flex flex-wrap justify-center gap-6 sm:gap-12">

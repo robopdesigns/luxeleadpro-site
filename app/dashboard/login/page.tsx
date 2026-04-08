@@ -28,7 +28,7 @@ export default function DashboardLoginPage() {
   }
 
   return (
-    <main className="flex min-h-screen items-center justify-center bg-black px-6 text-white">
+    <main className="flex min-h-screen items-center justify-center bg-[#050B14] px-6 text-white">
       <form
         onSubmit={handleSubmit}
         className="w-full max-w-md space-y-4 rounded-2xl border border-white/10 bg-white/5 p-6"
@@ -42,7 +42,7 @@ export default function DashboardLoginPage() {
           onChange={(e) => setPassword(e.target.value)}
           required
           placeholder="Password"
-          className="w-full rounded-xl border border-white/20 bg-black/40 px-4 py-3 outline-none focus:border-[#D4AF37]/50"
+          className="w-full rounded-xl border border-white/20 bg-[#050B14]/40 px-4 py-3 outline-none focus:border-[#D4AF37]/50"
         />
 
         <button

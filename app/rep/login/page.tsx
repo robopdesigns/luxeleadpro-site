@@ -29,8 +29,8 @@ export default function RepLoginPage() {
   }
 
   return (
-    <main className="flex min-h-screen items-center justify-center bg-[#0A192F] px-6">
-      <form onSubmit={handleSubmit} className="w-full max-w-md space-y-4 rounded-2xl bg-white p-8 shadow-xl">
+    <main className="flex min-h-screen items-center justify-center bg-[#FDFBF7] px-6">
+      <form onSubmit={handleSubmit} className="w-full max-w-md space-y-4 rounded-2xl bg-white p-8 shadow-lg border border-slate-200">
         <div className="text-center mb-2">
           <h1 className="text-2xl font-bold text-gray-900">Sales Rep Portal</h1>
           <p className="text-sm text-gray-500">LuxeLeadPro</p>
@@ -39,7 +39,7 @@ export default function RepLoginPage() {
         <input type="email" value={email} onChange={e => setEmail(e.target.value)} required placeholder="Email" className="w-full rounded-xl border border-gray-200 px-4 py-3 text-sm outline-none focus:border-[#D4AF37]/50" />
         <input type="password" value={password} onChange={e => setPassword(e.target.value)} required placeholder="Password" className="w-full rounded-xl border border-gray-200 px-4 py-3 text-sm outline-none focus:border-[#D4AF37]/50" />
 
-        <button type="submit" disabled={loading} className="w-full rounded-xl bg-[#0A192F] px-6 py-3 font-semibold text-white hover:bg-[#1a2940] disabled:opacity-60 transition">
+        <button type="submit" disabled={loading} className="w-full rounded-xl bg-[#FDFBF7] px-6 py-3 font-semibold text-white hover:bg-[#1a2940] disabled:opacity-60 transition">
           {loading ? "Logging in..." : "Log In"}
         </button>
 
