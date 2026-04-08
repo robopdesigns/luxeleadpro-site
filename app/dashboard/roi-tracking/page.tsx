@@ -115,7 +115,7 @@ export default function ROITracking() {
                   <td className="text-blue-500 py-4 px-4">{source.conversionRate}%</td>
                   <td className="text-gold-500 py-4 px-4">${source.costPerLead.toFixed(2)}</td>
                   <td className="text-green-500 py-4 px-4 font-semibold">${(source.revenue / 1000000).toFixed(1)}M</td>
-                  <td className="text-purple-500 py-4 px-4 font-bold">{(source.roi / 1000).toFixed(0)}%</td>
+                  <td className="text-[#D4AF37] py-4 px-4 font-bold">{(source.roi / 1000).toFixed(0)}%</td>
                 </tr>
               ))}
             </tbody>

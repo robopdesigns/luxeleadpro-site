@@ -33,9 +33,9 @@ export default function DemoPage() {
   const [tab, setTab] = useState<"dashboard" | "leads" | "briefing">("dashboard");
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-[#FDFBF7]">
       {/* Header */}
-      <header className="bg-gradient-to-r from-purple-600 to-pink-600 text-white">
+      <header className="bg-[#0A192F] text-white">
         <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
           <div>
             <div className="flex items-center gap-3">
@@ -43,9 +43,9 @@ export default function DemoPage() {
               <h1 className="text-xl font-bold">LuxeLeadPro</h1>
               <span className="text-xs bg-white/20 px-2 py-0.5 rounded-full">DEMO MODE</span>
             </div>
-            <p className="text-sm text-purple-200 mt-0.5 ml-12">Agent Dashboard — Victoria Chen Properties</p>
+            <p className="text-sm text-[#D4AF37]/40 mt-0.5 ml-12">Agent Dashboard — Victoria Chen Properties</p>
           </div>
-          <Link href="/pricing" className="px-4 py-2 bg-white text-purple-700 font-semibold rounded-lg text-sm hover:bg-gray-50 transition">
+          <Link href="/pricing" className="px-4 py-2 bg-white text-[#D4AF37] font-semibold rounded-lg text-sm hover:bg-[#FDFBF7] transition">
             Get Started →
           </Link>
         </div>
@@ -55,7 +55,7 @@ export default function DemoPage() {
       <div className="bg-white border-b border-gray-200">
         <div className="max-w-6xl mx-auto px-6 flex gap-1">
           {(["dashboard", "leads", "briefing"] as const).map(t => (
-            <button key={t} onClick={() => setTab(t)} className={`px-4 py-3 text-sm font-medium border-b-2 transition ${tab === t ? "border-purple-600 text-purple-600" : "border-transparent text-gray-500 hover:text-gray-700"}`}>
+            <button key={t} onClick={() => setTab(t)} className={`px-4 py-3 text-sm font-medium border-b-2 transition ${tab === t ? "border-[#D4AF37] text-[#D4AF37]" : "border-transparent text-gray-500 hover:text-gray-700"}`}>
               {t === "dashboard" ? "📊 Dashboard" : t === "leads" ? "👥 Lead Pipeline" : "📬 Morning Briefing"}
             </button>
           ))}
@@ -68,7 +68,7 @@ export default function DemoPage() {
             {/* KPIs */}
             <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
               {[
-                { label: "Total Leads", value: "47", sub: "+8 this week", color: "text-purple-700 bg-purple-50" },
+                { label: "Total Leads", value: "47", sub: "+8 this week", color: "text-[#D4AF37] bg-[#D4AF37]/10" },
                 { label: "Hot Leads (80+)", value: "12", sub: "Ready to close", color: "text-red-700 bg-red-50" },
                 { label: "Warm Leads (60+)", value: "18", sub: "Follow up today", color: "text-amber-700 bg-amber-50" },
                 { label: "Demos This Week", value: "6", sub: "3 scheduled", color: "text-blue-700 bg-blue-50" },
@@ -123,7 +123,7 @@ export default function DemoPage() {
             </div>
             <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
               <table className="w-full text-sm">
-                <thead className="bg-gray-50 border-b border-gray-200">
+                <thead className="bg-[#FDFBF7] border-b border-gray-200">
                   <tr>
                     <th className="text-left px-4 py-3 font-semibold text-gray-600">Name</th>
                     <th className="text-left px-4 py-3 font-semibold text-gray-600">Market</th>
@@ -135,7 +135,7 @@ export default function DemoPage() {
                 </thead>
                 <tbody>
                   {demoLeads.map((lead, i) => (
-                    <tr key={i} className="border-b border-gray-100 hover:bg-gray-50">
+                    <tr key={i} className="border-b border-gray-100 hover:bg-[#FDFBF7]">
                       <td className="px-4 py-3">
                         <div className="font-semibold text-gray-900">{lead.name}</div>
                         <div className="text-xs text-gray-500">{lead.email}</div>
@@ -145,7 +145,7 @@ export default function DemoPage() {
                       <td className="px-4 py-3 font-semibold text-gray-900">{lead.gci}</td>
                       <td className="px-4 py-3">
                         <span className={`text-xs font-bold px-2 py-0.5 rounded-full ${
-                          lead.stage === "demo" ? "bg-purple-100 text-purple-700" :
+                          lead.stage === "demo" ? "bg-[#D4AF37]/10 text-[#D4AF37]" :
                           lead.stage === "proposal" ? "bg-blue-100 text-blue-700" :
                           lead.stage === "contacted" ? "bg-amber-100 text-amber-700" :
                           "bg-gray-100 text-gray-600"
@@ -169,7 +169,7 @@ export default function DemoPage() {
 
             <div className="bg-white rounded-xl border border-gray-200 p-8 shadow-sm">
               <div className="text-center mb-6">
-                <div className="inline-block w-12 h-12 rounded-xl bg-gradient-to-br from-purple-600 to-pink-600 mb-3">
+                <div className="inline-block w-12 h-12 rounded-xl bg-[#0A192F] mb-3">
                   <span className="text-white text-xl font-bold leading-[48px]">L</span>
                 </div>
                 <h3 className="font-bold text-gray-900 text-lg">Good Morning, Victoria! ☀️</h3>
@@ -178,7 +178,7 @@ export default function DemoPage() {
 
               <div className="grid grid-cols-4 gap-3 mb-6">
                 {[
-                  { n: "47", l: "Total", c: "bg-purple-50 text-purple-700" },
+                  { n: "47", l: "Total", c: "bg-[#D4AF37]/10 text-[#D4AF37]" },
                   { n: "12", l: "Hot", c: "bg-red-50 text-red-700" },
                   { n: "18", l: "Warm", c: "bg-amber-50 text-amber-700" },
                   { n: "3", l: "New Today", c: "bg-green-50 text-green-700" },
@@ -197,7 +197,7 @@ export default function DemoPage() {
                     <div>
                       <strong className="text-gray-900">{lead.name}</strong>
                       <div className="text-xs text-gray-500">{lead.email} · {lead.phone}</div>
-                      <div className="text-xs text-purple-600 mt-1">{lead.market}</div>
+                      <div className="text-xs text-[#D4AF37] mt-1">{lead.market}</div>
                     </div>
                     <div className={`px-3 py-1 rounded-full font-bold text-sm ${lead.score >= 80 ? "bg-red-100 text-red-700" : "bg-amber-100 text-amber-700"}`}>
                       {lead.score}
@@ -208,7 +208,7 @@ export default function DemoPage() {
             </div>
 
             <div className="text-center">
-              <Link href="/pricing" className="inline-block px-8 py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold rounded-xl hover:opacity-90 transition shadow-lg">
+              <Link href="/pricing" className="inline-block px-8 py-3 bg-[#0A192F] text-white font-bold rounded-xl hover:opacity-90 transition shadow-lg">
                 Get This For Your Business →
               </Link>
             </div>
@@ -219,7 +219,7 @@ export default function DemoPage() {
       {/* Demo Footer */}
       <div className="fixed bottom-0 left-0 right-0 bg-gray-900 text-white py-3 px-6 text-center text-sm z-50">
         <span className="opacity-70">This is a demo of the LuxeLeadPro agent dashboard.</span>
-        <Link href="/pricing" className="ml-3 font-semibold text-purple-400 hover:text-purple-300">Start your free trial →</Link>
+        <Link href="/pricing" className="ml-3 font-semibold text-[#D4AF37]/80 hover:text-[#D4AF37]/60">Start your free trial →</Link>
       </div>
     </div>
   );

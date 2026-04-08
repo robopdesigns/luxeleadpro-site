@@ -61,7 +61,7 @@ export default function ComplianceDashboard() {
 
           <div className="bg-gray-800 rounded-lg p-6 border border-gray-700">
             <p className="text-gray-400 text-sm">TCPA Audits</p>
-            <p className="text-4xl font-bold text-purple-500">30</p>
+            <p className="text-4xl font-bold text-[#D4AF37]">30</p>
             <p className="text-gray-400 text-sm mt-2">Auto-conducted</p>
           </div>
 
@@ -85,10 +85,10 @@ export default function ComplianceDashboard() {
                   </p>
                 </div>
                 <div className="text-right">
-                  <div className={`text-4xl font-bold ${agent.score >= 95 ? 'text-green-500' : agent.score >= 85 ? 'text-purple-500' : 'text-red-500'}`}>
+                  <div className={`text-4xl font-bold ${agent.score >= 95 ? 'text-green-500' : agent.score >= 85 ? 'text-[#D4AF37]' : 'text-red-500'}`}>
                     {agent.score}
                   </div>
-                  <span className={`text-sm font-semibold ${agent.status === 'Compliant' ? 'text-green-500' : 'text-purple-500'}`}>
+                  <span className={`text-sm font-semibold ${agent.status === 'Compliant' ? 'text-green-500' : 'text-[#D4AF37]'}`}>
                     {agent.status}
                   </span>
                 </div>

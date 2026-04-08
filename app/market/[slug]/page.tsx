@@ -29,7 +29,7 @@ export default async function MarketPage({ params }: { params: Promise<{ slug: s
       <Header />
       <main className="bg-white">
         {/* Hero */}
-        <section className="relative pt-24 pb-20 px-4 bg-gradient-to-br from-gray-900 via-purple-900/40 to-gray-900 text-white overflow-hidden">
+        <section className="relative pt-24 pb-20 px-4 bg-[#050B14] text-white overflow-hidden">
           <div className="absolute inset-0 bg-[url('/globe.svg')] bg-center bg-no-repeat opacity-5" />
           <div className="max-w-4xl mx-auto relative z-10">
             <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-white/10 rounded-full text-sm mb-6">
@@ -47,10 +47,10 @@ export default async function MarketPage({ params }: { params: Promise<{ slug: s
               <p className="text-sm text-gray-500 mb-6">See the latest luxury market data for {market.name}</p>
               <form action="/api/leads/capture" method="POST" className="space-y-3">
                 <input type="hidden" name="market_area" value={`${market.name}, ${market.state}`} />
-                <input name="full_name" required placeholder="Full Name" className="w-full px-4 py-3 border border-gray-200 rounded-xl text-sm focus:border-purple-500 focus:ring-2 focus:ring-purple-100 outline-none" />
-                <input name="email" type="email" required placeholder="Email Address" className="w-full px-4 py-3 border border-gray-200 rounded-xl text-sm focus:border-purple-500 focus:ring-2 focus:ring-purple-100 outline-none" />
-                <input name="phone" type="tel" placeholder="Phone Number" className="w-full px-4 py-3 border border-gray-200 rounded-xl text-sm focus:border-purple-500 focus:ring-2 focus:ring-purple-100 outline-none" />
-                <select name="challenge" className="w-full px-4 py-3 border border-gray-200 rounded-xl text-sm text-gray-600 focus:border-purple-500 outline-none">
+                <input name="full_name" required placeholder="Full Name" className="w-full px-4 py-3 border border-gray-200 rounded-xl text-sm focus:border-[#D4AF37] focus:ring-2 focus:ring-[#D4AF37]/30 outline-none" />
+                <input name="email" type="email" required placeholder="Email Address" className="w-full px-4 py-3 border border-slate-200 rounded-md text-sm focus:border-[#D4AF37] focus:ring-2 focus:ring-[#D4AF37]/30 outline-none" />
+                <input name="phone" type="tel" placeholder="Phone Number" className="w-full px-4 py-3 border border-slate-200 rounded-md text-sm focus:border-[#D4AF37] focus:ring-2 focus:ring-[#D4AF37]/30 outline-none" />
+                <select name="challenge" className="w-full px-4 py-3 border border-slate-200 rounded-md text-sm text-slate-600 focus:border-[#D4AF37] outline-none">
                   <option value="">What is your price range?</option>
                   <option value="Budget: $1M-$2M | Timeline: ASAP">$1M — $2M</option>
                   <option value="Budget: $2M-$5M | Timeline: ASAP">$2M — $5M</option>
@@ -58,7 +58,7 @@ export default async function MarketPage({ params }: { params: Promise<{ slug: s
                   <option value="Budget: $10M+ | Timeline: ASAP | Monthly GCI: 50K+">$10M+</option>
                   <option value="Just exploring">Just exploring</option>
                 </select>
-                <button type="submit" className="w-full py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-semibold rounded-xl hover:opacity-90 transition shadow-md">
+                <button type="submit" className="w-full py-3 bg-[#D4AF37] text-white font-medium rounded-md hover:bg-[#B5952F] hover:shadow-md hover:-translate-y-0.5 transition-all shadow-sm">
                   Get Free Market Report →
                 </button>
               </form>
@@ -110,10 +110,10 @@ export default async function MarketPage({ params }: { params: Promise<{ slug: s
         </section>
 
         {/* CTA */}
-        <section className="py-20 px-4 bg-gradient-to-r from-purple-600 to-pink-600 text-center text-white">
+        <section className="py-20 px-4 bg-[#0A192F] text-center text-white">
           <h2 className="text-3xl font-bold mb-4">Claim Your Territory in {market.name}</h2>
           <p className="text-lg opacity-90 mb-8 max-w-lg mx-auto">Only 1 agent per ZIP code. Once {market.zip} is taken, it&apos;s gone forever.</p>
-          <a href="https://calendly.com/robopdesigns/strategy-call" className="inline-block px-8 py-4 bg-white text-purple-700 font-bold rounded-xl hover:bg-gray-50 transition shadow-lg">
+          <a href="https://calendly.com/robopdesigns/strategy-call" className="inline-block px-8 py-4 bg-[#D4AF37] text-white font-medium rounded-md hover:bg-[#B5952F] hover:shadow-lg hover:-translate-y-0.5 transition-all">
             Book Your Strategy Call →
           </a>
         </section>

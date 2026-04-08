@@ -61,18 +61,18 @@ export default function RepDashboard() {
     window.location.href = "/rep/login";
   }
 
-  if (loading) return <div className="min-h-screen bg-gray-50 flex items-center justify-center"><div className="animate-spin rounded-full h-8 w-8 border-b-2 border-purple-600" /></div>;
+  if (loading) return <div className="min-h-screen bg-gray-50 flex items-center justify-center"><div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#D4AF37]" /></div>;
 
   const todayActivities = activities.filter(a => new Date(a.created_at).toDateString() === new Date().toDateString());
   const todayCheckin = checkins.find(c => new Date(c.created_at).toDateString() === new Date().toDateString());
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <header className="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-6 py-4">
+      <header className="bg-[#0A192F] text-white px-6 py-4">
         <div className="max-w-5xl mx-auto flex items-center justify-between">
           <div>
             <h1 className="text-xl font-bold">Welcome, {rep?.name}</h1>
-            <p className="text-sm text-purple-200">LuxeLeadPro Sales Portal</p>
+            <p className="text-sm text-[#D4AF37]/40">LuxeLeadPro Sales Portal</p>
           </div>
           <button onClick={logout} className="px-3 py-1.5 bg-white/20 hover:bg-white/30 rounded-lg text-sm transition">Logout</button>
         </div>
@@ -82,7 +82,7 @@ export default function RepDashboard() {
         <div className="max-w-5xl mx-auto px-6">
           <nav className="flex gap-1">
             {(["home", "leads", "scripts", "goals", "checkin"] as const).map(t => (
-              <button key={t} onClick={() => setTab(t)} className={`px-4 py-3 text-sm font-medium border-b-2 transition ${tab === t ? "border-purple-600 text-purple-600" : "border-transparent text-gray-500 hover:text-gray-700"}`}>
+              <button key={t} onClick={() => setTab(t)} className={`px-4 py-3 text-sm font-medium border-b-2 transition ${tab === t ? "border-[#D4AF37] text-[#D4AF37]" : "border-transparent text-gray-500 hover:text-gray-700"}`}>
                 {t === "home" ? "🏠 Home" : t === "leads" ? "👥 My Leads" : t === "scripts" ? "📋 Scripts & Training" : t === "goals" ? "🏆 Goals & Rewards" : "✅ Check In"}
               </button>
             ))}
@@ -96,7 +96,7 @@ export default function RepDashboard() {
             {/* Today's Stats */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               {[
-                { label: "My Leads", value: leads.length, color: "bg-purple-50 text-purple-700" },
+                { label: "My Leads", value: leads.length, color: "bg-[#D4AF37]/10 text-[#D4AF37]" },
                 { label: "Activities Today", value: todayActivities.length, color: "bg-blue-50 text-blue-700" },
                 { label: "Demos Booked", value: activities.filter(a => a.type === "demo").length, color: "bg-green-50 text-green-700" },
                 { label: "Checked In", value: todayCheckin ? "✅" : "❌", color: todayCheckin ? "bg-green-50 text-green-700" : "bg-red-50 text-red-700" },
@@ -113,7 +113,7 @@ export default function RepDashboard() {
               <h2 className="font-bold text-gray-900 mb-4">Log Activity</h2>
               <div className="flex flex-wrap gap-2 mb-3">
                 {["call", "email", "demo", "meeting", "follow_up"].map(t => (
-                  <button key={t} onClick={() => setActivityForm(p => ({ ...p, type: t }))} className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition ${activityForm.type === t ? "bg-purple-600 text-white" : "bg-gray-100 text-gray-600 hover:bg-gray-200"}`}>
+                  <button key={t} onClick={() => setActivityForm(p => ({ ...p, type: t }))} className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition ${activityForm.type === t ? "bg-[#D4AF37] text-white" : "bg-gray-100 text-gray-600 hover:bg-gray-200"}`}>
                     {t === "call" ? "📞 Call" : t === "email" ? "📧 Email" : t === "demo" ? "🎬 Demo" : t === "meeting" ? "🤝 Meeting" : "🔄 Follow-up"}
                   </button>
                 ))}
@@ -126,7 +126,7 @@ export default function RepDashboard() {
               )}
               <div className="flex gap-2">
                 <input placeholder="What did you do?" value={activityForm.notes} onChange={e => setActivityForm(p => ({ ...p, notes: e.target.value }))} onKeyDown={e => e.key === "Enter" && logActivity()} className="flex-1 border border-gray-200 rounded-lg px-4 py-2 text-sm" />
-                <button onClick={logActivity} className="px-4 py-2 bg-purple-600 text-white text-sm font-semibold rounded-lg hover:bg-purple-700">Log</button>
+                <button onClick={logActivity} className="px-4 py-2 bg-[#D4AF37] text-white text-sm font-semibold rounded-lg hover:bg-[#B5952F]">Log</button>
               </div>
             </div>
 
@@ -154,7 +154,7 @@ export default function RepDashboard() {
                               else alert('Failed to save edit');
                             } catch(e) { alert('Error saving'); }
                           }
-                        }} className="text-xs bg-purple-50 text-purple-600 px-2 py-1 rounded font-semibold hover:bg-purple-100">✏️ Edit</button>
+                        }} className="text-xs bg-[#D4AF37]/10 text-[#D4AF37] px-2 py-1 rounded font-semibold hover:bg-[#D4AF37]/10">✏️ Edit</button>
                         <button onClick={async () => {
                           if (window.confirm('Delete this activity?')) {
                             try {
@@ -177,11 +177,11 @@ export default function RepDashboard() {
           <div className="space-y-4">
             <div className="flex items-center justify-between">
               <h2 className="text-xl font-bold text-gray-900">Prospects & Clients</h2>
-              <button onClick={() => setShowAddProspect(true)} className="px-4 py-2 bg-purple-600 text-white text-sm font-semibold rounded-lg hover:bg-purple-700 transition">+ Add Prospect</button>
+              <button onClick={() => setShowAddProspect(true)} className="px-4 py-2 bg-[#D4AF37] text-white text-sm font-semibold rounded-lg hover:bg-[#B5952F] transition">+ Add Prospect</button>
             </div>
 
             {showAddProspect && (
-              <div className="bg-white rounded-xl border-2 border-purple-200 p-6">
+              <div className="bg-white rounded-xl border-2 border-[#D4AF37]/20 p-6">
                 <h3 className="font-bold text-gray-900 mb-4">Add New Prospect</h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                   <input placeholder="Full Name *" value={prospectForm.name} onChange={e => setProspectForm(p => ({...p, name: e.target.value}))} className="border border-gray-200 rounded-lg px-4 py-2 text-sm" />
@@ -205,7 +205,7 @@ export default function RepDashboard() {
                     setProspectForm({ name: '', email: '', phone: '', territory: '', notes: '', stage: 'new' });
                     setShowAddProspect(false);
                     loadData();
-                  }} className="px-4 py-2 bg-purple-600 text-white text-sm font-semibold rounded-lg hover:bg-purple-700">Save Prospect</button>
+                  }} className="px-4 py-2 bg-[#D4AF37] text-white text-sm font-semibold rounded-lg hover:bg-[#B5952F]">Save Prospect</button>
                   <button onClick={() => setShowAddProspect(false)} className="px-4 py-2 bg-gray-100 text-gray-700 text-sm rounded-lg hover:bg-gray-200">Cancel</button>
                 </div>
               </div>
@@ -224,13 +224,13 @@ export default function RepDashboard() {
                       <div>
                         <h3 className="font-bold text-gray-900">{l.full_name || "Unknown"}</h3>
                         <p className="text-sm text-gray-500">{l.email} {l.phone && `· ${l.phone}`}</p>
-                        {l.market_area && <p className="text-xs text-purple-600 mt-1">📍 {l.market_area}</p>}
+                        {l.market_area && <p className="text-xs text-[#D4AF37] mt-1">📍 {l.market_area}</p>}
                       </div>
                       <div className="flex items-center gap-2">
                         <select value={l.current_stage || 'new'} onChange={async (e) => {
                           await fetch('/api/rep/data', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify({ action: 'update_stage', id: l.id, stage: e.target.value }) });
                           loadData();
-                        }} className={`text-xs font-bold px-3 py-1.5 rounded-full border-0 cursor-pointer ${l.current_stage === 'won' ? 'bg-green-100 text-green-700' : l.current_stage === 'demo' ? 'bg-purple-100 text-purple-700' : l.current_stage === 'proposal' ? 'bg-blue-100 text-blue-700' : l.current_stage === 'contacted' ? 'bg-amber-100 text-amber-700' : l.current_stage === 'lost' ? 'bg-red-100 text-red-700' : 'bg-gray-100 text-gray-600'}`}>
+                        }} className={`text-xs font-bold px-3 py-1.5 rounded-full border-0 cursor-pointer ${l.current_stage === 'won' ? 'bg-green-100 text-green-700' : l.current_stage === 'demo' ? 'bg-[#D4AF37]/10 text-[#D4AF37]' : l.current_stage === 'proposal' ? 'bg-blue-100 text-blue-700' : l.current_stage === 'contacted' ? 'bg-amber-100 text-amber-700' : l.current_stage === 'lost' ? 'bg-red-100 text-red-700' : 'bg-gray-100 text-gray-600'}`}>
                           <option value="new">New</option>
                           <option value="contacted">Contacted</option>
                           <option value="demo">Demo</option>
@@ -247,7 +247,7 @@ export default function RepDashboard() {
                               else alert('Failed to save');
                             } catch(e) { alert('Error saving'); }
                           }
-                        }} className="text-xs bg-purple-50 text-purple-600 px-2 py-1 rounded font-semibold hover:bg-purple-100">✏️ Edit</button>
+                        }} className="text-xs bg-[#D4AF37]/10 text-[#D4AF37] px-2 py-1 rounded font-semibold hover:bg-[#D4AF37]/10">✏️ Edit</button>
                       </div>
                     </div>
                     {l.challenge && <p className="text-sm text-gray-600 mt-3 bg-gray-50 rounded-lg p-3">{l.challenge}</p>}
@@ -291,7 +291,7 @@ export default function RepDashboard() {
                 { title: "Territory Page (for prospects)", desc: "Show available territories — send this link during demos", href: "/territory", icon: "🗺️" },
                 { title: "Demo Dashboard", desc: "Live demo to show prospects during calls", href: "/demo", icon: "💻" },
               ].map((res, i) => (
-                <a key={i} href={res.href} target="_blank" rel="noopener noreferrer" className="bg-white rounded-xl border border-gray-200 p-5 hover:border-purple-300 hover:shadow-md transition flex items-start gap-4">
+                <a key={i} href={res.href} target="_blank" rel="noopener noreferrer" className="bg-white rounded-xl border border-gray-200 p-5 hover:border-[#D4AF37]/30 hover:shadow-md transition flex items-start gap-4">
                   <span className="text-2xl">{res.icon}</span>
                   <div>
                     <h3 className="font-bold text-gray-900 text-sm">{res.title}</h3>
@@ -337,8 +337,8 @@ export default function RepDashboard() {
             <div className="bg-white rounded-xl border border-gray-200 p-6">
               <h3 className="font-bold text-gray-900 mb-4">💰 Commission Tracker</h3>
               <div className="grid grid-cols-3 gap-4 mb-6">
-                <div className="bg-purple-50 rounded-xl p-4 text-center">
-                  <div className="text-2xl font-bold text-purple-700">$0</div>
+                <div className="bg-[#D4AF37]/10 rounded-xl p-4 text-center">
+                  <div className="text-2xl font-bold text-[#D4AF37]">$0</div>
                   <div className="text-xs text-gray-500">This Month</div>
                 </div>
                 <div className="bg-green-50 rounded-xl p-4 text-center">
@@ -353,9 +353,9 @@ export default function RepDashboard() {
               <div className="bg-gray-50 rounded-lg p-4">
                 <h4 className="text-sm font-bold text-gray-700 mb-2">How You Earn</h4>
                 <div className="space-y-2 text-sm text-gray-600">
-                  <div className="flex justify-between"><span>Intelligence ($249/mo) close</span><span className="font-bold text-purple-600">$75/mo recurring</span></div>
-                  <div className="flex justify-between"><span>Generation ($749/mo) close</span><span className="font-bold text-purple-600">$225/mo recurring</span></div>
-                  <div className="flex justify-between"><span>Territory ($1,499/mo) close</span><span className="font-bold text-purple-600">$450/mo recurring</span></div>
+                  <div className="flex justify-between"><span>Intelligence ($249/mo) close</span><span className="font-bold text-[#D4AF37]">$75/mo recurring</span></div>
+                  <div className="flex justify-between"><span>Generation ($749/mo) close</span><span className="font-bold text-[#D4AF37]">$225/mo recurring</span></div>
+                  <div className="flex justify-between"><span>Territory ($1,499/mo) close</span><span className="font-bold text-[#D4AF37]">$450/mo recurring</span></div>
                 </div>
               </div>
             </div>
@@ -424,7 +424,7 @@ export default function RepDashboard() {
                   </div>
                 </div>
                 <textarea placeholder="Notes for today (wins, blockers, questions)..." value={checkinForm.notes} onChange={e => setCheckinForm(p => ({ ...p, notes: e.target.value }))} rows={3} className="w-full border border-gray-200 rounded-lg px-4 py-2 text-sm mb-4" />
-                <button onClick={submitCheckin} className="w-full py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-semibold rounded-xl hover:from-purple-700 hover:to-pink-700 transition">Submit Check-In</button>
+                <button onClick={submitCheckin} className="w-full py-3 bg-[#0A192F] text-white font-semibold rounded-xl hover:bg-[#1a2940] transition">Submit Check-In</button>
               </div>
             )}
 

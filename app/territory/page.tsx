@@ -28,9 +28,9 @@ export default function TerritoryPage() {
       <Header />
       <main className="bg-white">
         {/* Hero */}
-        <section className="pt-24 pb-16 px-4 text-center bg-gradient-to-b from-purple-50 to-white">
+        <section className="pt-24 pb-16 px-4 text-center bg-gradient-to-b from-[#D4AF37]/5 to-white">
           <div className="max-w-3xl mx-auto">
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-purple-100 rounded-full text-purple-700 text-sm font-semibold mb-6">
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-[#D4AF37]/10 rounded-full text-[#D4AF37] text-sm font-semibold mb-6">
               🔒 Exclusive — Only 1 Agent Per Territory
             </div>
             <h1 className="text-4xl md:text-5xl font-display font-bold text-gray-900 mb-4">
@@ -55,7 +55,7 @@ export default function TerritoryPage() {
                 { step: "4", title: "AI Does the Rest", desc: "Leads are scored, prioritized, and AI sends first-touch outreach automatically." },
               ].map((s) => (
                 <div key={s.step} className="text-center">
-                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-purple-600 to-pink-600 text-white font-bold text-lg flex items-center justify-center mx-auto mb-4">
+                  <div className="w-12 h-12 rounded-full bg-[#0A192F] text-white font-bold text-lg flex items-center justify-center mx-auto mb-4">
                     {s.step}
                   </div>
                   <h3 className="font-bold text-gray-900 mb-2">{s.title}</h3>
@@ -67,16 +67,16 @@ export default function TerritoryPage() {
         </section>
 
         {/* Territory Map */}
-        <section className="py-16 px-4 bg-gray-50">
+        <section className="py-16 px-4 bg-[#FDFBF7]">
           <div className="max-w-4xl mx-auto">
             <h2 className="text-2xl font-bold text-gray-900 text-center mb-4">Available Territories</h2>
             <p className="text-center text-gray-600 mb-10">First-come, first-served. Once a territory is claimed, it&apos;s permanently reserved.</p>
             
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               {territories.map((t) => (
-                <div key={t.zip} className="bg-white rounded-xl border-2 border-gray-200 p-5 hover:border-purple-400 hover:shadow-lg transition">
+                <div key={t.zip} className="bg-white rounded-xl border-2 border-gray-200 p-5 hover:border-[#D4AF37]/50 hover:shadow-lg transition">
                   <div className="flex items-center justify-between mb-2">
-                    <span className="text-sm font-bold text-purple-600">ZIP {t.zip}</span>
+                    <span className="text-sm font-bold text-[#D4AF37]">ZIP {t.zip}</span>
                     <span className={`text-xs font-bold px-2.5 py-1 rounded-full ${
                       t.status === "available" ? "bg-green-100 text-green-700" : "bg-red-100 text-red-700"
                     }`}>
@@ -94,7 +94,7 @@ export default function TerritoryPage() {
             </div>
 
             <p className="text-center text-sm text-gray-500 mt-8">
-              Don&apos;t see your market? <Link href="https://calendly.com/robopdesigns/strategy-call" className="text-purple-600 font-semibold hover:underline">Book a call</Link> — we can set up any US luxury market.
+              Don&apos;t see your market? <Link href="https://calendly.com/robopdesigns/strategy-call" className="text-[#D4AF37] font-semibold hover:underline">Book a call</Link> — we can set up any US luxury market.
             </p>
           </div>
         </section>
@@ -114,7 +114,7 @@ export default function TerritoryPage() {
                 { icon: "📈", title: "Quarterly Strategy Reviews", desc: "We analyze your territory performance and optimize campaigns every quarter." },
                 { icon: "⚡", title: "First Access to New Features", desc: "Territory owners get beta access to everything we build." },
               ].map((f, i) => (
-                <div key={i} className="flex gap-4 p-5 bg-gray-50 rounded-xl">
+                <div key={i} className="flex gap-4 p-5 bg-[#FDFBF7] rounded-xl">
                   <span className="text-2xl">{f.icon}</span>
                   <div>
                     <h3 className="font-bold text-gray-900 mb-1">{f.title}</h3>
@@ -127,11 +127,11 @@ export default function TerritoryPage() {
         </section>
 
         {/* CTA */}
-        <section className="py-20 px-4 bg-gradient-to-r from-purple-600 to-pink-600 text-center">
+        <section className="py-20 px-4 bg-[#0A192F] text-center">
           <div className="max-w-2xl mx-auto text-white">
             <h2 className="text-3xl font-bold mb-4">Ready to Own Your Market?</h2>
             <p className="text-lg opacity-90 mb-8">Book a 15-minute strategy call. We&apos;ll show you which territories are available in your area and get you set up within 48 hours.</p>
-            <Link href="https://calendly.com/robopdesigns/strategy-call" className="inline-block px-8 py-4 bg-white text-purple-700 font-bold rounded-xl hover:bg-gray-50 transition shadow-lg">
+            <Link href="https://calendly.com/robopdesigns/strategy-call" className="inline-block px-8 py-4 bg-white text-[#D4AF37] font-bold rounded-xl hover:bg-[#FDFBF7] transition shadow-lg">
               Book Your Strategy Call →
             </Link>
           </div>

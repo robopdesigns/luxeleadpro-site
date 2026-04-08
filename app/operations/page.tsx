@@ -38,7 +38,7 @@ export default function OperationsDashboard() {
             onClick={() => setTheme(isDark ? 'light' : 'dark')}
             className={`px-4 py-2 rounded-lg font-semibold transition ${
               isDark 
-                ? 'bg-purple-600 text-white hover:bg-purple-700' 
+                ? 'bg-[#D4AF37] text-white hover:bg-[#B5952F]' 
                 : 'bg-gray-800 text-white hover:bg-gray-900'
             }`}
           >
@@ -52,7 +52,7 @@ export default function OperationsDashboard() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
           <div className={`${cardClass} border rounded-lg p-6`}>
             <p className="text-sm text-gray-500 mb-2">Monthly Recurring Revenue</p>
-            <p className={`text-4xl font-bold text-purple-600`}>${totalRevenue}</p>
+            <p className={`text-4xl font-bold text-[#D4AF37]`}>${totalRevenue}</p>
             <p className="text-xs text-gray-500 mt-2">+$0 this month</p>
           </div>
           <div className={`${cardClass} border rounded-lg p-6`}>
@@ -103,7 +103,7 @@ export default function OperationsDashboard() {
                         {sale.status}
                       </span>
                     </td>
-                    <td className="py-4 px-4 text-sm font-bold text-purple-600">${sale.revenue}</td>
+                    <td className="py-4 px-4 text-sm font-bold text-[#D4AF37]">${sale.revenue}</td>
                   </tr>
                 ))}
               </tbody>
@@ -144,8 +144,8 @@ export default function OperationsDashboard() {
           </div>
           <button className={`mt-6 px-6 py-2 rounded-lg font-semibold ${
             isDark 
-              ? 'bg-purple-600 text-white hover:bg-purple-700' 
-              : 'bg-purple-600 text-white hover:bg-purple-700'
+              ? 'bg-[#D4AF37] text-white hover:bg-[#B5952F]' 
+              : 'bg-[#D4AF37] text-white hover:bg-[#B5952F]'
           }`}>
             + Add Employee
           </button>

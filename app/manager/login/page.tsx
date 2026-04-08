@@ -64,9 +64,9 @@ export default function ManagerLoginPage() {
           {/* Logo */}
           <div className="text-center mb-8">
             <svg className="w-12 h-12 mx-auto mb-4" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-              <circle cx="50" cy="50" r="48" fill="none" stroke="#7c3aed" strokeWidth="1.5" opacity="0.2"/>
-              <path d="M 35 65 L 50 35 L 65 65" fill="none" stroke="#7c3aed" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/>
-              <path d="M 50 35 L 50 65" fill="none" stroke="#d946ef" strokeWidth="2.5" strokeLinecap="round"/>
+              <circle cx="50" cy="50" r="48" fill="none" stroke="#D4AF37" strokeWidth="1.5" opacity="0.2"/>
+              <path d="M 35 65 L 50 35 L 65 65" fill="none" stroke="#D4AF37" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/>
+              <path d="M 50 35 L 50 65" fill="none" stroke="#D4AF37" strokeWidth="2.5" strokeLinecap="round"/>
             </svg>
             <h1 className="text-3xl font-display font-semibold text-gray-900">
               Manager Login
@@ -95,7 +95,7 @@ export default function ManagerLoginPage() {
                 required
                 value={formData.email}
                 onChange={handleChange}
-                className="w-full px-4 py-3 bg-white border border-gray-300 rounded-lg text-gray-900 placeholder-gray-400 focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-100 transition"
+                className="w-full px-4 py-3 bg-white border border-gray-300 rounded-lg text-gray-900 placeholder-gray-400 focus:outline-none focus:border-[#D4AF37] focus:ring-2 focus:ring-[#D4AF37]/30 transition"
                 placeholder="manager@example.com"
               />
             </div>
@@ -111,7 +111,7 @@ export default function ManagerLoginPage() {
                 required
                 value={formData.password}
                 onChange={handleChange}
-                className="w-full px-4 py-3 bg-white border border-gray-300 rounded-lg text-gray-900 placeholder-gray-400 focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-100 transition"
+                className="w-full px-4 py-3 bg-white border border-gray-300 rounded-lg text-gray-900 placeholder-gray-400 focus:outline-none focus:border-[#D4AF37] focus:ring-2 focus:ring-[#D4AF37]/30 transition"
                 placeholder="••••••••"
               />
             </div>
@@ -119,7 +119,7 @@ export default function ManagerLoginPage() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-semibold rounded-lg hover:from-purple-700 hover:to-pink-700 transition disabled:opacity-50 disabled:cursor-not-allowed shadow-md"
+              className="w-full py-3 bg-[#0A192F] text-white font-semibold rounded-lg hover:bg-[#1a2940] transition disabled:opacity-50 disabled:cursor-not-allowed shadow-md"
             >
               {loading ? "Signing in..." : "Sign In"}
             </button>
@@ -136,7 +136,7 @@ export default function ManagerLoginPage() {
             <button
               type="button"
               onClick={handleDemoLogin}
-              className="w-full py-3 border-2 border-purple-300 text-purple-700 font-semibold rounded-lg hover:bg-purple-50 transition"
+              className="w-full py-3 border-2 border-[#D4AF37]/30 text-[#D4AF37] font-semibold rounded-lg hover:bg-[#D4AF37]/10 transition"
             >
               &#9654; Preview Manager Dashboard (Demo)
             </button>
@@ -147,7 +147,7 @@ export default function ManagerLoginPage() {
             <div>
               <Link
                 href="/manager/forgot-password"
-                className="text-gray-600 hover:text-purple-600 font-medium transition"
+                className="text-gray-600 hover:text-[#D4AF37] font-medium transition"
               >
                 Forgot your password?
               </Link>
@@ -157,7 +157,7 @@ export default function ManagerLoginPage() {
                 Need to create an account?{" "}
                 <Link
                   href="/pricing"
-                  className="text-purple-600 hover:text-purple-700 font-medium transition"
+                  className="text-[#D4AF37] hover:text-[#D4AF37] font-medium transition"
                 >
                   Contact us
                 </Link>
@@ -168,7 +168,7 @@ export default function ManagerLoginPage() {
                 Are you an agent?{" "}
                 <Link
                   href="/agent/login"
-                  className="text-purple-600 hover:text-purple-700 font-medium transition"
+                  className="text-[#D4AF37] hover:text-[#D4AF37] font-medium transition"
                 >
                   Agent login
                 </Link>

@@ -56,14 +56,14 @@ export default function DailyBriefing() {
             <h1 className="text-3xl font-bold text-gray-900 mb-1">📊 Daily AI Briefing</h1>
             <p className="text-gray-500 text-sm">{briefing.date}</p>
           </div>
-          <div className="flex items-center gap-2 bg-purple-50 border border-purple-200 px-4 py-2 rounded-full">
-            <span className="w-2 h-2 rounded-full bg-purple-500 animate-pulse"></span>
-            <span className="text-purple-700 text-sm font-semibold">🤖 AI Generated</span>
+          <div className="flex items-center gap-2 bg-[#D4AF37]/5 border border-[#D4AF37]/20 px-4 py-2 rounded-full">
+            <span className="w-2 h-2 rounded-full bg-[#D4AF37] animate-pulse"></span>
+            <span className="text-[#D4AF37] text-sm font-semibold">🤖 AI Generated</span>
           </div>
         </div>
 
         {/* Welcome Banner */}
-        <div className="bg-gradient-to-r from-purple-600 to-pink-600 rounded-xl p-8 mb-8 text-white shadow-sm">
+        <div className="bg-[#D4AF37] rounded-xl p-8 mb-8 text-white shadow-sm">
           <h2 className="text-2xl font-bold mb-1">Good morning, {briefing.agentName}!</h2>
           <p className="text-white/80">Here&apos;s your AI-powered briefing to maximize today&apos;s deals.</p>
         </div>
@@ -89,7 +89,7 @@ export default function DailyBriefing() {
                       <span className="text-gray-400 text-sm">·</span>
                       <span className="text-gray-500 text-sm">{lead.timeline} timeline</span>
                     </div>
-                    <p className="text-purple-700 font-semibold text-sm mb-2">→ {lead.action}</p>
+                    <p className="text-[#D4AF37] font-semibold text-sm mb-2">→ {lead.action}</p>
                     <div className="flex flex-wrap gap-2">
                       {lead.tags.map((tag) => (
                         <span key={tag} className="bg-gray-100 text-gray-600 text-xs font-medium px-2.5 py-1 rounded-full">{tag}</span>
@@ -97,7 +97,7 @@ export default function DailyBriefing() {
                     </div>
                   </div>
                   <div className="shrink-0 text-center">
-                    <div className="w-14 h-14 rounded-full bg-gradient-to-br from-purple-500 to-pink-600 flex items-center justify-center shadow-sm">
+                    <div className="w-14 h-14 rounded-full bg-gradient-to-br from-[#D4AF37] to-[#B5952F]-600 flex items-center justify-center shadow-sm">
                       <span className="text-white font-bold text-lg">{lead.score}</span>
                     </div>
                     <p className="text-xs text-gray-400 mt-1">AI Score</p>
@@ -121,7 +121,7 @@ export default function DailyBriefing() {
         </div>
 
         {/* Coaching Tip */}
-        <div className="bg-gradient-to-r from-purple-50 to-pink-50 border border-purple-100 rounded-xl p-8 mb-8">
+        <div className="bg-gradient-to-r from-[#D4AF37]/5 to-[#D4AF37]/10 border border-[#D4AF37]/10 rounded-xl p-8 mb-8">
           <h2 className="text-xl font-bold text-gray-900 mb-3">💡 Daily Coaching Tip</h2>
           <p className="text-gray-700 text-base leading-relaxed">{briefing.coachingTip}</p>
         </div>
@@ -133,11 +133,11 @@ export default function DailyBriefing() {
             <div>
               <div className="flex justify-between items-center mb-2">
                 <p className="text-sm font-medium text-gray-700">Lead follow-ups completed</p>
-                <p className="text-purple-600 font-bold text-sm">{briefing.completionRate}%</p>
+                <p className="text-[#D4AF37] font-bold text-sm">{briefing.completionRate}%</p>
               </div>
               <div className="w-full bg-gray-100 rounded-full h-3">
                 <div
-                  className="bg-gradient-to-r from-purple-600 to-pink-600 h-3 rounded-full transition-all duration-500"
+                  className="bg-[#D4AF37] h-3 rounded-full transition-all duration-500"
                   style={{ width: `${briefing.completionRate}%` }}
                 />
               </div>

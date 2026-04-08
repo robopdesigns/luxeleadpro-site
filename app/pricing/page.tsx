@@ -113,7 +113,7 @@ export default function PricingPage() {
         {/* Hero */}
         <section className="pt-24 pb-16 px-4 text-center">
           <div className="max-w-3xl mx-auto">
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-purple-50 rounded-full text-purple-700 text-sm font-semibold mb-6">
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-[#D4AF37]/10 rounded-full text-[#D4AF37] text-sm font-semibold mb-6">
               <span>🏆</span> Founding Agent Pricing — Limited to 50 Agents
             </div>
             <h1 className="text-4xl md:text-5xl font-display font-bold text-gray-900 mb-4">
@@ -134,12 +134,12 @@ export default function PricingPage() {
                 key={tier.name}
                 className={`relative rounded-2xl border-2 p-8 transition-all ${
                   tier.popular
-                    ? "border-purple-600 shadow-xl shadow-purple-100 scale-[1.02] bg-white"
-                    : "border-gray-200 bg-white hover:border-purple-200 hover:shadow-lg"
+                    ? "border-[#D4AF37] shadow-xl shadow-[#D4AF37]/10 scale-[1.02] bg-white"
+                    : "border-gray-200 bg-white hover:border-[#D4AF37]/20 hover:shadow-lg"
                 }`}
               >
                 {tier.popular && (
-                  <div className="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1.5 bg-gradient-to-r from-purple-600 to-pink-600 text-white text-xs font-bold rounded-full uppercase tracking-wider">
+                  <div className="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1.5 bg-[#0A192F] text-white text-xs font-bold rounded-full uppercase tracking-wider">
                     Most Popular
                   </div>
                 )}
@@ -158,7 +158,7 @@ export default function PricingPage() {
                   disabled={checkoutLoading !== null}
                   className={`block w-full py-3 px-6 rounded-xl font-semibold text-center transition mb-4 ${
                     tier.popular
-                      ? "bg-gradient-to-r from-purple-600 to-pink-600 text-white hover:opacity-90 shadow-md"
+                      ? "bg-[#0A192F] text-white hover:opacity-90 shadow-md"
                       : "bg-gray-900 text-white hover:bg-gray-800"
                   } disabled:opacity-50`}
                 >
@@ -166,7 +166,7 @@ export default function PricingPage() {
                 </button>
                 <a
                   href="https://calendly.com/robopdesigns/strategy-call"
-                  className="block w-full py-2 text-center text-sm text-gray-500 hover:text-purple-600 transition mb-4"
+                  className="block w-full py-2 text-center text-sm text-gray-500 hover:text-[#D4AF37] transition mb-4"
                 >
                   Or book a strategy call first →
                 </a>
@@ -175,7 +175,7 @@ export default function PricingPage() {
                   {tier.features.map((feature) => (
                     <li key={feature} className="flex items-start gap-3 text-sm">
                       <svg
-                        className="w-5 h-5 text-purple-600 shrink-0 mt-0.5"
+                        className="w-5 h-5 text-[#D4AF37] shrink-0 mt-0.5"
                         fill="none"
                         viewBox="0 0 24 24"
                         stroke="currentColor"
@@ -197,7 +197,7 @@ export default function PricingPage() {
         </section>
 
         {/* Founding Agent Banner */}
-        <section className="py-16 px-4 bg-gradient-to-r from-purple-600 to-pink-600">
+        <section className="py-16 px-4 bg-[#0A192F]">
           <div className="max-w-3xl mx-auto text-center text-white">
             <h2 className="text-3xl font-bold mb-4">
               🔒 Founding Agent Program
@@ -211,7 +211,7 @@ export default function PricingPage() {
             </p>
             <a
               href="https://calendly.com/robopdesigns/strategy-call"
-              className="inline-block px-8 py-4 bg-white text-purple-700 font-bold rounded-xl hover:bg-gray-50 transition shadow-lg"
+              className="inline-block px-8 py-4 bg-white text-[#D4AF37] font-bold rounded-xl hover:bg-[#FDFBF7] transition shadow-lg"
             >
               Book a Strategy Call →
             </a>
@@ -227,10 +227,10 @@ export default function PricingPage() {
             <div className="overflow-x-auto rounded-xl border border-gray-200">
               <table className="w-full text-sm">
                 <thead>
-                  <tr className="bg-gray-50 border-b border-gray-200">
+                  <tr className="bg-[#FDFBF7] border-b border-gray-200">
                     <th className="text-left px-6 py-4 font-semibold text-gray-900">Feature</th>
                     <th className="text-center px-4 py-4 font-semibold text-gray-900">Intelligence</th>
-                    <th className="text-center px-4 py-4 font-semibold text-purple-700 bg-purple-50">Generation</th>
+                    <th className="text-center px-4 py-4 font-semibold text-[#D4AF37] bg-[#D4AF37]/10">Generation</th>
                     <th className="text-center px-4 py-4 font-semibold text-gray-900">Territory</th>
                   </tr>
                 </thead>
@@ -256,10 +256,10 @@ export default function PricingPage() {
                       {[t1, t2, t3].map((val, j) => (
                         <td
                           key={j}
-                          className={`px-4 py-3 text-center ${j === 1 ? "bg-purple-50/50" : ""}`}
+                          className={`px-4 py-3 text-center ${j === 1 ? "bg-[#D4AF37]/10/50" : ""}`}
                         >
                           {val === true ? (
-                            <span className="text-purple-600 font-bold">✓</span>
+                            <span className="text-[#D4AF37] font-bold">✓</span>
                           ) : val === false ? (
                             <span className="text-gray-300">—</span>
                           ) : (
@@ -276,7 +276,7 @@ export default function PricingPage() {
         </section>
 
         {/* FAQ */}
-        <section className="py-20 px-4 bg-gray-50">
+        <section className="py-20 px-4 bg-[#FDFBF7]">
           <div className="max-w-3xl mx-auto">
             <h2 className="text-2xl font-bold text-gray-900 text-center mb-10">
               Frequently Asked Questions
@@ -331,7 +331,7 @@ export default function PricingPage() {
             </p>
             <a
               href="https://calendly.com/robopdesigns/strategy-call"
-              className="inline-block px-8 py-4 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold rounded-xl hover:opacity-90 transition shadow-lg"
+              className="inline-block px-8 py-4 bg-[#0A192F] text-white font-bold rounded-xl hover:opacity-90 transition shadow-lg"
             >
               Book Your Strategy Call →
             </a>

@@ -42,7 +42,7 @@ function getLeadScore(challenge: string | null) {
 
 function scoreLabel(score: number) {
   if (score >= 80) return { label: "Hot", style: "bg-red-500/20 text-red-200" };
-  if (score >= 60) return { label: "Warm", style: "bg-purple-400/20 text-purple-200" };
+  if (score >= 60) return { label: "Warm", style: "bg-[#D4AF37]/20 text-[#D4AF37]/40" };
   return { label: "Nurture", style: "bg-blue-400/20 text-blue-200" };
 }
 
@@ -114,7 +114,7 @@ export default function DashboardClient({
           <button
             onClick={logout}
             disabled={loggingOut}
-            className="rounded-xl bg-purple-400 px-4 py-2 text-sm font-semibold text-black hover:bg-purple-300 disabled:opacity-60"
+            className="rounded-xl bg-[#D4AF37] px-4 py-2 text-sm font-semibold text-black hover:bg-purple-300 disabled:opacity-60"
           >
             {loggingOut ? "Logging out..." : "Logout"}
           </button>
@@ -143,7 +143,7 @@ export default function DashboardClient({
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search leads..."
-            className="w-full max-w-xs rounded-xl border border-white/20 bg-black/40 px-4 py-2 text-sm outline-none focus:border-purple-400"
+            className="w-full max-w-xs rounded-xl border border-white/20 bg-black/40 px-4 py-2 text-sm outline-none focus:border-[#D4AF37]/50"
           />
         </div>
         <div className="overflow-x-auto rounded-xl border border-white/10">

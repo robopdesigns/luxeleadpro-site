@@ -47,7 +47,7 @@ export default function OutreachPage() {
   return (
     <div className="min-h-screen bg-white">
       {/* ── Hero Header ─────────────────────────────────────────────────── */}
-      <div className="bg-gradient-to-br from-purple-700 via-purple-600 to-fuchsia-600 px-6 py-16 text-center text-white">
+      <div className="bg-gradient-to-br from-[#0A192F] via-[#0A192F] to-[#0A192F] px-6 py-16 text-center text-white">
         <div className="max-w-3xl mx-auto">
           {/* Coming Soon badge */}
           <span className="inline-flex items-center gap-2 bg-white/20 text-white text-xs font-bold uppercase tracking-widest px-4 py-2 rounded-full mb-6 border border-white/30">
@@ -58,7 +58,7 @@ export default function OutreachPage() {
           <h1 className="text-5xl font-bold mb-4 leading-tight">
             Automated Outreach
           </h1>
-          <p className="text-xl text-purple-100 leading-relaxed">
+          <p className="text-xl text-slate-300 leading-relaxed">
             AI sends personalized emails to your top leads automatically.
             <br />
             Like having Instantly built right into your dashboard.
@@ -86,7 +86,7 @@ export default function OutreachPage() {
                 className="relative bg-white border border-gray-200 rounded-2xl p-8 shadow-sm hover:shadow-md transition-shadow"
               >
                 {/* Step number */}
-                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-purple-600 to-fuchsia-500 text-white font-bold text-sm flex items-center justify-center mb-4 shadow-sm">
+                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#D4AF37] to-fuchsia-500 text-white font-bold text-sm flex items-center justify-center mb-4 shadow-sm">
                   {step.number}
                 </div>
                 <div className="text-3xl mb-3">{step.icon}</div>
@@ -167,13 +167,13 @@ export default function OutreachPage() {
                 key={item.day}
                 className={`rounded-xl p-4 border text-sm ${
                   item.active
-                    ? "bg-purple-50 border-purple-200"
+                    ? "bg-[#D4AF37]/5 border-[#D4AF37]/20"
                     : "bg-gray-50 border-gray-200"
                 }`}
               >
                 <span
                   className={`text-xs font-bold uppercase tracking-wide ${
-                    item.active ? "text-purple-600" : "text-gray-400"
+                    item.active ? "text-[#D4AF37]" : "text-gray-400"
                   }`}
                 >
                   {item.day}
@@ -210,7 +210,7 @@ export default function OutreachPage() {
                 <span className="text-3xl shrink-0">{item.icon}</span>
                 <div>
                   <h4 className="font-bold text-white mb-1">{item.title}</h4>
-                  <p className="text-purple-200 text-sm leading-relaxed">{item.desc}</p>
+                  <p className="text-[#D4AF37]/40 text-sm leading-relaxed">{item.desc}</p>
                 </div>
               </div>
             ))}
@@ -219,8 +219,8 @@ export default function OutreachPage() {
 
         {/* ── CTA ──────────────────────────────────────────────────────────── */}
         <section className="text-center py-4">
-          <div className="inline-block bg-gradient-to-r from-purple-50 to-fuchsia-50 border border-purple-200 rounded-3xl px-12 py-10">
-            <span className="inline-block bg-gradient-to-r from-purple-600 to-fuchsia-500 text-white text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full mb-4">
+          <div className="inline-block bg-gradient-to-r from-[#D4AF37]/5 to-fuchsia-50 border border-[#D4AF37]/20 rounded-3xl px-12 py-10">
+            <span className="inline-block bg-gradient-to-r from-[#D4AF37] to-fuchsia-500 text-white text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full mb-4">
               Launching April 2026
             </span>
             <h2 className="text-3xl font-bold text-gray-900 mb-3">
@@ -232,7 +232,7 @@ export default function OutreachPage() {
             </p>
             <Link
               href="/pricing"
-              className="inline-block bg-gradient-to-r from-purple-600 to-fuchsia-500 text-white font-bold px-10 py-4 rounded-xl hover:opacity-90 transition shadow-lg text-lg"
+              className="inline-block bg-gradient-to-r from-[#D4AF37] to-fuchsia-500 text-white font-bold px-10 py-4 rounded-xl hover:opacity-90 transition shadow-lg text-lg"
             >
               Upgrade to Outreach Plan →
             </Link>

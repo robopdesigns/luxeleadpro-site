@@ -41,7 +41,7 @@ export default function OwnerDashboardClient() {
 
   async function logout() { await fetch("/api/dashboard-logout", { method: "POST" }); window.location.href = "/dashboard/login"; }
 
-  if (loading) return <div className="min-h-screen bg-[#0a0a0f] flex items-center justify-center"><div className="animate-spin rounded-full h-8 w-8 border-b-2 border-purple-500" /></div>;
+  if (loading) return <div className="min-h-screen bg-[#0a0a0f] flex items-center justify-center"><div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#D4AF37]" /></div>;
 
   const leads = data?.leads || [];
   const reps = data?.reps || [];
@@ -65,7 +65,7 @@ export default function OwnerDashboardClient() {
       <header className="border-b border-white/10 bg-[#0a0a0f]/80 backdrop-blur-xl sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-purple-600 to-pink-600 flex items-center justify-center font-bold text-lg">L</div>
+            <div className="w-9 h-9 rounded-xl bg-[#D4AF37] flex items-center justify-center font-bold text-lg">L</div>
             <div>
               <h1 className="text-lg font-bold">LuxeLeadPro</h1>
               <p className="text-xs text-white/40">Owner Command Center</p>
@@ -82,7 +82,7 @@ export default function OwnerDashboardClient() {
       <div className="border-b border-white/10">
         <div className="max-w-7xl mx-auto px-6 flex gap-1">
           {(["overview", "pipeline", "reps", "tasks"] as const).map(t => (
-            <button key={t} onClick={() => setTab(t)} className={`px-5 py-3.5 text-sm font-medium border-b-2 transition ${tab === t ? "border-purple-500 text-white" : "border-transparent text-white/40 hover:text-white/70"}`}>
+            <button key={t} onClick={() => setTab(t)} className={`px-5 py-3.5 text-sm font-medium border-b-2 transition ${tab === t ? "border-[#D4AF37] text-white" : "border-transparent text-white/40 hover:text-white/70"}`}>
               {t === "overview" ? "📊 Overview" : t === "pipeline" ? "🔄 Pipeline" : t === "reps" ? "👥 Sales Reps" : "✅ Tasks"}
               {t === "tasks" && urgentTasks.length > 0 && <span className="ml-2 bg-red-500/20 text-red-400 text-xs px-1.5 py-0.5 rounded-full">{urgentTasks.length}</span>}
             </button>
@@ -96,7 +96,7 @@ export default function OwnerDashboardClient() {
             {/* KPIs */}
             <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
               {[
-                { label: "Total Leads", value: leads.length, icon: "📊", color: "from-purple-500/20 to-purple-600/5 border-purple-500/20", text: "text-purple-400" },
+                { label: "Total Leads", value: leads.length, icon: "📊", color: "from-[#D4AF37]/20 to-[#D4AF37]/5 border-[#D4AF37]/20", text: "text-[#D4AF37]/80" },
                 { label: "Active Reps", value: reps.filter(r => r.status === "active").length, icon: "👥", color: "from-blue-500/20 to-blue-600/5 border-blue-500/20", text: "text-blue-400" },
                 { label: "Today's Activity", value: todayActs.length, icon: "⚡", color: "from-amber-500/20 to-amber-600/5 border-amber-500/20", text: "text-amber-400" },
                 { label: "Deals Won", value: leads.filter(l => l.current_stage === "won").length, icon: "🏆", color: "from-green-500/20 to-green-600/5 border-green-500/20", text: "text-green-400" },
@@ -177,7 +177,7 @@ export default function OwnerDashboardClient() {
             <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-4">
               {stages.map(stage => {
                 const stageLeads = leads.filter(l => (l.current_stage || "new") === stage);
-                const colors: Record<string, string> = { new: "border-gray-500/30", contacted: "border-amber-500/30", demo: "border-purple-500/30", proposal: "border-blue-500/30", won: "border-green-500/30", lost: "border-red-500/30" };
+                const colors: Record<string, string> = { new: "border-gray-500/30", contacted: "border-amber-500/30", demo: "border-[#D4AF37]/30", proposal: "border-blue-500/30", won: "border-green-500/30", lost: "border-red-500/30" };
                 return (
                   <div key={stage} className={`rounded-2xl border ${colors[stage] || "border-white/10"} bg-white/[0.02] p-4`}>
                     <div className="flex items-center justify-between mb-3">
@@ -189,7 +189,7 @@ export default function OwnerDashboardClient() {
                         <div key={l.id} className="bg-white/5 rounded-lg p-2.5 text-xs">
                           <div className="font-medium text-white/90">{l.full_name || "Unknown"}</div>
                           <div className="text-white/40">{l.email}</div>
-                          {l.market_area && <div className="text-purple-400 mt-1">📍 {l.market_area}</div>}
+                          {l.market_area && <div className="text-[#D4AF37]/80 mt-1">📍 {l.market_area}</div>}
                         </div>
                       ))}
                       {stageLeads.length > 5 && <p className="text-xs text-white/30 text-center">+{stageLeads.length - 5} more</p>}
@@ -205,19 +205,19 @@ export default function OwnerDashboardClient() {
           <div className="space-y-6">
             <div className="flex items-center justify-between">
               <h2 className="text-xl font-bold">Sales Reps</h2>
-              <button onClick={() => setShowAddRep(true)} className="px-4 py-2 bg-gradient-to-r from-purple-600 to-pink-600 text-white text-sm font-semibold rounded-xl hover:opacity-90 transition">+ Add Rep</button>
+              <button onClick={() => setShowAddRep(true)} className="px-4 py-2 bg-[#D4AF37] text-white text-sm font-semibold rounded-xl hover:opacity-90 transition">+ Add Rep</button>
             </div>
             {showAddRep && (
-              <div className="rounded-2xl border border-purple-500/30 bg-white/[0.02] p-6">
+              <div className="rounded-2xl border border-[#D4AF37]/30 bg-white/[0.02] p-6">
                 <h3 className="font-bold mb-4">Add New Sales Rep</h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                  <input placeholder="Full Name" value={repForm.name} onChange={e => setRepForm(p => ({ ...p, name: e.target.value }))} className="bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white placeholder-white/30 focus:border-purple-500/50 outline-none" />
-                  <input placeholder="Email" value={repForm.email} onChange={e => setRepForm(p => ({ ...p, email: e.target.value }))} className="bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white placeholder-white/30 focus:border-purple-500/50 outline-none" />
-                  <input placeholder="Password" type="password" value={repForm.password} onChange={e => setRepForm(p => ({ ...p, password: e.target.value }))} className="bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white placeholder-white/30 focus:border-purple-500/50 outline-none" />
-                  <input placeholder="Phone (optional)" value={repForm.phone} onChange={e => setRepForm(p => ({ ...p, phone: e.target.value }))} className="bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white placeholder-white/30 focus:border-purple-500/50 outline-none" />
+                  <input placeholder="Full Name" value={repForm.name} onChange={e => setRepForm(p => ({ ...p, name: e.target.value }))} className="bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white placeholder-white/30 focus:border-[#D4AF37]/50 outline-none" />
+                  <input placeholder="Email" value={repForm.email} onChange={e => setRepForm(p => ({ ...p, email: e.target.value }))} className="bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white placeholder-white/30 focus:border-[#D4AF37]/50 outline-none" />
+                  <input placeholder="Password" type="password" value={repForm.password} onChange={e => setRepForm(p => ({ ...p, password: e.target.value }))} className="bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white placeholder-white/30 focus:border-[#D4AF37]/50 outline-none" />
+                  <input placeholder="Phone (optional)" value={repForm.phone} onChange={e => setRepForm(p => ({ ...p, phone: e.target.value }))} className="bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white placeholder-white/30 focus:border-[#D4AF37]/50 outline-none" />
                 </div>
                 <div className="flex gap-2 mt-4">
-                  <button onClick={addRep} className="px-4 py-2 bg-gradient-to-r from-purple-600 to-pink-600 text-white text-sm font-semibold rounded-xl">Create Rep</button>
+                  <button onClick={addRep} className="px-4 py-2 bg-[#D4AF37] text-white text-sm font-semibold rounded-xl">Create Rep</button>
                   <button onClick={() => setShowAddRep(false)} className="px-4 py-2 bg-white/5 text-white/60 text-sm rounded-xl hover:bg-white/10">Cancel</button>
                 </div>
               </div>
@@ -262,27 +262,27 @@ export default function OwnerDashboardClient() {
               <div className="flex items-center gap-2 text-sm">
                 <span className="text-white/40">{doneTasks.length}/{tasks.length} complete</span>
                 <div className="w-32 bg-white/10 rounded-full h-2">
-                  <div className="bg-gradient-to-r from-purple-500 to-pink-500 h-2 rounded-full transition-all" style={{ width: `${tasks.length ? (doneTasks.length / tasks.length) * 100 : 0}%` }} />
+                  <div className="bg-[#D4AF37] h-2 rounded-full transition-all" style={{ width: `${tasks.length ? (doneTasks.length / tasks.length) * 100 : 0}%` }} />
                 </div>
               </div>
             </div>
 
             {/* Add task */}
             <div className="flex gap-2">
-              <input placeholder="Add a new task..." value={newTask} onChange={e => setNewTask(e.target.value)} onKeyDown={e => e.key === "Enter" && addTask()} className="flex-1 bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white placeholder-white/30 focus:border-purple-500/50 outline-none" />
+              <input placeholder="Add a new task..." value={newTask} onChange={e => setNewTask(e.target.value)} onKeyDown={e => e.key === "Enter" && addTask()} className="flex-1 bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white placeholder-white/30 focus:border-[#D4AF37]/50 outline-none" />
               <select value={taskPriority} onChange={e => setTaskPriority(e.target.value)} className="bg-white/5 border border-white/10 rounded-xl px-3 py-2 text-sm text-white/60 outline-none">
                 <option value="urgent">🔴 Urgent</option>
                 <option value="high">🟠 High</option>
                 <option value="medium">🟡 Medium</option>
                 <option value="low">🟢 Low</option>
               </select>
-              <button onClick={addTask} className="px-5 py-2 bg-gradient-to-r from-purple-600 to-pink-600 text-white text-sm font-semibold rounded-xl">Add</button>
+              <button onClick={addTask} className="px-5 py-2 bg-[#D4AF37] text-white text-sm font-semibold rounded-xl">Add</button>
             </div>
 
             {/* Filter */}
             <div className="flex gap-2">
               {(["all", "todo", "done"] as const).map(f => (
-                <button key={f} onClick={() => setTaskFilter(f)} className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition ${taskFilter === f ? "bg-purple-500/20 text-purple-400" : "bg-white/5 text-white/40 hover:bg-white/10"}`}>
+                <button key={f} onClick={() => setTaskFilter(f)} className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition ${taskFilter === f ? "bg-[#D4AF37]/20 text-[#D4AF37]/80" : "bg-white/5 text-white/40 hover:bg-white/10"}`}>
                   {f === "all" ? `All (${tasks.length})` : f === "todo" ? `To Do (${tasks.filter(t => t.status === "todo").length})` : `Done (${doneTasks.length})`}
                 </button>
               ))}
@@ -351,8 +351,8 @@ export default function OwnerDashboardClient() {
                 <div className="space-y-2">
                   {doneTasks.map(t => (
                     <div key={t.id} className="flex items-center gap-3 bg-white/[0.01] border border-white/5 rounded-xl p-4 opacity-60">
-                      <button onClick={() => toggleTask(t.id, t.status)} className="w-6 h-6 rounded-full bg-purple-500/30 border-2 border-purple-500/50 flex-shrink-0 flex items-center justify-center">
-                        <svg className="w-3 h-3 text-purple-400" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"/></svg>
+                      <button onClick={() => toggleTask(t.id, t.status)} className="w-6 h-6 rounded-full bg-[#D4AF37]/30 border-2 border-[#D4AF37]/50 flex-shrink-0 flex items-center justify-center">
+                        <svg className="w-3 h-3 text-[#D4AF37]/80" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"/></svg>
                       </button>
                       <p className="text-sm text-white/40 line-through">{t.title}</p>
                     </div>

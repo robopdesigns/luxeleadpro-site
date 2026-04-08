@@ -38,7 +38,7 @@ function Sidebar({ active, onSelect }: { active: Section; onSelect: (s: Section)
       {/* Logo */}
       <div className="px-6 py-5 border-b border-gray-100">
         <div className="flex items-center gap-2">
-          <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-purple-600 to-pink-600 flex items-center justify-center text-white text-xs font-bold">L</div>
+          <div className="w-8 h-8 rounded-lg bg-[#0A192F] flex items-center justify-center text-white text-xs font-bold">L</div>
           <span className="font-bold text-gray-900 text-lg">LuxeLeadPro</span>
         </div>
         <p className="text-xs text-gray-500 mt-1 ml-10">Agent Portal</p>
@@ -51,7 +51,7 @@ function Sidebar({ active, onSelect }: { active: Section; onSelect: (s: Section)
             onClick={() => onSelect(item.id)}
             className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all text-left
               ${active === item.id
-                ? "bg-purple-50 text-purple-700 border-l-4 border-purple-600 pl-2"
+                ? "bg-[#D4AF37]/10 text-[#D4AF37] border-l-4 border-[#D4AF37] pl-2"
                 : "text-gray-600 hover:bg-gray-50 hover:text-gray-900"
               }`}
           >
@@ -63,7 +63,7 @@ function Sidebar({ active, onSelect }: { active: Section; onSelect: (s: Section)
       {/* Bottom */}
       <div className="px-4 py-4 border-t border-gray-100">
         <div className="flex items-center gap-3 px-2 py-2 rounded-lg hover:bg-gray-50 cursor-pointer">
-          <div className="w-8 h-8 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center text-white text-xs font-bold">A</div>
+          <div className="w-8 h-8 rounded-full bg-[#D4AF37] flex items-center justify-center text-white text-xs font-bold">A</div>
           <div className="flex-1 min-w-0">
             <p className="text-sm font-medium text-gray-900 truncate">Agent</p>
             <p className="text-xs text-gray-500 truncate">agent@luxeleadpro.com</p>
@@ -129,7 +129,7 @@ function OverviewSection({ name }: { name: string }) {
 
       {/* AI Briefing Card */}
       <div className="bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden mb-8">
-        <div className="bg-gradient-to-r from-purple-600 to-pink-600 px-6 py-4 flex items-center justify-between">
+        <div className="bg-[#0A192F] px-6 py-4 flex items-center justify-between">
           <p className="text-white font-semibold">🤖 Today's Top Opportunity</p>
           <span className="bg-white/20 text-white text-xs px-3 py-1 rounded-full font-medium">AI Powered</span>
         </div>
@@ -141,7 +141,7 @@ function OverviewSection({ name }: { name: string }) {
                 <span className="text-gray-400">|</span>
                 <span className="text-gray-600 text-sm">Lincoln Park</span>
                 <span className="text-gray-400">|</span>
-                <span className="text-purple-600 font-bold text-sm">Score: 94/100</span>
+                <span className="text-[#D4AF37] font-bold text-sm">Score: 94/100</span>
                 <span className="text-gray-400">|</span>
                 <span className="text-gray-600 text-sm">Budget: $3.2M–$4.5M</span>
               </div>
@@ -151,11 +151,11 @@ function OverviewSection({ name }: { name: string }) {
               </p>
               <div className="flex flex-wrap gap-2 mb-5">
                 <span className="bg-red-100 text-red-700 text-xs font-semibold px-3 py-1 rounded-full">🔥 High Intent</span>
-                <span className="bg-purple-100 text-purple-700 text-xs font-semibold px-3 py-1 rounded-full">💰 $4M+ Buyer</span>
+                <span className="bg-[#D4AF37]/10 text-[#D4AF37] text-xs font-semibold px-3 py-1 rounded-full">💰 $4M+ Buyer</span>
                 <span className="bg-green-100 text-green-700 text-xs font-semibold px-3 py-1 rounded-full">✅ DNC Clear</span>
               </div>
               <div className="flex gap-3">
-                <button className="px-6 py-2 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-semibold rounded-lg hover:opacity-90 transition text-sm shadow-sm">
+                <button className="px-6 py-2 bg-[#0A192F] text-white font-semibold rounded-lg hover:opacity-90 transition text-sm shadow-sm">
                   Call Now
                 </button>
                 <button className="px-6 py-2 border border-gray-300 text-gray-700 font-semibold rounded-lg hover:bg-gray-50 transition text-sm">
@@ -163,19 +163,19 @@ function OverviewSection({ name }: { name: string }) {
                 </button>
               </div>
             </div>
-            <div className="bg-purple-50 rounded-xl p-4 border border-purple-100">
-              <p className="text-purple-600 text-xs font-bold uppercase tracking-wider mb-2">AI Insight</p>
+            <div className="bg-[#D4AF37]/10 rounded-xl p-4 border border-[#D4AF37]/10">
+              <p className="text-[#D4AF37] text-xs font-bold uppercase tracking-wider mb-2">AI Insight</p>
               <p className="text-gray-700 text-sm leading-relaxed">
                 &ldquo;Sarah viewed 940 N. Michigan Ave twice this week. Her search radius narrowed — she&apos;s closing in on a decision. 
                 <strong className="text-gray-900"> Act today.</strong>&rdquo;
               </p>
-              <div className="mt-4 pt-3 border-t border-purple-100">
+              <div className="mt-4 pt-3 border-t border-[#D4AF37]/10">
                 <div className="flex justify-between text-xs text-gray-500 mb-1">
                   <span>Close Probability</span>
-                  <span className="font-bold text-purple-700">78%</span>
+                  <span className="font-bold text-[#D4AF37]">78%</span>
                 </div>
-                <div className="w-full bg-purple-100 rounded-full h-2">
-                  <div className="bg-gradient-to-r from-purple-600 to-pink-600 h-2 rounded-full" style={{ width: "78%" }} />
+                <div className="w-full bg-[#D4AF37]/10 rounded-full h-2">
+                  <div className="bg-[#0A192F] h-2 rounded-full" style={{ width: "78%" }} />
                 </div>
               </div>
             </div>
@@ -189,7 +189,7 @@ function OverviewSection({ name }: { name: string }) {
         <div className="lg:col-span-2 bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden">
           <div className="px-6 py-4 border-b border-gray-100 flex items-center justify-between">
             <h2 className="font-semibold text-gray-900">Today&apos;s Lead List</h2>
-            <button className="px-4 py-1.5 bg-gradient-to-r from-purple-600 to-pink-600 text-white text-xs font-semibold rounded-lg hover:opacity-90 transition">
+            <button className="px-4 py-1.5 bg-[#0A192F] text-white text-xs font-semibold rounded-lg hover:opacity-90 transition">
               + Import Leads
             </button>
           </div>
@@ -209,7 +209,7 @@ function OverviewSection({ name }: { name: string }) {
                   <tr key={lead.name} className="hover:bg-gray-50 transition">
                     <td className="px-4 py-3">
                       <div className="flex items-center gap-2">
-                        <div className="w-7 h-7 rounded-full bg-gradient-to-br from-purple-400 to-pink-400 flex items-center justify-center text-white text-xs font-bold">
+                        <div className="w-7 h-7 rounded-full bg-gradient-to-br from-[#D4AF37] to-[#B5952F] flex items-center justify-center text-white text-xs font-bold">
                           {lead.name[0]}
                         </div>
                         <div>
@@ -222,7 +222,7 @@ function OverviewSection({ name }: { name: string }) {
                     <td className="px-4 py-3">
                       <div className="flex items-center gap-2">
                         <div className="w-16 bg-gray-100 rounded-full h-1.5">
-                          <div className="bg-gradient-to-r from-purple-500 to-pink-500 h-1.5 rounded-full" style={{ width: `${lead.score}%` }} />
+                          <div className="bg-[#D4AF37] h-1.5 rounded-full" style={{ width: `${lead.score}%` }} />
                         </div>
                         <span className="text-sm font-bold text-gray-900">{lead.score}</span>
                       </div>
@@ -233,7 +233,7 @@ function OverviewSection({ name }: { name: string }) {
                       </span>
                     </td>
                     <td className="px-4 py-3">
-                      <button className="text-xs text-purple-600 font-semibold hover:underline">Contact →</button>
+                      <button className="text-xs text-[#D4AF37] font-semibold hover:underline">Contact →</button>
                     </td>
                   </tr>
                 ))}
@@ -246,7 +246,7 @@ function OverviewSection({ name }: { name: string }) {
         <div className="bg-white border border-gray-200 rounded-xl shadow-sm p-6">
           <h2 className="font-semibold text-gray-900 mb-4">Quick Actions</h2>
           <div className="space-y-3">
-            <Link href="/dashboard/daily-briefing" className="flex items-center gap-3 w-full px-4 py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-semibold rounded-lg hover:opacity-90 transition text-sm shadow-sm">
+            <Link href="/dashboard/daily-briefing" className="flex items-center gap-3 w-full px-4 py-3 bg-[#0A192F] text-white font-semibold rounded-lg hover:opacity-90 transition text-sm shadow-sm">
               <span>📊</span> View Full Briefing
             </Link>
             <Link href="/dashboard/outreach" className="flex items-center gap-3 w-full px-4 py-3 bg-white border border-gray-300 text-gray-700 font-semibold rounded-lg hover:bg-gray-50 transition text-sm">
@@ -283,8 +283,8 @@ function BriefingSection({ name }: { name: string }) {
           <h1 className="text-2xl font-bold text-gray-900">📊 Daily AI Briefing</h1>
           <p className="text-gray-500 text-sm mt-0.5">{today} · Good morning, {name}!</p>
         </div>
-        <div className="flex items-center gap-2 bg-purple-50 border border-purple-200 px-4 py-2 rounded-full">
-          <span className="text-purple-700 text-sm font-semibold">🤖 AI Generated</span>
+        <div className="flex items-center gap-2 bg-[#D4AF37]/10 border border-[#D4AF37]/20 px-4 py-2 rounded-full">
+          <span className="text-[#D4AF37] text-sm font-semibold">🤖 AI Generated</span>
         </div>
       </div>
 
@@ -297,7 +297,7 @@ function BriefingSection({ name }: { name: string }) {
               <div className="flex items-start justify-between gap-4">
                 <div className="flex-1">
                   <div className="flex items-center gap-3 mb-1 flex-wrap">
-                    <span className="w-7 h-7 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center text-white text-xs font-bold shrink-0">
+                    <span className="w-7 h-7 rounded-full bg-[#D4AF37] flex items-center justify-center text-white text-xs font-bold shrink-0">
                       {i + 1}
                     </span>
                     <h3 className="font-bold text-gray-900">{lead.name}</h3>
@@ -307,7 +307,7 @@ function BriefingSection({ name }: { name: string }) {
                     <span className="text-gray-400 text-sm">·</span>
                     <span className="text-gray-500 text-sm">{lead.timeline}</span>
                   </div>
-                  <p className="text-purple-700 font-semibold text-sm mb-2">→ {lead.action}</p>
+                  <p className="text-[#D4AF37] font-semibold text-sm mb-2">→ {lead.action}</p>
                   <div className="flex flex-wrap gap-2">
                     {lead.tags.map((tag) => (
                       <span key={tag} className="bg-gray-100 text-gray-600 text-xs font-medium px-2.5 py-1 rounded-full">{tag}</span>
@@ -315,7 +315,7 @@ function BriefingSection({ name }: { name: string }) {
                   </div>
                 </div>
                 <div className="shrink-0 text-center">
-                  <div className="w-14 h-14 rounded-full bg-gradient-to-br from-purple-500 to-pink-600 flex items-center justify-center">
+                  <div className="w-14 h-14 rounded-full bg-gradient-to-br from-[#D4AF37] to-[#B5952F]-600 flex items-center justify-center">
                     <span className="text-white font-bold text-lg">{lead.score}</span>
                   </div>
                   <p className="text-xs text-gray-400 mt-1">AI Score</p>
@@ -337,7 +337,7 @@ function BriefingSection({ name }: { name: string }) {
       </div>
 
       {/* Coaching Tip */}
-      <div className="bg-gradient-to-r from-purple-50 to-pink-50 border border-purple-100 rounded-xl p-6 mb-6">
+      <div className="bg-gradient-to-r from-[#D4AF37]/5 to-[#D4AF37]/10 border border-[#D4AF37]/10 rounded-xl p-6 mb-6">
         <h2 className="text-lg font-bold text-gray-900 mb-2">💡 Daily Coaching Tip</h2>
         <p className="text-gray-700">Focus on active leads with ASAP timelines — they convert 3× faster than exploratory leads. One call to Sarah M. today could close a $4M+ deal this month.</p>
       </div>
@@ -349,19 +349,19 @@ function BriefingSection({ name }: { name: string }) {
           <div>
             <div className="flex justify-between text-sm mb-1.5">
               <span className="text-gray-600">Lead follow-ups completed</span>
-              <span className="font-bold text-purple-700">0 / 7</span>
+              <span className="font-bold text-[#D4AF37]">0 / 7</span>
             </div>
             <div className="w-full bg-gray-100 rounded-full h-2.5">
-              <div className="bg-gradient-to-r from-purple-600 to-pink-600 h-2.5 rounded-full" style={{ width: "0%" }} />
+              <div className="bg-[#0A192F] h-2.5 rounded-full" style={{ width: "0%" }} />
             </div>
           </div>
           <div>
             <div className="flex justify-between text-sm mb-1.5">
               <span className="text-gray-600">Calls made today</span>
-              <span className="font-bold text-purple-700">0 / 5</span>
+              <span className="font-bold text-[#D4AF37]">0 / 5</span>
             </div>
             <div className="w-full bg-gray-100 rounded-full h-2.5">
-              <div className="bg-gradient-to-r from-purple-600 to-pink-600 h-2.5 rounded-full" style={{ width: "0%" }} />
+              <div className="bg-[#0A192F] h-2.5 rounded-full" style={{ width: "0%" }} />
             </div>
           </div>
         </div>
@@ -382,7 +382,7 @@ function LeadsSection() {
     <div className="p-8 max-w-7xl">
       <div className="flex items-center justify-between mb-6">
         <h1 className="text-2xl font-bold text-gray-900">🎯 My Leads</h1>
-        <button className="px-4 py-2 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-semibold rounded-lg hover:opacity-90 transition text-sm shadow-sm">
+        <button className="px-4 py-2 bg-[#0A192F] text-white font-semibold rounded-lg hover:opacity-90 transition text-sm shadow-sm">
           + Import Leads
         </button>
       </div>
@@ -428,7 +428,7 @@ function LeadsSection() {
               <tr key={lead.name} className="hover:bg-gray-50 transition">
                 <td className="px-5 py-3">
                   <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 rounded-full bg-gradient-to-br from-purple-400 to-pink-400 flex items-center justify-center text-white text-xs font-bold shrink-0">
+                    <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#D4AF37] to-[#B5952F] flex items-center justify-center text-white text-xs font-bold shrink-0">
                       {lead.name[0]}
                     </div>
                     <span className="text-sm font-semibold text-gray-900">{lead.name}</span>
@@ -437,7 +437,7 @@ function LeadsSection() {
                 <td className="px-5 py-3">
                   <div className="flex items-center gap-2">
                     <div className="w-14 bg-gray-100 rounded-full h-1.5">
-                      <div className="bg-gradient-to-r from-purple-500 to-pink-500 h-1.5 rounded-full" style={{ width: `${lead.score}%` }} />
+                      <div className="bg-[#D4AF37] h-1.5 rounded-full" style={{ width: `${lead.score}%` }} />
                     </div>
                     <span className="text-sm font-bold text-gray-900">{lead.score}</span>
                   </div>
@@ -452,7 +452,7 @@ function LeadsSection() {
                 <td className="px-5 py-3 text-sm text-gray-500">{lead.lastContact}</td>
                 <td className="px-5 py-3">
                   <div className="flex gap-2">
-                    <button className="text-xs text-white bg-purple-600 px-2.5 py-1 rounded-lg hover:bg-purple-700 transition font-medium">Call</button>
+                    <button className="text-xs text-white bg-[#D4AF37] px-2.5 py-1 rounded-lg hover:bg-[#B5952F] transition font-medium">Call</button>
                     <button className="text-xs text-gray-600 border border-gray-200 px-2.5 py-1 rounded-lg hover:bg-gray-50 transition font-medium">Email</button>
                     <button className="text-xs text-gray-600 border border-gray-200 px-2.5 py-1 rounded-lg hover:bg-gray-50 transition font-medium">View</button>
                   </div>

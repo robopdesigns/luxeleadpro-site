@@ -8,7 +8,7 @@ export default function ThankYouPage() {
       <Header />
       <main className="min-h-[70vh] flex items-center justify-center px-4 bg-white">
         <div className="max-w-lg text-center">
-          <div className="w-20 h-20 rounded-full bg-gradient-to-br from-purple-600 to-pink-600 flex items-center justify-center mx-auto mb-6">
+          <div className="w-20 h-20 rounded-full bg-[#0A192F] flex items-center justify-center mx-auto mb-6">
             <span className="text-4xl">✅</span>
           </div>
           <h1 className="text-3xl font-display font-bold text-gray-900 mb-4">Thank You!</h1>
@@ -17,10 +17,10 @@ export default function ThankYouPage() {
             One of our team members will reach out within 24 hours.
           </p>
           <div className="space-y-3">
-            <Link href="https://calendly.com/robopdesigns/strategy-call" className="block w-full py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-semibold rounded-xl hover:opacity-90 transition shadow-md text-center">
+            <Link href="https://calendly.com/robopdesigns/strategy-call" className="block w-full py-3 bg-[#0A192F] text-white font-semibold rounded-xl hover:opacity-90 transition shadow-md text-center">
               Book a Strategy Call Now →
             </Link>
-            <Link href="/" className="block w-full py-3 border-2 border-gray-200 text-gray-700 font-semibold rounded-xl hover:border-purple-300 transition text-center">
+            <Link href="/" className="block w-full py-3 border-2 border-gray-200 text-gray-700 font-semibold rounded-xl hover:border-[#D4AF37]/30 transition text-center">
               Back to Home
             </Link>
           </div>

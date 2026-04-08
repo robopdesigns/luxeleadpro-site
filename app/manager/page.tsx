@@ -36,7 +36,7 @@ function ManagerSidebar({ active, onSelect, name }: { active: ManagerSection; on
       {/* Logo */}
       <div className="px-6 py-5 border-b border-gray-100">
         <div className="flex items-center gap-2">
-          <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-purple-600 to-pink-600 flex items-center justify-center text-white text-xs font-bold">L</div>
+          <div className="w-8 h-8 rounded-lg bg-[#0A192F] flex items-center justify-center text-white text-xs font-bold">L</div>
           <span className="font-bold text-gray-900 text-lg">LuxeLeadPro</span>
         </div>
         <p className="text-xs text-gray-500 mt-1 ml-10">Manager Portal</p>
@@ -49,7 +49,7 @@ function ManagerSidebar({ active, onSelect, name }: { active: ManagerSection; on
             onClick={() => onSelect(item.id)}
             className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all text-left
               ${active === item.id
-                ? "bg-purple-50 text-purple-700 border-l-4 border-purple-600 pl-2"
+                ? "bg-[#D4AF37]/10 text-[#D4AF37] border-l-4 border-[#D4AF37] pl-2"
                 : "text-gray-600 hover:bg-gray-50 hover:text-gray-900"
               }`}
           >
@@ -61,12 +61,12 @@ function ManagerSidebar({ active, onSelect, name }: { active: ManagerSection; on
       {/* Bottom */}
       <div className="px-4 py-4 border-t border-gray-100">
         <div className="flex items-center gap-3 px-2 py-2 rounded-lg hover:bg-gray-50 cursor-pointer">
-          <div className="w-8 h-8 rounded-full bg-gradient-to-br from-purple-600 to-pink-600 flex items-center justify-center text-white text-xs font-bold">
+          <div className="w-8 h-8 rounded-full bg-[#0A192F] flex items-center justify-center text-white text-xs font-bold">
             {name[0] || "M"}
           </div>
           <div className="flex-1 min-w-0">
             <p className="text-sm font-medium text-gray-900 truncate">{name}</p>
-            <p className="text-xs text-purple-600 truncate font-medium">Manager</p>
+            <p className="text-xs text-[#D4AF37] truncate font-medium">Manager</p>
           </div>
         </div>
       </div>
@@ -92,9 +92,9 @@ function OverviewSection({ name }: { name: string }) {
         <div className="bg-white border border-gray-200 rounded-xl p-5 shadow-sm">
           <div className="flex items-center justify-between mb-3">
             <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide">Total MRR</p>
-            <div className="w-8 h-8 rounded-lg bg-purple-50 flex items-center justify-center">💜</div>
+            <div className="w-8 h-8 rounded-lg bg-[#D4AF37]/10 flex items-center justify-center">💜</div>
           </div>
-          <p className="text-2xl font-bold text-purple-600">$0</p>
+          <p className="text-2xl font-bold text-[#D4AF37]">$0</p>
           <p className="text-xs text-gray-400 mt-1">Target: $10,000/mo</p>
         </div>
         <div className="bg-white border border-gray-200 rounded-xl p-5 shadow-sm">
@@ -139,12 +139,12 @@ function OverviewSection({ name }: { name: string }) {
         </div>
         <div className="w-full bg-gray-100 rounded-full h-4 mb-2">
           <div
-            className="bg-gradient-to-r from-purple-600 to-pink-600 h-4 rounded-full transition-all duration-500"
+            className="bg-[#0A192F] h-4 rounded-full transition-all duration-500"
             style={{ width: `${progress}%` }}
           />
         </div>
         <div className="flex justify-between text-sm text-gray-500">
-          <span className="font-semibold text-purple-600">$0 MRR</span>
+          <span className="font-semibold text-[#D4AF37]">$0 MRR</span>
           <span>Goal: $10,000 MRR</span>
         </div>
       </div>
@@ -155,7 +155,7 @@ function OverviewSection({ name }: { name: string }) {
         <div className="bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden">
           <div className="px-6 py-4 border-b border-gray-100 flex items-center justify-between">
             <h2 className="font-bold text-gray-900">👥 Agent Leaderboard</h2>
-            <button className="text-xs text-purple-600 font-semibold hover:underline">View All</button>
+            <button className="text-xs text-[#D4AF37] font-semibold hover:underline">View All</button>
           </div>
           <table className="w-full">
             <thead>
@@ -171,9 +171,9 @@ function OverviewSection({ name }: { name: string }) {
               <tr className="border-b border-gray-50 hover:bg-gray-50">
                 <td className="px-4 py-3">
                   <div className="flex items-center gap-2">
-                    <div className="w-7 h-7 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center text-white text-xs font-bold">R</div>
+                    <div className="w-7 h-7 rounded-full bg-[#D4AF37] flex items-center justify-center text-white text-xs font-bold">R</div>
                     <span className="text-sm font-semibold text-gray-900">Rob Podgorski</span>
-                    <span className="text-xs bg-purple-100 text-purple-700 px-1.5 py-0.5 rounded font-medium">Owner</span>
+                    <span className="text-xs bg-[#D4AF37]/10 text-[#D4AF37] px-1.5 py-0.5 rounded font-medium">Owner</span>
                   </div>
                 </td>
                 <td className="px-4 py-3 text-sm text-gray-600">0</td>
@@ -184,7 +184,7 @@ function OverviewSection({ name }: { name: string }) {
               <tr>
                 <td colSpan={5} className="px-4 py-8 text-center">
                   <p className="text-gray-400 text-sm">No other agents yet</p>
-                  <button className="mt-2 text-xs text-purple-600 font-semibold hover:underline">+ Invite an agent</button>
+                  <button className="mt-2 text-xs text-[#D4AF37] font-semibold hover:underline">+ Invite an agent</button>
                 </td>
               </tr>
             </tbody>
@@ -213,7 +213,7 @@ function OverviewSection({ name }: { name: string }) {
       <div className="bg-white border border-gray-200 rounded-xl shadow-sm p-6 mb-8">
         <h2 className="font-bold text-gray-900 mb-4">⚡ Quick Actions</h2>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-          <button className="flex items-center gap-2 px-4 py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-semibold rounded-lg hover:opacity-90 transition text-sm shadow-sm justify-center">
+          <button className="flex items-center gap-2 px-4 py-3 bg-[#0A192F] text-white font-semibold rounded-lg hover:opacity-90 transition text-sm shadow-sm justify-center">
             ➕ Add Agent
           </button>
           <button className="flex items-center gap-2 px-4 py-3 bg-white border border-gray-300 text-gray-700 font-semibold rounded-lg hover:bg-gray-50 transition text-sm justify-center">
@@ -237,7 +237,7 @@ function OverviewSection({ name }: { name: string }) {
         <div className="grid grid-cols-2 lg:grid-cols-4 divide-x divide-y lg:divide-y-0 divide-gray-100">
           {commissionTiers.map((tier) => {
             const colorMap: Record<string, { bg: string; text: string; badge: string }> = {
-              purple: { bg: "bg-purple-50", text: "text-purple-700", badge: "bg-purple-100 text-purple-700" },
+              purple: { bg: "bg-[#D4AF37]/10", text: "text-[#D4AF37]", badge: "bg-[#D4AF37]/10 text-[#D4AF37]" },
               blue: { bg: "bg-blue-50", text: "text-blue-700", badge: "bg-blue-100 text-blue-700" },
               orange: { bg: "bg-orange-50", text: "text-orange-600", badge: "bg-orange-100 text-orange-700" },
               pink: { bg: "bg-pink-50", text: "text-pink-700", badge: "bg-pink-100 text-pink-700" },
@@ -265,10 +265,10 @@ function RevenueSection() {
       <h1 className="text-2xl font-bold text-gray-900 mb-6">💰 Revenue & Commissions</h1>
       {/* MRR Chart Placeholder */}
       <div className="bg-white border border-gray-200 rounded-xl p-8 shadow-sm mb-6 text-center">
-        <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-purple-50 flex items-center justify-center text-3xl">📊</div>
+        <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-[#D4AF37]/10 flex items-center justify-center text-3xl">📊</div>
         <h3 className="text-lg font-bold text-gray-900 mb-2">MRR Chart</h3>
         <p className="text-gray-500 text-sm mb-4">Connect Stripe to see live revenue data</p>
-        <button className="px-6 py-2 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-semibold rounded-lg hover:opacity-90 transition text-sm shadow-sm">
+        <button className="px-6 py-2 bg-[#0A192F] text-white font-semibold rounded-lg hover:opacity-90 transition text-sm shadow-sm">
           Connect Stripe →
         </button>
       </div>
@@ -281,7 +281,7 @@ function RevenueSection() {
           <p className="text-4xl mb-3">🏆</p>
           <h3 className="font-semibold text-gray-900 mb-1">No customers yet</h3>
           <p className="text-gray-500 text-sm">Your paying customers will appear here once they sign up.</p>
-          <button className="mt-4 px-6 py-2 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-semibold rounded-lg hover:opacity-90 transition text-sm shadow-sm">
+          <button className="mt-4 px-6 py-2 bg-[#0A192F] text-white font-semibold rounded-lg hover:opacity-90 transition text-sm shadow-sm">
             Share Pricing Page →
           </button>
         </div>
@@ -304,17 +304,17 @@ function AgentsSection() {
     <div className="p-8 max-w-7xl">
       <div className="flex items-center justify-between mb-6">
         <h1 className="text-2xl font-bold text-gray-900">👥 Agent Performance</h1>
-        <button className="px-4 py-2 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-semibold rounded-lg hover:opacity-90 transition text-sm shadow-sm">
+        <button className="px-4 py-2 bg-[#0A192F] text-white font-semibold rounded-lg hover:opacity-90 transition text-sm shadow-sm">
           + Invite Agent
         </button>
       </div>
       <div className="bg-white border border-gray-200 rounded-xl p-16 shadow-sm text-center">
-        <div className="w-20 h-20 mx-auto mb-5 rounded-full bg-purple-50 flex items-center justify-center text-4xl">👥</div>
+        <div className="w-20 h-20 mx-auto mb-5 rounded-full bg-[#D4AF37]/10 flex items-center justify-center text-4xl">👥</div>
         <h3 className="text-lg font-bold text-gray-900 mb-2">No agents yet</h3>
         <p className="text-gray-500 text-sm mb-6 max-w-sm mx-auto">
           Invite your first sales agent to get started. They&apos;ll get access to the agent portal and AI-powered lead tools.
         </p>
-        <button className="px-8 py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-semibold rounded-lg hover:opacity-90 transition shadow-sm">
+        <button className="px-8 py-3 bg-[#0A192F] text-white font-semibold rounded-lg hover:opacity-90 transition shadow-sm">
           Invite Your First Agent →
         </button>
       </div>

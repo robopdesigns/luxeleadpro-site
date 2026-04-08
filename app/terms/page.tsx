@@ -51,7 +51,7 @@ export default function TermsPage() {
           <p className="text-white/80">
             For questions, contact
             {" "}
-            <a className="text-purple-300 hover:text-purple-200" href="mailto:robopdesigns@gmail.com">
+            <a className="text-purple-300 hover:text-[#D4AF37]/40" href="mailto:robopdesigns@gmail.com">
               robopdesigns@gmail.com
             </a>
             .
