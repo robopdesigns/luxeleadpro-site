@@ -85,8 +85,8 @@ export default function HomePage() {
                 {/* Stats */}
                 <div className="grid grid-cols-3 gap-3 mb-6">
                   {[
-                    { label: 'Hot Leads', value: '12', color: 'from-[#D4AF37] to-[#D4AF37]' },
-                    { label: 'Close Rate', value: '8.2%', color: 'from-green-500 to-green-600' },
+                    { label: 'Hot Leads', value: '12', color: 'from-emerald-500 to-emerald-600' },
+                    { label: 'Close Rate', value: '8.2%', color: 'from-amber-500 to-amber-600' },
                     { label: 'Pipeline', value: '$2.8M', color: 'from-pink-500 to-pink-600' },
                   ].map((stat, i) => (
                     <div key={i} className={`bg-gradient-to-br ${stat.color} rounded-xl p-3 text-white`}>

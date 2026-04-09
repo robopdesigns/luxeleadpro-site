@@ -77,7 +77,7 @@ export function Header() {
                 </Link>
                 <Link
                   href="https://calendly.com/robopdesigns/strategy-call"
-                  className="px-4 py-2 text-sm rounded-md bg-[#D4AF37] text-white font-medium hover:bg-[#B5952F] hover:shadow-md hover:-translate-y-0.5 transition-all shadow-sm"
+                  className="px-4 py-2.5 text-sm rounded-lg bg-[#D4AF37] text-[#0A192F] font-semibold hover:bg-[#C4A030] transition-all shadow-sm"
                 >
                   Request Demo
                 </Link>
