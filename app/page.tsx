@@ -14,7 +14,7 @@ export default function HomePage() {
       <section className="relative px-4 pt-8 pb-16 sm:pt-20 sm:pb-24 lg:pt-28 lg:pb-32 overflow-hidden">
         {/* Subtle gradient background blob */}
         <div className="absolute inset-0 -z-10">
-          <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-[#D4AF37]/10 rounded-full opacity-30 blur-3xl translate-x-1/3 -translate-y-1/4" />
+          <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-[#D4AF37]/8 rounded-full opacity-20 blur-3xl translate-x-1/3 -translate-y-1/4" />
           <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-[#D4AF37]/5 rounded-full opacity-20 blur-3xl -translate-x-1/4 translate-y-1/4" />
         </div>
 
@@ -308,8 +308,8 @@ export default function HomePage() {
                 price: '$749',
                 sub: '/month',
                 features: ['Everything in Intelligence', '15–25 Verified Luxury Leads/mo', 'Targeted Ad Campaigns', 'Pre-scored Leads (60+ only)', 'AI Account Manager'],
-                popular: true,
-                badge: 'Most Popular',
+                popular: false,
+                badge: 'Most Exclusive',
                 cta: 'Get Qualified Leads',
               },
               {
@@ -317,7 +317,7 @@ export default function HomePage() {
                 price: '$1,499',
                 sub: '/month',
                 features: ['Everything in Generation', '30–50 Leads/mo', 'ZIP Code Exclusivity', 'AI Auto-outreach', 'White-Glove Onboarding'],
-                popular: false,
+                popular: true,
                 badge: null,
                 cta: 'Claim Your Territory',
               },

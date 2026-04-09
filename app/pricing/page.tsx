@@ -26,7 +26,7 @@ const tiers = [
     price: "$749",
     period: "/mo",
     description: "We find and score luxury leads for you — delivered to your dashboard",
-    popular: true,
+    popular: false,
     cta: "Get Qualified Leads",
     features: [
       "Everything in Intelligence",
@@ -43,7 +43,7 @@ const tiers = [
     price: "$1,499",
     period: "/mo",
     description: "Own your ZIP code. No competition. Maximum exclusivity.",
-    popular: false,
+    popular: true,
     cta: "Claim Your Territory",
     features: [
       "Everything in Intelligence + Generation",
