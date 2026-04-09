@@ -1,0 +1,186 @@
+<!--
+IMPLEMENTATION NOTES FOR CLAUDE/OPUS:
+
+PAGE: Login (Agent / Manager / Owner — same layout, different title text)
+ROUTE: /agent/login, /manager/login, /owner/login
+FILE: app/(auth)/login/page.tsx — use a single component with role prop
+
+COMPONENTS USED:
+- LoginBrandPanel (components/auth/LoginBrandPanel.tsx)
+- LoginForm (components/auth/LoginForm.tsx)
+- NO Header or Footer on login pages — clean, distraction-free
+
+CSS VARIABLES USED:
+- var(--bg-base) #FAFAF8 for form panel background
+- var(--bg-surface) #FFFFFF for input backgrounds
+- var(--bg-elevated) #F8F6F3 for brand panel gradient base
+- var(--text-primary) #0A192F for headings
+- var(--gold) #D4AF37 for Sign In button, links, stat accents
+- var(--border-default) #E8E5DE for input borders
+
+KEY STYLING NOTES:
+- 50/50 split layout: left = brand panel, right = form panel
+- Brand panel uses warm ivory gradient (NOT dark navy)
+- Brand panel shows: gold logo mark, Playfair headline, subtext, 3 stat callouts
+- Form panel: Playfair h2, Inter body, gold Sign In button (full width)
+- All inputs: 48px height, gold focus ring, uppercase tracked labels
+- Links (forgot password, sign up): gold text
+- Role switcher at bottom: "Are you a manager? Manager Login" in gold
+- On mobile: brand panel stacks above form panel
+- NO emojis anywhere
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Agent Login — LuxeLeadPro</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg-base:#FAFAF8;--bg-surface:#FFFFFF;--bg-elevated:#F8F6F3;--text-primary:#0A192F;--text-secondary:#4A5568;--text-muted:#718096;--border-default:#E8E5DE;--border-subtle:#F0EDE6;--gold:#D4AF37;--gold-hover:#B5952F;--gold-muted:rgba(212,175,55,0.12);--navy:#0A192F;--deep:#050B14}
+.dark{--bg-base:#050B14;--bg-surface:#0A192F;--bg-elevated:#112240;--text-primary:#F8FAFC;--text-secondary:#94A3B8;--text-muted:#64748B;--border-default:#1E293B;--border-subtle:#0F172A}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',-apple-system,sans-serif;background:var(--bg-base);color:var(--text-primary);-webkit-font-smoothing:antialiased;line-height:1.6;transition:background .3s,color .3s;min-height:100vh}
+a{text-decoration:none;color:inherit}
+
+/* Login Layout */
+.login-layout{display:grid;grid-template-columns:1fr 1fr;min-height:100vh}
+
+/* Brand Panel */
+.brand-panel{background:linear-gradient(135deg,#F5F0E8 0%,#EDE8DD 100%);padding:48px;display:flex;flex-direction:column;justify-content:center;position:relative;overflow:hidden}
+.dark .brand-panel{background:linear-gradient(135deg,#0A192F 0%,#112240 100%)}
+.brand-panel::after{content:'';position:absolute;top:-100px;right:-100px;width:300px;height:300px;background:radial-gradient(circle,rgba(212,175,55,0.08) 0%,transparent 70%);border-radius:50%}
+.brand-panel .logo-mark{margin-bottom:48px}
+.brand-panel .logo-mark svg{width:40px;height:40px}
+.brand-panel h2{font-family:'Playfair Display',serif;font-size:36px;font-weight:700;line-height:1.2;color:var(--text-primary);margin-bottom:16px}
+.brand-panel h2 .accent{color:var(--gold)}
+.brand-panel .sub{font-size:15px;line-height:1.7;color:var(--text-secondary);margin-bottom:48px;max-width:360px}
+.login-stats{display:flex;gap:40px}
+.login-stat .value{font-family:'JetBrains Mono',monospace;font-size:28px;font-weight:700;color:var(--text-primary)}
+.login-stat .value.gold{color:var(--gold)}
+.login-stat .label{font-size:12px;color:var(--text-muted);margin-top:2px}
+
+/* Form Panel */
+.form-panel{background:var(--bg-surface);padding:48px;display:flex;flex-direction:column;justify-content:center;max-width:480px;margin:0 auto;width:100%}
+.form-panel h2{font-family:'Playfair Display',serif;font-size:28px;font-weight:700;color:var(--text-primary);margin-bottom:6px}
+.form-panel .form-sub{font-size:14px;color:var(--text-muted);margin-bottom:36px}
+
+/* Form Elements */
+.form-group{margin-bottom:20px}
+.form-group label{display:block;font-family:'Inter',sans-serif;font-size:11px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-secondary);margin-bottom:8px}
+.form-group input{width:100%;height:48px;padding:0 16px;background:var(--bg-base);border:1.5px solid var(--border-default);border-radius:8px;font-family:'Inter',sans-serif;font-size:14px;color:var(--text-primary);transition:all .2s;outline:none}
+.form-group input:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(212,175,55,0.15)}
+.form-group input::placeholder{color:var(--text-muted)}
+
+.form-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px}
+.form-row label{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--text-secondary);cursor:pointer}
+.form-row label input[type="checkbox"]{width:16px;height:16px;accent-color:var(--gold)}
+.form-row a{font-size:13px;font-weight:600;color:var(--gold);transition:color .2s}
+.form-row a:hover{color:var(--gold-hover)}
+
+.btn-gold{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;height:48px;background:var(--gold);color:var(--navy);font-family:'Inter',sans-serif;font-size:15px;font-weight:600;border-radius:8px;border:none;cursor:pointer;transition:all .2s;box-shadow:0 2px 8px rgba(212,175,55,0.25)}
+.btn-gold:hover{background:var(--gold-hover);box-shadow:0 4px 16px rgba(212,175,55,0.35);transform:translateY(-1px)}
+
+.form-links{text-align:center;margin-top:24px}
+.form-links a{color:var(--gold);font-weight:600;font-size:14px;transition:color .2s}
+.form-links a:hover{color:var(--gold-hover);text-decoration:underline}
+.form-links p{font-size:14px;color:var(--text-muted);margin-top:12px}
+
+.divider{display:flex;align-items:center;gap:16px;margin:24px 0}
+.divider::before,.divider::after{content:'';flex:1;height:1px;background:var(--border-default)}
+.divider span{font-size:12px;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;font-weight:600}
+
+.btn-social{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;height:48px;background:transparent;border:1.5px solid var(--border-default);border-radius:8px;font-family:'Inter',sans-serif;font-size:14px;font-weight:500;color:var(--text-primary);cursor:pointer;transition:all .2s}
+.btn-social:hover{border-color:var(--gold);color:var(--gold)}
+.btn-social svg{width:18px;height:18px}
+
+/* Theme toggle in corner */
+.corner-toggle{position:fixed;top:16px;right:16px;width:40px;height:40px;background:var(--bg-elevated);border:1px solid var(--border-default);border-radius:8px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--text-muted);transition:all .2s;z-index:10}
+.corner-toggle:hover{border-color:var(--gold);color:var(--gold)}
+
+@media(max-width:768px){
+  .login-layout{grid-template-columns:1fr}
+  .brand-panel{padding:32px;min-height:auto}
+  .brand-panel h2{font-size:28px}
+  .login-stats{gap:24px}
+  .login-stat .value{font-size:22px}
+  .form-panel{padding:32px}
+}
+</style>
+</head>
+<body>
+
+<!-- Theme Toggle -->
+<button class="corner-toggle" onclick="document.documentElement.classList.toggle('dark')">
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+</button>
+
+<div class="login-layout">
+  <!-- BRAND PANEL -->
+  <div class="brand-panel">
+    <div class="logo-mark">
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <polyline points="15,70 50,25 85,70" stroke="#D4AF37" stroke-width="7" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="50" cy="25" r="4" fill="#D4AF37"/>
+        <line x1="50" y1="70" x2="50" y2="45" stroke="#D4AF37" stroke-width="5" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <h2>Welcome back.<br>Your <span class="accent">leads</span> are waiting.</h2>
+    <p class="sub">Your AI briefing was delivered at 6:00 AM this morning. 3 new hot leads are ready for your review.</p>
+    <div class="login-stats">
+      <div class="login-stat">
+        <div class="value gold">12</div>
+        <div class="label">Hot Leads Today</div>
+      </div>
+      <div class="login-stat">
+        <div class="value">$2.8M</div>
+        <div class="label">Pipeline Value</div>
+      </div>
+      <div class="login-stat">
+        <div class="value gold">92</div>
+        <div class="label">Top AI Score</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FORM PANEL -->
+  <div style="display:flex;align-items:center;justify-content:center;background:var(--bg-surface)">
+    <div class="form-panel">
+      <h2>Agent Login</h2>
+      <p class="form-sub">Access your lead management dashboard</p>
+
+      <div class="form-group">
+        <label>Email Address</label>
+        <input type="email" placeholder="you@example.com">
+      </div>
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password" placeholder="Enter your password">
+      </div>
+
+      <div class="form-row">
+        <label><input type="checkbox"> Remember me</label>
+        <a href="/forgot-password">Forgot password?</a>
+      </div>
+
+      <button class="btn-gold">Sign In &#8594;</button>
+
+      <div class="divider"><span>or</span></div>
+
+      <button class="btn-social">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        Continue with Email Link
+      </button>
+
+      <div class="form-links">
+        <a href="/signup">Create an account</a>
+        <p>Are you a manager? <a href="/manager/login">Manager Login</a></p>
+        <p>Are you an owner? <a href="/owner/login">Owner Login</a></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>(function(){const s=localStorage.getItem('luxe-theme');if(s==='dark')document.documentElement.classList.add('dark');document.querySelector('.corner-toggle')?.addEventListener('click',function(){const d=document.documentElement.classList.toggle('dark');localStorage.setItem('luxe-theme',d?'dark':'light')})})()</script>
+</body>
+</html>

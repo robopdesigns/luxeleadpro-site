@@ -1,0 +1,272 @@
+<!--
+IMPLEMENTATION NOTES FOR CLAUDE/OPUS:
+
+PAGE: Territory Claim
+ROUTE: /territories (or /territory)
+FILE: app/territories/page.tsx
+
+COMPONENTS USED:
+- Header (shared: components/Header.tsx)
+- Footer (shared: components/Footer.tsx)
+- TerritoryHero (components/territory/TerritoryHero.tsx)
+- TerritorySearch (components/territory/TerritorySearch.tsx)
+- TerritoryFeatures (components/territory/TerritoryFeatures.tsx)
+- TerritoryHowItWorks (components/territory/TerritoryHowItWorks.tsx)
+- TerritoryCTA (components/territory/TerritoryCTA.tsx)
+
+CSS VARIABLES USED:
+- var(--bg-base) #FAFAF8 for main background
+- var(--bg-surface) #FFFFFF for cards and search box
+- var(--bg-elevated) #F8F6F3 for alternating sections
+- var(--text-primary) #0A192F for headings
+- var(--gold) #D4AF37 for CTAs, territory availability dots, search button
+- var(--border-default) #E8E5DE for card borders
+
+KEY STYLING NOTES:
+- Territory search input is 56px tall (larger than standard 48px) for prominence
+- Search button is solid gold
+- Available territories show pulsing green dot (same as market page)
+- Territory cards show ZIP code in JetBrains Mono, city name in Inter bold
+- "Claimed" territories are grayed out with strikethrough
+- Map placeholder uses bg-elevated with dashed border
+- This page drives $1,499/month conversions — every CTA is gold
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Claim Your Territory — LuxeLeadPro</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg-base:#FAFAF8;--bg-surface:#FFFFFF;--bg-elevated:#F8F6F3;--text-primary:#0A192F;--text-secondary:#4A5568;--text-muted:#718096;--border-default:#E8E5DE;--border-subtle:#F0EDE6;--gold:#D4AF37;--gold-hover:#B5952F;--gold-muted:rgba(212,175,55,0.12);--navy:#0A192F;--deep:#050B14;--shadow-sm:0 1px 3px rgba(10,25,47,0.04);--shadow-md:0 4px 16px rgba(10,25,47,0.06);--shadow-lg:0 8px 32px rgba(10,25,47,0.08);--shadow-gold:0 4px 24px rgba(212,175,55,0.15)}
+.dark{--bg-base:#050B14;--bg-surface:#0A192F;--bg-elevated:#112240;--text-primary:#F8FAFC;--text-secondary:#94A3B8;--text-muted:#64748B;--border-default:#1E293B;--border-subtle:#0F172A}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',-apple-system,sans-serif;background:var(--bg-base);color:var(--text-primary);-webkit-font-smoothing:antialiased;line-height:1.6;transition:background .3s,color .3s}
+a{text-decoration:none;color:inherit}
+
+/* Header */
+.header{position:sticky;top:0;z-index:100;background:rgba(250,250,248,0.92);backdrop-filter:blur(20px);border-bottom:1px solid var(--border-subtle);transition:background .3s}
+.dark .header{background:rgba(5,11,20,0.92)}
+.header-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:16px 32px}
+.logo{display:flex;align-items:center;gap:10px}
+.logo svg{width:32px;height:32px}
+.logo-text{font-size:20px;font-weight:300;color:var(--text-primary);letter-spacing:-0.3px}
+.logo-text strong{font-weight:700}
+.logo-text .pro{color:var(--gold);font-weight:700}
+.nav-links{display:flex;align-items:center;gap:32px;list-style:none}
+.nav-links a{font-size:14px;font-weight:500;color:var(--text-secondary);transition:color .2s}
+.nav-links a:hover{color:var(--text-primary)}
+.nav-cta{background:var(--gold)!important;color:var(--navy)!important;font-weight:600!important;padding:10px 24px!important;border-radius:8px!important;border:none;cursor:pointer;transition:all .2s!important}
+.nav-cta:hover{background:var(--gold-hover)!important}
+.theme-toggle{width:40px;height:40px;background:var(--bg-elevated);border:1px solid var(--border-default);border-radius:8px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--text-muted);transition:all .2s}
+.theme-toggle:hover{border-color:var(--gold);color:var(--gold)}
+
+/* Territory Hero */
+.t-hero{padding:80px 32px 64px;text-align:center}
+.t-hero .label{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:12px}
+.t-hero h1{font-family:'Playfair Display',serif;font-size:48px;font-weight:700;color:var(--text-primary);margin-bottom:16px}
+.t-hero h1 .accent{color:var(--gold)}
+.t-hero p{font-size:17px;color:var(--text-secondary);max-width:600px;margin:0 auto 40px}
+
+/* Territory Search */
+.t-search{max-width:640px;margin:0 auto;display:flex;gap:12px}
+.t-search input{flex:1;height:56px;padding:0 20px;background:var(--bg-surface);border:1.5px solid var(--border-default);border-radius:10px;font-family:'Inter',sans-serif;font-size:16px;color:var(--text-primary);outline:none;transition:all .2s}
+.t-search input:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(212,175,55,0.15)}
+.t-search input::placeholder{color:var(--text-muted)}
+.t-search button{height:56px;padding:0 32px;background:var(--gold);color:var(--navy);font-family:'Inter',sans-serif;font-size:15px;font-weight:600;border:none;border-radius:10px;cursor:pointer;transition:all .2s;white-space:nowrap}
+.t-search button:hover{background:var(--gold-hover)}
+
+/* Territory Grid */
+.t-grid-section{max-width:1200px;margin:64px auto;padding:0 32px}
+.t-grid-section h2{font-family:'Playfair Display',serif;font-size:32px;font-weight:700;color:var(--text-primary);margin-bottom:8px}
+.t-grid-section .sub{font-size:15px;color:var(--text-secondary);margin-bottom:32px}
+.t-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.t-card{background:var(--bg-surface);border:1px solid var(--border-default);border-radius:12px;padding:24px;display:flex;justify-content:space-between;align-items:center;transition:all .2s}
+.t-card:hover{box-shadow:var(--shadow-md);transform:translateY(-1px)}
+.t-card .zip{font-family:'JetBrains Mono',monospace;font-size:20px;font-weight:700;color:var(--text-primary)}
+.t-card .city{font-size:14px;color:var(--text-secondary);margin-top:2px}
+.t-card .status{display:flex;align-items:center;gap:6px;font-size:12px;font-weight:600}
+.t-card .status.available{color:#16A34A}
+.t-card .status.available::before{content:'';width:8px;height:8px;background:#16A34A;border-radius:50%;animation:pulse 2s infinite}
+.t-card .status.claimed{color:var(--text-muted)}
+.t-card.claimed-card{opacity:0.5}
+.t-card.claimed-card .zip{text-decoration:line-through}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
+
+/* Features */
+.t-features{background:var(--bg-elevated);padding:80px 32px;border-top:1px solid var(--border-default);border-bottom:1px solid var(--border-default)}
+.t-features-inner{max-width:1200px;margin:0 auto}
+.t-features h2{font-family:'Playfair Display',serif;font-size:36px;font-weight:700;text-align:center;color:var(--text-primary);margin-bottom:48px}
+.feat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:32px}
+.feat-card{background:var(--bg-surface);border:1px solid var(--border-default);border-radius:12px;padding:32px;text-align:center}
+.feat-card .icon{width:56px;height:56px;background:var(--gold-muted);border-radius:14px;display:flex;align-items:center;justify-content:center;margin:0 auto 20px}
+.feat-card .icon svg{width:24px;height:24px;stroke:var(--gold);stroke-width:2;fill:none}
+.feat-card h3{font-size:18px;font-weight:700;color:var(--text-primary);margin-bottom:10px}
+.feat-card p{font-size:14px;line-height:1.7;color:var(--text-secondary)}
+
+/* How Territory Works */
+.t-how{padding:80px 32px;max-width:800px;margin:0 auto}
+.t-how h2{font-family:'Playfair Display',serif;font-size:36px;font-weight:700;text-align:center;color:var(--text-primary);margin-bottom:48px}
+.t-steps{display:flex;flex-direction:column;gap:24px}
+.t-step{display:flex;gap:24px;align-items:flex-start}
+.t-step .num{font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:700;color:var(--gold);background:var(--gold-muted);width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.t-step h3{font-size:16px;font-weight:700;color:var(--text-primary);margin-bottom:4px}
+.t-step p{font-size:14px;line-height:1.7;color:var(--text-secondary)}
+
+/* CTA */
+.t-cta{background:var(--bg-base);padding:80px 32px;text-align:center;border-top:1px solid var(--border-default)}
+.t-cta h2{font-family:'Playfair Display',serif;font-size:36px;font-weight:700;color:var(--text-primary);margin-bottom:16px}
+.t-cta p{font-size:16px;color:var(--text-secondary);margin-bottom:32px;max-width:480px;margin-left:auto;margin-right:auto}
+.btn-gold{display:inline-flex;align-items:center;gap:8px;background:var(--gold);color:var(--navy);font-family:'Inter',sans-serif;font-size:15px;font-weight:600;padding:14px 32px;border-radius:8px;border:none;cursor:pointer;transition:all .2s;box-shadow:0 2px 8px rgba(212,175,55,0.25)}
+.btn-gold:hover{background:var(--gold-hover);box-shadow:0 4px 16px rgba(212,175,55,0.35);transform:translateY(-1px)}
+.spots{font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:600;color:var(--gold);margin-top:16px}
+
+/* Footer */
+.footer{background:#050B14;padding:56px 32px 32px;color:#94A3B8}
+.footer-inner{max-width:1200px;margin:0 auto}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;margin-bottom:48px}
+.footer-brand .f-logo{display:flex;align-items:center;gap:10px;margin-bottom:16px}
+.footer-brand .f-logo svg{width:28px;height:28px}
+.footer-brand .f-logo span{font-size:18px;font-weight:300;color:#E2E8F0}
+.footer-brand .f-logo span strong{font-weight:700}
+.footer-brand .f-logo span .pro{color:var(--gold)}
+.footer-brand p{font-size:14px;line-height:1.7;color:#64748B;max-width:300px}
+.footer-col h4{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#E2E8F0;margin-bottom:16px}
+.footer-col a{display:block;font-size:14px;color:#64748B;padding:4px 0;transition:color .2s}
+.footer-col a:hover{color:var(--gold)}
+.footer-bottom{border-top:1px solid #1E293B;padding-top:24px;display:flex;justify-content:space-between;align-items:center}
+.footer-bottom .copy{font-size:13px;color:#475569}
+.footer-bottom .social{display:flex;gap:12px}
+.footer-bottom .social a{width:36px;height:36px;border:1px solid #1E293B;border-radius:8px;display:flex;align-items:center;justify-content:center;color:#64748B;font-size:14px;transition:all .2s}
+.footer-bottom .social a:hover{border-color:var(--gold);color:var(--gold);background:rgba(212,175,55,0.08)}
+
+@media(max-width:1024px){.t-grid{grid-template-columns:repeat(2,1fr)}.feat-grid{grid-template-columns:1fr}.footer-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:768px){.t-hero h1{font-size:36px}.t-search{flex-direction:column}.t-grid{grid-template-columns:1fr}.nav-links{display:none}.footer-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="header-inner">
+    <a href="/" class="logo">
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><polyline points="15,70 50,25 85,70" stroke="#D4AF37" stroke-width="7" fill="none" stroke-linecap="round" stroke-linejoin="round"/><circle cx="50" cy="25" r="4" fill="#D4AF37"/><line x1="50" y1="70" x2="50" y2="45" stroke="#D4AF37" stroke-width="5" stroke-linecap="round"/></svg>
+      <span class="logo-text"><strong>Luxe</strong>Lead<span class="pro">Pro</span></span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="/">Home</a></li>
+      <li><a href="/pricing">Pricing</a></li>
+      <li><a href="/territory" style="color:var(--text-primary);font-weight:600">Territories</a></li>
+      <li><a href="/agent/login">Agent Login</a></li>
+      <li><button class="theme-toggle" onclick="document.documentElement.classList.toggle('dark')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></button></li>
+      <li><a href="/demo" class="nav-cta">Request Demo</a></li>
+    </ul>
+  </div>
+</header>
+
+<!-- TERRITORY HERO -->
+<section class="t-hero">
+  <div class="label">Exclusive Territories</div>
+  <h1>Own Your <span class="accent">Market</span></h1>
+  <p>Claim exclusive ZIP code territory. One agent per ZIP. All AI-generated luxury leads in your territory go to you — and only you.</p>
+  <div class="t-search">
+    <input type="text" placeholder="Enter ZIP code or city name...">
+    <button>Check Availability</button>
+  </div>
+</section>
+
+<!-- TERRITORY GRID -->
+<section class="t-grid-section">
+  <h2>Available Territories</h2>
+  <div class="sub">Premium luxury markets with high-net-worth buyer activity</div>
+  <div class="t-grid">
+    <div class="t-card"><div><div class="zip">85253</div><div class="city">Scottsdale, AZ</div></div><div class="status available">Available</div></div>
+    <div class="t-card"><div><div class="zip">90210</div><div class="city">Beverly Hills, CA</div></div><div class="status available">Available</div></div>
+    <div class="t-card claimed-card"><div><div class="zip">33109</div><div class="city">Fisher Island, FL</div></div><div class="status claimed">Claimed</div></div>
+    <div class="t-card"><div><div class="zip">10065</div><div class="city">Upper East Side, NY</div></div><div class="status available">Available</div></div>
+    <div class="t-card"><div><div class="zip">92657</div><div class="city">Newport Coast, CA</div></div><div class="status available">Available</div></div>
+    <div class="t-card claimed-card"><div><div class="zip">60611</div><div class="city">Gold Coast, Chicago</div></div><div class="status claimed">Claimed</div></div>
+    <div class="t-card"><div><div class="zip">78746</div><div class="city">Westlake Hills, TX</div></div><div class="status available">Available</div></div>
+    <div class="t-card"><div><div class="zip">89135</div><div class="city">Summerlin, Las Vegas</div></div><div class="status available">Available</div></div>
+    <div class="t-card"><div><div class="zip">30327</div><div class="city">Buckhead, Atlanta</div></div><div class="status available">Available</div></div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="t-features">
+  <div class="t-features-inner">
+    <h2>What You Get With Exclusive Territory</h2>
+    <div class="feat-grid">
+      <div class="feat-card">
+        <div class="icon"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+        <h3>ZIP Code Exclusivity</h3>
+        <p>You are the only LuxeLeadPro agent in your ZIP code. No competition from other platform users in your territory.</p>
+      </div>
+      <div class="feat-card">
+        <div class="icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+        <h3>30-50 Verified Leads/Month</h3>
+        <p>AI-targeted luxury buyer and seller leads delivered exclusively to you from targeted campaigns in your territory.</p>
+      </div>
+      <div class="feat-card">
+        <div class="icon"><svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
+        <h3>AI Auto-Outreach</h3>
+        <p>Our AI initiates personalized outreach sequences to warm leads before you even pick up the phone.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="t-how">
+  <h2>How Territory Claims Work</h2>
+  <div class="t-steps">
+    <div class="t-step">
+      <div class="num">01</div>
+      <div><h3>Check Availability</h3><p>Search for your target ZIP code above. If it shows as available, you can claim it immediately.</p></div>
+    </div>
+    <div class="t-step">
+      <div class="num">02</div>
+      <div><h3>Book a Strategy Call</h3><p>Our team walks you through the territory data — market size, lead volume projections, and competition analysis.</p></div>
+    </div>
+    <div class="t-step">
+      <div class="num">03</div>
+      <div><h3>Activate Your Territory</h3><p>Sign up for the Exclusive Territory plan at $1,499/month. Your ZIP is locked to you within 24 hours.</p></div>
+    </div>
+    <div class="t-step">
+      <div class="num">04</div>
+      <div><h3>Leads Start Flowing</h3><p>AI campaigns activate in your territory. Verified luxury leads start arriving within the first week.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="t-cta">
+  <h2>Ready to Own Your Market?</h2>
+  <p>Territories are claimed on a first-come, first-served basis. Once a ZIP is taken, it's gone.</p>
+  <a href="/demo" class="btn-gold">Claim Your Territory &#8594;</a>
+  <div class="spots">Only 14 of 50 founding spots remaining</div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="f-logo"><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" width="28" height="28"><polyline points="15,70 50,25 85,70" stroke="#D4AF37" stroke-width="7" fill="none" stroke-linecap="round" stroke-linejoin="round"/><circle cx="50" cy="25" r="4" fill="#D4AF37"/><line x1="50" y1="70" x2="50" y2="45" stroke="#D4AF37" stroke-width="5" stroke-linecap="round"/></svg><span><strong>Luxe</strong>Lead<span class="pro">Pro</span></span></div>
+        <p>AI-powered lead intelligence built exclusively for luxury real estate professionals in $1M+ markets.</p>
+      </div>
+      <div class="footer-col"><h4>Product</h4><a href="/pricing">Pricing</a><a href="/territory">Territories</a><a href="/demo">Request Demo</a></div>
+      <div class="footer-col"><h4>Company</h4><a href="/">About</a><a href="/">Blog</a><a href="/">Contact</a></div>
+      <div class="footer-col"><h4>Legal</h4><a href="/">Privacy Policy</a><a href="/">Terms of Service</a></div>
+    </div>
+    <div class="footer-bottom">
+      <span class="copy">&copy; 2026 LuxeLeadPro. All rights reserved.</span>
+      <div class="social"><a href="/">in</a><a href="/">X</a><a href="/">ig</a></div>
+    </div>
+  </div>
+</footer>
+
+<script>(function(){const s=localStorage.getItem('luxe-theme');if(s==='dark')document.documentElement.classList.add('dark');document.querySelector('.theme-toggle')?.addEventListener('click',function(){const d=document.documentElement.classList.toggle('dark');localStorage.setItem('luxe-theme',d?'dark':'light')})})()</script>
+</body>
+</html>

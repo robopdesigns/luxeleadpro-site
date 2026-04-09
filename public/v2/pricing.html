@@ -1,0 +1,327 @@
+<!--
+IMPLEMENTATION NOTES FOR CLAUDE/OPUS:
+
+PAGE: Pricing
+ROUTE: /pricing
+FILE: app/pricing/page.tsx
+
+COMPONENTS USED:
+- Header (shared: components/Header.tsx)
+- Footer (shared: components/Footer.tsx)
+- PricingHero (components/pricing/PricingHero.tsx)
+- PricingCards (components/pricing/PricingCards.tsx)
+- ComparisonTable (components/pricing/ComparisonTable.tsx)
+- FAQ (components/pricing/FAQ.tsx)
+- PricingCTA (components/pricing/PricingCTA.tsx)
+
+CSS VARIABLES USED:
+- var(--bg-base) #FAFAF8 for main background
+- var(--bg-surface) #FFFFFF for cards and table
+- var(--bg-elevated) #F8F6F3 for alternating table rows
+- var(--text-primary) #0A192F for headings
+- var(--gold) #D4AF37 for featured tier border, badge, price, CTA
+- var(--border-default) #E8E5DE for card borders
+
+KEY STYLING NOTES:
+- $1,499 Exclusive Territory card MUST be visually dominant: gold border, gold shadow, scale(1.03), z-index:2
+- $1,499 card has "MOST EXCLUSIVE" badge (gold bg, navy text) positioned at top
+- $1,499 price is colored gold; other prices are navy
+- $1,499 CTA is solid gold; other CTAs are outlined
+- Comparison table uses alternating bg-elevated rows
+- FAQ uses accordion pattern with gold accent on open state
+- All prices use Playfair Display; all data use JetBrains Mono
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pricing — LuxeLeadPro</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg-base: #FAFAF8; --bg-surface: #FFFFFF; --bg-elevated: #F8F6F3;
+  --text-primary: #0A192F; --text-secondary: #4A5568; --text-muted: #718096;
+  --border-default: #E8E5DE; --border-subtle: #F0EDE6;
+  --gold: #D4AF37; --gold-hover: #B5952F; --gold-muted: rgba(212,175,55,0.12);
+  --navy: #0A192F; --deep: #050B14;
+  --shadow-sm: 0 1px 3px rgba(10,25,47,0.04); --shadow-md: 0 4px 16px rgba(10,25,47,0.06);
+  --shadow-lg: 0 8px 32px rgba(10,25,47,0.08); --shadow-gold: 0 4px 24px rgba(212,175,55,0.15);
+}
+.dark {
+  --bg-base: #050B14; --bg-surface: #0A192F; --bg-elevated: #112240;
+  --text-primary: #F8FAFC; --text-secondary: #94A3B8; --text-muted: #64748B;
+  --border-default: #1E293B; --border-subtle: #0F172A;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.2); --shadow-md: 0 4px 16px rgba(0,0,0,0.3);
+  --shadow-lg: 0 8px 32px rgba(0,0,0,0.4);
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',-apple-system,sans-serif;background:var(--bg-base);color:var(--text-primary);-webkit-font-smoothing:antialiased;line-height:1.6;transition:background .3s,color .3s}
+a{text-decoration:none;color:inherit}
+
+/* Header */
+.header{position:sticky;top:0;z-index:100;background:rgba(250,250,248,0.92);backdrop-filter:blur(20px);border-bottom:1px solid var(--border-subtle);transition:background .3s}
+.dark .header{background:rgba(5,11,20,0.92)}
+.header-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:16px 32px}
+.logo{display:flex;align-items:center;gap:10px}
+.logo svg{width:32px;height:32px}
+.logo-text{font-family:'Inter',sans-serif;font-size:20px;font-weight:300;color:var(--text-primary);letter-spacing:-0.3px}
+.logo-text strong{font-weight:700}
+.logo-text .pro{color:var(--gold);font-weight:700}
+.nav-links{display:flex;align-items:center;gap:32px;list-style:none}
+.nav-links a{font-size:14px;font-weight:500;color:var(--text-secondary);transition:color .2s}
+.nav-links a:hover{color:var(--text-primary)}
+.nav-cta{background:var(--gold)!important;color:var(--navy)!important;font-weight:600!important;padding:10px 24px!important;border-radius:8px!important;border:none;cursor:pointer;transition:all .2s!important}
+.nav-cta:hover{background:var(--gold-hover)!important}
+.theme-toggle{width:40px;height:40px;background:var(--bg-elevated);border:1px solid var(--border-default);border-radius:8px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--text-muted);transition:all .2s}
+.theme-toggle:hover{border-color:var(--gold);color:var(--gold)}
+
+/* Pricing Hero */
+.pricing-hero{padding:80px 32px 0;text-align:center}
+.pricing-hero .label{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:12px}
+.pricing-hero h1{font-family:'Playfair Display',serif;font-size:48px;font-weight:700;color:var(--text-primary);margin-bottom:16px}
+.pricing-hero p{font-size:17px;color:var(--text-secondary);max-width:560px;margin:0 auto 16px}
+.pricing-hero .guarantee{font-size:13px;color:var(--text-muted);display:flex;align-items:center;justify-content:center;gap:6px}
+.pricing-hero .guarantee svg{width:14px;height:14px;stroke:var(--gold);fill:none;stroke-width:2}
+
+/* Pricing Cards */
+.pricing-cards{max-width:1200px;margin:48px auto 0;padding:0 32px;display:grid;grid-template-columns:repeat(3,1fr);gap:24px;align-items:start}
+.p-card{background:var(--bg-surface);border:1px solid var(--border-default);border-radius:16px;padding:36px;position:relative;transition:all .3s}
+.p-card:hover{box-shadow:var(--shadow-lg);transform:translateY(-2px)}
+.p-card.featured{border:2px solid var(--gold);box-shadow:var(--shadow-gold);transform:scale(1.03);z-index:2}
+.p-card.featured:hover{transform:scale(1.03) translateY(-2px)}
+.p-badge{position:absolute;top:-14px;left:50%;transform:translateX(-50%);background:var(--gold);color:var(--navy);font-size:10px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;padding:6px 18px;border-radius:100px;white-space:nowrap}
+.p-card .name{font-size:20px;font-weight:700;color:var(--text-primary);margin-bottom:8px}
+.p-card .desc{font-size:14px;color:var(--text-muted);line-height:1.5;margin-bottom:24px;min-height:42px}
+.p-card .price{font-family:'Playfair Display',serif;font-size:48px;font-weight:700;color:var(--text-primary);margin-bottom:4px}
+.p-card.featured .price{color:var(--gold)}
+.p-card .price .per{font-family:'Inter',sans-serif;font-size:14px;font-weight:400;color:var(--text-muted)}
+.p-card .leads{font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:600;color:var(--gold);margin-bottom:24px;padding:8px 12px;background:var(--gold-muted);border-radius:6px;display:inline-block}
+.p-card .features{list-style:none;margin:0 0 32px}
+.p-card .features li{display:flex;align-items:flex-start;gap:10px;font-size:14px;line-height:1.5;color:var(--text-secondary);padding:8px 0}
+.chk{width:18px;height:18px;min-width:18px;background:var(--bg-elevated);border-radius:50%;display:flex;align-items:center;justify-content:center;margin-top:2px}
+.chk svg{width:10px;height:10px;stroke:var(--text-primary);stroke-width:3;fill:none}
+.p-card.featured .chk{background:var(--gold-muted)}
+.p-card.featured .chk svg{stroke:var(--gold)}
+.card-btn{display:block;width:100%;text-align:center;padding:14px 24px;border-radius:8px;font-family:'Inter',sans-serif;font-size:15px;font-weight:600;cursor:pointer;transition:all .2s;border:none}
+.btn-o{background:transparent;border:1.5px solid var(--border-default);color:var(--text-primary)}
+.btn-o:hover{border-color:var(--gold);color:var(--gold)}
+.btn-g{background:var(--gold);color:var(--navy);box-shadow:0 2px 8px rgba(212,175,55,0.25)}
+.btn-g:hover{background:var(--gold-hover);box-shadow:0 4px 16px rgba(212,175,55,0.35)}
+
+/* Comparison Table */
+.comparison{max-width:1000px;margin:80px auto;padding:0 32px}
+.comparison h2{font-family:'Playfair Display',serif;font-size:32px;font-weight:700;text-align:center;color:var(--text-primary);margin-bottom:40px}
+.comp-table{width:100%;border-collapse:collapse;background:var(--bg-surface);border-radius:12px;overflow:hidden;border:1px solid var(--border-default)}
+.comp-table thead th{font-family:'Inter',sans-serif;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--text-primary);padding:16px 20px;text-align:center;border-bottom:2px solid var(--border-default)}
+.comp-table thead th:first-child{text-align:left}
+.comp-table thead th.gold-col{color:var(--gold);background:var(--gold-muted)}
+.comp-table tbody td{padding:14px 20px;font-size:14px;color:var(--text-secondary);text-align:center;border-bottom:1px solid var(--border-subtle)}
+.comp-table tbody td:first-child{text-align:left;font-weight:500;color:var(--text-primary)}
+.comp-table tbody tr:nth-child(even){background:var(--bg-elevated)}
+.comp-table tbody td.gold-col{background:rgba(212,175,55,0.04)}
+.comp-table .check-mark{color:var(--gold);font-weight:700;font-size:16px}
+.comp-table .dash-mark{color:var(--text-muted)}
+
+/* FAQ */
+.faq{max-width:720px;margin:0 auto 80px;padding:0 32px}
+.faq h2{font-family:'Playfair Display',serif;font-size:32px;font-weight:700;text-align:center;color:var(--text-primary);margin-bottom:40px}
+.faq-item{border:1px solid var(--border-default);border-radius:12px;margin-bottom:12px;overflow:hidden;transition:all .2s}
+.faq-item.open{border-color:var(--gold)}
+.faq-q{display:flex;justify-content:space-between;align-items:center;padding:20px 24px;cursor:pointer;font-size:15px;font-weight:600;color:var(--text-primary);background:var(--bg-surface);transition:all .2s}
+.faq-q:hover{color:var(--gold)}
+.faq-q .arrow{font-size:18px;color:var(--text-muted);transition:transform .2s}
+.faq-item.open .arrow{transform:rotate(180deg);color:var(--gold)}
+.faq-a{padding:0 24px 20px;font-size:14px;line-height:1.7;color:var(--text-secondary);display:none}
+.faq-item.open .faq-a{display:block}
+
+/* Final CTA */
+.pricing-cta{background:var(--bg-elevated);padding:80px 32px;text-align:center;border-top:1px solid var(--border-default)}
+.pricing-cta h2{font-family:'Playfair Display',serif;font-size:36px;font-weight:700;color:var(--text-primary);margin-bottom:16px}
+.pricing-cta p{font-size:16px;color:var(--text-secondary);margin-bottom:32px;max-width:480px;margin-left:auto;margin-right:auto}
+
+/* Footer */
+.footer{background:#050B14;padding:56px 32px 32px;color:#94A3B8}
+.footer-inner{max-width:1200px;margin:0 auto}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;margin-bottom:48px}
+.footer-brand .f-logo{display:flex;align-items:center;gap:10px;margin-bottom:16px}
+.footer-brand .f-logo svg{width:28px;height:28px}
+.footer-brand .f-logo span{font-size:18px;font-weight:300;color:#E2E8F0}
+.footer-brand .f-logo span strong{font-weight:700}
+.footer-brand .f-logo span .pro{color:var(--gold)}
+.footer-brand p{font-size:14px;line-height:1.7;color:#64748B;max-width:300px}
+.footer-col h4{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#E2E8F0;margin-bottom:16px}
+.footer-col a{display:block;font-size:14px;color:#64748B;padding:4px 0;transition:color .2s}
+.footer-col a:hover{color:var(--gold)}
+.footer-bottom{border-top:1px solid #1E293B;padding-top:24px;display:flex;justify-content:space-between;align-items:center}
+.footer-bottom .copy{font-size:13px;color:#475569}
+.footer-bottom .social{display:flex;gap:12px}
+.footer-bottom .social a{width:36px;height:36px;border:1px solid #1E293B;border-radius:8px;display:flex;align-items:center;justify-content:center;color:#64748B;font-size:14px;transition:all .2s}
+.footer-bottom .social a:hover{border-color:var(--gold);color:var(--gold);background:rgba(212,175,55,0.08)}
+
+@media(max-width:1024px){.pricing-cards{grid-template-columns:1fr;max-width:420px;margin-left:auto;margin-right:auto}.p-card.featured{transform:scale(1)}.comp-table{font-size:12px}.footer-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:768px){.pricing-hero h1{font-size:36px}.nav-links{display:none}.footer-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="header-inner">
+    <a href="/" class="logo">
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><polyline points="15,70 50,25 85,70" stroke="#D4AF37" stroke-width="7" fill="none" stroke-linecap="round" stroke-linejoin="round"/><circle cx="50" cy="25" r="4" fill="#D4AF37"/><line x1="50" y1="70" x2="50" y2="45" stroke="#D4AF37" stroke-width="5" stroke-linecap="round"/></svg>
+      <span class="logo-text"><strong>Luxe</strong>Lead<span class="pro">Pro</span></span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="/">Home</a></li>
+      <li><a href="/pricing" style="color:var(--text-primary);font-weight:600">Pricing</a></li>
+      <li><a href="/territory">Territories</a></li>
+      <li><a href="/agent/login">Agent Login</a></li>
+      <li><button class="theme-toggle" onclick="document.documentElement.classList.toggle('dark')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></button></li>
+      <li><a href="/demo" class="nav-cta">Request Demo</a></li>
+    </ul>
+  </div>
+</header>
+
+<!-- PRICING HERO -->
+<section class="pricing-hero">
+  <div class="label">Pricing</div>
+  <h1>Invest in Your Pipeline</h1>
+  <p>Choose the plan that matches your ambition. Every plan includes our AI lead scoring engine and daily briefings.</p>
+  <div class="guarantee"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> 30-day money-back guarantee on all plans</div>
+</section>
+
+<!-- PRICING CARDS -->
+<div class="pricing-cards">
+  <div class="p-card">
+    <div class="name">Intelligence</div>
+    <div class="desc">AI scoring on your existing leads with daily briefings and analytics</div>
+    <div class="price">$249<span class="per">/month</span></div>
+    <ul class="features">
+      <li><span class="chk"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>AI lead scoring engine</li>
+      <li><span class="chk"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Daily morning briefings</li>
+      <li><span class="chk"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Pipeline analytics dashboard</li>
+      <li><span class="chk"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Market trend reports</li>
+      <li><span class="chk"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Email support</li>
+    </ul>
+    <button class="card-btn btn-o">Get Started</button>
+  </div>
+  <div class="p-card">
+    <div class="name">Intelligence + Generation</div>
+    <div class="desc">Everything in Intelligence plus 15-25 verified luxury leads delivered monthly</div>
+    <div class="price">$749<span class="per">/month</span></div>
+    <div class="leads">15-25 verified leads/month</div>
+    <ul class="features">
+      <li><span class="chk"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Everything in Intelligence</li>
+      <li><span class="chk"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>15-25 verified luxury leads/month</li>
+      <li><span class="chk"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Targeted ad campaigns</li>
+      <li><span class="chk"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Lead nurture sequences</li>
+      <li><span class="chk"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Priority support</li>
+    </ul>
+    <button class="card-btn btn-o">Get Started</button>
+  </div>
+  <div class="p-card featured">
+    <div class="p-badge">MOST EXCLUSIVE</div>
+    <div class="name">Exclusive Territory</div>
+    <div class="desc">Full exclusivity — one agent per ZIP code with AI auto-outreach</div>
+    <div class="price">$1,499<span class="per">/month</span></div>
+    <div class="leads">30-50 verified leads/month + ZIP exclusivity</div>
+    <ul class="features">
+      <li><span class="chk"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Everything in Intelligence + Generation</li>
+      <li><span class="chk"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>30-50 verified luxury leads/month</li>
+      <li><span class="chk"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>ZIP code exclusivity (1 agent per ZIP)</li>
+      <li><span class="chk"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>AI auto-outreach sequences</li>
+      <li><span class="chk"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>White-glove onboarding</li>
+      <li><span class="chk"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Dedicated account manager</li>
+    </ul>
+    <button class="card-btn btn-g">Claim Your Territory &#8594;</button>
+  </div>
+</div>
+
+<!-- COMPARISON TABLE -->
+<section class="comparison">
+  <h2>Compare Plans</h2>
+  <table class="comp-table">
+    <thead>
+      <tr>
+        <th>Feature</th>
+        <th>Intelligence<br><span style="font-weight:400;font-size:11px;color:var(--text-muted)">$249/mo</span></th>
+        <th>Intelligence + Gen<br><span style="font-weight:400;font-size:11px;color:var(--text-muted)">$749/mo</span></th>
+        <th class="gold-col">Exclusive Territory<br><span style="font-weight:400;font-size:11px">$1,499/mo</span></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>AI Lead Scoring</td><td class="check-mark">&#10003;</td><td class="check-mark">&#10003;</td><td class="gold-col check-mark">&#10003;</td></tr>
+      <tr><td>Daily Briefings</td><td class="check-mark">&#10003;</td><td class="check-mark">&#10003;</td><td class="gold-col check-mark">&#10003;</td></tr>
+      <tr><td>Analytics Dashboard</td><td class="check-mark">&#10003;</td><td class="check-mark">&#10003;</td><td class="gold-col check-mark">&#10003;</td></tr>
+      <tr><td>Verified Leads/Month</td><td class="dash-mark">&#8212;</td><td style="font-family:'JetBrains Mono',monospace;font-weight:600">15-25</td><td class="gold-col" style="font-family:'JetBrains Mono',monospace;font-weight:700;color:var(--gold)">30-50</td></tr>
+      <tr><td>Targeted Ad Campaigns</td><td class="dash-mark">&#8212;</td><td class="check-mark">&#10003;</td><td class="gold-col check-mark">&#10003;</td></tr>
+      <tr><td>Lead Nurture Sequences</td><td class="dash-mark">&#8212;</td><td class="check-mark">&#10003;</td><td class="gold-col check-mark">&#10003;</td></tr>
+      <tr><td>ZIP Code Exclusivity</td><td class="dash-mark">&#8212;</td><td class="dash-mark">&#8212;</td><td class="gold-col check-mark">&#10003;</td></tr>
+      <tr><td>AI Auto-Outreach</td><td class="dash-mark">&#8212;</td><td class="dash-mark">&#8212;</td><td class="gold-col check-mark">&#10003;</td></tr>
+      <tr><td>White-Glove Onboarding</td><td class="dash-mark">&#8212;</td><td class="dash-mark">&#8212;</td><td class="gold-col check-mark">&#10003;</td></tr>
+      <tr><td>Dedicated Account Manager</td><td class="dash-mark">&#8212;</td><td class="dash-mark">&#8212;</td><td class="gold-col check-mark">&#10003;</td></tr>
+      <tr><td>Support</td><td>Email</td><td>Priority</td><td class="gold-col" style="font-weight:600;color:var(--gold)">White-Glove</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- FAQ -->
+<section class="faq">
+  <h2>Frequently Asked Questions</h2>
+  <div class="faq-item open">
+    <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">What does "ZIP code exclusivity" mean? <span class="arrow">&#9660;</span></div>
+    <div class="faq-a">With the Exclusive Territory plan, you are the only LuxeLeadPro agent in your ZIP code. All AI-generated leads in that territory go exclusively to you. No other agent on our platform can receive leads from your ZIP code. This gives you a true competitive moat.</div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">How are leads verified? <span class="arrow">&#9660;</span></div>
+    <div class="faq-a">Every lead goes through our multi-step verification process: AI behavioral scoring, contact validation, property interest confirmation, and budget qualification. We only deliver leads that meet our quality threshold for $1M+ markets.</div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">Can I upgrade my plan later? <span class="arrow">&#9660;</span></div>
+    <div class="faq-a">Absolutely. You can upgrade at any time and the price difference will be prorated. Many agents start with Intelligence and upgrade to Exclusive Territory once they see the AI scoring results. Founding Agents keep their locked-in rate even when upgrading.</div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">What is the Founding Agent program? <span class="arrow">&#9660;</span></div>
+    <div class="faq-a">The first 50 agents to sign up lock in today's pricing for life. No rate increases, ever. This is our way of rewarding early adopters who believe in the platform. Once all 50 spots are filled, the program closes permanently.</div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">Is there a contract or commitment? <span class="arrow">&#9660;</span></div>
+    <div class="faq-a">No long-term contracts. All plans are month-to-month with a 30-day money-back guarantee. We believe in earning your business every month through results, not locking you into a contract.</div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="pricing-cta">
+  <h2>Still Have Questions?</h2>
+  <p>Book a personalized strategy call. We'll walk through the platform live and show you exactly how it works in your market.</p>
+  <a href="/demo" style="display:inline-flex;align-items:center;gap:8px;background:var(--gold);color:var(--navy);font-family:'Inter',sans-serif;font-size:15px;font-weight:600;padding:14px 32px;border-radius:8px;transition:all .2s;box-shadow:0 2px 8px rgba(212,175,55,0.25)">Book a Strategy Call &#8594;</a>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="f-logo">
+          <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" width="28" height="28"><polyline points="15,70 50,25 85,70" stroke="#D4AF37" stroke-width="7" fill="none" stroke-linecap="round" stroke-linejoin="round"/><circle cx="50" cy="25" r="4" fill="#D4AF37"/><line x1="50" y1="70" x2="50" y2="45" stroke="#D4AF37" stroke-width="5" stroke-linecap="round"/></svg>
+          <span><strong>Luxe</strong>Lead<span class="pro">Pro</span></span>
+        </div>
+        <p>AI-powered lead intelligence built exclusively for luxury real estate professionals in $1M+ markets.</p>
+      </div>
+      <div class="footer-col"><h4>Product</h4><a href="/pricing">Pricing</a><a href="/territory">Territories</a><a href="/demo">Request Demo</a></div>
+      <div class="footer-col"><h4>Company</h4><a href="/">About</a><a href="/">Blog</a><a href="/">Contact</a></div>
+      <div class="footer-col"><h4>Legal</h4><a href="/">Privacy Policy</a><a href="/">Terms of Service</a></div>
+    </div>
+    <div class="footer-bottom">
+      <span class="copy">&copy; 2026 LuxeLeadPro. All rights reserved.</span>
+      <div class="social"><a href="/">in</a><a href="/">X</a><a href="/">ig</a></div>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){const s=localStorage.getItem('luxe-theme');if(s==='dark')document.documentElement.classList.add('dark');document.querySelector('.theme-toggle')?.addEventListener('click',function(){const d=document.documentElement.classList.toggle('dark');localStorage.setItem('luxe-theme',d?'dark':'light')})})();
+</script>
+</body>
+</html>

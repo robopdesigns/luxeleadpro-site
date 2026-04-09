@@ -1,0 +1,1013 @@
+<!--
+IMPLEMENTATION NOTES FOR CLAUDE/OPUS:
+
+PAGE: Homepage
+ROUTE: / (root)
+FILE: app/page.tsx (or app/(marketing)/page.tsx)
+
+COMPONENTS USED:
+- Header (shared: components/Header.tsx)
+- Footer (shared: components/Footer.tsx)
+- HeroSection (components/home/HeroSection.tsx)
+- AICommandCenter (components/home/AICommandCenter.tsx)
+- StatsBar (components/home/StatsBar.tsx)
+- HowItWorks (components/home/HowItWorks.tsx)
+- PricingPreview (components/home/PricingPreview.tsx)
+- FoundingAgent (components/home/FoundingAgent.tsx)
+- FinalCTA (components/home/FinalCTA.tsx)
+
+CSS VARIABLES USED:
+- var(--bg-base) #FAFAF8 for main background
+- var(--bg-surface) #FFFFFF for cards
+- var(--bg-elevated) #F8F6F3 for alternating sections
+- var(--text-primary) #0A192F for headings
+- var(--text-secondary) #4A5568 for body text
+- var(--text-muted) #718096 for captions
+- var(--border-default) #E8E5DE for card borders
+- var(--gold) #D4AF37 for CTAs and accents
+
+KEY STYLING NOTES:
+- Hero uses subtle ivory gradient, NOT dark navy
+- Primary CTA "Book a Strategy Call" = solid gold bg, navy text
+- Secondary CTA "See Pricing" = outlined, navy text, gold on hover
+- AI Command Center card = white elevated card with shadow-lg
+- Stats bar = white bg, monospace numbers, gold accent characters
+- How It Works = SVG icons in gold-muted bg containers, NO emojis
+- Pricing preview = $1,499 card is featured (gold border, scale-105, gold CTA)
+- Footer = ALWAYS Deep Midnight (#050B14) even in light mode
+- All data numbers use JetBrains Mono
+- Playfair Display ONLY for h1, h2
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LuxeLeadPro — AI-Powered Luxury Real Estate Lead Intelligence</title>
+<meta name="description" content="The only AI lead-scoring platform built exclusively for luxury real estate. Know your best prospects every morning.">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+/* ========================================
+   DESIGN TOKENS — LIGHT MODE (DEFAULT)
+   ======================================== */
+:root {
+  --bg-base: #FAFAF8;
+  --bg-surface: #FFFFFF;
+  --bg-elevated: #F8F6F3;
+  --text-primary: #0A192F;
+  --text-secondary: #4A5568;
+  --text-muted: #718096;
+  --border-default: #E8E5DE;
+  --border-subtle: #F0EDE6;
+  --gold: #D4AF37;
+  --gold-hover: #B5952F;
+  --gold-muted: rgba(212, 175, 55, 0.12);
+  --navy: #0A192F;
+  --deep: #050B14;
+  --shadow-sm: 0 1px 3px rgba(10,25,47,0.04);
+  --shadow-md: 0 4px 16px rgba(10,25,47,0.06);
+  --shadow-lg: 0 8px 32px rgba(10,25,47,0.08);
+  --shadow-xl: 0 16px 48px rgba(10,25,47,0.10);
+  --shadow-gold: 0 4px 24px rgba(212,175,55,0.15);
+}
+
+/* DARK MODE OVERRIDES */
+.dark {
+  --bg-base: #050B14;
+  --bg-surface: #0A192F;
+  --bg-elevated: #112240;
+  --text-primary: #F8FAFC;
+  --text-secondary: #94A3B8;
+  --text-muted: #64748B;
+  --border-default: #1E293B;
+  --border-subtle: #0F172A;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.2);
+  --shadow-md: 0 4px 16px rgba(0,0,0,0.3);
+  --shadow-lg: 0 8px 32px rgba(0,0,0,0.4);
+  --shadow-xl: 0 16px 48px rgba(0,0,0,0.5);
+}
+
+/* ========================================
+   RESET & BASE
+   ======================================== */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--bg-base);
+  color: var(--text-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.6;
+  transition: background-color 0.3s, color 0.3s;
+}
+a { text-decoration: none; color: inherit; }
+img { max-width: 100%; display: block; }
+
+/* ========================================
+   HEADER / NAVIGATION
+   ======================================== */
+.header {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(250,250,248,0.92);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border-subtle);
+  transition: background 0.3s;
+}
+.dark .header {
+  background: rgba(5,11,20,0.92);
+}
+.header-inner {
+  max-width: 1200px; margin: 0 auto;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 16px 32px;
+}
+.logo { display: flex; align-items: center; gap: 10px; }
+.logo svg { width: 32px; height: 32px; }
+.logo-text {
+  font-family: 'Inter', sans-serif;
+  font-size: 20px; font-weight: 300;
+  color: var(--text-primary);
+  letter-spacing: -0.3px;
+}
+.logo-text strong { font-weight: 700; }
+.logo-text .pro { color: var(--gold); font-weight: 700; }
+
+.nav-links {
+  display: flex; align-items: center; gap: 32px;
+  list-style: none;
+}
+.nav-links a {
+  font-family: 'Inter', sans-serif;
+  font-size: 14px; font-weight: 500;
+  color: var(--text-secondary);
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--text-primary); }
+
+.nav-cta {
+  background: var(--gold) !important;
+  color: var(--navy) !important;
+  font-weight: 600 !important;
+  padding: 10px 24px !important;
+  border-radius: 8px !important;
+  transition: all 0.2s !important;
+  border: none; cursor: pointer;
+}
+.nav-cta:hover { background: var(--gold-hover) !important; }
+
+.theme-toggle {
+  width: 40px; height: 40px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-default);
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; font-size: 16px;
+  color: var(--text-muted);
+  transition: all 0.2s;
+}
+.theme-toggle:hover {
+  border-color: var(--gold);
+  color: var(--gold);
+}
+
+/* ========================================
+   HERO SECTION
+   ======================================== */
+.hero {
+  background: linear-gradient(135deg, #FAFAF8 0%, #F0EDE6 50%, #FAF8F5 100%);
+  padding: 80px 32px 96px;
+  transition: background 0.3s;
+}
+.dark .hero {
+  background: linear-gradient(135deg, #050B14 0%, #0A192F 50%, #0F2240 100%);
+}
+.hero-inner {
+  max-width: 1200px; margin: 0 auto;
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 64px; align-items: center;
+}
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--gold-muted);
+  border: 1px solid rgba(212,175,55,0.25);
+  padding: 8px 18px; border-radius: 100px;
+  font-family: 'Inter', sans-serif;
+  font-size: 12px; font-weight: 600;
+  letter-spacing: 1.5px; text-transform: uppercase;
+  color: var(--gold-hover);
+  margin-bottom: 24px;
+}
+.hero-badge::before {
+  content: ''; width: 6px; height: 6px;
+  background: var(--gold); border-radius: 50%;
+}
+.hero h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 56px; font-weight: 700;
+  line-height: 1.08; color: var(--text-primary);
+  margin-bottom: 24px;
+}
+.hero h1 .accent { color: var(--gold); }
+.hero-sub {
+  font-size: 18px; line-height: 1.7;
+  color: var(--text-secondary);
+  margin-bottom: 40px; max-width: 480px;
+}
+.hero-ctas { display: flex; gap: 16px; margin-bottom: 24px; }
+
+/* Buttons */
+.btn-gold {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--gold); color: var(--navy);
+  font-family: 'Inter', sans-serif;
+  font-size: 15px; font-weight: 600;
+  padding: 14px 32px; border-radius: 8px;
+  border: none; cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 0 2px 8px rgba(212,175,55,0.25);
+}
+.btn-gold:hover {
+  background: var(--gold-hover);
+  box-shadow: 0 4px 16px rgba(212,175,55,0.35);
+  transform: translateY(-1px);
+}
+.btn-outline {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: transparent; color: var(--text-primary);
+  font-family: 'Inter', sans-serif;
+  font-size: 15px; font-weight: 600;
+  padding: 14px 32px; border-radius: 8px;
+  border: 1.5px solid var(--border-default);
+  cursor: pointer; transition: all 0.2s;
+}
+.btn-outline:hover {
+  border-color: var(--gold); color: var(--gold);
+}
+.btn-ghost {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: transparent; color: var(--text-secondary);
+  font-family: 'Inter', sans-serif;
+  font-size: 14px; font-weight: 500;
+  padding: 10px 20px; border-radius: 8px;
+  border: none; cursor: pointer; transition: all 0.2s;
+}
+.btn-ghost:hover { color: var(--gold); }
+.btn-danger {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: #DC2626; color: #FFFFFF;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px; font-weight: 600;
+  padding: 10px 20px; border-radius: 8px;
+  border: none; cursor: pointer; transition: all 0.2s;
+}
+.btn-danger:hover { background: #B91C1C; }
+
+.hero-trust {
+  font-size: 13px; color: var(--text-muted);
+  letter-spacing: 0.3px;
+}
+
+/* AI Command Center Card */
+.command-center {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-default);
+  border-radius: 16px; padding: 32px;
+  box-shadow: var(--shadow-lg);
+}
+.cc-header {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: 24px;
+}
+.cc-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 16px; font-weight: 600;
+  color: var(--text-primary);
+}
+.cc-live {
+  display: flex; align-items: center; gap: 6px;
+  font-size: 12px; font-weight: 600; color: #10B981;
+}
+.cc-live::before {
+  content: ''; width: 6px; height: 6px;
+  background: #10B981; border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+
+.cc-stats {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 12px; margin-bottom: 24px;
+}
+.cc-stat {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-subtle);
+  border-radius: 10px; padding: 16px;
+}
+.cc-stat .label {
+  font-family: 'Inter', sans-serif;
+  font-size: 10px; font-weight: 700;
+  letter-spacing: 1.5px; text-transform: uppercase;
+  color: var(--text-muted); margin-bottom: 6px;
+}
+.cc-stat .value {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 24px; font-weight: 700;
+  color: var(--text-primary);
+}
+.cc-stat .value.gold { color: var(--gold); }
+
+.opp-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 10px; font-weight: 700;
+  letter-spacing: 1.5px; text-transform: uppercase;
+  color: var(--text-muted); margin-bottom: 12px;
+}
+.opp-item {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border-subtle);
+}
+.opp-item:last-child { border-bottom: none; }
+.opp-item .name {
+  font-size: 14px; font-weight: 600; color: var(--text-primary);
+}
+.opp-item .detail {
+  font-size: 12px; color: var(--text-muted); margin-top: 2px;
+}
+.opp-item .score { display: flex; align-items: center; gap: 8px; }
+.opp-item .score-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px; font-weight: 600; color: var(--text-secondary);
+}
+.badge-hot {
+  font-size: 10px; font-weight: 700; padding: 3px 8px; border-radius: 100px;
+  background: rgba(239,68,68,0.1); color: #DC2626;
+}
+.badge-warm {
+  font-size: 10px; font-weight: 700; padding: 3px 8px; border-radius: 100px;
+  background: rgba(245,158,11,0.1); color: #D97706;
+}
+.badge-active {
+  font-size: 10px; font-weight: 700; padding: 3px 8px; border-radius: 100px;
+  background: rgba(16,185,129,0.1); color: #059669;
+}
+.cc-view-link {
+  display: block; text-align: center; margin-top: 16px;
+  font-size: 13px; font-weight: 600; color: var(--gold);
+}
+.cc-view-link:hover { color: var(--gold-hover); }
+
+/* ========================================
+   STATS BAR
+   ======================================== */
+.stats-bar {
+  background: var(--bg-surface);
+  border-top: 1px solid var(--border-default);
+  border-bottom: 1px solid var(--border-default);
+  padding: 32px;
+}
+.stats-bar-inner {
+  max-width: 1200px; margin: 0 auto;
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+}
+.stat-item {
+  text-align: center;
+  padding: 8px 24px;
+  border-right: 1px solid var(--border-default);
+}
+.stat-item:last-child { border-right: none; }
+.stat-item .value {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 32px; font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+}
+.stat-item .value .gold-char { color: var(--gold); }
+.stat-item .label {
+  font-family: 'Inter', sans-serif;
+  font-size: 13px; font-weight: 500;
+  color: var(--text-muted);
+}
+
+/* ========================================
+   HOW IT WORKS
+   ======================================== */
+.how-section {
+  background: var(--bg-surface);
+  padding: 80px 32px;
+  border-bottom: 1px solid var(--border-default);
+}
+.how-inner { max-width: 1200px; margin: 0 auto; }
+.section-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 2px; text-transform: uppercase;
+  color: var(--gold); text-align: center;
+  margin-bottom: 12px;
+}
+.section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 40px; font-weight: 700;
+  text-align: center; color: var(--text-primary);
+  margin-bottom: 12px;
+}
+.section-sub {
+  text-align: center; font-size: 16px;
+  color: var(--text-secondary);
+  margin-bottom: 56px; max-width: 560px;
+  margin-left: auto; margin-right: auto;
+}
+.steps-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+}
+.step-card { text-align: center; padding: 32px 24px; }
+.step-icon {
+  width: 56px; height: 56px;
+  background: var(--gold-muted);
+  border-radius: 14px;
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 20px;
+}
+.step-icon svg {
+  width: 24px; height: 24px;
+  stroke: var(--gold); stroke-width: 2; fill: none;
+}
+.step-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px; font-weight: 700;
+  color: var(--gold); letter-spacing: 1px;
+  margin-bottom: 8px;
+}
+.step-card h3 {
+  font-family: 'Inter', sans-serif;
+  font-size: 18px; font-weight: 700;
+  color: var(--text-primary); margin-bottom: 10px;
+}
+.step-card p {
+  font-size: 14px; line-height: 1.7;
+  color: var(--text-secondary);
+}
+
+/* ========================================
+   PRICING PREVIEW
+   ======================================== */
+.pricing-section {
+  background: var(--bg-base);
+  padding: 80px 32px;
+}
+.pricing-inner { max-width: 1200px; margin: 0 auto; }
+.pricing-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 24px; align-items: start;
+  margin-top: 48px;
+}
+.pricing-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-default);
+  border-radius: 16px; padding: 36px;
+  position: relative;
+  transition: all 0.3s;
+}
+.pricing-card:hover {
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-2px);
+}
+.pricing-card.featured {
+  border: 2px solid var(--gold);
+  box-shadow: var(--shadow-gold);
+  transform: scale(1.03);
+  z-index: 2;
+}
+.pricing-card.featured:hover {
+  transform: scale(1.03) translateY(-2px);
+}
+.pricing-badge {
+  position: absolute; top: -14px; left: 50%;
+  transform: translateX(-50%);
+  background: var(--gold); color: var(--navy);
+  font-family: 'Inter', sans-serif;
+  font-size: 10px; font-weight: 800;
+  letter-spacing: 1.5px; text-transform: uppercase;
+  padding: 6px 18px; border-radius: 100px;
+  white-space: nowrap;
+}
+.pricing-card .tier-name {
+  font-family: 'Inter', sans-serif;
+  font-size: 20px; font-weight: 700;
+  color: var(--text-primary); margin-bottom: 8px;
+}
+.pricing-card .tier-desc {
+  font-size: 14px; color: var(--text-muted);
+  line-height: 1.5; margin-bottom: 24px;
+  min-height: 42px;
+}
+.pricing-card .price {
+  font-family: 'Playfair Display', serif;
+  font-size: 48px; font-weight: 700;
+  color: var(--text-primary); margin-bottom: 4px;
+}
+.pricing-card.featured .price { color: var(--gold); }
+.pricing-card .price .period {
+  font-family: 'Inter', sans-serif;
+  font-size: 14px; font-weight: 400;
+  color: var(--text-muted);
+}
+.pricing-card .features {
+  list-style: none; margin: 24px 0 32px;
+}
+.pricing-card .features li {
+  display: flex; align-items: flex-start; gap: 10px;
+  font-size: 14px; line-height: 1.5;
+  color: var(--text-secondary); padding: 8px 0;
+}
+.check-icon {
+  width: 18px; height: 18px; min-width: 18px;
+  background: var(--bg-elevated);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  margin-top: 2px;
+}
+.check-icon svg {
+  width: 10px; height: 10px;
+  stroke: var(--text-primary); stroke-width: 3; fill: none;
+}
+.pricing-card.featured .check-icon {
+  background: var(--gold-muted);
+}
+.pricing-card.featured .check-icon svg {
+  stroke: var(--gold);
+}
+.card-cta {
+  display: block; width: 100%; text-align: center;
+  padding: 14px 24px; border-radius: 8px;
+  font-family: 'Inter', sans-serif;
+  font-size: 15px; font-weight: 600;
+  cursor: pointer; transition: all 0.2s; border: none;
+}
+.cta-outline {
+  background: transparent;
+  border: 1.5px solid var(--border-default);
+  color: var(--text-primary);
+}
+.cta-outline:hover { border-color: var(--gold); color: var(--gold); }
+.cta-gold {
+  background: var(--gold); color: var(--navy);
+  box-shadow: 0 2px 8px rgba(212,175,55,0.25);
+}
+.cta-gold:hover {
+  background: var(--gold-hover);
+  box-shadow: 0 4px 16px rgba(212,175,55,0.35);
+}
+
+/* ========================================
+   FOUNDING AGENT CTA
+   ======================================== */
+.founding-section {
+  background: var(--bg-elevated);
+  padding: 80px 32px;
+  border-top: 1px solid var(--border-default);
+  border-bottom: 1px solid var(--border-default);
+}
+.founding-inner {
+  max-width: 720px; margin: 0 auto; text-align: center;
+}
+.founding-inner .badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--gold-muted);
+  border: 1px solid rgba(212,175,55,0.25);
+  padding: 8px 18px; border-radius: 100px;
+  font-family: 'Inter', sans-serif;
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 1.5px; text-transform: uppercase;
+  color: var(--gold-hover); margin-bottom: 24px;
+}
+.founding-inner h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 36px; font-weight: 700;
+  color: var(--text-primary); margin-bottom: 16px;
+}
+.founding-inner h2 .accent { color: var(--gold); }
+.founding-inner p {
+  font-size: 16px; line-height: 1.7;
+  color: var(--text-secondary);
+  margin-bottom: 32px; max-width: 540px;
+  margin-left: auto; margin-right: auto;
+}
+.spots-counter {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 14px; font-weight: 600;
+  color: var(--gold); margin-top: 16px;
+}
+
+/* ========================================
+   FINAL CTA
+   ======================================== */
+.final-cta {
+  background: var(--bg-base);
+  padding: 80px 32px;
+  text-align: center;
+}
+.final-cta h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 36px; font-weight: 700;
+  color: var(--text-primary); margin-bottom: 16px;
+}
+.final-cta p {
+  font-size: 16px; color: var(--text-secondary);
+  margin-bottom: 32px; max-width: 480px;
+  margin-left: auto; margin-right: auto;
+}
+
+/* ========================================
+   FOOTER — ALWAYS DEEP MIDNIGHT
+   ======================================== */
+.footer {
+  background: #050B14;
+  padding: 56px 32px 32px;
+  color: #94A3B8;
+}
+.footer-inner {
+  max-width: 1200px; margin: 0 auto;
+}
+.footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 48px; margin-bottom: 48px;
+}
+.footer-brand .logo {
+  display: flex; align-items: center; gap: 10px;
+  margin-bottom: 16px;
+}
+.footer-brand .logo svg { width: 28px; height: 28px; }
+.footer-brand .logo span {
+  font-family: 'Inter', sans-serif;
+  font-size: 18px; font-weight: 300; color: #E2E8F0;
+}
+.footer-brand .logo span strong { font-weight: 700; }
+.footer-brand .logo span .pro { color: var(--gold); }
+.footer-brand p {
+  font-size: 14px; line-height: 1.7;
+  color: #64748B; max-width: 300px;
+}
+.footer-col h4 {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 1.5px; text-transform: uppercase;
+  color: #E2E8F0; margin-bottom: 16px;
+}
+.footer-col a {
+  display: block; font-size: 14px;
+  color: #64748B; padding: 4px 0;
+  transition: color 0.2s;
+}
+.footer-col a:hover { color: var(--gold); }
+.footer-bottom {
+  border-top: 1px solid #1E293B;
+  padding-top: 24px;
+  display: flex; justify-content: space-between; align-items: center;
+}
+.footer-bottom .copyright {
+  font-size: 13px; color: #475569;
+}
+.footer-bottom .social { display: flex; gap: 12px; }
+.footer-bottom .social a {
+  width: 36px; height: 36px;
+  border: 1px solid #1E293B;
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  color: #64748B; font-size: 14px;
+  transition: all 0.2s;
+}
+.footer-bottom .social a:hover {
+  border-color: var(--gold); color: var(--gold);
+  background: rgba(212,175,55,0.08);
+}
+
+/* ========================================
+   RESPONSIVE
+   ======================================== */
+@media (max-width: 1024px) {
+  .hero-inner { grid-template-columns: 1fr; gap: 48px; }
+  .pricing-grid { grid-template-columns: 1fr; max-width: 420px; margin-left: auto; margin-right: auto; }
+  .pricing-card.featured { transform: scale(1); }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 768px) {
+  .hero h1 { font-size: 40px; }
+  .hero { padding: 48px 20px 64px; }
+  .header-inner { padding: 12px 20px; }
+  .nav-links { display: none; } /* Mobile menu needed */
+  .stats-bar-inner { grid-template-columns: repeat(2, 1fr); }
+  .stat-item { border-right: none; border-bottom: 1px solid var(--border-default); padding: 16px; }
+  .stat-item:nth-child(odd) { border-right: 1px solid var(--border-default); }
+  .stat-item:nth-last-child(-n+2) { border-bottom: none; }
+  .steps-grid { grid-template-columns: 1fr; }
+  .section-title { font-size: 32px; }
+  .footer-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- ========================================
+     HEADER
+     ======================================== -->
+<header class="header">
+  <div class="header-inner">
+    <a href="/" class="logo">
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <polyline points="15,70 50,25 85,70" stroke="#D4AF37" stroke-width="7" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="50" cy="25" r="4" fill="#D4AF37"/>
+        <line x1="50" y1="70" x2="50" y2="45" stroke="#D4AF37" stroke-width="5" stroke-linecap="round"/>
+      </svg>
+      <span class="logo-text"><strong>Luxe</strong>Lead<span class="pro">Pro</span></span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="/">Home</a></li>
+      <li><a href="/pricing">Pricing</a></li>
+      <li><a href="/territory">Territories</a></li>
+      <li><a href="/agent/login">Agent Login</a></li>
+      <li><button class="theme-toggle" onclick="document.documentElement.classList.toggle('dark')" title="Toggle dark mode">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+      </button></li>
+      <li><a href="/demo" class="nav-cta">Request Demo</a></li>
+    </ul>
+  </div>
+</header>
+
+<!-- ========================================
+     HERO SECTION
+     ======================================== -->
+<section class="hero">
+  <div class="hero-inner">
+    <div>
+      <div class="hero-badge">AI-Powered · Built for $1M+ Markets</div>
+      <h1>Close <span class="accent">2x More</span><br>Luxury Deals</h1>
+      <p class="hero-sub">The only AI lead-scoring platform built exclusively for luxury real estate. Know your best prospects every morning. Win deals before your competition even sees them.</p>
+      <div class="hero-ctas">
+        <a href="/demo" class="btn-gold">Book a Strategy Call &#8594;</a>
+        <a href="/pricing" class="btn-outline">See Pricing</a>
+      </div>
+      <p class="hero-trust">No obligation · Personalized to your market · Setup in under 10 minutes</p>
+    </div>
+    <div class="command-center">
+      <div class="cc-header">
+        <span class="cc-title">Your AI Command Center</span>
+        <span class="cc-live">Live</span>
+      </div>
+      <div class="cc-stats">
+        <div class="cc-stat">
+          <div class="label">Hot Leads</div>
+          <div class="value gold">12</div>
+        </div>
+        <div class="cc-stat">
+          <div class="label">Close Rate</div>
+          <div class="value">8.2<span class="gold-char">%</span></div>
+        </div>
+        <div class="cc-stat">
+          <div class="label">Pipeline</div>
+          <div class="value gold">$2.8M</div>
+        </div>
+      </div>
+      <div>
+        <div class="opp-title">Today's Top Opportunities</div>
+        <div class="opp-item">
+          <div>
+            <div class="name">Sarah Johnson</div>
+            <div class="detail">Lincoln Park · $3.2M</div>
+          </div>
+          <div class="score">
+            <span class="score-num">AI: 92</span>
+            <span class="badge-hot">Hot</span>
+          </div>
+        </div>
+        <div class="opp-item">
+          <div>
+            <div class="name">Michael Chen</div>
+            <div class="detail">Gold Coast · $1.8M</div>
+          </div>
+          <div class="score">
+            <span class="score-num">AI: 78</span>
+            <span class="badge-warm">Warm</span>
+          </div>
+        </div>
+        <div class="opp-item">
+          <div>
+            <div class="name">Elizabeth Brown</div>
+            <div class="detail">River North · $2.4M</div>
+          </div>
+          <div class="score">
+            <span class="score-num">AI: 65</span>
+            <span class="badge-active">Active</span>
+          </div>
+        </div>
+      </div>
+      <a href="/agent" class="cc-view-link">View Full Daily Briefing &#8594;</a>
+    </div>
+  </div>
+</section>
+
+<!-- ========================================
+     STATS BAR
+     ======================================== -->
+<section class="stats-bar">
+  <div class="stats-bar-inner">
+    <div class="stat-item">
+      <div class="value"><span class="gold-char">$</span>2.4B<span class="gold-char">+</span></div>
+      <div class="label">Pipeline Generated</div>
+    </div>
+    <div class="stat-item">
+      <div class="value">12,000<span class="gold-char">+</span></div>
+      <div class="label">Leads Delivered</div>
+    </div>
+    <div class="stat-item">
+      <div class="value">94<span class="gold-char">%</span></div>
+      <div class="label">Agent Retention</div>
+    </div>
+    <div class="stat-item">
+      <div class="value">2.1<span class="gold-char">x</span></div>
+      <div class="label">Avg Close Rate Increase</div>
+    </div>
+  </div>
+</section>
+
+<!-- ========================================
+     HOW IT WORKS
+     ======================================== -->
+<section class="how-section">
+  <div class="how-inner">
+    <div class="section-label">How It Works</div>
+    <h2 class="section-title">Three Steps to Dominate Your Market</h2>
+    <p class="section-sub">Our AI does the heavy lifting so you can focus on what you do best — closing luxury deals.</p>
+    <div class="steps-grid">
+      <div class="step-card">
+        <div class="step-icon">
+          <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        </div>
+        <div class="step-num">01</div>
+        <h3>AI Identifies Prospects</h3>
+        <p>Our algorithms scan market signals, property data, and behavioral patterns to find buyers and sellers in your territory before anyone else.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-icon">
+          <svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+        </div>
+        <div class="step-num">02</div>
+        <h3>Leads Scored &amp; Ranked</h3>
+        <p>Every lead gets an AI confidence score from 0-100. Your daily briefing shows only the hottest opportunities, ranked by likelihood to transact.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-icon">
+          <svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        </div>
+        <div class="step-num">03</div>
+        <h3>You Close the Deal</h3>
+        <p>Reach out with confidence, armed with AI insights about each prospect's timeline, budget, and preferences. Close 2x more deals.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========================================
+     PRICING PREVIEW
+     ======================================== -->
+<section class="pricing-section">
+  <div class="pricing-inner">
+    <div class="section-label">Pricing</div>
+    <h2 class="section-title">Invest in Your Pipeline</h2>
+    <p class="section-sub">Choose the plan that matches your ambition. All plans include our AI lead scoring engine.</p>
+    <div class="pricing-grid">
+      <!-- Tier 1: Intelligence -->
+      <div class="pricing-card">
+        <div class="tier-name">Intelligence</div>
+        <div class="tier-desc">AI scoring on your existing leads with daily briefings</div>
+        <div class="price">$249<span class="period">/month</span></div>
+        <ul class="features">
+          <li><span class="check-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>AI lead scoring engine</li>
+          <li><span class="check-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Daily morning briefings</li>
+          <li><span class="check-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Pipeline analytics dashboard</li>
+          <li><span class="check-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Market trend reports</li>
+        </ul>
+        <button class="card-cta cta-outline">Get Started</button>
+      </div>
+      <!-- Tier 2: Intelligence + Generation -->
+      <div class="pricing-card">
+        <div class="tier-name">Intelligence + Generation</div>
+        <div class="tier-desc">Everything in Intelligence plus 15-25 verified luxury leads monthly</div>
+        <div class="price">$749<span class="period">/month</span></div>
+        <ul class="features">
+          <li><span class="check-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Everything in Intelligence</li>
+          <li><span class="check-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>15-25 verified leads/month</li>
+          <li><span class="check-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Targeted ad campaigns</li>
+          <li><span class="check-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Lead nurture sequences</li>
+        </ul>
+        <button class="card-cta cta-outline">Get Started</button>
+      </div>
+      <!-- Tier 3: Exclusive Territory — FEATURED -->
+      <div class="pricing-card featured">
+        <div class="pricing-badge">MOST EXCLUSIVE</div>
+        <div class="tier-name">Exclusive Territory</div>
+        <div class="tier-desc">Full exclusivity — one agent per ZIP code with AI auto-outreach</div>
+        <div class="price">$1,499<span class="period">/month</span></div>
+        <ul class="features">
+          <li><span class="check-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Everything in Intelligence + Generation</li>
+          <li><span class="check-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>30-50 verified leads/month</li>
+          <li><span class="check-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>ZIP code exclusivity</li>
+          <li><span class="check-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>AI auto-outreach sequences</li>
+          <li><span class="check-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>White-glove onboarding</li>
+        </ul>
+        <button class="card-cta cta-gold">Claim Your Territory &#8594;</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========================================
+     FOUNDING AGENT CTA
+     ======================================== -->
+<section class="founding-section">
+  <div class="founding-inner">
+    <div class="badge">Limited Availability</div>
+    <h2>Join as a <span class="accent">Founding Agent</span></h2>
+    <p>The first 50 agents lock in today's pricing for life. No rate increases, ever. Your territory, your leads, your competitive advantage — guaranteed.</p>
+    <a href="/demo" class="btn-gold">Claim Your Founding Spot &#8594;</a>
+    <div class="spots-counter">Only 14 of 50 founding spots remaining</div>
+  </div>
+</section>
+
+<!-- ========================================
+     FINAL CTA
+     ======================================== -->
+<section class="final-cta">
+  <h2>Ready to Transform Your Pipeline?</h2>
+  <p>Book a personalized strategy call. We'll show you exactly how LuxeLeadPro works in your market with your data.</p>
+  <a href="/demo" class="btn-gold">Book a Strategy Call &#8594;</a>
+</section>
+
+<!-- ========================================
+     FOOTER — ALWAYS DEEP MIDNIGHT
+     ======================================== -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo">
+          <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" width="28" height="28">
+            <polyline points="15,70 50,25 85,70" stroke="#D4AF37" stroke-width="7" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="50" cy="25" r="4" fill="#D4AF37"/>
+            <line x1="50" y1="70" x2="50" y2="45" stroke="#D4AF37" stroke-width="5" stroke-linecap="round"/>
+          </svg>
+          <span><strong>Luxe</strong>Lead<span class="pro">Pro</span></span>
+        </div>
+        <p>AI-powered lead intelligence built exclusively for luxury real estate professionals in $1M+ markets.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Product</h4>
+        <a href="/pricing">Pricing</a>
+        <a href="/territory">Territories</a>
+        <a href="/demo">Request Demo</a>
+        <a href="/">How It Works</a>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <a href="/">About</a>
+        <a href="/">Blog</a>
+        <a href="/">Careers</a>
+        <a href="/">Contact</a>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <a href="/">Privacy Policy</a>
+        <a href="/">Terms of Service</a>
+        <a href="/">Cookie Policy</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span class="copyright">&copy; 2026 LuxeLeadPro. All rights reserved.</span>
+      <div class="social">
+        <a href="/" title="LinkedIn">in</a>
+        <a href="/" title="Twitter">X</a>
+        <a href="/" title="Instagram">ig</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Theme toggle persistence
+(function() {
+  const saved = localStorage.getItem('luxe-theme');
+  if (saved === 'dark') document.documentElement.classList.add('dark');
+  document.querySelector('.theme-toggle')?.addEventListener('click', function() {
+    const isDark = document.documentElement.classList.toggle('dark');
+    localStorage.setItem('luxe-theme', isDark ? 'dark' : 'light');
+  });
+})();
+</script>
+
+</body>
+</html>

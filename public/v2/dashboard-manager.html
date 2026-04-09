@@ -1,0 +1,203 @@
+<!--
+IMPLEMENTATION NOTES FOR CLAUDE/OPUS:
+
+PAGE: Manager Dashboard
+ROUTE: /manager/dashboard
+FILE: app/(dashboard)/manager/page.tsx
+
+COMPONENTS USED:
+- DashboardLayout (shared: components/dashboard/DashboardLayout.tsx)
+- DashboardSidebar (shared: components/dashboard/DashboardSidebar.tsx)
+- DashboardHeader (shared: components/dashboard/DashboardHeader.tsx)
+- KPICards (components/dashboard/KPICards.tsx)
+- AgentLeaderboard (components/manager/AgentLeaderboard.tsx)
+- RevenueChart (components/manager/RevenueChart.tsx)
+- TeamActivity (components/manager/TeamActivity.tsx)
+
+CSS VARIABLES USED:
+- Same as Agent Dashboard — IDENTICAL token usage
+- var(--bg-base), var(--bg-surface), var(--bg-elevated)
+- var(--gold) for active nav, key metrics, primary actions
+
+KEY STYLING NOTES:
+- IDENTICAL layout structure to Agent Dashboard (same sidebar, same header, same KPI grid)
+- Only the DATA content differs (team metrics instead of personal metrics)
+- Sidebar nav items: Dashboard, Agents, Territories, Revenue, Reports, Settings
+- KPIs: Total Revenue, Active Agents, Avg Close Rate, Territories Claimed
+- Agent Leaderboard: table with rank, name, leads, close rate, revenue, AI score
+- Revenue section: placeholder for chart (use bg-elevated with dashed border)
+- "Add Agent" button is gold CTA
+- Manager sees aggregate data across all agents
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Manager Dashboard — LuxeLeadPro</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg-base:#FAFAF8;--bg-surface:#FFFFFF;--bg-elevated:#F8F6F3;--text-primary:#0A192F;--text-secondary:#4A5568;--text-muted:#718096;--border-default:#E8E5DE;--border-subtle:#F0EDE6;--gold:#D4AF37;--gold-hover:#B5952F;--gold-muted:rgba(212,175,55,0.12);--navy:#0A192F;--deep:#050B14;--shadow-sm:0 1px 3px rgba(10,25,47,0.04);--shadow-md:0 4px 16px rgba(10,25,47,0.06)}
+.dark{--bg-base:#050B14;--bg-surface:#0A192F;--bg-elevated:#112240;--text-primary:#F8FAFC;--text-secondary:#94A3B8;--text-muted:#64748B;--border-default:#1E293B;--border-subtle:#0F172A;--shadow-sm:0 1px 3px rgba(0,0,0,0.2);--shadow-md:0 4px 16px rgba(0,0,0,0.3)}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',-apple-system,sans-serif;background:var(--bg-base);color:var(--text-primary);-webkit-font-smoothing:antialiased;line-height:1.6;transition:background .3s,color .3s}
+a{text-decoration:none;color:inherit}
+
+.dash-layout{display:grid;grid-template-columns:256px 1fr;min-height:100vh}
+.sidebar{background:var(--bg-elevated);border-right:1px solid var(--border-default);padding:24px 0;position:sticky;top:0;height:100vh;overflow-y:auto;transition:background .3s}
+.sidebar-logo{display:flex;align-items:center;gap:10px;padding:0 20px;margin-bottom:32px}
+.sidebar-logo svg{width:28px;height:28px}
+.sidebar-logo span{font-size:16px;font-weight:300;color:var(--text-primary)}
+.sidebar-logo span strong{font-weight:700}
+.sidebar-logo span .pro{color:var(--gold)}
+.sidebar-nav{list-style:none}
+.sidebar-nav li a{display:flex;align-items:center;gap:12px;padding:12px 20px;font-size:14px;font-weight:500;color:var(--text-muted);border-left:3px solid transparent;transition:all .2s}
+.sidebar-nav li a:hover{color:var(--text-primary);background:rgba(212,175,55,0.04)}
+.sidebar-nav li a.active{color:var(--gold);background:var(--gold-muted);border-left-color:var(--gold);font-weight:600}
+.sidebar-nav li a svg{width:18px;height:18px;stroke:currentColor;stroke-width:2;fill:none}
+.sidebar-section{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-muted);padding:24px 20px 8px}
+.sidebar-bottom{position:absolute;bottom:0;left:0;right:0;padding:16px 20px;border-top:1px solid var(--border-default)}
+.sidebar-user{display:flex;align-items:center;gap:10px}
+.sidebar-user .avatar{width:36px;height:36px;background:var(--gold-muted);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:var(--gold)}
+.sidebar-user .name{font-size:13px;font-weight:600;color:var(--text-primary)}
+.sidebar-user .role{font-size:11px;color:var(--text-muted)}
+
+.main{padding:32px;overflow-y:auto}
+.dash-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:32px}
+.dash-header h1{font-family:'Playfair Display',serif;font-size:28px;font-weight:700;color:var(--text-primary)}
+.dash-header .date{font-size:14px;color:var(--text-muted);margin-top:4px}
+.dash-actions{display:flex;align-items:center;gap:12px}
+.theme-toggle{width:40px;height:40px;background:var(--bg-surface);border:1px solid var(--border-default);border-radius:8px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--text-muted);transition:all .2s}
+.theme-toggle:hover{border-color:var(--gold);color:var(--gold)}
+.btn-gold{display:inline-flex;align-items:center;gap:8px;background:var(--gold);color:var(--navy);font-family:'Inter',sans-serif;font-size:14px;font-weight:600;padding:10px 20px;border-radius:8px;border:none;cursor:pointer;transition:all .2s;box-shadow:0 2px 8px rgba(212,175,55,0.25)}
+.btn-gold:hover{background:var(--gold-hover)}
+.btn-outline{display:inline-flex;align-items:center;gap:8px;background:transparent;color:var(--text-primary);font-family:'Inter',sans-serif;font-size:14px;font-weight:600;padding:10px 20px;border-radius:8px;border:1.5px solid var(--border-default);cursor:pointer;transition:all .2s}
+.btn-outline:hover{border-color:var(--gold);color:var(--gold)}
+
+.kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:32px}
+.kpi-card{background:var(--bg-surface);border:1px solid var(--border-default);border-radius:12px;padding:20px;transition:all .2s}
+.kpi-card:hover{box-shadow:var(--shadow-md)}
+.kpi-card .label{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-muted);margin-bottom:8px}
+.kpi-card .value{font-family:'JetBrains Mono',monospace;font-size:28px;font-weight:700;color:var(--text-primary)}
+.kpi-card .value.gold{color:var(--gold)}
+.kpi-card .change{font-size:12px;color:#16A34A;margin-top:4px}
+
+.content-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:32px}
+.panel{background:var(--bg-surface);border:1px solid var(--border-default);border-radius:12px;overflow:hidden}
+.panel-header{display:flex;justify-content:space-between;align-items:center;padding:16px 20px;border-bottom:1px solid var(--border-default)}
+.panel-header h3{font-size:14px;font-weight:700;color:var(--text-primary);display:flex;align-items:center;gap:8px}
+.panel-header h3 .dot{width:6px;height:6px;background:var(--gold);border-radius:50%}
+.panel-header a{font-size:12px;font-weight:600;color:var(--gold)}
+
+/* Leaderboard Table */
+.leaderboard{width:100%}
+.leaderboard-full{grid-column:1/-1}
+.lb-table{width:100%;border-collapse:collapse}
+.lb-table thead th{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--text-muted);padding:12px 16px;text-align:left;border-bottom:1px solid var(--border-default)}
+.lb-table thead th:last-child{text-align:right}
+.lb-table tbody td{padding:14px 16px;font-size:14px;color:var(--text-secondary);border-bottom:1px solid var(--border-subtle)}
+.lb-table tbody tr:hover{background:var(--bg-base)}
+.lb-table .rank{font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:700;color:var(--gold);width:40px}
+.lb-table .agent-name{font-weight:600;color:var(--text-primary)}
+.lb-table .agent-territory{font-size:12px;color:var(--text-muted)}
+.lb-table .mono{font-family:'JetBrains Mono',monospace;font-weight:600}
+.lb-table .gold-val{color:var(--gold)}
+.lb-table td:last-child{text-align:right}
+
+/* Revenue Chart Placeholder */
+.chart-placeholder{background:var(--bg-elevated);border:2px dashed var(--border-default);border-radius:12px;height:240px;display:flex;align-items:center;justify-content:center;color:var(--text-muted);font-size:14px;margin:16px 20px 20px}
+
+/* Activity */
+.activity-item{display:flex;justify-content:space-between;align-items:flex-start;padding:14px 20px;border-bottom:1px solid var(--border-subtle)}
+.activity-item:last-child{border-bottom:none}
+.activity-title{font-size:13px;font-weight:600;color:var(--text-primary)}
+.activity-desc{font-size:12px;color:var(--text-muted);margin-top:2px}
+.activity-time{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text-muted);white-space:nowrap}
+
+@media(max-width:1024px){.kpi-grid{grid-template-columns:repeat(2,1fr)}.content-grid{grid-template-columns:1fr}}
+@media(max-width:768px){.dash-layout{grid-template-columns:1fr}.sidebar{display:none}.main{padding:20px}}
+</style>
+</head>
+<body>
+
+<div class="dash-layout">
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><polyline points="15,70 50,25 85,70" stroke="#D4AF37" stroke-width="7" fill="none" stroke-linecap="round" stroke-linejoin="round"/><circle cx="50" cy="25" r="4" fill="#D4AF37"/><line x1="50" y1="70" x2="50" y2="45" stroke="#D4AF37" stroke-width="5" stroke-linecap="round"/></svg>
+      <span><strong>Luxe</strong>Lead<span class="pro">Pro</span></span>
+    </div>
+    <div class="sidebar-section">Management</div>
+    <ul class="sidebar-nav">
+      <li><a href="/" class="active"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>Dashboard</a></li>
+      <li><a href="/"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>Agents</a></li>
+      <li><a href="/"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Territories</a></li>
+      <li><a href="/"><svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>Revenue</a></li>
+      <li><a href="/"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>Reports</a></li>
+    </ul>
+    <div class="sidebar-section">Account</div>
+    <ul class="sidebar-nav">
+      <li><a href="/"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>Settings</a></li>
+      <li><a href="/"><svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>Sign Out</a></li>
+    </ul>
+    <div class="sidebar-bottom">
+      <div class="sidebar-user">
+        <div class="avatar">MR</div>
+        <div><div class="name">Mike Rodriguez</div><div class="role">Manager — West Region</div></div>
+      </div>
+    </div>
+  </aside>
+
+  <main class="main">
+    <div class="dash-header">
+      <div>
+        <h1>Good morning, Mike</h1>
+        <div class="date">Tuesday, April 8, 2026 — 8 agents active, 12 territories claimed</div>
+      </div>
+      <div class="dash-actions">
+        <button class="theme-toggle" onclick="document.documentElement.classList.toggle('dark')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></button>
+        <button class="btn-outline">Export Report</button>
+        <button class="btn-gold">Add Agent</button>
+      </div>
+    </div>
+
+    <div class="kpi-grid">
+      <div class="kpi-card"><div class="label">Monthly Revenue</div><div class="value gold">$18.7K</div><div class="change">+12% vs last month</div></div>
+      <div class="kpi-card"><div class="label">Active Agents</div><div class="value">8</div><div class="change">+2 this quarter</div></div>
+      <div class="kpi-card"><div class="label">Avg Close Rate</div><div class="value">7.4%</div><div class="change">+0.8% this month</div></div>
+      <div class="kpi-card"><div class="label">Territories Claimed</div><div class="value gold">12</div><div class="change">3 available in region</div></div>
+    </div>
+
+    <!-- Agent Leaderboard (Full Width) -->
+    <div class="panel leaderboard-full" style="margin-bottom:24px">
+      <div class="panel-header"><h3><span class="dot"></span>Agent Leaderboard — April 2026</h3><a href="/">View Details</a></div>
+      <table class="lb-table">
+        <thead><tr><th>Rank</th><th>Agent</th><th>Leads</th><th>Close Rate</th><th>Revenue</th><th>AI Score</th></tr></thead>
+        <tbody>
+          <tr><td class="rank">#1</td><td><div class="agent-name">Sarah Johnson</div><div class="agent-territory">85253 — Scottsdale</div></td><td class="mono">47</td><td class="mono">8.2%</td><td class="mono gold-val">$2.8M</td><td class="mono gold-val">92</td></tr>
+          <tr><td class="rank">#2</td><td><div class="agent-name">David Park</div><div class="agent-territory">90210 — Beverly Hills</div></td><td class="mono">38</td><td class="mono">7.9%</td><td class="mono gold-val">$2.1M</td><td class="mono">85</td></tr>
+          <tr><td class="rank">#3</td><td><div class="agent-name">Lisa Martinez</div><div class="agent-territory">92657 — Newport Coast</div></td><td class="mono">34</td><td class="mono">7.1%</td><td class="mono">$1.8M</td><td class="mono">79</td></tr>
+          <tr><td class="rank">#4</td><td><div class="agent-name">Robert Kim</div><div class="agent-territory">10065 — Upper East Side</div></td><td class="mono">29</td><td class="mono">6.8%</td><td class="mono">$1.5M</td><td class="mono">74</td></tr>
+          <tr><td class="rank">#5</td><td><div class="agent-name">Amanda Foster</div><div class="agent-territory">78746 — Westlake Hills</div></td><td class="mono">25</td><td class="mono">6.2%</td><td class="mono">$1.2M</td><td class="mono">68</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="content-grid">
+      <div class="panel">
+        <div class="panel-header"><h3><span class="dot"></span>Revenue Trend</h3><a href="/">Full Report</a></div>
+        <div class="chart-placeholder">Chart.js or Recharts revenue line chart goes here</div>
+      </div>
+      <div class="panel">
+        <div class="panel-header"><h3><span class="dot"></span>Team Activity</h3><a href="/">View All</a></div>
+        <div class="activity-item"><div><div class="activity-title">Sarah Johnson closed $3.2M deal</div><div class="activity-desc">Lincoln Park — Exclusive Territory lead</div></div><div class="activity-time">2h ago</div></div>
+        <div class="activity-item"><div><div class="activity-title">David Park added 5 new leads</div><div class="activity-desc">Beverly Hills territory — AI-generated</div></div><div class="activity-time">4h ago</div></div>
+        <div class="activity-item"><div><div class="activity-title">New territory claimed: 30327</div><div class="activity-desc">Buckhead, Atlanta — Amanda Foster</div></div><div class="activity-time">Yesterday</div></div>
+        <div class="activity-item"><div><div class="activity-title">Monthly report generated</div><div class="activity-desc">March 2026 — all agents summary</div></div><div class="activity-time">Apr 1</div></div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script>(function(){const s=localStorage.getItem('luxe-theme');if(s==='dark')document.documentElement.classList.add('dark');document.querySelector('.theme-toggle')?.addEventListener('click',function(){const d=document.documentElement.classList.toggle('dark');localStorage.setItem('luxe-theme',d?'dark':'light')})})()</script>
+</body>
+</html>

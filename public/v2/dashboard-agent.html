@@ -1,0 +1,224 @@
+<!--
+IMPLEMENTATION NOTES FOR CLAUDE/OPUS:
+
+PAGE: Agent Dashboard
+ROUTE: /agent/dashboard
+FILE: app/(dashboard)/agent/page.tsx
+
+COMPONENTS USED:
+- DashboardLayout (shared: components/dashboard/DashboardLayout.tsx) — sidebar + main area
+- DashboardSidebar (shared: components/dashboard/DashboardSidebar.tsx)
+- DashboardHeader (shared: components/dashboard/DashboardHeader.tsx)
+- KPICards (components/dashboard/KPICards.tsx)
+- LeadPipeline (components/agent/LeadPipeline.tsx)
+- DailyBriefing (components/agent/DailyBriefing.tsx)
+- ActivityFeed (components/dashboard/ActivityFeed.tsx)
+- NO shared marketing Header/Footer — dashboards use their own layout
+
+CSS VARIABLES USED:
+- var(--bg-base) #FAFAF8 for main content area (LIGHT MODE DEFAULT)
+- var(--bg-surface) #FFFFFF for cards
+- var(--bg-elevated) #F8F6F3 for sidebar background
+- var(--text-primary) #0A192F for headings
+- var(--text-secondary) #4A5568 for body text
+- var(--gold) #D4AF37 for active nav, primary actions, key metrics
+- var(--border-default) #E8E5DE for card borders, sidebar border
+
+KEY STYLING NOTES:
+- LIGHT MODE is the default — NOT dark
+- Sidebar: bg-elevated, 256px wide, fixed left, gold active indicator (left border)
+- Header: sticky top, shows greeting (Playfair), date, theme toggle (sun/moon), and gold CTA
+- KPI cards: 4-column grid, white cards with subtle border, monospace numbers
+- Lead pipeline: table with hover states, AI score badges, action buttons
+- Daily briefing: card with gold accent top border
+- Activity feed: timeline-style with timestamps
+- Theme toggle in header switches entire dashboard between light and dark
+- All nav icons are SVG stroke icons — NO emojis
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Agent Dashboard — LuxeLeadPro</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg-base:#FAFAF8;--bg-surface:#FFFFFF;--bg-elevated:#F8F6F3;--text-primary:#0A192F;--text-secondary:#4A5568;--text-muted:#718096;--border-default:#E8E5DE;--border-subtle:#F0EDE6;--gold:#D4AF37;--gold-hover:#B5952F;--gold-muted:rgba(212,175,55,0.12);--navy:#0A192F;--deep:#050B14;--shadow-sm:0 1px 3px rgba(10,25,47,0.04);--shadow-md:0 4px 16px rgba(10,25,47,0.06)}
+.dark{--bg-base:#050B14;--bg-surface:#0A192F;--bg-elevated:#112240;--text-primary:#F8FAFC;--text-secondary:#94A3B8;--text-muted:#64748B;--border-default:#1E293B;--border-subtle:#0F172A;--shadow-sm:0 1px 3px rgba(0,0,0,0.2);--shadow-md:0 4px 16px rgba(0,0,0,0.3)}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',-apple-system,sans-serif;background:var(--bg-base);color:var(--text-primary);-webkit-font-smoothing:antialiased;line-height:1.6;transition:background .3s,color .3s}
+a{text-decoration:none;color:inherit}
+
+/* Dashboard Layout */
+.dash-layout{display:grid;grid-template-columns:256px 1fr;min-height:100vh}
+
+/* Sidebar */
+.sidebar{background:var(--bg-elevated);border-right:1px solid var(--border-default);padding:24px 0;position:sticky;top:0;height:100vh;overflow-y:auto;transition:background .3s}
+.sidebar-logo{display:flex;align-items:center;gap:10px;padding:0 20px;margin-bottom:32px}
+.sidebar-logo svg{width:28px;height:28px}
+.sidebar-logo span{font-size:16px;font-weight:300;color:var(--text-primary)}
+.sidebar-logo span strong{font-weight:700}
+.sidebar-logo span .pro{color:var(--gold)}
+.sidebar-nav{list-style:none}
+.sidebar-nav li a{display:flex;align-items:center;gap:12px;padding:12px 20px;font-size:14px;font-weight:500;color:var(--text-muted);border-left:3px solid transparent;transition:all .2s}
+.sidebar-nav li a:hover{color:var(--text-primary);background:rgba(212,175,55,0.04)}
+.sidebar-nav li a.active{color:var(--gold);background:var(--gold-muted);border-left-color:var(--gold);font-weight:600}
+.sidebar-nav li a svg{width:18px;height:18px;stroke:currentColor;stroke-width:2;fill:none}
+.sidebar-section{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-muted);padding:24px 20px 8px}
+.sidebar-bottom{position:absolute;bottom:0;left:0;right:0;padding:16px 20px;border-top:1px solid var(--border-default)}
+.sidebar-user{display:flex;align-items:center;gap:10px}
+.sidebar-user .avatar{width:36px;height:36px;background:var(--gold-muted);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:var(--gold)}
+.sidebar-user .name{font-size:13px;font-weight:600;color:var(--text-primary)}
+.sidebar-user .role{font-size:11px;color:var(--text-muted)}
+
+/* Main Content */
+.main{padding:32px;overflow-y:auto}
+
+/* Dashboard Header */
+.dash-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:32px}
+.dash-header h1{font-family:'Playfair Display',serif;font-size:28px;font-weight:700;color:var(--text-primary)}
+.dash-header .date{font-size:14px;color:var(--text-muted);margin-top:4px}
+.dash-actions{display:flex;align-items:center;gap:12px}
+.theme-toggle{width:40px;height:40px;background:var(--bg-surface);border:1px solid var(--border-default);border-radius:8px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--text-muted);transition:all .2s}
+.theme-toggle:hover{border-color:var(--gold);color:var(--gold)}
+.btn-gold{display:inline-flex;align-items:center;gap:8px;background:var(--gold);color:var(--navy);font-family:'Inter',sans-serif;font-size:14px;font-weight:600;padding:10px 20px;border-radius:8px;border:none;cursor:pointer;transition:all .2s;box-shadow:0 2px 8px rgba(212,175,55,0.25)}
+.btn-gold:hover{background:var(--gold-hover)}
+
+/* KPI Cards */
+.kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:32px}
+.kpi-card{background:var(--bg-surface);border:1px solid var(--border-default);border-radius:12px;padding:20px;transition:all .2s}
+.kpi-card:hover{box-shadow:var(--shadow-md)}
+.kpi-card .label{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-muted);margin-bottom:8px}
+.kpi-card .value{font-family:'JetBrains Mono',monospace;font-size:28px;font-weight:700;color:var(--text-primary)}
+.kpi-card .value.gold{color:var(--gold)}
+.kpi-card .change{font-size:12px;color:#16A34A;margin-top:4px;display:flex;align-items:center;gap:4px}
+.kpi-card .change svg{width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2}
+
+/* Content Grid */
+.content-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:32px}
+
+/* Lead Pipeline */
+.panel{background:var(--bg-surface);border:1px solid var(--border-default);border-radius:12px;overflow:hidden}
+.panel-header{display:flex;justify-content:space-between;align-items:center;padding:16px 20px;border-bottom:1px solid var(--border-default)}
+.panel-header h3{font-size:14px;font-weight:700;color:var(--text-primary);display:flex;align-items:center;gap:8px}
+.panel-header h3 .dot{width:6px;height:6px;background:var(--gold);border-radius:50%}
+.panel-header a{font-size:12px;font-weight:600;color:var(--gold)}
+
+.lead-item{display:flex;align-items:center;gap:12px;padding:14px 20px;border-bottom:1px solid var(--border-subtle);transition:background .2s}
+.lead-item:hover{background:var(--bg-base)}
+.lead-item:last-child{border-bottom:none}
+.lead-avatar{width:36px;height:36px;background:var(--bg-elevated);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:var(--text-secondary);flex-shrink:0}
+.lead-info{flex:1}
+.lead-name{font-size:14px;font-weight:600;color:var(--text-primary)}
+.lead-detail{font-size:12px;color:var(--text-muted)}
+.lead-score{display:flex;align-items:center;gap:8px}
+.score-num{font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:600;color:var(--text-secondary)}
+.badge-hot{font-size:10px;font-weight:700;padding:3px 8px;border-radius:100px;background:rgba(239,68,68,0.1);color:#DC2626}
+.badge-warm{font-size:10px;font-weight:700;padding:3px 8px;border-radius:100px;background:rgba(245,158,11,0.1);color:#D97706}
+.badge-active{font-size:10px;font-weight:700;padding:3px 8px;border-radius:100px;background:rgba(16,185,129,0.1);color:#059669}
+
+/* Activity Feed */
+.activity-item{display:flex;justify-content:space-between;align-items:flex-start;padding:14px 20px;border-bottom:1px solid var(--border-subtle)}
+.activity-item:last-child{border-bottom:none}
+.activity-title{font-size:13px;font-weight:600;color:var(--text-primary)}
+.activity-desc{font-size:12px;color:var(--text-muted);margin-top:2px}
+.activity-time{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text-muted);white-space:nowrap}
+
+/* Daily Briefing */
+.briefing{background:var(--bg-surface);border:1px solid var(--border-default);border-radius:12px;border-top:3px solid var(--gold);padding:24px}
+.briefing h3{font-size:16px;font-weight:700;color:var(--text-primary);margin-bottom:16px;display:flex;align-items:center;gap:8px}
+.briefing h3 svg{width:18px;height:18px;stroke:var(--gold);fill:none;stroke-width:2}
+.briefing-item{padding:12px 0;border-bottom:1px solid var(--border-subtle)}
+.briefing-item:last-child{border-bottom:none}
+.briefing-item .b-title{font-size:14px;font-weight:600;color:var(--text-primary)}
+.briefing-item .b-desc{font-size:13px;color:var(--text-secondary);margin-top:4px;line-height:1.6}
+
+@media(max-width:1024px){.kpi-grid{grid-template-columns:repeat(2,1fr)}.content-grid{grid-template-columns:1fr}}
+@media(max-width:768px){.dash-layout{grid-template-columns:1fr}.sidebar{display:none}.main{padding:20px}.kpi-grid{grid-template-columns:1fr 1fr}.dash-header h1{font-size:22px}}
+</style>
+</head>
+<body>
+
+<div class="dash-layout">
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><polyline points="15,70 50,25 85,70" stroke="#D4AF37" stroke-width="7" fill="none" stroke-linecap="round" stroke-linejoin="round"/><circle cx="50" cy="25" r="4" fill="#D4AF37"/><line x1="50" y1="70" x2="50" y2="45" stroke="#D4AF37" stroke-width="5" stroke-linecap="round"/></svg>
+      <span><strong>Luxe</strong>Lead<span class="pro">Pro</span></span>
+    </div>
+    <div class="sidebar-section">Main</div>
+    <ul class="sidebar-nav">
+      <li><a href="/" class="active"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>Dashboard</a></li>
+      <li><a href="/"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>Lead Pipeline</a></li>
+      <li><a href="/"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>Morning Briefing</a></li>
+      <li><a href="/"><svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>Analytics</a></li>
+    </ul>
+    <div class="sidebar-section">Account</div>
+    <ul class="sidebar-nav">
+      <li><a href="/"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>Settings</a></li>
+      <li><a href="/"><svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>Sign Out</a></li>
+    </ul>
+    <div class="sidebar-bottom">
+      <div class="sidebar-user">
+        <div class="avatar">SJ</div>
+        <div><div class="name">Sarah Johnson</div><div class="role">Exclusive Territory — 85253</div></div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main class="main">
+    <div class="dash-header">
+      <div>
+        <h1>Good morning, Sarah</h1>
+        <div class="date">Tuesday, April 8, 2026 — Your daily briefing is ready</div>
+      </div>
+      <div class="dash-actions">
+        <button class="theme-toggle" onclick="document.documentElement.classList.toggle('dark')">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+        </button>
+        <button class="btn-gold">View Briefing</button>
+      </div>
+    </div>
+
+    <!-- KPI CARDS -->
+    <div class="kpi-grid">
+      <div class="kpi-card"><div class="label">Hot Leads</div><div class="value gold">12</div><div class="change"><svg viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/></svg>+3 today</div></div>
+      <div class="kpi-card"><div class="label">Close Rate</div><div class="value">8.2%</div><div class="change"><svg viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/></svg>+1.2% this month</div></div>
+      <div class="kpi-card"><div class="label">Pipeline Value</div><div class="value gold">$2.8M</div><div class="change"><svg viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/></svg>+$420K this week</div></div>
+      <div class="kpi-card"><div class="label">AI Score Avg</div><div class="value">72</div><div class="change"><svg viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/></svg>Above average</div></div>
+    </div>
+
+    <!-- CONTENT GRID -->
+    <div class="content-grid">
+      <!-- Lead Pipeline -->
+      <div class="panel">
+        <div class="panel-header"><h3><span class="dot"></span>Today's Top Opportunities</h3><a href="/">View All</a></div>
+        <div class="lead-item"><div class="lead-avatar">SJ</div><div class="lead-info"><div class="lead-name">Sarah Johnson</div><div class="lead-detail">Lincoln Park — $3.2M</div></div><div class="lead-score"><span class="score-num">92</span><span class="badge-hot">Hot</span></div></div>
+        <div class="lead-item"><div class="lead-avatar">MC</div><div class="lead-info"><div class="lead-name">Michael Chen</div><div class="lead-detail">Gold Coast — $1.8M</div></div><div class="lead-score"><span class="score-num">78</span><span class="badge-warm">Warm</span></div></div>
+        <div class="lead-item"><div class="lead-avatar">EB</div><div class="lead-info"><div class="lead-name">Elizabeth Brown</div><div class="lead-detail">River North — $2.4M</div></div><div class="lead-score"><span class="score-num">65</span><span class="badge-active">Active</span></div></div>
+        <div class="lead-item"><div class="lead-avatar">JW</div><div class="lead-info"><div class="lead-name">James Wilson</div><div class="lead-detail">Streeterville — $1.5M</div></div><div class="lead-score"><span class="score-num">58</span><span class="badge-active">Active</span></div></div>
+      </div>
+      <!-- Activity Feed -->
+      <div class="panel">
+        <div class="panel-header"><h3><span class="dot"></span>Recent Activity</h3><a href="/">View All</a></div>
+        <div class="activity-item"><div><div class="activity-title">Called Sarah Johnson</div><div class="activity-desc">Interested in $3.2M listing, scheduling showing</div></div><div class="activity-time">8:42 AM</div></div>
+        <div class="activity-item"><div><div class="activity-title">AI Briefing Delivered</div><div class="activity-desc">3 new hot leads identified overnight</div></div><div class="activity-time">6:00 AM</div></div>
+        <div class="activity-item"><div><div class="activity-title">Lead Score Updated</div><div class="activity-desc">Michael Chen moved from Active to Warm (+13)</div></div><div class="activity-time">Yesterday</div></div>
+        <div class="activity-item"><div><div class="activity-title">New Lead Assigned</div><div class="activity-desc">James Wilson — Streeterville, $1.5M budget</div></div><div class="activity-time">Yesterday</div></div>
+      </div>
+    </div>
+
+    <!-- DAILY BRIEFING -->
+    <div class="briefing">
+      <h3><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>Today's AI Briefing — April 8, 2026</h3>
+      <div class="briefing-item"><div class="b-title">3 New Hot Leads Identified</div><div class="b-desc">Overnight analysis identified Sarah Johnson (AI: 92), a returning buyer in Lincoln Park with $3.2M budget. Two additional prospects in Gold Coast show strong intent signals.</div></div>
+      <div class="briefing-item"><div class="b-title">Market Trend: Scottsdale 85253</div><div class="b-desc">Average days on market decreased to 52 (from 58 last month). Median listing price up 3.2% to $2.4M. Your territory is heating up.</div></div>
+      <div class="briefing-item"><div class="b-title">Recommended Action</div><div class="b-desc">Call Sarah Johnson first — her engagement score spiked after viewing 3 listings yesterday evening. Best time to reach: 9:00-10:00 AM.</div></div>
+    </div>
+  </main>
+</div>
+
+<script>(function(){const s=localStorage.getItem('luxe-theme');if(s==='dark')document.documentElement.classList.add('dark');document.querySelector('.theme-toggle')?.addEventListener('click',function(){const d=document.documentElement.classList.toggle('dark');localStorage.setItem('luxe-theme',d?'dark':'light')})})()</script>
+</body>
+</html>

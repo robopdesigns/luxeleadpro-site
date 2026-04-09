@@ -1,0 +1,212 @@
+<!--
+IMPLEMENTATION NOTES FOR CLAUDE/OPUS:
+
+PAGE: Sales Rep Portal
+ROUTE: /rep/dashboard
+FILE: app/(dashboard)/rep/page.tsx
+
+COMPONENTS USED:
+- DashboardLayout (shared: components/dashboard/DashboardLayout.tsx) — SAME layout
+- DashboardSidebar (shared: components/dashboard/DashboardSidebar.tsx) — SAME sidebar
+- DashboardHeader (shared: components/dashboard/DashboardHeader.tsx) — SAME header
+- KPICards (components/dashboard/KPICards.tsx) — SAME KPI cards
+- CommissionTracker (components/rep/CommissionTracker.tsx)
+- DemoSchedule (components/rep/DemoSchedule.tsx)
+- ProspectPipeline (components/rep/ProspectPipeline.tsx)
+
+CSS VARIABLES USED:
+- IDENTICAL to all other dashboards
+- var(--bg-base) #FAFAF8, var(--bg-surface) #FFFFFF, var(--bg-elevated) #F8F6F3
+- var(--gold) #D4AF37 for active nav, commissions, primary actions
+
+KEY STYLING NOTES:
+- IDENTICAL layout structure (256px sidebar, sticky header, KPI grid, content panels)
+- Sales rep sees: commissions, demos scheduled, conversion rate, pipeline
+- Sidebar nav: Dashboard, Prospects, Demos, Commissions, Scripts, Settings
+- KPIs: Monthly Commission, Demos Scheduled, Conversion Rate, Active Prospects
+- Commission: 30% first month, 10% recurring — show in gold
+- Demo schedule: list of upcoming demos with time, prospect name, territory
+- Prospect pipeline: table with name, territory, stage, next action
+- "Schedule Demo" is gold CTA; "View Scripts" is outlined
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sales Rep Portal — LuxeLeadPro</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg-base:#FAFAF8;--bg-surface:#FFFFFF;--bg-elevated:#F8F6F3;--text-primary:#0A192F;--text-secondary:#4A5568;--text-muted:#718096;--border-default:#E8E5DE;--border-subtle:#F0EDE6;--gold:#D4AF37;--gold-hover:#B5952F;--gold-muted:rgba(212,175,55,0.12);--navy:#0A192F;--deep:#050B14;--shadow-sm:0 1px 3px rgba(10,25,47,0.04);--shadow-md:0 4px 16px rgba(10,25,47,0.06)}
+.dark{--bg-base:#050B14;--bg-surface:#0A192F;--bg-elevated:#112240;--text-primary:#F8FAFC;--text-secondary:#94A3B8;--text-muted:#64748B;--border-default:#1E293B;--border-subtle:#0F172A;--shadow-sm:0 1px 3px rgba(0,0,0,0.2);--shadow-md:0 4px 16px rgba(0,0,0,0.3)}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',-apple-system,sans-serif;background:var(--bg-base);color:var(--text-primary);-webkit-font-smoothing:antialiased;line-height:1.6;transition:background .3s,color .3s}
+a{text-decoration:none;color:inherit}
+.dash-layout{display:grid;grid-template-columns:256px 1fr;min-height:100vh}
+.sidebar{background:var(--bg-elevated);border-right:1px solid var(--border-default);padding:24px 0;position:sticky;top:0;height:100vh;overflow-y:auto;transition:background .3s}
+.sidebar-logo{display:flex;align-items:center;gap:10px;padding:0 20px;margin-bottom:32px}
+.sidebar-logo svg{width:28px;height:28px}
+.sidebar-logo span{font-size:16px;font-weight:300;color:var(--text-primary)}
+.sidebar-logo span strong{font-weight:700}
+.sidebar-logo span .pro{color:var(--gold)}
+.sidebar-nav{list-style:none}
+.sidebar-nav li a{display:flex;align-items:center;gap:12px;padding:12px 20px;font-size:14px;font-weight:500;color:var(--text-muted);border-left:3px solid transparent;transition:all .2s}
+.sidebar-nav li a:hover{color:var(--text-primary);background:rgba(212,175,55,0.04)}
+.sidebar-nav li a.active{color:var(--gold);background:var(--gold-muted);border-left-color:var(--gold);font-weight:600}
+.sidebar-nav li a svg{width:18px;height:18px;stroke:currentColor;stroke-width:2;fill:none}
+.sidebar-section{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-muted);padding:24px 20px 8px}
+.sidebar-bottom{position:absolute;bottom:0;left:0;right:0;padding:16px 20px;border-top:1px solid var(--border-default)}
+.sidebar-user{display:flex;align-items:center;gap:10px}
+.sidebar-user .avatar{width:36px;height:36px;background:var(--gold-muted);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:var(--gold)}
+.sidebar-user .name{font-size:13px;font-weight:600;color:var(--text-primary)}
+.sidebar-user .role{font-size:11px;color:var(--text-muted)}
+.main{padding:32px;overflow-y:auto}
+.dash-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:32px}
+.dash-header h1{font-family:'Playfair Display',serif;font-size:28px;font-weight:700;color:var(--text-primary)}
+.dash-header .date{font-size:14px;color:var(--text-muted);margin-top:4px}
+.dash-actions{display:flex;align-items:center;gap:12px}
+.theme-toggle{width:40px;height:40px;background:var(--bg-surface);border:1px solid var(--border-default);border-radius:8px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--text-muted);transition:all .2s}
+.theme-toggle:hover{border-color:var(--gold);color:var(--gold)}
+.btn-gold{display:inline-flex;align-items:center;gap:8px;background:var(--gold);color:var(--navy);font-family:'Inter',sans-serif;font-size:14px;font-weight:600;padding:10px 20px;border-radius:8px;border:none;cursor:pointer;transition:all .2s;box-shadow:0 2px 8px rgba(212,175,55,0.25)}
+.btn-gold:hover{background:var(--gold-hover)}
+.btn-outline{display:inline-flex;align-items:center;gap:8px;background:transparent;color:var(--text-primary);font-family:'Inter',sans-serif;font-size:14px;font-weight:600;padding:10px 20px;border-radius:8px;border:1.5px solid var(--border-default);cursor:pointer;transition:all .2s}
+.btn-outline:hover{border-color:var(--gold);color:var(--gold)}
+.kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:32px}
+.kpi-card{background:var(--bg-surface);border:1px solid var(--border-default);border-radius:12px;padding:20px;transition:all .2s}
+.kpi-card:hover{box-shadow:var(--shadow-md)}
+.kpi-card .label{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-muted);margin-bottom:8px}
+.kpi-card .value{font-family:'JetBrains Mono',monospace;font-size:28px;font-weight:700;color:var(--text-primary)}
+.kpi-card .value.gold{color:var(--gold)}
+.kpi-card .change{font-size:12px;color:#16A34A;margin-top:4px}
+.kpi-card .sub-text{font-size:11px;color:var(--text-muted);margin-top:2px}
+.content-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:32px}
+.panel{background:var(--bg-surface);border:1px solid var(--border-default);border-radius:12px;overflow:hidden}
+.panel-full{grid-column:1/-1}
+.panel-header{display:flex;justify-content:space-between;align-items:center;padding:16px 20px;border-bottom:1px solid var(--border-default)}
+.panel-header h3{font-size:14px;font-weight:700;color:var(--text-primary);display:flex;align-items:center;gap:8px}
+.panel-header h3 .dot{width:6px;height:6px;background:var(--gold);border-radius:50%}
+.panel-header a{font-size:12px;font-weight:600;color:var(--gold)}
+
+/* Commission Breakdown */
+.commission-item{display:flex;justify-content:space-between;align-items:center;padding:14px 20px;border-bottom:1px solid var(--border-subtle)}
+.commission-item:last-child{border-bottom:none}
+.comm-info .comm-name{font-size:14px;font-weight:600;color:var(--text-primary)}
+.comm-info .comm-detail{font-size:12px;color:var(--text-muted);margin-top:2px}
+.comm-amount{font-family:'JetBrains Mono',monospace;font-size:16px;font-weight:700;color:var(--gold)}
+.comm-type{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:3px 8px;border-radius:100px;margin-left:8px}
+.comm-first{background:var(--gold-muted);color:var(--gold)}
+.comm-recurring{background:rgba(16,185,129,0.1);color:#059669}
+
+/* Demo Schedule */
+.demo-item{display:flex;align-items:center;gap:16px;padding:14px 20px;border-bottom:1px solid var(--border-subtle)}
+.demo-item:last-child{border-bottom:none}
+.demo-time{font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;color:var(--gold);background:var(--gold-muted);padding:6px 10px;border-radius:6px;text-align:center;min-width:72px}
+.demo-info .demo-name{font-size:14px;font-weight:600;color:var(--text-primary)}
+.demo-info .demo-detail{font-size:12px;color:var(--text-muted);margin-top:2px}
+.demo-status{font-size:11px;font-weight:600;margin-left:auto}
+.demo-confirmed{color:#16A34A}
+.demo-pending{color:#D97706}
+
+/* Prospect Table */
+.prospect-table{width:100%;border-collapse:collapse}
+.prospect-table thead th{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--text-muted);padding:12px 16px;text-align:left;border-bottom:1px solid var(--border-default)}
+.prospect-table tbody td{padding:14px 16px;font-size:14px;color:var(--text-secondary);border-bottom:1px solid var(--border-subtle)}
+.prospect-table tbody tr:hover{background:var(--bg-base)}
+.prospect-table .p-name{font-weight:600;color:var(--text-primary)}
+.stage-badge{font-size:10px;font-weight:700;padding:3px 10px;border-radius:100px;display:inline-block}
+.stage-demo{background:var(--gold-muted);color:var(--gold)}
+.stage-follow{background:rgba(59,130,246,0.1);color:#3B82F6}
+.stage-close{background:rgba(16,185,129,0.1);color:#059669}
+.stage-new{background:rgba(107,114,128,0.1);color:#6B7280}
+
+@media(max-width:1024px){.kpi-grid{grid-template-columns:repeat(2,1fr)}.content-grid{grid-template-columns:1fr}}
+@media(max-width:768px){.dash-layout{grid-template-columns:1fr}.sidebar{display:none}.main{padding:20px}}
+</style>
+</head>
+<body>
+<div class="dash-layout">
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><polyline points="15,70 50,25 85,70" stroke="#D4AF37" stroke-width="7" fill="none" stroke-linecap="round" stroke-linejoin="round"/><circle cx="50" cy="25" r="4" fill="#D4AF37"/><line x1="50" y1="70" x2="50" y2="45" stroke="#D4AF37" stroke-width="5" stroke-linecap="round"/></svg>
+      <span><strong>Luxe</strong>Lead<span class="pro">Pro</span></span>
+    </div>
+    <div class="sidebar-section">Sales</div>
+    <ul class="sidebar-nav">
+      <li><a href="/" class="active"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>Dashboard</a></li>
+      <li><a href="/"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>Prospects</a></li>
+      <li><a href="/"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>Demos</a></li>
+      <li><a href="/"><svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>Commissions</a></li>
+      <li><a href="/"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>Scripts &amp; Resources</a></li>
+    </ul>
+    <div class="sidebar-section">Account</div>
+    <ul class="sidebar-nav">
+      <li><a href="/"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>Settings</a></li>
+      <li><a href="/"><svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>Sign Out</a></li>
+    </ul>
+    <div class="sidebar-bottom">
+      <div class="sidebar-user">
+        <div class="avatar">AT</div>
+        <div><div class="name">Alex Thompson</div><div class="role">Sales Rep — Southwest</div></div>
+      </div>
+    </div>
+  </aside>
+
+  <main class="main">
+    <div class="dash-header">
+      <div>
+        <h1>Good morning, Alex</h1>
+        <div class="date">Tuesday, April 8, 2026 — 3 demos today, 2 follow-ups pending</div>
+      </div>
+      <div class="dash-actions">
+        <button class="theme-toggle" onclick="document.documentElement.classList.toggle('dark')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></button>
+        <button class="btn-outline">View Scripts</button>
+        <button class="btn-gold">Schedule Demo</button>
+      </div>
+    </div>
+
+    <div class="kpi-grid">
+      <div class="kpi-card"><div class="label">Monthly Commission</div><div class="value gold">$2,847</div><div class="change">+$620 vs last month</div><div class="sub-text">30% first month / 10% recurring</div></div>
+      <div class="kpi-card"><div class="label">Demos This Week</div><div class="value">7</div><div class="change">3 remaining today</div></div>
+      <div class="kpi-card"><div class="label">Conversion Rate</div><div class="value">32%</div><div class="change">+5% vs last month</div></div>
+      <div class="kpi-card"><div class="label">Active Prospects</div><div class="value gold">18</div><div class="change">6 in closing stage</div></div>
+    </div>
+
+    <div class="content-grid">
+      <!-- Today's Demos -->
+      <div class="panel">
+        <div class="panel-header"><h3><span class="dot"></span>Today's Demos</h3><a href="/">Full Calendar</a></div>
+        <div class="demo-item"><div class="demo-time">9:00 AM</div><div class="demo-info"><div class="demo-name">Jennifer Walsh</div><div class="demo-detail">Scottsdale 85253 — Exclusive Territory</div></div><span class="demo-status demo-confirmed">Confirmed</span></div>
+        <div class="demo-item"><div class="demo-time">11:30 AM</div><div class="demo-info"><div class="demo-name">Marcus Rivera</div><div class="demo-detail">Paradise Valley 85253 — Intel + Gen</div></div><span class="demo-status demo-confirmed">Confirmed</span></div>
+        <div class="demo-item"><div class="demo-time">2:00 PM</div><div class="demo-info"><div class="demo-name">Catherine Lee</div><div class="demo-detail">Sedona 86336 — Exclusive Territory</div></div><span class="demo-status demo-pending">Pending</span></div>
+      </div>
+
+      <!-- Recent Commissions -->
+      <div class="panel">
+        <div class="panel-header"><h3><span class="dot"></span>Recent Commissions</h3><a href="/">Full History</a></div>
+        <div class="commission-item"><div class="comm-info"><div class="comm-name">Sarah Johnson — Exclusive</div><div class="comm-detail">85253 Scottsdale — Signed Mar 15</div></div><div><span class="comm-amount">$449.70</span><span class="comm-type comm-first">30%</span></div></div>
+        <div class="commission-item"><div class="comm-info"><div class="comm-name">David Park — Exclusive</div><div class="comm-detail">90210 Beverly Hills — Recurring</div></div><div><span class="comm-amount">$149.90</span><span class="comm-type comm-recurring">10%</span></div></div>
+        <div class="commission-item"><div class="comm-info"><div class="comm-name">Lisa Martinez — Exclusive</div><div class="comm-detail">92657 Newport Coast — Recurring</div></div><div><span class="comm-amount">$149.90</span><span class="comm-type comm-recurring">10%</span></div></div>
+        <div class="commission-item"><div class="comm-info"><div class="comm-name">Robert Kim — Intel + Gen</div><div class="comm-detail">10065 Upper East Side — Recurring</div></div><div><span class="comm-amount">$74.90</span><span class="comm-type comm-recurring">10%</span></div></div>
+      </div>
+    </div>
+
+    <!-- Prospect Pipeline (Full Width) -->
+    <div class="panel panel-full">
+      <div class="panel-header"><h3><span class="dot"></span>Prospect Pipeline</h3><a href="/">Add Prospect</a></div>
+      <table class="prospect-table">
+        <thead><tr><th>Prospect</th><th>Territory</th><th>Interested Plan</th><th>Stage</th><th>Next Action</th></tr></thead>
+        <tbody>
+          <tr><td class="p-name">Jennifer Walsh</td><td>85253 — Scottsdale</td><td>Exclusive Territory</td><td><span class="stage-badge stage-demo">Demo Today</span></td><td>9:00 AM demo call</td></tr>
+          <tr><td class="p-name">Marcus Rivera</td><td>85253 — Paradise Valley</td><td>Intel + Gen</td><td><span class="stage-badge stage-demo">Demo Today</span></td><td>11:30 AM demo call</td></tr>
+          <tr><td class="p-name">Catherine Lee</td><td>86336 — Sedona</td><td>Exclusive Territory</td><td><span class="stage-badge stage-demo">Demo Today</span></td><td>Confirm 2:00 PM slot</td></tr>
+          <tr><td class="p-name">Brian Foster</td><td>85262 — Fountain Hills</td><td>Exclusive Territory</td><td><span class="stage-badge stage-close">Closing</span></td><td>Send contract</td></tr>
+          <tr><td class="p-name">Diana Patel</td><td>89135 — Summerlin</td><td>Intel + Gen</td><td><span class="stage-badge stage-follow">Follow Up</span></td><td>Call Thursday</td></tr>
+          <tr><td class="p-name">Kevin O'Brien</td><td>30327 — Buckhead</td><td>Intelligence</td><td><span class="stage-badge stage-new">New</span></td><td>Initial outreach</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+</div>
+<script>(function(){const s=localStorage.getItem('luxe-theme');if(s==='dark')document.documentElement.classList.add('dark');document.querySelector('.theme-toggle')?.addEventListener('click',function(){const d=document.documentElement.classList.toggle('dark');localStorage.setItem('luxe-theme',d?'dark':'light')})})()</script>
+</body>
+</html>
