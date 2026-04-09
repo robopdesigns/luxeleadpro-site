@@ -1,402 +1,217 @@
 'use client';
 
-import React from 'react';
 import Link from 'next/link';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
 
 export default function HomePage() {
   return (
-    <div className="min-h-screen bg-[#FDFBF7]">
+    <div className="min-h-screen" style={{ background: 'var(--bg-primary)' }}>
       <Header />
 
-      {/* ─── HERO ─────────────────────────────────────────────── */}
-      <section className="relative px-4 pt-8 pb-16 sm:pt-20 sm:pb-24 lg:pt-28 lg:pb-32 overflow-hidden">
-        {/* Subtle gradient background blob */}
-        <div className="absolute inset-0 -z-10">
-          <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-[#D4AF37]/8 rounded-full opacity-20 blur-3xl translate-x-1/3 -translate-y-1/4" />
-          <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-[#D4AF37]/5 rounded-full opacity-20 blur-3xl -translate-x-1/4 translate-y-1/4" />
-        </div>
-
-        <div className="max-w-6xl mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-            {/* Left */}
-            <div>
-              <div className="inline-flex items-center gap-2 bg-[#D4AF37]/10 border border-[#D4AF37]/20 text-[#D4AF37] px-4 py-2 rounded-full text-sm font-semibold mb-6">
-                <span className="w-2 h-2 bg-[#D4AF37]/100 rounded-full animate-pulse" />
-                AI-Powered · Built for $1M+ Luxury Markets
-              </div>
-
-              <h1 className="text-4xl sm:text-6xl lg:text-7xl font-serif font-bold text-gray-900 mb-4 sm:mb-6 leading-[1.05]">
-                Close <span className="text-[#D4AF37]">2x More</span><br />Luxury Deals
-              </h1>
-
-              <p className="text-base sm:text-xl text-gray-600 mb-5 sm:mb-8 leading-relaxed max-w-lg">
-                The only AI lead-scoring platform built exclusively for luxury real estate. Know your best prospects every morning. Win deals before your competition even sees them.
-              </p>
-
-              {/* Founding cohort badge */}
-              <div className="flex items-center gap-3 mb-5 sm:mb-8">
-                <div className="inline-flex items-center gap-2 bg-[#D4AF37]/5 border border-[#D4AF37]/20 text-[#D4AF37] px-3 py-1.5 rounded-full text-sm font-medium">
-                  <span className="w-2 h-2 bg-[#D4AF37] rounded-full animate-pulse" />
-                  Founding Agent Cohort — Limited Availability
-                </div>
-              </div>
-
-              {/* Value Props - hidden on smallest screens to keep CTA visible */}
-              <div className="hidden sm:block space-y-3 mb-8">
-                {[
-                  'AI scoring identifies your top buyers before competitors',
-                  'Daily market briefing — your 3 best deals every morning',
-                  'TCPA/DNC compliance built-in — zero legal risk ever',
-                ].map((item, i) => (
-                  <div key={i} className="flex items-start gap-3">
-                    <div className="w-5 h-5 rounded-full bg-[#D4AF37]/10 flex items-center justify-center flex-shrink-0 mt-0.5">
-                      <svg className="w-3 h-3 text-[#D4AF37]" fill="currentColor" viewBox="0 0 20 20">
-                        <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"/>
-                      </svg>
-                    </div>
-                    <span className="text-gray-700">{item}</span>
-                  </div>
-                ))}
-              </div>
-
-              {/* CTAs */}
-              <div className="flex flex-col sm:flex-row gap-3 mt-6 sm:mt-0">
-                <a href="https://calendly.com/robopdesigns/strategy-call" target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center gap-2 bg-[#0A192F] text-white px-8 py-4 rounded-xl font-semibold hover:bg-[#1a2940] transition shadow-lg shadow-purple-200">
-                  Book a Strategy Call
-                  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7"/></svg>
-                </a>
-                <Link href="/pricing" className="inline-flex items-center justify-center gap-2 border-2 border-gray-200 text-gray-900 px-8 py-4 rounded-xl font-semibold hover:border-[#D4AF37]/50 hover:text-[#D4AF37] transition">
-                  See Pricing
-                </Link>
-              </div>
-              <p className="text-sm text-gray-500 mt-4">No obligation · Personalized to your market · Setup in under 10 minutes</p>
+      {/* HERO — Split 50/50, subtle ivory gradient */}
+      <section className="relative px-4 pt-12 pb-20 sm:pt-24 sm:pb-32 overflow-hidden" style={{ background: 'linear-gradient(135deg, #FAFAF8 0%, #F0EDE6 50%, #FAF8F5 100%)' }}>
+        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+          {/* Left */}
+          <div>
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-bold uppercase tracking-widest mb-6" style={{ background: 'rgba(212,175,55,0.12)', color: '#C4A030', border: '1px solid rgba(212,175,55,0.25)' }}>
+              <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: '#D4AF37' }} />
+              AI-Powered · Built for $1M+ Markets
             </div>
 
-            {/* Right: AI Command Center */}
-            <div className="mt-4 lg:mt-0">
-              <div className="bg-white rounded-2xl p-6 sm:p-8 border border-gray-200 shadow-2xl shadow-gray-100">
-                <div className="flex items-center justify-between mb-6">
-                  <h3 className="font-semibold text-gray-900">🤖 Your AI Command Center</h3>
-                  <span className="text-xs bg-green-100 text-[#D4AF37] px-2 py-1 rounded-full font-medium">● Live</span>
-                </div>
+            <h1 className="font-display text-5xl md:text-7xl font-bold leading-[1.05] mb-6" style={{ color: '#0A192F' }}>
+              Close <span className="italic" style={{ color: '#D4AF37' }}>2x More</span><br />Luxury Deals
+            </h1>
 
-                {/* Stats */}
-                <div className="grid grid-cols-3 gap-3 mb-6">
-                  {[
-                    { label: 'Hot Leads', value: '12', color: 'from-emerald-500 to-emerald-600' },
-                    { label: 'Close Rate', value: '8.2%', color: 'from-amber-500 to-amber-600' },
-                    { label: 'Pipeline', value: '$2.8M', color: 'from-pink-500 to-pink-600' },
-                  ].map((stat, i) => (
-                    <div key={i} className={`bg-gradient-to-br ${stat.color} rounded-xl p-3 text-white`}>
-                      <div className="text-xs font-medium opacity-80">{stat.label}</div>
-                      <div className="text-2xl font-bold mt-1">{stat.value}</div>
-                    </div>
-                  ))}
-                </div>
+            <p className="text-lg mb-8 leading-relaxed max-w-lg" style={{ color: '#4A5568' }}>
+              The only AI lead-scoring platform built exclusively for luxury real estate. Know your best prospects every morning. Win deals before your competition even sees them.
+            </p>
 
-                {/* Top leads */}
-                <div className="mb-5">
-                  <p className="text-xs font-bold text-[#D4AF37] uppercase tracking-widest mb-3">Today's Top Opportunities</p>
-                  <div className="space-y-2">
-                    {[
-                      { name: 'Sarah Johnson', detail: 'Lincoln Park · $3.2M', score: 92, badge: 'Hot', color: 'bg-red-100 text-red-700' },
-                      { name: 'Michael Chen', detail: 'Gold Coast · $1.8M', score: 78, badge: 'Warm', color: 'bg-[#D4AF37]/10 text-[#D4AF37]' },
-                      { name: 'Elizabeth Brown', detail: 'River North · $2.4M', score: 65, badge: 'Active', color: 'bg-blue-100 text-blue-700' },
-                    ].map((lead, i) => (
-                      <div key={i} className="flex items-center justify-between bg-[#FDFBF7] rounded-lg p-3 border border-slate-200">
-                        <div>
-                          <div className="text-sm font-semibold text-gray-900">{lead.name}</div>
-                          <div className="text-xs text-gray-500">{lead.detail}</div>
-                        </div>
-                        <div className="flex items-center gap-2 flex-shrink-0">
-                          <span className="text-xs font-bold text-gray-700">AI: {lead.score}</span>
-                          <span className={`text-xs font-bold px-2 py-0.5 rounded-full ${lead.color}`}>{lead.badge}</span>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                <button className="w-full bg-[#0A192F] text-white font-semibold py-3 rounded-xl hover:bg-[#1a2940] transition text-sm">
-                  View Full Daily Briefing →
-                </button>
-              </div>
+            <div className="flex flex-wrap gap-3 mb-6">
+              <Link href="https://calendly.com/robopdesigns/strategy-call" className="inline-flex items-center px-6 py-3 rounded-md font-semibold text-sm shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200" style={{ background: '#D4AF37', color: '#0A192F' }}>
+                Book a Strategy Call →
+              </Link>
+              <Link href="/pricing" className="inline-flex items-center px-6 py-3 rounded-md font-semibold text-sm border-2 hover:border-[#D4AF37] hover:text-[#D4AF37] transition-all duration-200" style={{ borderColor: '#E2E8F0', color: '#0A192F' }}>
+                See Pricing
+              </Link>
             </div>
-          </div>
-        </div>
-      </section>
 
-      {/* ─── SOCIAL PROOF BAR ─────────────────────────────────── */}
-      <section className="border-y border-slate-200 bg-[#FDFBF7] py-6 px-4">
-        <div className="max-w-5xl mx-auto">
-          <p className="text-center text-sm text-gray-500 font-medium mb-4 uppercase tracking-wider">Built exclusively for luxury real estate</p>
-          <div className="flex flex-wrap justify-center gap-8 text-center">
-            {[
-              { value: '40+', label: 'Data Signals Per Lead' },
-              { value: '6 AM', label: 'Daily Briefing Delivered' },
-              { value: '0-100', label: 'AI Lead Scoring' },
-              { value: '100%', label: 'TCPA/DNC Compliance' },
-              { value: '< 10 min', label: 'Setup Time' },
-            ].map((stat, i) => (
-              <div key={i}>
-                <div className="text-2xl font-bold text-gray-900">{stat.value}</div>
-                <div className="text-xs text-gray-500 mt-0.5">{stat.label}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ─── HOW IT WORKS ─────────────────────────────────────── */}
-      <section className="px-4 py-20 sm:py-28 bg-white">
-        <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-16">
-            <span className="text-[#D4AF37] font-semibold text-sm uppercase tracking-wider">How It Works</span>
-            <h2 className="text-4xl sm:text-5xl font-serif font-bold text-gray-900 mt-2 mb-4">Win Deals in 3 Simple Steps</h2>
-            <p className="text-lg text-gray-600 max-w-xl mx-auto">Set it up once. Our AI runs every morning while you sleep.</p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
-            {/* connector line */}
-            <div className="hidden md:block absolute top-12 left-1/3 right-1/3 h-0.5 bg-gradient-to-r from-purple-300 to-pink-300 z-0" />
-            {[
-              {
-                step: '01',
-                icon: '🔗',
-                title: 'Connect Your Leads',
-                desc: 'Import from any source — your CRM, website, open houses, referrals. Setup takes under 10 minutes.',
-              },
-              {
-                step: '02',
-                icon: '🤖',
-                title: 'AI Scores Overnight',
-                desc: 'Our luxury-market AI scores every lead 0-100 while you sleep, factoring in 40+ data points.',
-              },
-              {
-                step: '03',
-                icon: '📊',
-                title: 'Win Your Morning',
-                desc: 'Wake up to your top 3 opportunities, talking points, and market intel. Move first. Win deals.',
-              },
-            ].map((step, i) => (
-              <div key={i} className="relative z-10 text-center">
-                <div className="w-24 h-24 mx-auto mb-5 bg-gradient-to-br from-[#D4AF37]/5 to-[#D4AF37]/10 border-2 border-[#D4AF37]/10 rounded-2xl flex items-center justify-center text-4xl shadow-sm">
-                  {step.icon}
-                </div>
-                <div className="text-xs font-bold text-[#D4AF37]/80 tracking-widest mb-2">STEP {step.step}</div>
-                <h3 className="text-xl font-bold text-gray-900 mb-3">{step.title}</h3>
-                <p className="text-gray-600 leading-relaxed">{step.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ─── FEATURES ──────────────────────────────────────────── */}
-      <section className="px-4 py-20 sm:py-28 bg-[#FDFBF7] border-t border-slate-200">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-16">
-            <span className="text-[#D4AF37] font-semibold text-sm uppercase tracking-wider">Features</span>
-            <h2 className="text-4xl sm:text-5xl font-serif font-bold text-gray-900 mt-2 mb-4">
-              Everything a Luxury Agent Needs to Dominate
-            </h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              Built from the ground up for the luxury market. Not retrofitted from generic tools.
+            <p className="text-sm" style={{ color: '#94A3B8' }}>
+              No obligation · Personalized to your market · Setup in under 10 minutes
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {/* Right — AI Command Center Card */}
+          <div className="rounded-2xl p-6 shadow-lg border" style={{ background: '#FFFFFF', borderColor: '#E2E8F0' }}>
+            <div className="flex items-center justify-between mb-5">
+              <span className="font-semibold text-sm" style={{ color: '#0A192F' }}>Your AI Command Center</span>
+              <span className="flex items-center gap-1.5 text-xs font-medium" style={{ color: '#10B981' }}>
+                <span className="w-2 h-2 rounded-full animate-pulse" style={{ background: '#10B981' }} /> Live
+              </span>
+            </div>
+
+            <div className="grid grid-cols-3 gap-3 mb-5">
+              {[
+                { label: 'Hot Leads', value: '12', bg: '#F0FDF4', color: '#166534' },
+                { label: 'Close Rate', value: '8.2%', bg: '#FFFBEB', color: '#92400E' },
+                { label: 'Pipeline', value: '$2.8M', bg: '#FFF1F2', color: '#9F1239' },
+              ].map((s, i) => (
+                <div key={i} className="rounded-xl p-3 text-center" style={{ background: s.bg }}>
+                  <div className="text-[10px] font-bold uppercase tracking-wider mb-1" style={{ color: '#94A3B8' }}>{s.label}</div>
+                  <div className="text-xl font-bold" style={{ color: s.color, fontFamily: "'JetBrains Mono', monospace" }}>{s.value}</div>
+                </div>
+              ))}
+            </div>
+
+            <div className="text-[10px] font-bold uppercase tracking-wider mb-3" style={{ color: '#94A3B8' }}>Today&apos;s Top Opportunities</div>
+
             {[
-              {
-                icon: '🎯',
-                title: 'AI Lead Scoring',
-                desc: 'Score every lead 0-100 using 40+ luxury market signals. Know exactly who to call first.',
-                highlight: true,
-              },
-              {
-                icon: '🌅',
-                title: 'Daily AI Briefing',
-                desc: 'Wake up to personalized intelligence: top leads, market shifts, and ready-to-use talking points.',
-                highlight: false,
-              },
-              {
-                icon: '🛡️',
-                title: 'Compliance Automation',
-                desc: 'Real-time TCPA/DNC checking. Zero violations. Enterprise-grade audit logs for every contact.',
-                highlight: false,
-              },
-              {
-                icon: '📡',
-                title: 'Market Intelligence',
-                desc: 'Luxury market trends, buyer psychology profiles, and neighborhood data — refreshed daily.',
-                highlight: false,
-              },
-              {
-                icon: '⚡',
-                title: 'Smart Automation',
-                desc: 'Personalized follow-up sequences that feel handwritten. AI adapts tone to each prospect.',
-                highlight: false,
-              },
-              {
-                icon: '📈',
-                title: 'ROI Dashboard',
-                desc: 'See exact revenue per lead source, cost per close, and your projected earnings in real time.',
-                highlight: false,
-              },
-            ].map((f, i) => (
-              <div key={i} className={`rounded-2xl p-7 border transition hover:shadow-md ${f.highlight ? 'bg-[#0A192F] border-transparent text-white' : 'bg-white border-gray-200 hover:border-[#D4AF37]/20'}`}>
-                <div className={`text-4xl mb-4`}>{f.icon}</div>
-                <h3 className={`text-lg font-bold mb-2 ${f.highlight ? 'text-white' : 'text-gray-900'}`}>{f.title}</h3>
-                <p className={`text-sm leading-relaxed ${f.highlight ? 'text-slate-300' : 'text-gray-600'}`}>{f.desc}</p>
+              { name: 'Sarah Johnson', detail: 'Lincoln Park · $3.2M', score: 92, badge: 'Hot', badgeBg: '#FEE2E2', badgeColor: '#DC2626' },
+              { name: 'Michael Chen', detail: 'Gold Coast · $1.8M', score: 78, badge: 'Warm', badgeBg: '#FEF3C7', badgeColor: '#D97706' },
+              { name: 'Elizabeth Brown', detail: 'River North · $2.4M', score: 65, badge: 'Active', badgeBg: '#DCFCE7', badgeColor: '#16A34A' },
+            ].map((lead, i) => (
+              <div key={i} className="flex items-center justify-between py-3 border-b last:border-0" style={{ borderColor: '#F1F5F9' }}>
+                <div>
+                  <div className="font-semibold text-sm" style={{ color: '#0A192F' }}>{lead.name}</div>
+                  <div className="text-xs" style={{ color: '#94A3B8' }}>{lead.detail}</div>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="text-xs font-medium" style={{ color: '#64748B' }}>AI: {lead.score}</span>
+                  <span className="text-[10px] font-bold px-2 py-0.5 rounded-full" style={{ background: lead.badgeBg, color: lead.badgeColor }}>{lead.badge}</span>
+                </div>
               </div>
             ))}
+
+            <Link href="/demo" className="block text-center mt-4 text-sm font-medium py-2 rounded-lg border transition-all hover:border-[#D4AF37]" style={{ color: '#94A3B8', borderColor: '#E2E8F0' }}>
+              View Full Daily Briefing →
+            </Link>
           </div>
         </div>
       </section>
 
-      {/* ─── FOUNDING AGENT PROGRAM ──────────────────────────── */}
-      <section className="px-4 py-20 sm:py-28 bg-white border-t border-slate-200">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-14">
-            <span className="text-[#D4AF37] font-semibold text-sm uppercase tracking-wider">Limited to 50 Agents</span>
-            <h2 className="text-4xl sm:text-5xl font-serif font-bold text-gray-900 mt-2 mb-4">
-              Founding Agent Program
-            </h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">We&apos;re onboarding our first cohort of luxury agents at a special introductory rate. Lock in your founding pricing for life.</p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {[
-              { badge: 'For Life', title: 'Locked Pricing', desc: 'Your founding rate stays the same as long as you\'re a member — even after we raise prices for new agents.' },
-              { badge: 'White Glove', title: 'Direct Team Access', desc: 'Work directly with our team. Priority support, feature requests, and a dedicated onboarding specialist.' },
-              { badge: 'VIP Access', title: 'Shape the Product', desc: 'Your feedback drives what we build next. Founding agents have a direct line to our product roadmap.' },
-            ].map((item, i) => (
-              <div key={i} className="bg-[#FDFBF7] rounded-2xl p-7 border border-gray-200 flex flex-col">
-                <div className="bg-[#D4AF37]/10 text-[#D4AF37] text-xs font-bold px-3 py-1 rounded-full w-fit mb-4">{item.badge}</div>
-                <h3 className="text-xl font-bold text-gray-900 mb-3">{item.title}</h3>
-                <p className="text-gray-600 leading-relaxed">{item.desc}</p>
-              </div>
-            ))}
-          </div>
+      {/* STATS BAR */}
+      <section className="px-4 py-12 border-y" style={{ background: '#0A192F', borderColor: '#1E293B' }}>
+        <div className="max-w-6xl mx-auto flex flex-wrap justify-center gap-8 md:gap-16">
+          {[
+            { value: '40+', label: 'Data Signals Per Lead' },
+            { value: '6 AM', label: 'Daily Briefing Delivered' },
+            { value: '0-100', label: 'AI Lead Scoring' },
+            { value: '100%', label: 'TCPA/DNC Compliance' },
+            { value: '< 10 min', label: 'Setup Time' },
+          ].map((s, i) => (
+            <div key={i} className="text-center">
+              <div className="text-2xl md:text-3xl font-bold" style={{ color: '#D4AF37', fontFamily: "'JetBrains Mono', monospace" }}>{s.value}</div>
+              <div className="text-xs font-medium mt-1" style={{ color: '#94A3B8' }}>{s.label}</div>
+            </div>
+          ))}
         </div>
       </section>
 
-      {/* ─── PRICING PREVIEW ───────────────────────────────────── */}
-      <section className="px-4 py-20 sm:py-28 bg-[#FDFBF7] border-t border-slate-200">
+      {/* HOW IT WORKS */}
+      <section className="px-4 py-20 sm:py-28" style={{ background: 'var(--bg-primary)' }}>
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-14">
-            <span className="text-[#D4AF37] font-semibold text-sm uppercase tracking-wider">Pricing</span>
-            <h2 className="text-4xl sm:text-5xl font-serif font-bold text-gray-900 mt-2 mb-4">Founding Agent Pricing</h2>
-            <p className="text-lg text-gray-600">Lock in your introductory rate today. Pricing increases after our first 50 agents.</p>
+            <div className="text-[11px] font-bold uppercase tracking-[0.15em] mb-4" style={{ color: '#D4AF37' }}>How It Works</div>
+            <h2 className="font-display text-3xl md:text-4xl font-semibold mb-4" style={{ color: '#0A192F' }}>Win Deals in 3 Simple Steps</h2>
+            <p style={{ color: '#4A5568' }}>Set it up once. Our AI runs every morning while you sleep.</p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10 mt-4">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {[
+              { step: '01', icon: '🔗', title: 'Connect Your Leads', desc: 'Import from any source — your CRM, website, open houses, referrals. Setup takes under 10 minutes.' },
+              { step: '02', icon: '🤖', title: 'AI Scores Overnight', desc: 'Our luxury-market AI scores every lead 0-100 while you sleep, factoring in 40+ data points.' },
+              { step: '03', icon: '📊', title: 'Win Your Morning', desc: 'Wake up to your top 3 opportunities, talking points, and market intel. Move first. Win deals.' },
+            ].map((s, i) => (
+              <div key={i} className="rounded-xl p-8 border transition-all duration-300 hover:shadow-lg hover:border-[#D4AF37]/30" style={{ background: 'var(--bg-surface)', borderColor: 'var(--border-default)' }}>
+                <div className="text-[11px] font-bold uppercase tracking-[0.15em] mb-3" style={{ color: '#D4AF37' }}>Step {s.step}</div>
+                <div className="text-3xl mb-4">{s.icon}</div>
+                <h3 className="text-lg font-semibold mb-2" style={{ color: '#0A192F' }}>{s.title}</h3>
+                <p className="text-sm leading-relaxed" style={{ color: '#4A5568' }}>{s.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* PRICING PREVIEW */}
+      <section className="px-4 py-20 sm:py-28" style={{ background: 'var(--bg-elevated)' }}>
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-14">
+            <div className="text-[11px] font-bold uppercase tracking-[0.15em] mb-4" style={{ color: '#D4AF37' }}>Pricing</div>
+            <h2 className="font-display text-3xl md:text-4xl font-semibold mb-4" style={{ color: '#0A192F' }}>Choose Your Competitive Edge</h2>
+            <p style={{ color: '#4A5568' }}>Every tier is built for agents who close $1M+ deals.</p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-start">
             {[
               {
-                name: 'Intelligence',
-                price: '$249',
-                sub: '/month',
-                features: ['AI Lead Scoring (40+ signals)', 'Daily 6AM Briefing', 'Market Analytics Dashboard', 'Import from Any CRM', 'Email & Phone Support'],
-                popular: false,
-                badge: null,
-                cta: 'Start with Intelligence',
+                name: 'Intelligence', price: '$249', features: ['AI Lead Scoring (40+ signals)', 'Daily 6AM Briefing', 'Market Analytics Dashboard', 'Import from Any CRM', 'Email & Phone Support'],
+                featured: false, cta: 'Start with Intelligence', ctaLink: 'https://calendly.com/robopdesigns/strategy-call'
               },
               {
-                name: 'Intelligence + Generation',
-                price: '$749',
-                sub: '/month',
-                features: ['Everything in Intelligence', '15–25 Verified Luxury Leads/mo', 'Targeted Ad Campaigns', 'Pre-scored Leads (60+ only)', 'AI Account Manager'],
-                popular: false,
-                badge: 'Most Exclusive',
-                cta: 'Get Qualified Leads',
+                name: 'Intelligence + Generation', price: '$749', features: ['Everything in Intelligence', '15–25 Verified Luxury Leads/mo', 'Targeted Ad Campaigns', 'Pre-scored Leads (60+ only)', 'AI Account Manager', 'Weekly Performance Reports'],
+                featured: false, cta: 'Get Qualified Leads', ctaLink: 'https://calendly.com/robopdesigns/strategy-call'
               },
               {
-                name: 'Exclusive Territory',
-                price: '$1,499',
-                sub: '/month',
-                features: ['Everything in Generation', '30–50 Leads/mo', 'ZIP Code Exclusivity', 'AI Auto-outreach', 'White-Glove Onboarding'],
-                popular: true,
-                badge: null,
-                cta: 'Claim Your Territory',
+                name: 'Exclusive Territory', price: '$1,499', badge: 'Most Exclusive',
+                features: ['Everything in Generation', '30–50 Leads/mo', 'ZIP Code Exclusivity', 'AI Auto-outreach', 'White-Glove Onboarding', 'Priority Support', 'Quarterly Strategy Reviews', 'First Access to New Features'],
+                featured: true, cta: 'Claim Your Territory →', ctaLink: '/territory'
               },
             ].map((tier, i) => (
-              <div key={i} className={`rounded-2xl border-2 transition relative flex flex-col ${tier.popular ? 'border-[#D4AF37] bg-white shadow-xl shadow-[#D4AF37]/10' : 'border-gray-200 bg-white hover:border-[#D4AF37]/20'}`}>
+              <div key={i} className={`relative rounded-xl p-8 border-2 transition-all duration-300 ${tier.featured ? 'scale-105 z-10 shadow-lg' : 'hover:shadow-md'}`} style={{
+                background: 'var(--bg-surface)',
+                borderColor: tier.featured ? '#D4AF37' : 'var(--border-default)',
+                boxShadow: tier.featured ? '0 4px 24px rgba(212,175,55,0.15)' : undefined,
+              }}>
                 {tier.badge && (
-                  <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-[#0A192F] text-white text-xs font-bold px-4 py-1.5 rounded-full whitespace-nowrap z-10">
+                  <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest" style={{ background: '#0A192F', color: '#D4AF37' }}>
                     {tier.badge}
                   </div>
                 )}
-                <div className={`p-7 ${tier.badge ? 'pt-10' : 'pt-7'} flex-1 flex flex-col`}>
-                <h3 className="text-xl font-bold text-gray-900 mb-1">{tier.name}</h3>
-                <div className="mb-5">
-                  <span className="text-4xl font-bold text-gray-900">{tier.price}</span>
-                  <span className="text-sm text-gray-500 ml-1">{tier.sub}</span>
+                <div className="mb-6">
+                  <h3 className="text-sm font-semibold mb-1" style={{ color: '#4A5568' }}>{tier.name}</h3>
+                  <div className="flex items-baseline gap-1">
+                    <span className="font-display text-4xl font-bold" style={{ color: tier.featured ? '#D4AF37' : '#0A192F' }}>{tier.price}</span>
+                    <span className="text-sm" style={{ color: '#94A3B8' }}>/month</span>
+                  </div>
                 </div>
-                <ul className="space-y-2 mb-7">
+                <ul className="space-y-3 mb-8">
                   {tier.features.map((f, j) => (
-                    <li key={j} className="flex items-center gap-2 text-sm text-gray-700">
-                      <svg className="w-4 h-4 text-[#D4AF37] flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"/></svg>
+                    <li key={j} className="flex items-start gap-2 text-sm" style={{ color: '#4A5568' }}>
+                      <svg className="w-4 h-4 mt-0.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke={tier.featured ? '#D4AF37' : '#0A192F'} strokeWidth={2.5}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                      </svg>
                       {f}
                     </li>
                   ))}
                 </ul>
-                <a href="https://calendly.com/robopdesigns/strategy-call" target="_blank" rel="noopener noreferrer" className={`block w-full text-center py-3 rounded-xl font-semibold transition text-sm mt-auto ${tier.popular ? 'bg-[#0A192F] text-white hover:bg-[#1a2940] shadow-md' : 'border-2 border-gray-200 text-gray-900 hover:border-[#D4AF37]/50 hover:text-[#D4AF37]'}`}>
+                <Link href={tier.ctaLink} className={`block w-full py-3 rounded-md font-semibold text-sm text-center transition-all duration-200 ${tier.featured ? 'hover:shadow-md hover:-translate-y-0.5' : 'hover:border-[#D4AF37] hover:text-[#D4AF37]'}`} style={{
+                  background: tier.featured ? '#D4AF37' : 'transparent',
+                  color: tier.featured ? '#0A192F' : '#0A192F',
+                  border: tier.featured ? 'none' : '2px solid #E2E8F0',
+                }}>
                   {tier.cta}
-                </a>
-                </div>
+                </Link>
               </div>
             ))}
           </div>
 
-          <p className="text-center text-sm text-gray-500">
+          <p className="text-center text-sm mt-8" style={{ color: '#94A3B8' }}>
             All plans include white-glove onboarding. No long-term contracts.{' '}
-            <Link href="/pricing" className="text-[#D4AF37] font-medium hover:underline">Compare all features →</Link>
+            <Link href="/pricing" className="font-medium hover:underline" style={{ color: '#D4AF37' }}>Compare all features →</Link>
           </p>
         </div>
       </section>
 
-      {/* ─── TRUST SIGNALS ─────────────────────────────────────── */}
-      <section className="px-4 py-16 bg-white border-t border-slate-200">
-        <div className="max-w-4xl mx-auto text-center">
-          <p className="text-sm text-gray-500 font-medium uppercase tracking-wider mb-8">Enterprise-Grade Security & Compliance</p>
-          <div className="flex flex-wrap justify-center gap-6 sm:gap-12">
-            {[
-              { icon: '🔒', label: 'TCPA Compliant' },
-              { icon: '📋', label: 'DNC Registered' },
-              { icon: '🛡️', label: 'Data Encrypted' },
-              { icon: '✅', label: 'Audit Logs' },
-              { icon: '🔐', label: 'Enterprise Security' },
-            ].map((t, i) => (
-              <div key={i} className="flex flex-col items-center gap-2">
-                <div className="text-3xl">{t.icon}</div>
-                <span className="text-xs font-semibold text-gray-600">{t.label}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ─── FINAL CTA ─────────────────────────────────────────── */}
-      <section className="px-4 py-20 sm:py-28 bg-[#0A192F]">
+      {/* FOUNDING AGENT CTA */}
+      <section className="px-4 py-20" style={{ background: '#0A192F' }}>
         <div className="max-w-3xl mx-auto text-center">
-          <h2 className="text-4xl sm:text-5xl font-serif font-bold text-white mb-4">
-            Ready to Close 2x More Deals?
-          </h2>
-          <p className="text-lg text-slate-300 mb-10 max-w-xl mx-auto">
-            Join our founding cohort of luxury agents who wake up every morning knowing exactly who to call and why. Limited spots available.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a href="https://calendly.com/robopdesigns/strategy-call" target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center gap-2 bg-white text-[#D4AF37] font-bold px-8 py-4 rounded-xl hover:bg-[#D4AF37]/10 transition shadow-lg">
-              Book a Strategy Call
-              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7"/></svg>
-            </a>
-            <Link href="/pricing" className="inline-flex items-center justify-center gap-2 border-2 border-[#D4AF37]/30 text-white font-semibold px-8 py-4 rounded-xl hover:border-white transition">
-              View Pricing
-            </Link>
-          </div>
-          <p className="text-sm text-[#D4AF37]/40 mt-6">No obligation · Personalized to your market · Setup in under 10 minutes</p>
+          <div className="text-[11px] font-bold uppercase tracking-[0.15em] mb-4" style={{ color: '#D4AF37' }}>Limited to 50 Agents</div>
+          <h2 className="font-display text-3xl md:text-4xl font-bold text-white mb-4">Founding Agent Program</h2>
+          <p className="text-lg mb-8" style={{ color: '#94A3B8' }}>Lock in your founding rate for life. When we raise prices — and we will — your rate stays the same. Forever.</p>
+          <Link href="https://calendly.com/robopdesigns/strategy-call" className="inline-flex items-center px-8 py-4 rounded-md font-semibold text-sm shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200" style={{ background: '#D4AF37', color: '#0A192F' }}>
+            Book Your Strategy Call →
+          </Link>
         </div>
       </section>
 

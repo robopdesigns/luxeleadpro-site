@@ -1,122 +1,58 @@
 @import "tailwindcss";
 
-/* LuxeLeadPro Design System — Manus UI/UX Specification */
+/* LuxeLeadPro Design System — Manus Implementation Guide */
 
 :root {
-  /* Light Mode (default for marketing pages) */
-  --background: #FDFBF7;
-  --foreground: #1A1A1A;
-  --surface: #FFFFFF;
+  --bg-primary: #FDFBF7;
+  --bg-surface: #FFFFFF;
+  --bg-elevated: #F8F6F3;
+  --text-primary: #1A1A1A;
   --text-secondary: #4A5568;
-  --accent: #D4AF37;
-  --accent-hover: #B5952F;
-  --border: #E2E8F0;
-  --midnight: #0A192F;
-  --deep-midnight: #050B14;
+  --text-muted: #94A3B8;
+  --border-default: #E2E8F0;
+  --border-subtle: #F1F5F9;
+  --font-sans: var(--font-inter), var(--font-geist-sans);
+  --font-display: var(--font-playfair);
 }
 
 .dark {
-  /* Dark Mode (dashboards) */
-  --background: #050B14;
-  --foreground: #F8FAFC;
-  --surface: #0A192F;
+  --bg-primary: #050B14;
+  --bg-surface: #0A192F;
+  --bg-elevated: #112240;
+  --text-primary: #F8FAFC;
   --text-secondary: #94A3B8;
-  --accent: #D4AF37;
-  --accent-hover: #E8C557;
-  --border: #1E293B;
+  --text-muted: #64748B;
+  --border-default: #1E293B;
+  --border-subtle: #0F172A;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-surface: var(--surface);
-  --color-accent: var(--accent);
-  --color-accent-hover: var(--accent-hover);
-  --color-border: var(--border);
-  --color-midnight: var(--midnight);
-  --color-deep-midnight: var(--deep-midnight);
-  --color-ivory: #FDFBF7;
-  --color-champagne: #D4AF37;
-  --color-champagne-hover: #B5952F;
-  --color-charcoal: #1A1A1A;
+  --color-luxe-navy: #0A192F;
+  --color-luxe-deep: #050B14;
+  --color-luxe-navy-raised: #112240;
+  --color-luxe-gold: #D4AF37;
+  --color-luxe-gold-hover: #B5952F;
+  --color-luxe-ivory: #FDFBF7;
+  --color-luxe-charcoal: #1A1A1A;
   --font-sans: var(--font-inter), var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
   --font-display: var(--font-playfair);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-inter), var(--font-geist-sans), Arial, Helvetica, sans-serif;
-  text-rendering: optimizeLegibility;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-inter), var(--font-geist-sans), 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  transition: background-color 300ms, color 300ms;
 }
 
-h1, h2 {
-  font-family: var(--font-playfair), var(--font-display), Georgia, serif;
+h1, h2, .font-display {
+  font-family: var(--font-playfair), var(--font-display), 'Playfair Display', Georgia, serif;
   letter-spacing: -0.01em;
 }
 
 h3, h4, h5, h6 {
-  font-family: var(--font-inter), var(--font-geist-sans), Arial, Helvetica, sans-serif;
-}
-
-/* Premium button base */
-.btn-gold {
-  background-color: #D4AF37;
-  color: white;
-  font-weight: 500;
-  border-radius: 6px;
-  padding: 12px 24px;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-  transition: all 200ms ease-in-out;
-}
-.btn-gold:hover {
-  background-color: #B5952F;
-  box-shadow: 0 4px 12px rgba(212,175,55,0.3);
-  transform: translateY(-1px);
-}
-
-/* Glass header */
-.glass-header {
-  background: rgba(253, 251, 247, 0.8);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border-bottom: 1px solid #E2E8F0;
-}
-.dark .glass-header {
-  background: rgba(5, 11, 20, 0.8);
-  border-bottom-color: #1E293B;
-}
-
-/* Card styles */
-.card-light {
-  background: white;
-  border-radius: 12px;
-  border: 1px solid #E2E8F0;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.02);
-}
-.card-dark {
-  background: #0A192F;
-  border-radius: 12px;
-  border: 1px solid #1E293B;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
-}
-
-/* Gold accent border for featured items */
-.featured-gold {
-  border: 2px solid #D4AF37;
-  box-shadow: 0 0 20px rgba(212,175,55,0.1);
-}
-.featured-gold:hover {
-  box-shadow: 0 0 30px rgba(212,175,55,0.2);
-}
-
-/* Form inputs */
-input[type="text"], input[type="email"], input[type="tel"], input[type="password"], select, textarea {
-  transition: all 200ms ease-in-out;
-}
-input:focus, select:focus, textarea:focus {
-  outline: none;
-  ring-color: rgba(212,175,55,0.5);
+  font-family: var(--font-inter), var(--font-geist-sans), 'Inter', sans-serif;
 }
