@@ -31,7 +31,7 @@ export default function TerritoryPage() {
         <section className="pt-24 pb-16 px-4 text-center bg-gradient-to-b from-[#D4AF37]/5 to-white">
           <div className="max-w-3xl mx-auto">
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-[#D4AF37]/10 rounded-full text-[#D4AF37] text-sm font-semibold mb-6">
-              🔒 Exclusive — Only 1 Agent Per Territory
+               Exclusive — Only 1 Agent Per Territory
             </div>
             <h1 className="text-4xl md:text-5xl font-display font-bold text-gray-900 mb-4">
               Claim Your Territory
@@ -80,7 +80,7 @@ export default function TerritoryPage() {
                     <span className={`text-xs font-bold px-2.5 py-1 rounded-full ${
                       t.status === "available" ? "bg-green-100 text-green-700" : "bg-red-100 text-red-700"
                     }`}>
-                      {t.status === "available" ? "✅ Available" : "🔒 Claimed"}
+                      {t.status === "available" ? " Available" : " Claimed"}
                     </span>
                   </div>
                   <h3 className="font-bold text-gray-900">{t.area}</h3>
@@ -105,14 +105,14 @@ export default function TerritoryPage() {
             <h2 className="text-2xl font-bold text-gray-900 text-center mb-10">What Territory Owners Get</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {[
-                { icon: "🔒", title: "ZIP Code Exclusivity", desc: "Only 1 agent per territory. Your leads are YOUR leads. Period." },
-                { icon: "📊", title: "30-50 Leads Per Month", desc: "Pre-qualified luxury buyers and sellers, scored 60+ by AI before delivery." },
-                { icon: "🤖", title: "AI Auto-Outreach", desc: "Our AI sends personalized first-touch emails within minutes of a new lead." },
-                { icon: "🎯", title: "Targeted Ad Campaigns", desc: "We run Facebook + Google ads specifically in your territory. You don't lift a finger." },
-                { icon: "🤝", title: "White-Glove Onboarding", desc: "Personal setup call. We configure everything for you within 48 hours." },
-                { icon: "📞", title: "Priority Support", desc: "Direct line to our team. Response within 1 hour, guaranteed." },
-                { icon: "📈", title: "Quarterly Strategy Reviews", desc: "We analyze your territory performance and optimize campaigns every quarter." },
-                { icon: "⚡", title: "First Access to New Features", desc: "Territory owners get beta access to everything we build." },
+                { icon: "", title: "ZIP Code Exclusivity", desc: "Only 1 agent per territory. Your leads are YOUR leads. Period." },
+                { icon: "", title: "30-50 Leads Per Month", desc: "Pre-qualified luxury buyers and sellers, scored 60+ by AI before delivery." },
+                { icon: "", title: "AI Auto-Outreach", desc: "Our AI sends personalized first-touch emails within minutes of a new lead." },
+                { icon: "", title: "Targeted Ad Campaigns", desc: "We run Facebook + Google ads specifically in your territory. You don't lift a finger." },
+                { icon: "", title: "White-Glove Onboarding", desc: "Personal setup call. We configure everything for you within 48 hours." },
+                { icon: "", title: "Priority Support", desc: "Direct line to our team. Response within 1 hour, guaranteed." },
+                { icon: "", title: "Quarterly Strategy Reviews", desc: "We analyze your territory performance and optimize campaigns every quarter." },
+                { icon: "", title: "First Access to New Features", desc: "Territory owners get beta access to everything we build." },
               ].map((f, i) => (
                 <div key={i} className="flex gap-4 p-5 bg-[#FDFBF7] rounded-xl">
                   <span className="text-2xl">{f.icon}</span>

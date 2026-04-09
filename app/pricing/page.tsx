@@ -114,7 +114,7 @@ export default function PricingPage() {
         <section className="pt-24 pb-16 px-4 text-center">
           <div className="max-w-3xl mx-auto">
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-[#D4AF37]/10 rounded-full text-[#D4AF37] text-sm font-semibold mb-6">
-              <span>🏆</span> Founding Agent Pricing — Limited to 50 Agents
+              <span></span> Founding Agent Pricing — Limited to 50 Agents
             </div>
             <h1 className="text-4xl md:text-5xl font-display font-bold text-gray-900 mb-4">
               Choose Your Competitive Edge
@@ -200,7 +200,7 @@ export default function PricingPage() {
         <section className="py-16 px-4 bg-[#0A192F]">
           <div className="max-w-3xl mx-auto text-center text-white">
             <h2 className="text-3xl font-bold mb-4">
-              🔒 Founding Agent Program
+               Founding Agent Program
             </h2>
             <p className="text-lg opacity-90 mb-2">
               The first 50 agents lock in these rates <strong>for life</strong>.

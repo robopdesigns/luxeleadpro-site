@@ -15,12 +15,12 @@ const demoLeads = [
 ];
 
 const demoActivities = [
-  { time: "8:42 AM", type: "📞", action: "Called Victoria Chen — interested in Territory plan, scheduling demo", score: "+3" },
-  { time: "9:15 AM", type: "📧", action: "Sent proposal to Marcus Williams — $749/mo Generation plan", score: "" },
-  { time: "10:30 AM", type: "🎬", action: "Demo completed with Sarah Goldstein — very impressed with AI scoring", score: "+5" },
-  { time: "11:00 AM", type: "📞", action: "Follow-up call with James Thornton — comparing us to Zillow Premier", score: "" },
-  { time: "1:45 PM", type: "📧", action: "Cold outreach to 12 luxury agents in Pacific Heights market", score: "" },
-  { time: "3:00 PM", type: "🤝", action: "Meeting with Alexandra Petrov — closing on Intelligence plan", score: "+2" },
+  { time: "8:42 AM", type: "", action: "Called Victoria Chen — interested in Territory plan, scheduling demo", score: "+3" },
+  { time: "9:15 AM", type: "", action: "Sent proposal to Marcus Williams — $749/mo Generation plan", score: "" },
+  { time: "10:30 AM", type: "", action: "Demo completed with Sarah Goldstein — very impressed with AI scoring", score: "+5" },
+  { time: "11:00 AM", type: "", action: "Follow-up call with James Thornton — comparing us to Zillow Premier", score: "" },
+  { time: "1:45 PM", type: "", action: "Cold outreach to 12 luxury agents in Pacific Heights market", score: "" },
+  { time: "3:00 PM", type: "", action: "Meeting with Alexandra Petrov — closing on Intelligence plan", score: "+2" },
 ];
 
 function ScoreBadge({ score }: { score: number }) {
@@ -56,7 +56,7 @@ export default function DemoPage() {
         <div className="max-w-6xl mx-auto px-6 flex gap-1">
           {(["dashboard", "leads", "briefing"] as const).map(t => (
             <button key={t} onClick={() => setTab(t)} className={`px-4 py-3 text-sm font-medium border-b-2 transition ${tab === t ? "border-[#D4AF37] text-[#D4AF37]" : "border-transparent text-gray-500 hover:text-gray-700"}`}>
-              {t === "dashboard" ? "📊 Dashboard" : t === "leads" ? "👥 Lead Pipeline" : "📬 Morning Briefing"}
+              {t === "dashboard" ? " Dashboard" : t === "leads" ? " Lead Pipeline" : " Morning Briefing"}
             </button>
           ))}
         </div>
@@ -84,7 +84,7 @@ export default function DemoPage() {
 
             {/* Today's Activity */}
             <div className="bg-white rounded-xl border border-gray-200 p-6">
-              <h2 className="font-bold text-gray-900 mb-4">⚡ Today&apos;s Activity</h2>
+              <h2 className="font-bold text-gray-900 mb-4"> Today&apos;s Activity</h2>
               <div className="space-y-3">
                 {demoActivities.map((a, i) => (
                   <div key={i} className="flex items-center gap-4 py-2 border-b border-gray-100 last:border-0">
@@ -163,7 +163,7 @@ export default function DemoPage() {
         {tab === "briefing" && (
           <div className="max-w-2xl mx-auto space-y-6">
             <div className="text-center">
-              <h2 className="text-2xl font-bold text-gray-900">📬 Your 6AM Morning Briefing</h2>
+              <h2 className="text-2xl font-bold text-gray-900"> Your 6AM Morning Briefing</h2>
               <p className="text-gray-500 text-sm mt-1">Delivered to your inbox every morning</p>
             </div>
 

@@ -118,9 +118,9 @@ export default function HomePage() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
-              { step: '01', icon: '🔗', title: 'Connect Your Leads', desc: 'Import from any source — your CRM, website, open houses, referrals. Setup takes under 10 minutes.' },
-              { step: '02', icon: '🤖', title: 'AI Scores Overnight', desc: 'Our luxury-market AI scores every lead 0-100 while you sleep, factoring in 40+ data points.' },
-              { step: '03', icon: '📊', title: 'Win Your Morning', desc: 'Wake up to your top 3 opportunities, talking points, and market intel. Move first. Win deals.' },
+              { step: '01', icon: '', title: 'Connect Your Leads', desc: 'Import from any source — your CRM, website, open houses, referrals. Setup takes under 10 minutes.' },
+              { step: '02', icon: '', title: 'AI Scores Overnight', desc: 'Our luxury-market AI scores every lead 0-100 while you sleep, factoring in 40+ data points.' },
+              { step: '03', icon: '', title: 'Win Your Morning', desc: 'Wake up to your top 3 opportunities, talking points, and market intel. Move first. Win deals.' },
             ].map((s, i) => (
               <div key={i} className="rounded-xl p-8 border transition-all duration-300 hover:shadow-lg hover:border-[#D4AF37]/30" style={{ background: 'var(--bg-surface)', borderColor: 'var(--border-default)' }}>
                 <div className="text-[11px] font-bold uppercase tracking-[0.15em] mb-3" style={{ color: '#D4AF37' }}>Step {s.step}</div>

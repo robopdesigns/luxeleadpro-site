@@ -68,7 +68,7 @@ export default function RepDashboard() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <header className="bg-[#0A192F] text-white px-6 py-4">
+      <header className="bg-[#D4AF37] text-white px-6 py-4">
         <div className="max-w-5xl mx-auto flex items-center justify-between">
           <div>
             <h1 className="text-xl font-bold">Welcome, {rep?.name}</h1>
@@ -83,7 +83,7 @@ export default function RepDashboard() {
           <nav className="flex gap-1">
             {(["home", "leads", "scripts", "goals", "checkin"] as const).map(t => (
               <button key={t} onClick={() => setTab(t)} className={`px-4 py-3 text-sm font-medium border-b-2 transition ${tab === t ? "border-[#D4AF37] text-[#D4AF37]" : "border-transparent text-gray-500 hover:text-gray-700"}`}>
-                {t === "home" ? "🏠 Home" : t === "leads" ? "👥 My Leads" : t === "scripts" ? "📋 Scripts & Training" : t === "goals" ? "🏆 Goals & Rewards" : "✅ Check In"}
+                {t === "home" ? " Home" : t === "leads" ? " My Leads" : t === "scripts" ? " Scripts & Training" : t === "goals" ? " Goals & Rewards" : " Check In"}
               </button>
             ))}
           </nav>
@@ -99,7 +99,7 @@ export default function RepDashboard() {
                 { label: "My Leads", value: leads.length, color: "bg-[#D4AF37]/10 text-[#D4AF37]" },
                 { label: "Activities Today", value: todayActivities.length, color: "bg-blue-50 text-blue-700" },
                 { label: "Demos Booked", value: activities.filter(a => a.type === "demo").length, color: "bg-green-50 text-green-700" },
-                { label: "Checked In", value: todayCheckin ? "✅" : "❌", color: todayCheckin ? "bg-green-50 text-green-700" : "bg-red-50 text-red-700" },
+                { label: "Checked In", value: todayCheckin ? "" : "❌", color: todayCheckin ? "bg-green-50 text-green-700" : "bg-red-50 text-red-700" },
               ].map((s, i) => (
                 <div key={i} className={`rounded-xl p-5 ${s.color}`}>
                   <div className="text-sm font-medium opacity-80">{s.label}</div>
@@ -114,7 +114,7 @@ export default function RepDashboard() {
               <div className="flex flex-wrap gap-2 mb-3">
                 {["call", "email", "demo", "meeting", "follow_up"].map(t => (
                   <button key={t} onClick={() => setActivityForm(p => ({ ...p, type: t }))} className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition ${activityForm.type === t ? "bg-[#D4AF37] text-white" : "bg-gray-100 text-gray-600 hover:bg-gray-200"}`}>
-                    {t === "call" ? "📞 Call" : t === "email" ? "📧 Email" : t === "demo" ? "🎬 Demo" : t === "meeting" ? "🤝 Meeting" : "🔄 Follow-up"}
+                    {t === "call" ? " Call" : t === "email" ? " Email" : t === "demo" ? " Demo" : t === "meeting" ? " Meeting" : " Follow-up"}
                   </button>
                 ))}
               </div>
@@ -140,7 +140,7 @@ export default function RepDashboard() {
                   {activities.slice(0, 10).map(a => (
                     <div key={a.id} className="flex items-center justify-between py-2 border-b border-gray-100 last:border-0">
                       <div className="flex items-center gap-3 flex-1 min-w-0">
-                        <span className="text-lg shrink-0">{a.type === "call" ? "📞" : a.type === "email" ? "📧" : a.type === "demo" ? "🎬" : a.type === "meeting" ? "🤝" : "🔄"}</span>
+                        <span className="text-lg shrink-0">{a.type === "call" ? "" : a.type === "email" ? "" : a.type === "demo" ? "" : a.type === "meeting" ? "" : ""}</span>
                         <span className="text-sm text-gray-700 truncate">{a.notes || a.type}</span>
                       </div>
                       <div className="flex items-center gap-1 shrink-0 ml-2">
@@ -154,7 +154,7 @@ export default function RepDashboard() {
                               else alert('Failed to save edit');
                             } catch(e) { alert('Error saving'); }
                           }
-                        }} className="text-xs bg-[#D4AF37]/10 text-[#D4AF37] px-2 py-1 rounded font-semibold hover:bg-[#D4AF37]/10">✏️ Edit</button>
+                        }} className="text-xs bg-[#D4AF37]/10 text-[#D4AF37] px-2 py-1 rounded font-semibold hover:bg-[#D4AF37]/10"> Edit</button>
                         <button onClick={async () => {
                           if (window.confirm('Delete this activity?')) {
                             try {
@@ -163,7 +163,7 @@ export default function RepDashboard() {
                               else alert('Failed to delete');
                             } catch(e) { alert('Error deleting'); }
                           }
-                        }} className="text-xs bg-red-50 text-red-600 px-2 py-1 rounded font-semibold hover:bg-red-100">🗑️</button>
+                        }} className="text-xs bg-red-50 text-red-600 px-2 py-1 rounded font-semibold hover:bg-red-100"></button>
                       </div>
                     </div>
                   ))}
@@ -224,7 +224,7 @@ export default function RepDashboard() {
                       <div>
                         <h3 className="font-bold text-gray-900">{l.full_name || "Unknown"}</h3>
                         <p className="text-sm text-gray-500">{l.email} {l.phone && `· ${l.phone}`}</p>
-                        {l.market_area && <p className="text-xs text-[#D4AF37] mt-1">📍 {l.market_area}</p>}
+                        {l.market_area && <p className="text-xs text-[#D4AF37] mt-1"> {l.market_area}</p>}
                       </div>
                       <div className="flex items-center gap-2">
                         <select value={l.current_stage || 'new'} onChange={async (e) => {
@@ -235,7 +235,7 @@ export default function RepDashboard() {
                           <option value="contacted">Contacted</option>
                           <option value="demo">Demo</option>
                           <option value="proposal">Proposal</option>
-                          <option value="won">Won ✅</option>
+                          <option value="won">Won </option>
                           <option value="lost">Lost</option>
                         </select>
                         <button onClick={async () => {
@@ -247,7 +247,7 @@ export default function RepDashboard() {
                               else alert('Failed to save');
                             } catch(e) { alert('Error saving'); }
                           }
-                        }} className="text-xs bg-[#D4AF37]/10 text-[#D4AF37] px-2 py-1 rounded font-semibold hover:bg-[#D4AF37]/10">✏️ Edit</button>
+                        }} className="text-xs bg-[#D4AF37]/10 text-[#D4AF37] px-2 py-1 rounded font-semibold hover:bg-[#D4AF37]/10"> Edit</button>
                       </div>
                     </div>
                     {l.challenge && <p className="text-sm text-gray-600 mt-3 bg-gray-50 rounded-lg p-3">{l.challenge}</p>}
@@ -277,19 +277,19 @@ export default function RepDashboard() {
             ))}
 
             {/* Training Resources */}
-            <h2 className="text-xl font-bold text-gray-900 mt-10">📚 Training Resources</h2>
+            <h2 className="text-xl font-bold text-gray-900 mt-10"> Training Resources</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {[
-                { title: "Pitch Deck", desc: "14-slide presentation for selling LuxeLeadPro", href: "/training/pitch-deck.html", icon: "🎯" },
-                { title: "Cold Outreach Templates", desc: "Email, LinkedIn, phone, text templates + follow-up sequence", href: "/training/outreach-templates.html", icon: "📧" },
-                { title: "Quick Start Guide", desc: "Your first 4 weeks — what to do and when", href: "/training/quick-start.html", icon: "🚀" },
-                { title: "Commission Structure", desc: "How much you earn per customer, per tier", href: "/training/commission-structure.html", icon: "💰" },
-                { title: "Competitive Positioning", desc: "Why we beat Zillow, BoldLeads, CINC, and others", href: "/training/competitive-positioning.html", icon: "🏆" },
-                { title: "Full Training Guide", desc: "Complete employee training program", href: "/training/training-guide.html", icon: "📖" },
-                { title: "Founding Agent Welcome Kit", desc: "Send to new Territory clients — founding rate", href: "/docs/founding-welcome.html", icon: "🏆" },
-                { title: "Territory Claim Confirmation", desc: "PDF to send after territory purchase", href: "/docs/LuxeLeadPro_Territory_Claim_Confirmation.pdf", icon: "📝" },
-                { title: "Territory Page (for prospects)", desc: "Show available territories — send this link during demos", href: "/territory", icon: "🗺️" },
-                { title: "Demo Dashboard", desc: "Live demo to show prospects during calls", href: "/demo", icon: "💻" },
+                { title: "Pitch Deck", desc: "14-slide presentation for selling LuxeLeadPro", href: "/training/pitch-deck.html", icon: "" },
+                { title: "Cold Outreach Templates", desc: "Email, LinkedIn, phone, text templates + follow-up sequence", href: "/training/outreach-templates.html", icon: "" },
+                { title: "Quick Start Guide", desc: "Your first 4 weeks — what to do and when", href: "/training/quick-start.html", icon: "" },
+                { title: "Commission Structure", desc: "How much you earn per customer, per tier", href: "/training/commission-structure.html", icon: "" },
+                { title: "Competitive Positioning", desc: "Why we beat Zillow, BoldLeads, CINC, and others", href: "/training/competitive-positioning.html", icon: "" },
+                { title: "Full Training Guide", desc: "Complete employee training program", href: "/training/training-guide.html", icon: "" },
+                { title: "Founding Agent Welcome Kit", desc: "Send to new Territory clients — founding rate", href: "/docs/founding-welcome.html", icon: "" },
+                { title: "Territory Claim Confirmation", desc: "PDF to send after territory purchase", href: "/docs/LuxeLeadPro_Territory_Claim_Confirmation.pdf", icon: "" },
+                { title: "Territory Page (for prospects)", desc: "Show available territories — send this link during demos", href: "/territory", icon: "" },
+                { title: "Demo Dashboard", desc: "Live demo to show prospects during calls", href: "/demo", icon: "" },
               ].map((res, i) => (
                 <a key={i} href={res.href} target="_blank" rel="noopener noreferrer" className="bg-white rounded-xl border border-gray-200 p-5 hover:border-[#D4AF37]/30 hover:shadow-md transition flex items-start gap-4">
                   <span className="text-2xl">{res.icon}</span>
@@ -305,11 +305,11 @@ export default function RepDashboard() {
 
         {tab === "goals" && (
           <div className="space-y-6">
-            <h2 className="text-xl font-bold text-gray-900">🏆 Goals, Incentives & Rewards</h2>
+            <h2 className="text-xl font-bold text-gray-900"> Goals, Incentives & Rewards</h2>
 
             {/* Monthly Goals */}
             <div className="bg-white rounded-xl border border-gray-200 p-6">
-              <h3 className="font-bold text-gray-900 mb-4">📊 Monthly Goals</h3>
+              <h3 className="font-bold text-gray-900 mb-4"> Monthly Goals</h3>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 {[
                   { goal: "Calls Made", target: 200, current: todayActivities.filter(a => a.type === "call").length * 20, unit: "calls", color: "purple" },
@@ -335,7 +335,7 @@ export default function RepDashboard() {
 
             {/* Commission Tracker */}
             <div className="bg-white rounded-xl border border-gray-200 p-6">
-              <h3 className="font-bold text-gray-900 mb-4">💰 Commission Tracker</h3>
+              <h3 className="font-bold text-gray-900 mb-4"> Commission Tracker</h3>
               <div className="grid grid-cols-3 gap-4 mb-6">
                 <div className="bg-[#D4AF37]/10 rounded-xl p-4 text-center">
                   <div className="text-2xl font-bold text-[#D4AF37]">$0</div>
@@ -362,13 +362,13 @@ export default function RepDashboard() {
 
             {/* Incentive Tiers */}
             <div className="bg-white rounded-xl border border-gray-200 p-6">
-              <h3 className="font-bold text-gray-900 mb-4">🎯 Incentive Bonuses</h3>
+              <h3 className="font-bold text-gray-900 mb-4"> Incentive Bonuses</h3>
               <div className="space-y-3">
                 {[
-                  { milestone: "10 Active Customers (3+ months)", bonus: "$500 Cash Bonus", icon: "⭐", unlocked: false },
-                  { milestone: "25 Active Customers (3+ months)", bonus: "$1,500 Cash Bonus + 5% raise on recurring", icon: "🌟", unlocked: false },
-                  { milestone: "50 Active Customers (3+ months)", bonus: "$5,000 Cash Bonus + Senior Rep title", icon: "💎", unlocked: false },
-                  { milestone: "100 Active Customers (3+ months)", bonus: "$15,000 Cash Bonus + Revenue Share + Team Lead role", icon: "👑", unlocked: false },
+                  { milestone: "10 Active Customers (3+ months)", bonus: "$500 Cash Bonus", icon: "", unlocked: false },
+                  { milestone: "25 Active Customers (3+ months)", bonus: "$1,500 Cash Bonus + 5% raise on recurring", icon: "", unlocked: false },
+                  { milestone: "50 Active Customers (3+ months)", bonus: "$5,000 Cash Bonus + Senior Rep title", icon: "", unlocked: false },
+                  { milestone: "100 Active Customers (3+ months)", bonus: "$15,000 Cash Bonus + Revenue Share + Team Lead role", icon: "", unlocked: false },
                 ].map((tier, i) => (
                   <div key={i} className={`flex items-center gap-4 p-4 rounded-xl border-2 ${tier.unlocked ? "border-green-500 bg-green-50" : "border-gray-200 bg-gray-50"}`}>
                     <span className="text-3xl">{tier.icon}</span>
@@ -377,7 +377,7 @@ export default function RepDashboard() {
                       <div className="text-sm text-gray-600">{tier.bonus}</div>
                     </div>
                     <span className={`text-xs font-bold px-3 py-1 rounded-full ${tier.unlocked ? "bg-green-100 text-green-700" : "bg-gray-200 text-gray-500"}`}>
-                      {tier.unlocked ? "UNLOCKED ✅" : "LOCKED 🔒"}
+                      {tier.unlocked ? "UNLOCKED " : "LOCKED "}
                     </span>
                   </div>
                 ))}
@@ -398,7 +398,7 @@ export default function RepDashboard() {
 
             {todayCheckin ? (
               <div className="bg-green-50 border border-green-200 rounded-xl p-6 text-center">
-                <p className="text-green-700 font-bold text-lg">✅ You already checked in today!</p>
+                <p className="text-green-700 font-bold text-lg"> You already checked in today!</p>
                 <div className="flex justify-center gap-6 mt-4">
                   <div><span className="text-2xl font-bold text-green-800">{todayCheckin.calls_made}</span><br/><span className="text-xs text-green-600">Calls</span></div>
                   <div><span className="text-2xl font-bold text-green-800">{todayCheckin.demos_booked}</span><br/><span className="text-xs text-green-600">Demos</span></div>
@@ -424,7 +424,7 @@ export default function RepDashboard() {
                   </div>
                 </div>
                 <textarea placeholder="Notes for today (wins, blockers, questions)..." value={checkinForm.notes} onChange={e => setCheckinForm(p => ({ ...p, notes: e.target.value }))} rows={3} className="w-full border border-gray-200 rounded-lg px-4 py-2 text-sm mb-4" />
-                <button onClick={submitCheckin} className="w-full py-3 bg-[#0A192F] text-white font-semibold rounded-xl hover:bg-[#1a2940] transition">Submit Check-In</button>
+                <button onClick={submitCheckin} className="w-full py-3 bg-[#D4AF37] text-white font-semibold rounded-xl hover:bg-[#B5952F] transition">Submit Check-In</button>
               </div>
             )}
 
@@ -438,7 +438,7 @@ export default function RepDashboard() {
                       <div className="flex justify-between items-center mb-1">
                         <span className="text-sm font-medium text-gray-700">{new Date(c.created_at).toLocaleDateString()}</span>
                         <div className="flex gap-3 text-xs text-gray-500">
-                          <span>📞 {c.calls_made}</span><span>🎬 {c.demos_booked}</span><span>🏆 {c.deals_closed}</span>
+                          <span> {c.calls_made}</span><span> {c.demos_booked}</span><span> {c.deals_closed}</span>
                         </div>
                       </div>
                       {c.notes && <p className="text-sm text-gray-600">{c.notes}</p>}

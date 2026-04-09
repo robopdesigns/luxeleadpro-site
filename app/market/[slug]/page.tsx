@@ -33,7 +33,7 @@ export default async function MarketPage({ params }: { params: Promise<{ slug: s
           <div className="absolute inset-0 bg-[url('/globe.svg')] bg-center bg-no-repeat opacity-5" />
           <div className="max-w-4xl mx-auto relative z-10">
             <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-white/10 rounded-full text-sm mb-6">
-              <span>📍</span> {market.name}, {market.state}
+              <span></span> {market.name}, {market.state}
             </div>
             <h1 className="text-4xl md:text-5xl font-display font-bold mb-4">{market.heroText}</h1>
             <p className="text-lg text-white/70 max-w-2xl mb-8">
@@ -73,10 +73,10 @@ export default async function MarketPage({ params }: { params: Promise<{ slug: s
             <h2 className="text-2xl font-bold text-gray-900 text-center mb-10">{market.name} Luxury Market Snapshot</h2>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
               {[
-                { label: "Median Luxury Price", value: market.medianPrice, icon: "🏠" },
-                { label: "YoY Price Growth", value: market.growth, icon: "📈" },
-                { label: "Avg Days on Market", value: market.daysOnMarket, icon: "📅" },
-                { label: "Territory Status", value: "Available", icon: "🔓" },
+                { label: "Median Luxury Price", value: market.medianPrice, icon: "" },
+                { label: "YoY Price Growth", value: market.growth, icon: "" },
+                { label: "Avg Days on Market", value: market.daysOnMarket, icon: "" },
+                { label: "Territory Status", value: "Available", icon: "" },
               ].map((s, i) => (
                 <div key={i} className="text-center p-6 bg-gray-50 rounded-2xl">
                   <span className="text-2xl">{s.icon}</span>
@@ -95,9 +95,9 @@ export default async function MarketPage({ params }: { params: Promise<{ slug: s
             <p className="text-gray-600 mb-10">AI-powered lead intelligence built specifically for luxury markets</p>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {[
-                { icon: "🤖", title: "AI Lead Scoring", desc: "Every lead scored 0-100 across 40+ signals. Know who's ready to buy before you pick up the phone." },
-                { icon: "📬", title: "6AM Daily Briefing", desc: "Wake up to your top 5 hottest prospects, ranked and ready. No guessing, no wasted calls." },
-                { icon: "🔒", title: "Territory Exclusivity", desc: `Be the ONLY LuxeLeadPro agent in ${market.name}. Every lead in your ZIP code goes to you — and only you.` },
+                { icon: "", title: "AI Lead Scoring", desc: "Every lead scored 0-100 across 40+ signals. Know who's ready to buy before you pick up the phone." },
+                { icon: "", title: "6AM Daily Briefing", desc: "Wake up to your top 5 hottest prospects, ranked and ready. No guessing, no wasted calls." },
+                { icon: "", title: "Territory Exclusivity", desc: `Be the ONLY LuxeLeadPro agent in ${market.name}. Every lead in your ZIP code goes to you — and only you.` },
               ].map((f, i) => (
                 <div key={i} className="bg-white rounded-2xl p-6 border border-gray-200">
                   <span className="text-3xl">{f.icon}</span>
