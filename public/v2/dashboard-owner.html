@@ -192,55 +192,18 @@ a{text-decoration:none;color:inherit}
 <script>(function(){const s=localStorage.getItem('luxe-theme');if(s==='dark')document.documentElement.classList.add('dark');document.querySelector('.theme-toggle')?.addEventListener('click',function(){const d=document.documentElement.classList.toggle('dark');localStorage.setItem('luxe-theme',d?'dark':'light')})})()</script>
 
 <script>
-(async function() {
-  try {
-    var res = await fetch('/api/owner/stats');
-    if (!res.ok) return;
-    var d = await res.json();
-    var leads = d.leads || [];
-    var reps = d.reps || [];
-    var tasks = d.tasks || [];
-    var todo = tasks.filter(function(t){return t.status==='todo'});
-    var done = tasks.filter(function(t){return t.status==='done'});
-    
-    var kpis = document.querySelectorAll('.kpi-card');
-    if(kpis[0]){kpis[0].querySelector('.label').textContent='MONTHLY REVENUE';kpis[0].querySelector('.value').textContent='$0';kpis[0].querySelector('.change').textContent='Pre-launch';}
-    if(kpis[1]){kpis[1].querySelector('.label').textContent='TOTAL LEADS';kpis[1].querySelector('.value').textContent=leads.length;kpis[1].querySelector('.change').textContent=leads.length+' total leads';}
-    if(kpis[2]){kpis[2].querySelector('.label').textContent='ACTIVE REPS';kpis[2].querySelector('.value').textContent=reps.length;kpis[2].querySelector('.change').textContent=reps.length+' active reps';}
-    if(kpis[3]){kpis[3].querySelector('.label').textContent='OPEN TASKS';kpis[3].querySelector('.value').textContent=todo.length;kpis[3].querySelector('.change').textContent=done.length+' completed';}
-  } catch(e){console.log('Data error:',e);}
-})();
-</script>
-
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-  // Make sidebar links highlight on click
-  document.querySelectorAll('.sidebar-nav a').forEach(function(link) {
-    link.addEventListener('click', function(e) {
-      e.preventDefault();
-      document.querySelectorAll('.sidebar-nav a').forEach(function(l) { l.classList.remove('active'); });
-      this.classList.add('active');
-      
-      // Show/hide content sections based on tab name
-      var tabName = this.textContent.trim().toLowerCase();
-      document.querySelectorAll('[data-tab]').forEach(function(s) { s.style.display = 'none'; });
-      var target = document.querySelector('[data-tab="' + tabName + '"]');
-      if (target) target.style.display = 'block';
-    });
-  });
+(function(){
+  // Theme
+  if(localStorage.getItem('luxe-theme')==='dark')document.documentElement.classList.add('dark');
+  document.querySelectorAll('.theme-toggle').forEach(function(b){b.onclick=function(){document.documentElement.classList.toggle('dark');localStorage.setItem('luxe-theme',document.documentElement.classList.contains('dark')?'dark':'light')}});
   
-  // Sign Out functionality
-  document.querySelectorAll('.sidebar-nav a').forEach(function(link) {
-    if (link.textContent.trim() === 'Sign Out') {
-      link.addEventListener('click', function(e) {
-        e.preventDefault();
-        document.cookie = 'dashboard_auth=; path=/; max-age=0';
-        document.cookie = 'rep_auth=; path=/; max-age=0';
-        window.location.href = '/';
-      });
+  // Sign out
+  document.querySelectorAll('.sidebar-nav a, .sidebar-nav button').forEach(function(el){
+    if(el.textContent.trim().match(/sign out|logout/i)){
+      el.onclick=function(e){e.preventDefault();document.cookie='dashboard_auth=;path=/;max-age=0';document.cookie='rep_auth=;path=/;max-age=0';window.location.href='/';}
     }
   });
-});
+})();
 </script>
 </body>
 </html>
