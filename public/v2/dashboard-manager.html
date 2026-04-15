@@ -199,6 +199,13 @@ a{text-decoration:none;color:inherit}
 </div>
 
 <script>(function(){const s=localStorage.getItem('luxe-theme');if(s==='dark')document.documentElement.classList.add('dark');document.querySelector('.theme-toggle')?.addEventListener('click',function(){const d=document.documentElement.classList.toggle('dark');localStorage.setItem('luxe-theme',d?'dark':'light')})})()</script>
+<script>
+(async function() {
+  const h1 = document.querySelector('.dash-header h1');
+  if (h1) h1.textContent = 'Team Overview';
+})();
+</script>
 </body>
 </html>
+
 

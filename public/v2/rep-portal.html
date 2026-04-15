@@ -208,6 +208,33 @@ a{text-decoration:none;color:inherit}
   </main>
 </div>
 <script>(function(){const s=localStorage.getItem('luxe-theme');if(s==='dark')document.documentElement.classList.add('dark');document.querySelector('.theme-toggle')?.addEventListener('click',function(){const d=document.documentElement.classList.toggle('dark');localStorage.setItem('luxe-theme',d?'dark':'light')})})()</script>
+<script>
+(async function() {
+  try {
+    const res = await fetch('/api/rep/data');
+    if (!res.ok) { window.location.href = '/rep/login'; return; }
+    const data = await res.json();
+    
+    const rep = data.rep;
+    const leads = data.leads || [];
+    const activities = data.activities || [];
+    const checkins = data.checkins || [];
+    
+    // Update greeting
+    const h1 = document.querySelector('.dash-header h1');
+    if (h1 && rep) h1.textContent = 'Welcome, ' + rep.name;
+    
+    // Update KPI cards
+    const kpis = document.querySelectorAll('.kpi-card');
+    if (kpis[0]) kpis[0].querySelector('.value').textContent = leads.length;
+    if (kpis[1]) kpis[1].querySelector('.value').textContent = activities.length;
+    if (kpis[2]) kpis[2].querySelector('.value').textContent = activities.filter(a => a.type === 'demo').length;
+    if (kpis[3]) kpis[3].querySelector('.value').textContent = checkins.length > 0 ? 'Yes' : 'No';
+    
+  } catch(e) { console.log('Rep data error:', e); }
+})();
+</script>
 </body>
 </html>
+
 

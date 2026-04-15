@@ -190,6 +190,70 @@ a{text-decoration:none;color:inherit}
   </main>
 </div>
 <script>(function(){const s=localStorage.getItem('luxe-theme');if(s==='dark')document.documentElement.classList.add('dark');document.querySelector('.theme-toggle')?.addEventListener('click',function(){const d=document.documentElement.classList.toggle('dark');localStorage.setItem('luxe-theme',d?'dark':'light')})})()</script>
+<script>
+// Fetch real data and populate dashboard
+(async function() {
+  try {
+    const res = await fetch('/api/owner/stats');
+    if (!res.ok) return;
+    const data = await res.json();
+    
+    const leads = data.leads || [];
+    const reps = data.reps || [];
+    const tasks = data.tasks || [];
+    const activities = data.activities || [];
+    const todoTasks = tasks.filter(t => t.status === 'todo');
+    const doneTasks = tasks.filter(t => t.status === 'done');
+    const wonLeads = leads.filter(l => l.current_stage === 'won');
+    
+    // Update KPI cards
+    const kpiCards = document.querySelectorAll('.kpi-card');
+    if (kpiCards[0]) { kpiCards[0].querySelector('.value').textContent = '</body>'; kpiCards[0].querySelector('.change').textContent = 'Pre-launch'; }
+    if (kpiCards[1]) { kpiCards[1].querySelector('.value').textContent = leads.length; kpiCards[1].querySelector('.change').textContent = leads.length + ' total leads'; }
+    if (kpiCards[2]) { kpiCards[2].querySelector('.value').textContent = reps.length; kpiCards[2].querySelector('.change').textContent = reps.length + ' active reps'; }
+    if (kpiCards[3]) { kpiCards[3].querySelector('.value').textContent = todoTasks.length; kpiCards[3].querySelector('.change').textContent = doneTasks.length + ' completed'; }
+    
+    // Update KPI labels
+    if (kpiCards[0]) kpiCards[0].querySelector('.label').textContent = 'MONTHLY REVENUE';
+    if (kpiCards[1]) kpiCards[1].querySelector('.label').textContent = 'TOTAL LEADS';
+    if (kpiCards[2]) kpiCards[2].querySelector('.label').textContent = 'ACTIVE REPS';
+    if (kpiCards[3]) kpiCards[3].querySelector('.label').textContent = 'OPEN TASKS';
+    
+    // Populate lead list
+    const leadPanel = document.querySelectorAll('.panel')[2]; // Recent leads panel
+    if (leadPanel) {
+      const items = leadPanel.querySelectorAll('.lead-item');
+      leads.slice(0, items.length).forEach((lead, i) => {
+        if (items[i]) {
+          const name = items[i].querySelector('.lead-name');
+          const detail = items[i].querySelector('.lead-detail');
+          const avatar = items[i].querySelector('.lead-avatar');
+          if (name) name.textContent = lead.full_name || 'Unknown';
+          if (detail) detail.textContent = (lead.email || '') + (lead.market_area ? ' · ' + lead.market_area : '');
+          if (avatar) avatar.textContent = (lead.full_name || '?')[0];
+        }
+      });
+    }
+    
+    // Populate task list
+    const taskPanel = document.querySelector('.panel-full') || document.querySelectorAll('.panel')[3];
+    if (taskPanel) {
+      const taskItems = taskPanel.querySelectorAll('.task-item');
+      const allTodoTasks = todoTasks.slice(0, taskItems.length);
+      allTodoTasks.forEach((task, i) => {
+        if (taskItems[i]) {
+          const text = taskItems[i].querySelector('.task-text');
+          const priority = taskItems[i].querySelector('.task-priority');
+          if (text) text.textContent = task.title;
+          if (priority) { priority.textContent = task.priority; priority.className = 'task-priority priority-' + task.priority; }
+        }
+      });
+    }
+    
+  } catch(e) { console.log('Dashboard data load error:', e); }
+})();
+</script>
 </body>
 </html>
+
 
