@@ -249,9 +249,12 @@ export default function OwnerDashboardClient() {
                   <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '1.5px', textTransform: 'uppercase' as const, color: '#D4AF37', marginBottom: 12 }}>Your Tasks (Rob)</div>
                   <div className="panel">
                     {robTasks.map(t => (
-                      <div className="task-item" key={t.id}>
+                      <div className="task-item" key={t.id} style={{ flexWrap: 'wrap', gap: 8 }}>
                         <button className="task-check" onClick={() => toggleTask(t.id, t.status)} />
-                        <span className="task-text">{t.title.replace('ROB: ', '')}</span>
+                        <div style={{ flex: 1, minWidth: 0 }}>
+                          <span className="task-text">{t.title.replace('ROB: ', '')}</span>
+                          {t.description && <div style={{ fontSize: 12, color: 'var(--text-muted)', marginTop: 4, lineHeight: 1.5 }}>{t.description}</div>}
+                        </div>
                         <span className={`task-priority priority-${t.priority}`}>{t.priority}</span>
                       </div>
                     ))}
@@ -265,9 +268,12 @@ export default function OwnerDashboardClient() {
                   <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '1.5px', textTransform: 'uppercase' as const, color: 'var(--text-muted)', marginBottom: 12 }}>Atlas (AI) Tasks</div>
                   <div className="panel">
                     {atlasTasks.map(t => (
-                      <div className="task-item" key={t.id}>
+                      <div className="task-item" key={t.id} style={{ flexWrap: 'wrap', gap: 8 }}>
                         <button className="task-check" onClick={() => toggleTask(t.id, t.status)} />
-                        <span className="task-text">{t.title.replace('ATLAS: ', '').replace('MANUS: ', '')}</span>
+                        <div style={{ flex: 1, minWidth: 0 }}>
+                          <span className="task-text">{t.title.replace('ATLAS: ', '').replace('MANUS: ', '')}</span>
+                          {t.description && <div style={{ fontSize: 12, color: 'var(--text-muted)', marginTop: 4, lineHeight: 1.5 }}>{t.description}</div>}
+                        </div>
                         <span className={`task-priority priority-${t.priority}`}>{t.priority}</span>
                       </div>
                     ))}
