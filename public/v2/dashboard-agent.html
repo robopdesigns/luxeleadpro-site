@@ -40,7 +40,7 @@ KEY STYLING NOTES:
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LuxeLeadPro — AI Lead Intelligence for Luxury Real Estate</title>
+<title>Agent Dashboard — LuxeLeadPro</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
 :root{--bg-base:#FAFAF8;--bg-surface:#FFFFFF;--bg-elevated:#F8F6F3;--text-primary:#0A192F;--text-secondary:#4A5568;--text-muted:#718096;--border-default:#E8E5DE;--border-subtle:#F0EDE6;--gold:#D4AF37;--gold-hover:#B5952F;--gold-muted:rgba(212,175,55,0.12);--navy:#0A192F;--deep:#050B14;--shadow-sm:0 1px 3px rgba(10,25,47,0.04);--shadow-md:0 4px 16px rgba(10,25,47,0.06)}
@@ -148,15 +148,15 @@ a{text-decoration:none;color:inherit}
     </div>
     <div class="sidebar-section">Main</div>
     <ul class="sidebar-nav">
-      <li><a href="/" class="active"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>Dashboard</a></li>
-      <li><a href="/"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>Lead Pipeline</a></li>
-      <li><a href="/"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>Morning Briefing</a></li>
-      <li><a href="/"><svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>Analytics</a></li>
+      <li><a href="#" class="active"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>Dashboard</a></li>
+      <li><a href="#"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>Lead Pipeline</a></li>
+      <li><a href="#"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>Morning Briefing</a></li>
+      <li><a href="#"><svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>Analytics</a></li>
     </ul>
     <div class="sidebar-section">Account</div>
     <ul class="sidebar-nav">
-      <li><a href="/"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>Settings</a></li>
-      <li><a href="/"><svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>Sign Out</a></li>
+      <li><a href="#"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>Settings</a></li>
+      <li><a href="#"><svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>Sign Out</a></li>
     </ul>
     <div class="sidebar-bottom">
       <div class="sidebar-user">
@@ -193,7 +193,7 @@ a{text-decoration:none;color:inherit}
     <div class="content-grid">
       <!-- Lead Pipeline -->
       <div class="panel">
-        <div class="panel-header"><h3><span class="dot"></span>Today's Top Opportunities</h3><a href="/">View All</a></div>
+        <div class="panel-header"><h3><span class="dot"></span>Today's Top Opportunities</h3><a href="#">View All</a></div>
         <div class="lead-item"><div class="lead-avatar">SJ</div><div class="lead-info"><div class="lead-name">Sarah Johnson</div><div class="lead-detail">Lincoln Park — $3.2M</div></div><div class="lead-score"><span class="score-num">92</span><span class="badge-hot">Hot</span></div></div>
         <div class="lead-item"><div class="lead-avatar">MC</div><div class="lead-info"><div class="lead-name">Michael Chen</div><div class="lead-detail">Gold Coast — $1.8M</div></div><div class="lead-score"><span class="score-num">78</span><span class="badge-warm">Warm</span></div></div>
         <div class="lead-item"><div class="lead-avatar">EB</div><div class="lead-info"><div class="lead-name">Elizabeth Brown</div><div class="lead-detail">River North — $2.4M</div></div><div class="lead-score"><span class="score-num">65</span><span class="badge-active">Active</span></div></div>
@@ -201,7 +201,7 @@ a{text-decoration:none;color:inherit}
       </div>
       <!-- Activity Feed -->
       <div class="panel">
-        <div class="panel-header"><h3><span class="dot"></span>Recent Activity</h3><a href="/">View All</a></div>
+        <div class="panel-header"><h3><span class="dot"></span>Recent Activity</h3><a href="#">View All</a></div>
         <div class="activity-item"><div><div class="activity-title">Called Sarah Johnson</div><div class="activity-desc">Interested in $3.2M listing, scheduling showing</div></div><div class="activity-time">8:42 AM</div></div>
         <div class="activity-item"><div><div class="activity-title">AI Briefing Delivered</div><div class="activity-desc">3 new hot leads identified overnight</div></div><div class="activity-time">6:00 AM</div></div>
         <div class="activity-item"><div><div class="activity-title">Lead Score Updated</div><div class="activity-desc">Michael Chen moved from Active to Warm (+13)</div></div><div class="activity-time">Yesterday</div></div>
@@ -222,5 +222,4 @@ a{text-decoration:none;color:inherit}
 <script>(function(){const s=localStorage.getItem('luxe-theme');if(s==='dark')document.documentElement.classList.add('dark');document.querySelector('.theme-toggle')?.addEventListener('click',function(){const d=document.documentElement.classList.toggle('dark');localStorage.setItem('luxe-theme',d?'dark':'light')})})()</script>
 </body>
 </html>
-
 
