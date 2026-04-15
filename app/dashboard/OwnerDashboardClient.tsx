@@ -226,30 +226,92 @@ export default function OwnerDashboardClient() {
             </div>
           )}
 
-          {tab === "tasks" && (
+          {tab === "tasks" && (() => {
+            const robTasks = todoTasks.filter(t => t.title.startsWith('ROB:'));
+            const atlasTasks = todoTasks.filter(t => t.title.startsWith('ATLAS:') || t.title.startsWith('MANUS:'));
+            const otherTasks = todoTasks.filter(t => !t.title.startsWith('ROB:') && !t.title.startsWith('ATLAS:') && !t.title.startsWith('MANUS:'));
+            const progress = tasks.length ? Math.round((doneTasks.length / tasks.length) * 100) : 0;
+
+            return (
             <div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 24 }}>
+              {/* Progress bar */}
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
                 <h2 style={{ fontFamily: "'Playfair Display',serif", fontSize: 24 }}>Launch Checklist</h2>
-                <span style={{ fontSize: 13, color: 'var(--text-muted)' }}>{doneTasks.length}/{tasks.length} complete</span>
+                <span style={{ fontSize: 13, color: 'var(--text-muted)' }}>{doneTasks.length}/{tasks.length} complete ({progress}%)</span>
               </div>
+              <div style={{ width: '100%', height: 8, background: 'var(--bg-elevated)', borderRadius: 4, marginBottom: 32 }}>
+                <div style={{ width: `${progress}%`, height: 8, background: '#D4AF37', borderRadius: 4, transition: 'width 0.3s' }} />
+              </div>
+
+              {/* ROB's Tasks */}
+              {robTasks.length > 0 && (
+                <div style={{ marginBottom: 24 }}>
+                  <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '1.5px', textTransform: 'uppercase' as const, color: '#D4AF37', marginBottom: 12 }}>Your Tasks (Rob)</div>
+                  <div className="panel">
+                    {robTasks.map(t => (
+                      <div className="task-item" key={t.id}>
+                        <button className="task-check" onClick={() => toggleTask(t.id, t.status)} />
+                        <span className="task-text">{t.title.replace('ROB: ', '')}</span>
+                        <span className={`task-priority priority-${t.priority}`}>{t.priority}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* ATLAS Tasks */}
+              {atlasTasks.length > 0 && (
+                <div style={{ marginBottom: 24 }}>
+                  <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '1.5px', textTransform: 'uppercase' as const, color: 'var(--text-muted)', marginBottom: 12 }}>Atlas (AI) Tasks</div>
+                  <div className="panel">
+                    {atlasTasks.map(t => (
+                      <div className="task-item" key={t.id}>
+                        <button className="task-check" onClick={() => toggleTask(t.id, t.status)} />
+                        <span className="task-text">{t.title.replace('ATLAS: ', '').replace('MANUS: ', '')}</span>
+                        <span className={`task-priority priority-${t.priority}`}>{t.priority}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Other Tasks */}
+              {otherTasks.length > 0 && (
+                <div style={{ marginBottom: 24 }}>
+                  <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '1.5px', textTransform: 'uppercase' as const, color: 'var(--text-muted)', marginBottom: 12 }}>General</div>
+                  <div className="panel">
+                    {otherTasks.map(t => (
+                      <div className="task-item" key={t.id}>
+                        <button className="task-check" onClick={() => toggleTask(t.id, t.status)} />
+                        <span className="task-text">{t.title}</span>
+                        <span className={`task-priority priority-${t.priority}`}>{t.priority}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Completed */}
+              {doneTasks.length > 0 && (
+                <div style={{ marginBottom: 24 }}>
+                  <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '1.5px', textTransform: 'uppercase' as const, color: 'var(--text-muted)', marginBottom: 12 }}>Completed ({doneTasks.length})</div>
+                  <div className="panel">
+                    {doneTasks.map(t => (
+                      <div className="task-item" key={t.id} style={{ opacity: 0.5 }}>
+                        <button className="task-check done" onClick={() => toggleTask(t.id, t.status)}>
+                          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="3"><polyline points="20 6 9 17 4 12"/></svg>
+                        </button>
+                        <span className="task-text done">{t.title.replace('ROB: ', '').replace('ATLAS: ', '').replace('MANUS: ', '')}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Add task */}
               <div className="panel">
-                {todoTasks.map(t => (
-                  <div className="task-item" key={t.id}>
-                    <button className="task-check" onClick={() => toggleTask(t.id, t.status)} />
-                    <span className="task-text">{t.title}</span>
-                    <span className={`task-priority priority-${t.priority}`}>{t.priority}</span>
-                  </div>
-                ))}
-                {doneTasks.map(t => (
-                  <div className="task-item" key={t.id} style={{ opacity: 0.5 }}>
-                    <button className="task-check done" onClick={() => toggleTask(t.id, t.status)}>
-                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="3"><polyline points="20 6 9 17 4 12"/></svg>
-                    </button>
-                    <span className="task-text done">{t.title}</span>
-                  </div>
-                ))}
                 <div className="add-task-row">
-                  <input placeholder="Add a task..." value={newTask} onChange={e => setNewTask(e.target.value)} onKeyDown={e => e.key === "Enter" && addTask()} />
+                  <input placeholder="Add a task (prefix with ROB: or ATLAS:)" value={newTask} onChange={e => setNewTask(e.target.value)} onKeyDown={e => e.key === "Enter" && addTask()} />
                   <select value={taskPriority} onChange={e => setTaskPriority(e.target.value)}>
                     <option value="urgent">Urgent</option><option value="high">High</option><option value="medium">Medium</option><option value="low">Low</option>
                   </select>
@@ -257,7 +319,8 @@ export default function OwnerDashboardClient() {
                 </div>
               </div>
             </div>
-          )}
+            );
+          })()}
         </div>
       </div>
     </>
