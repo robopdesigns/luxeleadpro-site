@@ -68,11 +68,11 @@ export default function RepDashboard() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <header className="bg-[#D4AF37] text-white px-6 py-4">
+      <header className="bg-[#D4AF37] text-[#0A192F] px-6 py-4">
         <div className="max-w-5xl mx-auto flex items-center justify-between">
           <div>
             <h1 className="text-xl font-bold">Welcome, {rep?.name}</h1>
-            <p className="text-sm text-[#D4AF37]/40">LuxeLeadPro Sales Portal</p>
+            <p className="text-sm text-[#D4AF37]/40">Sales Portal</p>
           </div>
           <button onClick={logout} className="px-3 py-1.5 bg-white/20 hover:bg-white/30 rounded-lg text-sm transition">Logout</button>
         </div>
@@ -96,7 +96,7 @@ export default function RepDashboard() {
             {/* Today's Stats */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               {[
-                { label: "My Leads", value: leads.length, color: "bg-[#D4AF37]/10 text-[#D4AF37]" },
+                { label: "My Leads", value: leads.length, color: "bg-[rgba(212,175,55,0.12)] text-[#D4AF37]" },
                 { label: "Activities Today", value: todayActivities.length, color: "bg-blue-50 text-blue-700" },
                 { label: "Demos Booked", value: activities.filter(a => a.type === "demo").length, color: "bg-green-50 text-green-700" },
                 { label: "Checked In", value: todayCheckin ? "" : "❌", color: todayCheckin ? "bg-green-50 text-green-700" : "bg-red-50 text-red-700" },
@@ -113,7 +113,7 @@ export default function RepDashboard() {
               <h2 className="font-bold text-gray-900 mb-4">Log Activity</h2>
               <div className="flex flex-wrap gap-2 mb-3">
                 {["call", "email", "demo", "meeting", "follow_up"].map(t => (
-                  <button key={t} onClick={() => setActivityForm(p => ({ ...p, type: t }))} className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition ${activityForm.type === t ? "bg-[#D4AF37] text-white" : "bg-gray-100 text-gray-600 hover:bg-gray-200"}`}>
+                  <button key={t} onClick={() => setActivityForm(p => ({ ...p, type: t }))} className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition ${activityForm.type === t ? "bg-[#D4AF37] text-[#0A192F]" : "bg-gray-100 text-gray-600 hover:bg-gray-200"}`}>
                     {t === "call" ? " Call" : t === "email" ? " Email" : t === "demo" ? " Demo" : t === "meeting" ? " Meeting" : " Follow-up"}
                   </button>
                 ))}
@@ -126,7 +126,7 @@ export default function RepDashboard() {
               )}
               <div className="flex gap-2">
                 <input placeholder="What did you do?" value={activityForm.notes} onChange={e => setActivityForm(p => ({ ...p, notes: e.target.value }))} onKeyDown={e => e.key === "Enter" && logActivity()} className="flex-1 border border-gray-200 rounded-lg px-4 py-2 text-sm" />
-                <button onClick={logActivity} className="px-4 py-2 bg-[#D4AF37] text-white text-sm font-semibold rounded-lg hover:bg-[#B5952F]">Log</button>
+                <button onClick={logActivity} className="px-4 py-2 bg-[#D4AF37] text-[#0A192F] text-sm font-semibold rounded-lg hover:bg-[#B5952F]">Log</button>
               </div>
             </div>
 
@@ -154,7 +154,7 @@ export default function RepDashboard() {
                               else alert('Failed to save edit');
                             } catch(e) { alert('Error saving'); }
                           }
-                        }} className="text-xs bg-[#D4AF37]/10 text-[#D4AF37] px-2 py-1 rounded font-semibold hover:bg-[#D4AF37]/10"> Edit</button>
+                        }} className="text-xs bg-[rgba(212,175,55,0.12)] text-[#D4AF37] px-2 py-1 rounded font-semibold hover:bg-[#D4AF37]/10"> Edit</button>
                         <button onClick={async () => {
                           if (window.confirm('Delete this activity?')) {
                             try {
@@ -177,7 +177,7 @@ export default function RepDashboard() {
           <div className="space-y-4">
             <div className="flex items-center justify-between">
               <h2 className="text-xl font-bold text-gray-900">Prospects & Clients</h2>
-              <button onClick={() => setShowAddProspect(true)} className="px-4 py-2 bg-[#D4AF37] text-white text-sm font-semibold rounded-lg hover:bg-[#B5952F] transition">+ Add Prospect</button>
+              <button onClick={() => setShowAddProspect(true)} className="px-4 py-2 bg-[#D4AF37] text-[#0A192F] text-sm font-semibold rounded-lg hover:bg-[#B5952F] transition">+ Add Prospect</button>
             </div>
 
             {showAddProspect && (
@@ -205,7 +205,7 @@ export default function RepDashboard() {
                     setProspectForm({ name: '', email: '', phone: '', territory: '', notes: '', stage: 'new' });
                     setShowAddProspect(false);
                     loadData();
-                  }} className="px-4 py-2 bg-[#D4AF37] text-white text-sm font-semibold rounded-lg hover:bg-[#B5952F]">Save Prospect</button>
+                  }} className="px-4 py-2 bg-[#D4AF37] text-[#0A192F] text-sm font-semibold rounded-lg hover:bg-[#B5952F]">Save Prospect</button>
                   <button onClick={() => setShowAddProspect(false)} className="px-4 py-2 bg-gray-100 text-gray-700 text-sm rounded-lg hover:bg-gray-200">Cancel</button>
                 </div>
               </div>
@@ -230,7 +230,7 @@ export default function RepDashboard() {
                         <select value={l.current_stage || 'new'} onChange={async (e) => {
                           await fetch('/api/rep/data', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify({ action: 'update_stage', id: l.id, stage: e.target.value }) });
                           loadData();
-                        }} className={`text-xs font-bold px-3 py-1.5 rounded-full border-0 cursor-pointer ${l.current_stage === 'won' ? 'bg-green-100 text-green-700' : l.current_stage === 'demo' ? 'bg-[#D4AF37]/10 text-[#D4AF37]' : l.current_stage === 'proposal' ? 'bg-blue-100 text-blue-700' : l.current_stage === 'contacted' ? 'bg-amber-100 text-amber-700' : l.current_stage === 'lost' ? 'bg-red-100 text-red-700' : 'bg-gray-100 text-gray-600'}`}>
+                        }} className={`text-xs font-bold px-3 py-1.5 rounded-full border-0 cursor-pointer ${l.current_stage === 'won' ? 'bg-green-100 text-green-700' : l.current_stage === 'demo' ? 'bg-[rgba(212,175,55,0.12)] text-[#D4AF37]' : l.current_stage === 'proposal' ? 'bg-blue-100 text-blue-700' : l.current_stage === 'contacted' ? 'bg-amber-100 text-amber-700' : l.current_stage === 'lost' ? 'bg-red-100 text-red-700' : 'bg-gray-100 text-gray-600'}`}>
                           <option value="new">New</option>
                           <option value="contacted">Contacted</option>
                           <option value="demo">Demo</option>
@@ -247,7 +247,7 @@ export default function RepDashboard() {
                               else alert('Failed to save');
                             } catch(e) { alert('Error saving'); }
                           }
-                        }} className="text-xs bg-[#D4AF37]/10 text-[#D4AF37] px-2 py-1 rounded font-semibold hover:bg-[#D4AF37]/10"> Edit</button>
+                        }} className="text-xs bg-[rgba(212,175,55,0.12)] text-[#D4AF37] px-2 py-1 rounded font-semibold hover:bg-[#D4AF37]/10"> Edit</button>
                       </div>
                     </div>
                     {l.challenge && <p className="text-sm text-gray-600 mt-3 bg-gray-50 rounded-lg p-3">{l.challenge}</p>}
@@ -424,7 +424,7 @@ export default function RepDashboard() {
                   </div>
                 </div>
                 <textarea placeholder="Notes for today (wins, blockers, questions)..." value={checkinForm.notes} onChange={e => setCheckinForm(p => ({ ...p, notes: e.target.value }))} rows={3} className="w-full border border-gray-200 rounded-lg px-4 py-2 text-sm mb-4" />
-                <button onClick={submitCheckin} className="w-full py-3 bg-[#D4AF37] text-white font-semibold rounded-xl hover:bg-[#B5952F] transition">Submit Check-In</button>
+                <button onClick={submitCheckin} className="w-full py-3 bg-[#D4AF37] text-[#0A192F] font-semibold rounded-xl hover:bg-[#B5952F] transition">Submit Check-In</button>
               </div>
             )}
 
