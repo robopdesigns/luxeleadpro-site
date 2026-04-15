@@ -6,18 +6,75 @@ type Lead = { id: string; full_name: string | null; email: string | null; phone:
 type Rep = { id: string; name: string; email: string; status: string; phone: string | null; created_at: string };
 type Activity = { id: string; rep_id: string; lead_id: string | null; type: string; notes: string | null; outcome: string | null; created_at: string };
 type Task = { id: string; title: string; description: string | null; priority: string; status: string; due_date: string | null; created_at: string };
-type Checkin = { id: string; rep_id: string; notes: string; calls_made: number; demos_booked: number; deals_closed: number; created_at: string };
-type DashData = { leads: Lead[]; reps: Rep[]; activities: Activity[]; tasks: Task[]; commissions: unknown[]; checkins: Checkin[] };
+type DashData = { leads: Lead[]; reps: Rep[]; activities: Activity[]; tasks: Task[]; commissions: unknown[]; checkins: unknown[] };
+
+const dashCSS = `
+:root{--bg-base:#FAFAF8;--bg-surface:#FFFFFF;--bg-elevated:#F8F6F3;--text-primary:#0A192F;--text-secondary:#4A5568;--text-muted:#718096;--border-default:#E8E5DE;--border-subtle:#F0EDE6;--gold:#D4AF37;--gold-hover:#B5952F;--gold-muted:rgba(212,175,55,0.12);--shadow-sm:0 1px 3px rgba(10,25,47,0.04);--shadow-md:0 4px 16px rgba(10,25,47,0.06)}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',-apple-system,sans-serif;background:var(--bg-base);color:var(--text-primary);-webkit-font-smoothing:antialiased}
+.dash-layout{display:grid;grid-template-columns:256px 1fr;min-height:100vh}
+.sidebar{background:var(--bg-elevated);border-right:1px solid var(--border-default);padding:24px 0;position:sticky;top:0;height:100vh;overflow-y:auto}
+.sidebar-logo{display:flex;align-items:center;gap:10px;padding:0 20px;margin-bottom:32px}
+.sidebar-logo svg{width:28px;height:28px}
+.sidebar-logo span{font-size:16px;font-weight:300;color:var(--text-primary)}
+.sidebar-logo span strong{font-weight:700}
+.sidebar-logo .pro{color:var(--gold)}
+.sidebar-nav{list-style:none}
+.sidebar-nav li a,.sidebar-nav li button{display:flex;align-items:center;gap:12px;padding:12px 20px;font-size:14px;font-weight:500;color:var(--text-muted);border:none;background:none;width:100%;text-align:left;cursor:pointer;border-left:3px solid transparent;transition:all .2s}
+.sidebar-nav li a:hover,.sidebar-nav li button:hover{color:var(--text-primary);background:rgba(212,175,55,0.04)}
+.sidebar-nav li a.active,.sidebar-nav li button.active{color:var(--gold);background:var(--gold-muted);border-left-color:var(--gold);font-weight:600}
+.sidebar-section{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-muted);padding:24px 20px 8px}
+.main{padding:32px;overflow-y:auto}
+.dash-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:32px}
+.dash-header h1{font-family:'Playfair Display',serif;font-size:28px;font-weight:700;color:var(--text-primary)}
+.dash-header .date{font-size:14px;color:var(--text-muted);margin-top:4px}
+.kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:32px}
+.kpi-card{background:var(--bg-surface);border:1px solid var(--border-default);border-radius:12px;padding:20px;transition:all .2s}
+.kpi-card:hover{box-shadow:var(--shadow-md)}
+.kpi-card .label{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-muted);margin-bottom:8px}
+.kpi-card .value{font-family:'JetBrains Mono',monospace;font-size:28px;font-weight:700;color:var(--text-primary)}
+.kpi-card .value.gold{color:var(--gold)}
+.content-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:32px}
+.panel{background:var(--bg-surface);border:1px solid var(--border-default);border-radius:12px;overflow:hidden}
+.panel-header{display:flex;justify-content:space-between;align-items:center;padding:16px 20px;border-bottom:1px solid var(--border-default)}
+.panel-header h3{font-size:14px;font-weight:700;color:var(--text-primary)}
+.lead-item{display:flex;align-items:center;gap:12px;padding:14px 20px;border-bottom:1px solid var(--border-subtle);transition:background .2s}
+.lead-item:hover{background:var(--bg-base)}
+.lead-item:last-child{border-bottom:none}
+.lead-avatar{width:36px;height:36px;background:var(--bg-elevated);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:var(--text-secondary);flex-shrink:0}
+.lead-info{flex:1}
+.lead-name{font-size:14px;font-weight:600;color:var(--text-primary)}
+.lead-detail{font-size:12px;color:var(--text-muted)}
+.badge-hot{font-size:10px;font-weight:700;padding:3px 8px;border-radius:100px;background:rgba(239,68,68,0.1);color:#DC2626}
+.badge-warm{font-size:10px;font-weight:700;padding:3px 8px;border-radius:100px;background:rgba(245,158,11,0.1);color:#D97706}
+.badge-active{font-size:10px;font-weight:700;padding:3px 8px;border-radius:100px;background:rgba(16,185,129,0.1);color:#059669}
+.task-item{display:flex;align-items:center;gap:12px;padding:14px 20px;border-bottom:1px solid var(--border-subtle)}
+.task-item:last-child{border-bottom:none}
+.task-check{width:20px;height:20px;border:2px solid var(--border-default);border-radius:6px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;flex-shrink:0;background:none}
+.task-check:hover{border-color:var(--gold)}
+.task-check.done{background:var(--gold);border-color:var(--gold)}
+.task-text{font-size:14px;color:var(--text-primary)}
+.task-text.done{color:var(--text-muted);text-decoration:line-through}
+.task-priority{font-size:10px;font-weight:700;padding:2px 8px;border-radius:100px}
+.priority-urgent{background:rgba(239,68,68,0.1);color:#DC2626}
+.priority-high{background:rgba(245,158,11,0.1);color:#D97706}
+.priority-medium{background:rgba(59,130,246,0.1);color:#3B82F6}
+.priority-low{background:rgba(16,185,129,0.1);color:#059669}
+.btn-gold{display:inline-flex;align-items:center;gap:8px;background:var(--gold);color:var(--text-primary);font-size:14px;font-weight:600;padding:10px 20px;border-radius:8px;border:none;cursor:pointer;transition:all .2s}
+.btn-gold:hover{background:var(--gold-hover)}
+.add-task-row{display:flex;gap:8px;padding:16px 20px;border-top:1px solid var(--border-default)}
+.add-task-row input{flex:1;height:40px;padding:0 12px;background:var(--bg-base);border:1px solid var(--border-default);border-radius:8px;font-size:14px;color:var(--text-primary);outline:none}
+.add-task-row input:focus{border-color:var(--gold)}
+.add-task-row select{height:40px;padding:0 12px;background:var(--bg-base);border:1px solid var(--border-default);border-radius:8px;font-size:12px;color:var(--text-secondary);outline:none}
+@media(max-width:768px){.dash-layout{grid-template-columns:1fr}.sidebar{display:none}.kpi-grid{grid-template-columns:repeat(2,1fr)}.content-grid{grid-template-columns:1fr}}
+`;
 
 export default function OwnerDashboardClient() {
   const [data, setData] = useState<DashData | null>(null);
   const [loading, setLoading] = useState(true);
-  const [tab, setTab] = useState<"overview" | "pipeline" | "reps" | "tasks">("overview");
+  const [tab, setTab] = useState("overview");
   const [newTask, setNewTask] = useState("");
   const [taskPriority, setTaskPriority] = useState("medium");
-  const [showAddRep, setShowAddRep] = useState(false);
-  const [repForm, setRepForm] = useState({ name: "", email: "", password: "", phone: "" });
-  const [taskFilter, setTaskFilter] = useState<"all" | "todo" | "done">("all");
 
   async function loadData() { const res = await fetch("/api/owner/stats"); if (res.ok) setData(await res.json()); setLoading(false); }
   useEffect(() => { loadData(); }, []);
@@ -25,7 +82,7 @@ export default function OwnerDashboardClient() {
   async function addTask() {
     if (!newTask.trim()) return;
     await fetch("/api/owner/tasks", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ title: newTask, priority: taskPriority }) });
-    setNewTask(""); setTaskPriority("medium"); loadData();
+    setNewTask(""); loadData();
   }
 
   async function toggleTask(id: string, current: string) {
@@ -33,336 +90,176 @@ export default function OwnerDashboardClient() {
     loadData();
   }
 
-  async function addRep() {
-    if (!repForm.name || !repForm.email || !repForm.password) return;
-    await fetch("/api/reps", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(repForm) });
-    setRepForm({ name: "", email: "", password: "", phone: "" }); setShowAddRep(false); loadData();
-  }
-
-  async function logout() { await fetch("/api/dashboard-logout", { method: "POST" }); window.location.href = "/dashboard/login"; }
-
-  if (loading) return <div className="min-h-screen bg-[var(--bg-base)] flex items-center justify-center"><div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#D4AF37]" /></div>;
+  if (loading) return <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#FAFAF8' }}><div style={{ width: 32, height: 32, border: '3px solid #E8E5DE', borderTopColor: '#D4AF37', borderRadius: '50%', animation: 'spin 1s linear infinite' }} /></div>;
 
   const leads = data?.leads || [];
   const reps = data?.reps || [];
-  const activities = data?.activities || [];
   const tasks = data?.tasks || [];
-  const checkins = data?.checkins || [];
-  const stages = ["new", "contacted", "demo", "proposal", "won", "lost"];
-  const stageCounts = stages.map(s => ({ stage: s, count: leads.filter(l => (l.current_stage || "new") === s).length }));
-  const todayActs = activities.filter(a => new Date(a.created_at).toDateString() === new Date().toDateString());
-
-  const filteredTasks = taskFilter === "all" ? tasks : tasks.filter(t => t.status === taskFilter);
-  const urgentTasks = tasks.filter(t => t.priority === "urgent" && t.status === "todo");
-  const highTasks = tasks.filter(t => t.priority === "high" && t.status === "todo");
-  const medTasks = tasks.filter(t => t.priority === "medium" && t.status === "todo");
-  const lowTasks = tasks.filter(t => t.priority === "low" && t.status === "todo");
+  const activities = data?.activities || [];
+  const todoTasks = tasks.filter(t => t.status === "todo");
   const doneTasks = tasks.filter(t => t.status === "done");
+  const stages = ["new", "contacted", "demo", "proposal", "won", "lost"];
 
   return (
-    <div className="min-h-screen bg-[var(--bg-base)] text-[var(--text-primary)]">
-      {/* Header */}
-      <header className="border-b border-[var(--border-default)] bg-[var(--bg-base)]/80 backdrop-blur-xl sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-xl bg-[#D4AF37] flex items-center justify-center font-bold text-lg">L</div>
+    <>
+      <style dangerouslySetInnerHTML={{ __html: dashCSS }} />
+      <div className="dash-layout">
+        {/* Sidebar */}
+        <aside className="sidebar">
+          <div className="sidebar-logo">
+            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><polyline points="15,70 50,25 85,70" stroke="#D4AF37" strokeWidth="7" fill="none" strokeLinecap="round" strokeLinejoin="round"/><circle cx="50" cy="25" r="4" fill="#D4AF37"/><line x1="50" y1="70" x2="50" y2="45" stroke="#D4AF37" strokeWidth="5" strokeLinecap="round"/></svg>
+            <span><strong>Luxe</strong>Lead<span className="pro">Pro</span></span>
+          </div>
+          <div className="sidebar-section">Main</div>
+          <ul className="sidebar-nav">
+            <li><button className={tab === "overview" ? "active" : ""} onClick={() => setTab("overview")}>Overview</button></li>
+            <li><button className={tab === "pipeline" ? "active" : ""} onClick={() => setTab("pipeline")}>Pipeline</button></li>
+            <li><button className={tab === "reps" ? "active" : ""} onClick={() => setTab("reps")}>Sales Reps</button></li>
+            <li><button className={tab === "tasks" ? "active" : ""} onClick={() => setTab("tasks")}>Tasks</button></li>
+          </ul>
+          <div className="sidebar-section">Actions</div>
+          <ul className="sidebar-nav">
+            <li><a href="/api/briefing" target="_blank">Send Briefing</a></li>
+            <li><button onClick={async () => { await fetch("/api/dashboard-logout", { method: "POST" }); window.location.href = "/dashboard/login"; }}>Logout</button></li>
+          </ul>
+        </aside>
+
+        {/* Main */}
+        <div className="main">
+          <div className="dash-header">
             <div>
-              <h1 className="text-lg font-bold">LuxeLeadPro</h1>
-              <p className="text-xs text-[var(--text-muted)]">Owner Command Center</p>
+              <h1>Command Center</h1>
+              <div className="date">{new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</div>
             </div>
           </div>
-          <div className="flex items-center gap-3">
-            <a href="/api/briefing" target="_blank" className="px-3 py-1.5 bg-[var(--bg-elevated)] border border-[var(--border-default)] rounded-lg text-xs text-[var(--text-secondary)] hover:bg-[var(--bg-elevated)] transition"> Send Briefing</a>
-            <button onClick={logout} className="px-3 py-1.5 bg-[var(--bg-elevated)] border border-[var(--border-default)] rounded-lg text-xs text-[var(--text-secondary)] hover:bg-[var(--bg-elevated)] transition">Logout</button>
-          </div>
-        </div>
-      </header>
 
-      {/* Tabs */}
-      <div className="border-b border-[var(--border-default)]">
-        <div className="max-w-7xl mx-auto px-6 flex gap-1">
-          {(["overview", "pipeline", "reps", "tasks"] as const).map(t => (
-            <button key={t} onClick={() => setTab(t)} className={`px-5 py-3.5 text-sm font-medium border-b-2 transition ${tab === t ? "border-[#D4AF37] text-[var(--text-primary)]" : "border-transparent text-[var(--text-muted)] hover:text-[var(--text-secondary)]"}`}>
-              {t === "overview" ? " Overview" : t === "pipeline" ? "🔄 Pipeline" : t === "reps" ? " Sales Reps" : " Tasks"}
-              {t === "tasks" && urgentTasks.length > 0 && <span className="ml-2 bg-red-50 text-red-600 text-xs px-1.5 py-0.5 rounded-full">{urgentTasks.length}</span>}
-            </button>
-          ))}
-        </div>
-      </div>
+          {tab === "overview" && (
+            <>
+              <div className="kpi-grid">
+                <div className="kpi-card"><div className="label">Total Leads</div><div className="value">{leads.length}</div></div>
+                <div className="kpi-card"><div className="label">Active Reps</div><div className="value">{reps.filter(r => r.status === "active").length}</div></div>
+                <div className="kpi-card"><div className="label">Deals Won</div><div className="value gold">{leads.filter(l => l.current_stage === "won").length}</div></div>
+                <div className="kpi-card"><div className="label">Open Tasks</div><div className="value">{todoTasks.length}</div></div>
+              </div>
 
-      <main className="max-w-7xl mx-auto px-6 py-8">
-        {tab === "overview" && (
-          <div className="space-y-6">
-            {/* KPIs */}
-            <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
-              {[
-                { label: "Total Leads", value: leads.length, icon: "", color: "from-[#D4AF37]/20 to-[#D4AF37]/5 border-[#D4AF37]/20", text: "text-[#D4AF37]/80" },
-                { label: "Active Reps", value: reps.filter(r => r.status === "active").length, icon: "", color: "from-blue-500/20 to-blue-600/5 border-blue-500/20", text: "text-blue-400" },
-                { label: "Today's Activity", value: todayActs.length, icon: "", color: "from-amber-500/20 to-amber-600/5 border-amber-500/20", text: "text-amber-600" },
-                { label: "Deals Won", value: leads.filter(l => l.current_stage === "won").length, icon: "", color: "from-green-500/20 to-green-600/5 border-green-500/20", text: "text-emerald-600" },
-                { label: "Open Tasks", value: tasks.filter(t => t.status === "todo").length, icon: "", color: "from-pink-500/20 to-pink-600/5 border-pink-500/20", text: "text-pink-400" },
-              ].map((s, i) => (
-                <div key={i} className={`rounded-2xl border bg-gradient-to-br ${s.color} p-5`}>
-                  <div className="flex items-center justify-between mb-3">
-                    <span className="text-xs font-semibold text-[var(--text-muted)] uppercase tracking-wider">{s.label}</span>
-                    <span className="text-lg">{s.icon}</span>
-                  </div>
-                  <div className={`text-3xl font-bold ${s.text}`}>{s.value}</div>
-                </div>
-              ))}
-            </div>
-
-            {/* Pipeline + Urgent Tasks side by side */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              <div className="rounded-2xl border border-[var(--border-default)] bg-[var(--bg-surface)] p-6">
-                <h2 className="font-bold text-[var(--text-primary)] mb-4">Pipeline Snapshot</h2>
-                <div className="flex gap-2 flex-wrap">
-                  {stageCounts.map(s => (
-                    <div key={s.stage} className="flex-1 min-w-[80px] bg-[var(--bg-elevated)] rounded-xl p-3 text-center">
-                      <div className="text-xs text-[var(--text-muted)] uppercase tracking-wider">{s.stage}</div>
-                      <div className="text-2xl font-bold text-[var(--text-primary)] mt-1">{s.count}</div>
+              <div className="content-grid">
+                {/* Recent Leads */}
+                <div className="panel">
+                  <div className="panel-header"><h3>Recent Leads</h3></div>
+                  {leads.slice(0, 6).map(l => (
+                    <div className="lead-item" key={l.id}>
+                      <div className="lead-avatar">{(l.full_name || "?")[0]}</div>
+                      <div className="lead-info">
+                        <div className="lead-name">{l.full_name || "Unknown"}</div>
+                        <div className="lead-detail">{l.email}{l.market_area ? ` · ${l.market_area}` : ""}</div>
+                      </div>
+                      <span className={l.current_stage === "won" ? "badge-active" : l.current_stage === "demo" ? "badge-warm" : "badge-hot"}>
+                        {l.current_stage || "new"}
+                      </span>
                     </div>
                   ))}
                 </div>
-              </div>
 
-              <div className="rounded-2xl border border-[var(--border-default)] bg-[var(--bg-surface)] p-6">
-                <h2 className="font-bold text-[var(--text-primary)] mb-4"> Urgent Tasks</h2>
-                {urgentTasks.length === 0 ? (
-                  <p className="text-[var(--text-muted)] text-sm">No urgent tasks. You&apos;re on track! </p>
-                ) : (
-                  <div className="space-y-2">
-                    {urgentTasks.slice(0, 5).map(t => (
-                      <div key={t.id} className="flex items-center gap-3 py-2 border-b border-[var(--border-subtle)] last:border-0">
-                        <button onClick={() => toggleTask(t.id, t.status)} className="w-5 h-5 rounded-full border-2 border-red-300 flex-shrink-0 hover:bg-red-50 transition" />
-                        <span className="text-sm text-[var(--text-primary)]">{t.title}</span>
-                      </div>
-                    ))}
+                {/* Urgent Tasks */}
+                <div className="panel">
+                  <div className="panel-header"><h3>Tasks ({todoTasks.length} remaining)</h3></div>
+                  {todoTasks.slice(0, 6).map(t => (
+                    <div className="task-item" key={t.id}>
+                      <button className={`task-check ${t.status === "done" ? "done" : ""}`} onClick={() => toggleTask(t.id, t.status)}>
+                        {t.status === "done" && <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="3"><polyline points="20 6 9 17 4 12"/></svg>}
+                      </button>
+                      <span className={`task-text ${t.status === "done" ? "done" : ""}`}>{t.title}</span>
+                      <span className={`task-priority priority-${t.priority}`}>{t.priority}</span>
+                    </div>
+                  ))}
+                  <div className="add-task-row">
+                    <input placeholder="Add a task..." value={newTask} onChange={e => setNewTask(e.target.value)} onKeyDown={e => e.key === "Enter" && addTask()} />
+                    <select value={taskPriority} onChange={e => setTaskPriority(e.target.value)}>
+                      <option value="urgent">Urgent</option><option value="high">High</option><option value="medium">Medium</option><option value="low">Low</option>
+                    </select>
+                    <button className="btn-gold" onClick={addTask} style={{ padding: '8px 16px', fontSize: 13 }}>Add</button>
                   </div>
-                )}
-              </div>
-            </div>
-
-            {/* Recent Activity */}
-            <div className="rounded-2xl border border-[var(--border-default)] bg-[var(--bg-surface)] p-6">
-              <h2 className="font-bold text-[var(--text-primary)] mb-4">Recent Rep Activity</h2>
-              {activities.length === 0 ? (
-                <p className="text-[var(--text-muted)] text-sm">No activities yet. Activities appear when reps start logging calls and demos.</p>
-              ) : (
-                <div className="space-y-2">
-                  {activities.slice(0, 8).map(a => {
-                    const rep = reps.find(r => r.id === a.rep_id);
-                    return (
-                      <div key={a.id} className="flex items-center justify-between py-2 border-b border-[var(--border-subtle)] last:border-0">
-                        <div className="flex items-center gap-3">
-                          <span className="text-lg">{a.type === "call" ? "" : a.type === "email" ? "" : a.type === "demo" ? "" : ""}</span>
-                          <div>
-                            <span className="font-medium text-[var(--text-primary)] text-sm">{rep?.name || "Unknown"}</span>
-                            <span className="text-[var(--text-muted)] text-sm ml-2">{a.type} {a.notes ? `— ${a.notes}` : ""}</span>
-                          </div>
-                        </div>
-                        <span className="text-xs text-[var(--text-muted)]">{new Date(a.created_at).toLocaleString()}</span>
-                      </div>
-                    );
-                  })}
                 </div>
-              )}
-            </div>
-          </div>
-        )}
+              </div>
+            </>
+          )}
 
-        {tab === "pipeline" && (
-          <div className="space-y-6">
-            <h2 className="text-xl font-bold">Lead Pipeline</h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-4">
+          {tab === "pipeline" && (
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(6, 1fr)', gap: 12 }}>
               {stages.map(stage => {
                 const stageLeads = leads.filter(l => (l.current_stage || "new") === stage);
-                const colors: Record<string, string> = { new: "border-gray-500/30", contacted: "border-amber-500/30", demo: "border-[#D4AF37]/30", proposal: "border-blue-500/30", won: "border-green-500/30", lost: "border-red-500/30" };
                 return (
-                  <div key={stage} className={`rounded-2xl border ${colors[stage] || "border-[var(--border-default)]"} bg-[var(--bg-surface)] p-4`}>
-                    <div className="flex items-center justify-between mb-3">
-                      <h3 className="text-xs font-bold uppercase text-[var(--text-muted)] tracking-wider">{stage}</h3>
-                      <span className="bg-[var(--bg-elevated)] text-[var(--text-secondary)] text-xs font-bold px-2 py-0.5 rounded-full">{stageLeads.length}</span>
-                    </div>
-                    <div className="space-y-2">
-                      {stageLeads.slice(0, 5).map(l => (
-                        <div key={l.id} className="bg-[var(--bg-elevated)] rounded-lg p-2.5 text-xs">
-                          <div className="font-medium text-[var(--text-primary)]">{l.full_name || "Unknown"}</div>
-                          <div className="text-[var(--text-muted)]">{l.email}</div>
-                          {l.market_area && <div className="text-[#D4AF37]/80 mt-1">📍 {l.market_area}</div>}
+                  <div className="panel" key={stage}>
+                    <div className="panel-header"><h3 style={{ textTransform: 'uppercase', fontSize: 11, letterSpacing: 1 }}>{stage}</h3><span style={{ fontSize: 11, color: 'var(--text-muted)' }}>{stageLeads.length}</span></div>
+                    {stageLeads.slice(0, 5).map(l => (
+                      <div className="lead-item" key={l.id} style={{ padding: '10px 14px' }}>
+                        <div className="lead-info">
+                          <div className="lead-name" style={{ fontSize: 13 }}>{l.full_name || "Unknown"}</div>
+                          <div className="lead-detail">{l.email}</div>
                         </div>
-                      ))}
-                      {stageLeads.length > 5 && <p className="text-xs text-[var(--text-muted)] text-center">+{stageLeads.length - 5} more</p>}
-                    </div>
+                      </div>
+                    ))}
                   </div>
                 );
               })}
             </div>
-          </div>
-        )}
+          )}
 
-        {tab === "reps" && (
-          <div className="space-y-6">
-            <div className="flex items-center justify-between">
-              <h2 className="text-xl font-bold">Sales Reps</h2>
-              <button onClick={() => setShowAddRep(true)} className="px-4 py-2 bg-[#D4AF37] text-[var(--text-primary)] text-sm font-semibold rounded-xl hover:opacity-90 transition">+ Add Rep</button>
-            </div>
-            {showAddRep && (
-              <div className="rounded-2xl border border-[#D4AF37]/30 bg-[var(--bg-surface)] p-6">
-                <h3 className="font-bold mb-4">Add New Sales Rep</h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                  <input placeholder="Full Name" value={repForm.name} onChange={e => setRepForm(p => ({ ...p, name: e.target.value }))} className="bg-[var(--bg-elevated)] border border-[var(--border-default)] rounded-xl px-4 py-2.5 text-sm text-[var(--text-primary)] placeholder-white/30 focus:border-[#D4AF37]/50 outline-none" />
-                  <input placeholder="Email" value={repForm.email} onChange={e => setRepForm(p => ({ ...p, email: e.target.value }))} className="bg-[var(--bg-elevated)] border border-[var(--border-default)] rounded-xl px-4 py-2.5 text-sm text-[var(--text-primary)] placeholder-white/30 focus:border-[#D4AF37]/50 outline-none" />
-                  <input placeholder="Password" type="password" value={repForm.password} onChange={e => setRepForm(p => ({ ...p, password: e.target.value }))} className="bg-[var(--bg-elevated)] border border-[var(--border-default)] rounded-xl px-4 py-2.5 text-sm text-[var(--text-primary)] placeholder-white/30 focus:border-[#D4AF37]/50 outline-none" />
-                  <input placeholder="Phone (optional)" value={repForm.phone} onChange={e => setRepForm(p => ({ ...p, phone: e.target.value }))} className="bg-[var(--bg-elevated)] border border-[var(--border-default)] rounded-xl px-4 py-2.5 text-sm text-[var(--text-primary)] placeholder-white/30 focus:border-[#D4AF37]/50 outline-none" />
-                </div>
-                <div className="flex gap-2 mt-4">
-                  <button onClick={addRep} className="px-4 py-2 bg-[#D4AF37] text-[var(--text-primary)] text-sm font-semibold rounded-xl">Create Rep</button>
-                  <button onClick={() => setShowAddRep(false)} className="px-4 py-2 bg-[var(--bg-elevated)] text-[var(--text-secondary)] text-sm rounded-xl hover:bg-[var(--bg-elevated)]">Cancel</button>
-                </div>
-              </div>
-            )}
-            {reps.length === 0 ? (
-              <div className="rounded-2xl border border-[var(--border-default)] bg-[var(--bg-surface)] p-16 text-center">
-                <p className="text-4xl mb-3"></p>
-                <p className="text-[var(--text-muted)] text-lg">No sales reps yet</p>
-                <p className="text-[var(--text-muted)] text-sm mt-1">Add your first rep to start tracking performance</p>
-              </div>
-            ) : (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {reps.map(rep => {
-                  const repActs = activities.filter(a => a.rep_id === rep.id);
-                  const repLeads = leads.filter(l => l.assigned_rep_id === rep.id);
-                  return (
-                    <div key={rep.id} className="rounded-2xl border border-[var(--border-default)] bg-[var(--bg-surface)] p-6">
-                      <div className="flex items-center justify-between mb-4">
-                        <div>
-                          <h3 className="font-bold text-[var(--text-primary)]">{rep.name}</h3>
-                          <p className="text-xs text-[var(--text-muted)]">{rep.email}</p>
-                        </div>
-                        <span className={`text-xs font-bold px-2 py-1 rounded-full ${rep.status === "active" ? "bg-green-500/20 text-emerald-600" : "bg-[var(--bg-elevated)] text-[var(--text-muted)]"}`}>{rep.status}</span>
-                      </div>
-                      <div className="grid grid-cols-3 gap-2 text-center">
-                        <div className="bg-[var(--bg-elevated)] rounded-xl p-2"><div className="text-lg font-bold text-[var(--text-primary)]">{repLeads.length}</div><div className="text-xs text-[var(--text-muted)]">Leads</div></div>
-                        <div className="bg-[var(--bg-elevated)] rounded-xl p-2"><div className="text-lg font-bold text-[var(--text-primary)]">{repActs.length}</div><div className="text-xs text-[var(--text-muted)]">Activities</div></div>
-                        <div className="bg-[var(--bg-elevated)] rounded-xl p-2"><div className="text-lg font-bold text-[var(--text-primary)]">{repActs.filter(a => a.type === "demo").length}</div><div className="text-xs text-[var(--text-muted)]">Demos</div></div>
-                      </div>
+          {tab === "reps" && (
+            <div>
+              <div className="kpi-grid" style={{ gridTemplateColumns: 'repeat(3, 1fr)' }}>
+                {reps.length === 0 ? (
+                  <div className="panel" style={{ gridColumn: '1 / -1', padding: 48, textAlign: 'center' }}>
+                    <div style={{ fontSize: 14, color: 'var(--text-muted)' }}>No sales reps yet. Add your first rep to start tracking performance.</div>
+                  </div>
+                ) : reps.map(rep => (
+                  <div className="kpi-card" key={rep.id}>
+                    <div className="lead-name">{rep.name}</div>
+                    <div className="lead-detail">{rep.email}</div>
+                    <div style={{ marginTop: 12, display: 'flex', gap: 16 }}>
+                      <div><span className="value" style={{ fontSize: 20 }}>{leads.filter(l => l.assigned_rep_id === rep.id).length}</span><div className="label">Leads</div></div>
+                      <div><span className="value" style={{ fontSize: 20 }}>{activities.filter(a => a.rep_id === rep.id).length}</span><div className="label">Activities</div></div>
                     </div>
-                  );
-                })}
+                  </div>
+                ))}
               </div>
-            )}
-          </div>
-        )}
+            </div>
+          )}
 
-        {tab === "tasks" && (
-          <div className="space-y-6">
-            <div className="flex items-center justify-between">
-              <h2 className="text-xl font-bold">Launch Checklist</h2>
-              <div className="flex items-center gap-2 text-sm">
-                <span className="text-[var(--text-muted)]">{doneTasks.length}/{tasks.length} complete</span>
-                <div className="w-32 bg-[var(--bg-elevated)] rounded-full h-2">
-                  <div className="bg-[#D4AF37] h-2 rounded-full transition-all" style={{ width: `${tasks.length ? (doneTasks.length / tasks.length) * 100 : 0}%` }} />
+          {tab === "tasks" && (
+            <div>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 24 }}>
+                <h2 style={{ fontFamily: "'Playfair Display',serif", fontSize: 24 }}>Launch Checklist</h2>
+                <span style={{ fontSize: 13, color: 'var(--text-muted)' }}>{doneTasks.length}/{tasks.length} complete</span>
+              </div>
+              <div className="panel">
+                {todoTasks.map(t => (
+                  <div className="task-item" key={t.id}>
+                    <button className="task-check" onClick={() => toggleTask(t.id, t.status)} />
+                    <span className="task-text">{t.title}</span>
+                    <span className={`task-priority priority-${t.priority}`}>{t.priority}</span>
+                  </div>
+                ))}
+                {doneTasks.map(t => (
+                  <div className="task-item" key={t.id} style={{ opacity: 0.5 }}>
+                    <button className="task-check done" onClick={() => toggleTask(t.id, t.status)}>
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="3"><polyline points="20 6 9 17 4 12"/></svg>
+                    </button>
+                    <span className="task-text done">{t.title}</span>
+                  </div>
+                ))}
+                <div className="add-task-row">
+                  <input placeholder="Add a task..." value={newTask} onChange={e => setNewTask(e.target.value)} onKeyDown={e => e.key === "Enter" && addTask()} />
+                  <select value={taskPriority} onChange={e => setTaskPriority(e.target.value)}>
+                    <option value="urgent">Urgent</option><option value="high">High</option><option value="medium">Medium</option><option value="low">Low</option>
+                  </select>
+                  <button className="btn-gold" onClick={addTask} style={{ padding: '8px 16px', fontSize: 13 }}>Add</button>
                 </div>
               </div>
             </div>
-
-            {/* Add task */}
-            <div className="flex gap-2">
-              <input placeholder="Add a new task..." value={newTask} onChange={e => setNewTask(e.target.value)} onKeyDown={e => e.key === "Enter" && addTask()} className="flex-1 bg-[var(--bg-elevated)] border border-[var(--border-default)] rounded-xl px-4 py-2.5 text-sm text-[var(--text-primary)] placeholder-white/30 focus:border-[#D4AF37]/50 outline-none" />
-              <select value={taskPriority} onChange={e => setTaskPriority(e.target.value)} className="bg-[var(--bg-elevated)] border border-[var(--border-default)] rounded-xl px-3 py-2 text-sm text-[var(--text-secondary)] outline-none">
-                <option value="urgent"> Urgent</option>
-                <option value="high"> High</option>
-                <option value="medium"> Medium</option>
-                <option value="low"> Low</option>
-              </select>
-              <button onClick={addTask} className="px-5 py-2 bg-[#D4AF37] text-[var(--text-primary)] text-sm font-semibold rounded-xl">Add</button>
-            </div>
-
-            {/* Filter */}
-            <div className="flex gap-2">
-              {(["all", "todo", "done"] as const).map(f => (
-                <button key={f} onClick={() => setTaskFilter(f)} className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition ${taskFilter === f ? "bg-[#D4AF37]/20 text-[#D4AF37]/80" : "bg-[var(--bg-elevated)] text-[var(--text-muted)] hover:bg-[var(--bg-elevated)]"}`}>
-                  {f === "all" ? `All (${tasks.length})` : f === "todo" ? `To Do (${tasks.filter(t => t.status === "todo").length})` : `Done (${doneTasks.length})`}
-                </button>
-              ))}
-            </div>
-
-            {/* Organized task groups */}
-            {taskFilter !== "done" && urgentTasks.length > 0 && (
-              <div>
-                <h3 className="text-sm font-bold text-red-600 uppercase tracking-wider mb-3"> Urgent</h3>
-                <div className="space-y-2">
-                  {urgentTasks.map(t => (
-                    <div key={t.id} className="flex items-center gap-3 bg-red-50 border border-red-200 rounded-xl p-4">
-                      <button onClick={() => toggleTask(t.id, t.status)} className="w-6 h-6 rounded-full border-2 border-red-300 flex-shrink-0 hover:bg-red-50 transition flex items-center justify-center" />
-                      <div className="flex-1"><p className="text-sm text-[var(--text-primary)]">{t.title}</p>{t.description && <p className="text-xs text-[var(--text-muted)] mt-1">{t.description}</p>}</div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
-
-            {taskFilter !== "done" && highTasks.length > 0 && (
-              <div>
-                <h3 className="text-sm font-bold text-amber-600 uppercase tracking-wider mb-3"> High Priority</h3>
-                <div className="space-y-2">
-                  {highTasks.map(t => (
-                    <div key={t.id} className="flex items-center gap-3 bg-[var(--bg-surface)] border border-[var(--border-default)] rounded-xl p-4">
-                      <button onClick={() => toggleTask(t.id, t.status)} className="w-6 h-6 rounded-full border-2 border-amber-300 flex-shrink-0 hover:bg-amber-500/20 transition flex items-center justify-center" />
-                      <div className="flex-1"><p className="text-sm text-[var(--text-primary)]">{t.title}</p>{t.description && <p className="text-xs text-[var(--text-muted)] mt-1">{t.description}</p>}</div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
-
-            {taskFilter !== "done" && medTasks.length > 0 && (
-              <div>
-                <h3 className="text-sm font-bold text-amber-600 uppercase tracking-wider mb-3"> Medium</h3>
-                <div className="space-y-2">
-                  {medTasks.map(t => (
-                    <div key={t.id} className="flex items-center gap-3 bg-[var(--bg-surface)] border border-[var(--border-default)] rounded-xl p-4">
-                      <button onClick={() => toggleTask(t.id, t.status)} className="w-6 h-6 rounded-full border-2 border-white/20 flex-shrink-0 hover:bg-[var(--bg-elevated)] transition flex items-center justify-center" />
-                      <p className="text-sm text-[var(--text-primary)]">{t.title}</p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
-
-            {taskFilter !== "done" && lowTasks.length > 0 && (
-              <div>
-                <h3 className="text-sm font-bold text-emerald-600 uppercase tracking-wider mb-3"> Low</h3>
-                <div className="space-y-2">
-                  {lowTasks.map(t => (
-                    <div key={t.id} className="flex items-center gap-3 bg-[var(--bg-surface)] border border-[var(--border-default)] rounded-xl p-4">
-                      <button onClick={() => toggleTask(t.id, t.status)} className="w-6 h-6 rounded-full border-2 border-[var(--border-default)] flex-shrink-0 hover:bg-[var(--bg-elevated)] transition flex items-center justify-center" />
-                      <p className="text-sm text-[var(--text-secondary)]">{t.title}</p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
-
-            {(taskFilter === "all" || taskFilter === "done") && doneTasks.length > 0 && (
-              <div>
-                <h3 className="text-sm font-bold text-[var(--text-muted)] uppercase tracking-wider mb-3"> Completed ({doneTasks.length})</h3>
-                <div className="space-y-2">
-                  {doneTasks.map(t => (
-                    <div key={t.id} className="flex items-center gap-3 bg-[var(--bg-surface)] border border-[var(--border-subtle)] rounded-xl p-4 opacity-60">
-                      <button onClick={() => toggleTask(t.id, t.status)} className="w-6 h-6 rounded-full bg-[#D4AF37]/30 border-2 border-[#D4AF37]/50 flex-shrink-0 flex items-center justify-center">
-                        <svg className="w-3 h-3 text-[#D4AF37]/80" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"/></svg>
-                      </button>
-                      <p className="text-sm text-[var(--text-muted)] line-through">{t.title}</p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
-          </div>
-        )}
-      </main>
-    </div>
+          )}
+        </div>
+      </div>
+    </>
   );
 }
