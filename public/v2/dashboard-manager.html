@@ -199,20 +199,5 @@ a{text-decoration:none;color:inherit}
 </div>
 
 <script>(function(){const s=localStorage.getItem('luxe-theme');if(s==='dark')document.documentElement.classList.add('dark');document.querySelector('.theme-toggle')?.addEventListener('click',function(){const d=document.documentElement.classList.toggle('dark');localStorage.setItem('luxe-theme',d?'dark':'light')})})()</script>
-
-<script>
-(function(){
-  // Theme
-  if(localStorage.getItem('luxe-theme')==='dark')document.documentElement.classList.add('dark');
-  document.querySelectorAll('.theme-toggle').forEach(function(b){b.onclick=function(){document.documentElement.classList.toggle('dark');localStorage.setItem('luxe-theme',document.documentElement.classList.contains('dark')?'dark':'light')}});
-  
-  // Sign out
-  document.querySelectorAll('.sidebar-nav a, .sidebar-nav button').forEach(function(el){
-    if(el.textContent.trim().match(/sign out|logout/i)){
-      el.onclick=function(e){e.preventDefault();document.cookie='dashboard_auth=;path=/;max-age=0';document.cookie='rep_auth=;path=/;max-age=0';window.location.href='/';}
-    }
-  });
-})();
-</script>
 </body>
 </html>
