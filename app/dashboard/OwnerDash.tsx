@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import "../manus-dash.css";
 
-type Lead = { id: string; full_name: string | null; email: string | null; market_area: string | null; current_stage: string | null; created_at: string | null };
+type Lead = { id: string; full_name: string | null; email: string | null; market_area: string | null; current_stage: string | null; created_at: string | null; assigned_rep_id: string | null };
 type Task = { id: string; title: string; description: string | null; priority: string; status: string };
 type Rep = { id: string; name: string; email: string; status: string };
 type Activity = { id: string; rep_id: string; type: string; notes: string | null; created_at: string };
