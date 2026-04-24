@@ -1,4 +1,4 @@
-ï»¿<!--
+<!--
 IMPLEMENTATION NOTES FOR CLAUDE/OPUS:
 
 PAGE: Demo / Book a Strategy Call
@@ -6,8 +6,8 @@ ROUTE: /demo
 FILE: app/demo/page.tsx
 
 COMPONENTS USED:
-- NO shared Header â€” uses minimal logo-only top bar
-- NO shared Footer â€” clean, distraction-free page
+- NO shared Header — uses minimal logo-only top bar
+- NO shared Footer — clean, distraction-free page
 - DemoHero (components/demo/DemoHero.tsx)
 - DemoPreview (components/demo/DemoPreview.tsx)
 - BookingForm (components/demo/BookingForm.tsx) or Calendly embed
@@ -21,21 +21,21 @@ CSS VARIABLES USED:
 - var(--border-default) #E8E5DE for borders
 
 KEY STYLING NOTES:
-- Minimal top bar: logo left, "Back to site" link right â€” NO full nav
+- Minimal top bar: logo left, "Back to site" link right — NO full nav
 - Hero: centered text, Playfair headline, gold CTA
 - Dashboard preview: embedded mini-dashboard with sample data (read-only)
 - Preview uses bg-elevated with rounded-2xl and border
 - Booking section: form or Calendly embed in elevated card
 - All inputs: 48px, gold focus, uppercase labels
 - "DEMO MODE" badge: gold bg, navy text, pill shape
-- Page is designed to convert â€” minimal distractions
+- Page is designed to convert — minimal distractions
 -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Book a Strategy Call â€” LuxeLeadPro</title>
+<title>Book a Strategy Call — LuxeLeadPro</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
 :root{--bg-base:#FAFAF8;--bg-surface:#FFFFFF;--bg-elevated:#F8F6F3;--text-primary:#0A192F;--text-secondary:#4A5568;--text-muted:#718096;--border-default:#E8E5DE;--border-subtle:#F0EDE6;--gold:#D4AF37;--gold-hover:#B5952F;--gold-muted:rgba(212,175,55,0.12);--navy:#0A192F;--deep:#050B14;--shadow-md:0 4px 16px rgba(10,25,47,0.06);--shadow-lg:0 8px 32px rgba(10,25,47,0.08)}
@@ -178,7 +178,7 @@ a{text-decoration:none;color:inherit}
       <div class="mini-dash">
         <div class="mini-header">
           <h3>Good morning, Sarah</h3>
-          <div class="date">Tuesday, April 8, 2026 â€” Your daily briefing is ready</div>
+          <div class="date">Tuesday, April 8, 2026 — Your daily briefing is ready</div>
         </div>
         <div class="mini-stats">
           <div class="mini-stat"><div class="label">Hot Leads</div><div class="val gold">12</div><div class="change">+3 today</div></div>
@@ -188,9 +188,9 @@ a{text-decoration:none;color:inherit}
         </div>
         <div class="mini-leads">
           <h4>Today's Top Opportunities</h4>
-          <div class="lead-row"><div><div class="name">Sarah Johnson</div><div class="detail">Lincoln Park â€” $3.2M</div></div><div><span class="score">AI: 92</span><span class="badge-h">Hot</span></div></div>
-          <div class="lead-row"><div><div class="name">Michael Chen</div><div class="detail">Gold Coast â€” $1.8M</div></div><div><span class="score">AI: 78</span><span class="badge-w">Warm</span></div></div>
-          <div class="lead-row"><div><div class="name">Elizabeth Brown</div><div class="detail">River North â€” $2.4M</div></div><div><span class="score">AI: 65</span><span class="badge-w">Warm</span></div></div>
+          <div class="lead-row"><div><div class="name">Sarah Johnson</div><div class="detail">Lincoln Park — $3.2M</div></div><div><span class="score">AI: 92</span><span class="badge-h">Hot</span></div></div>
+          <div class="lead-row"><div><div class="name">Michael Chen</div><div class="detail">Gold Coast — $1.8M</div></div><div><span class="score">AI: 78</span><span class="badge-w">Warm</span></div></div>
+          <div class="lead-row"><div><div class="name">Elizabeth Brown</div><div class="detail">River North — $2.4M</div></div><div><span class="score">AI: 65</span><span class="badge-w">Warm</span></div></div>
         </div>
       </div>
     </div>
@@ -278,7 +278,7 @@ document.addEventListener('DOMContentLoaded', function() {
           });
         } catch(err) { console.log('Save error:', err); }
         
-        window.location.href = 'https://calendly.com/luxeleadpro-strategy-call/strategy-call-';
+        window.location.href = 'https://calendly.com/luxeleadpro-strategy-call/strategy-call';
       });
     }
   });
