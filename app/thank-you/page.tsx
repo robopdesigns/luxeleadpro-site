@@ -1,4 +1,4 @@
-import { Header } from "@/components/Header";
+﻿import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import Link from "next/link";
 
@@ -17,7 +17,7 @@ export default function ThankYouPage() {
             One of our team members will reach out within 24 hours.
           </p>
           <div className="space-y-3">
-            <Link href="https://calendly.com/robopdesigns/strategy-call" className="block w-full py-3 bg-[#0A192F] text-white font-semibold rounded-xl hover:opacity-90 transition shadow-md text-center">
+            <Link href="https://calendly.com/luxeleadpro-strategy-call/strategy-call-" className="block w-full py-3 bg-[#0A192F] text-white font-semibold rounded-xl hover:opacity-90 transition shadow-md text-center">
               Book a Strategy Call Now →
             </Link>
             <Link href="/" className="block w-full py-3 border-2 border-gray-200 text-gray-700 font-semibold rounded-xl hover:border-[#D4AF37]/30 transition text-center">
@@ -30,3 +30,4 @@ export default function ThankYouPage() {
     </>
   );
 }
+

@@ -1,10 +1,10 @@
-"use client";
+﻿"use client";
 
 import { useEffect } from "react";
 
 export default function AgentSignupPage() {
   useEffect(() => {
-    window.location.href = "https://calendly.com/robopdesigns/strategy-call";
+    window.location.href = "https://calendly.com/luxeleadpro-strategy-call/strategy-call-";
   }, []);
 
   return (
@@ -16,3 +16,4 @@ export default function AgentSignupPage() {
     </div>
   );
 }
+
